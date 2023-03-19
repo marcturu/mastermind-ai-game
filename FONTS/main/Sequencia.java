@@ -21,8 +21,8 @@ public class Sequencia {
         verificacio;
     }
 
-    Vector array_colors(4);
-    Type_seq tipus;
+    private Vector array_colors(4);
+    private Type_seq tipus;
 
     public Sequencia(Vector color, Type_seq tipo){
 
