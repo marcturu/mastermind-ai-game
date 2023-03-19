@@ -1,6 +1,6 @@
 package main.domain.classes;
 
-public enum dificultats {
+public enum dificultat {
     facil,
     normal,
     dificil

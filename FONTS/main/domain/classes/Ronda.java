@@ -15,31 +15,31 @@ public static class Ronda  {
 
     }
 
-    public Sequencia getSequencia_intentada() {
+    public Sequencia get_seq_intentada() {
         return sequencia_intentada;
     }
 
-    public Sequencia getSequencia_verificacio() {
+    public Sequencia get_seq_verificacio() {
         return sequencia_verificacio;
     }
 
-    public int getId_ronda() {
+    public int get_id_ronda() {
         return id_ronda;
     }
 
-    public int getId_partida() {
+    public int get_id_partida() {
         return id_partida;
     }
 
-    public int getNum_ronda() {
+    public int get_num_ronda() {
         return num_ronda;
     }
 
-    public void setSequencia_intentada(Sequencia sequencia_intentada) {
+    public void set_intentada(Sequencia sequencia_intentada) {
         this.sequencia_intentada = sequencia_intentada;
     }
 
-    public void setSequencia_verificacio(Sequencia sequencia_verificacio) {
+    public void set_verificacio(Sequencia sequencia_verificacio) {
         this.sequencia_verificacio = sequencia_verificacio;
     }
 }
