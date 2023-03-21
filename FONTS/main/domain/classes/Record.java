@@ -1,9 +1,10 @@
-
+import java.utils;
+import main.domain.classes;
 
 public static class Record() {
-    String nom_record;
-    String nom_usuari;
-    int punts;
+    private String nom_record;
+    private String nom_usuari;
+    private int punts;
 
     public Record (String nom_record) {
         this.nom_record = nom_record;
@@ -15,7 +16,7 @@ public static class Record() {
     }
 
     public String get_nom_usuari() {
-        return this.nom_usuari
+        return this.nom_usuari;
     }
 
     public int get_punts() {
@@ -30,4 +31,4 @@ public static class Record() {
         }
         return false;
     }
-}main.domain.classes;
+};

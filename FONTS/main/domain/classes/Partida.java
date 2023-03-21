@@ -3,16 +3,16 @@ package main.domain.classes;
 import java.util.*;
 
 public class Partida {
-    public int indentificador;
-    public boolean ajuda;
-    public int num_colors;
-    public int temps_max;
-    public boolean partida_acabada;
-    public int num_rondes_max;
-    public dificultat dificultat;
-    public int temps_usat;
-    public List llista_rondes;
-    public boolean jugador1_es_codemaker;
+    private int indentificador;
+    private boolean ajuda;
+    private int num_colors;
+    private int temps_max;
+    private boolean partida_acabada;
+    private int num_rondes_max;
+    private dificultat dificultat;
+    private int temps_usat;
+    private List llista_rondes;
+    private boolean jugador1_es_codemaker;
 
     public Partida(int id, User cm, User cb, dificultat dif){
 
@@ -29,11 +29,11 @@ public class Partida {
     }
 
     public boolean get_ajuda() {
-        return ajuda;
+        return this.ajuda;
     }
 
     public void set_ajuda() {
-        ajuda = !ajuda;
+        this.ajuda = !this.ajudaajuda;
     }
 
     public boolean temps_excedit(){
