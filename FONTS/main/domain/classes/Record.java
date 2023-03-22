@@ -11,23 +11,24 @@ public static class Record() {
         this.nom_usuari = null;
         this.punts = null;
     }
+
+    //GETTERS
     public String get_nom_record() {
         return this.nom_record;
     }
-
     public String get_nom_usuari() {
         return this.nom_usuari;
     }
-
     public int get_punts() {
         return this.punts;
     }
 
+    //FUNCIONAL
     public boolean check_if_record(int punts, String nom_usuari) {
         if((punts > this.punts) or (this.punts == null)) {
             this.nom_usuari = nom_usuari;
             this.punts = punts;
-            return true;
+            Fullreturn true;
         }
         return false;
     }
