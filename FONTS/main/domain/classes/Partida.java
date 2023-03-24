@@ -4,15 +4,18 @@ import java.util.*;
 
 public class Partida {
     private int indentificador;
+    private User jugador1;
+    private User jugador2;
+    private int ultima_ronda_jugada;
+    private boolean jugador1_es_codemaker;
     private boolean ajuda;
+    private dificultat dificultat;
     private int num_colors;
     private int temps_max;
-    private boolean partida_acabada;
     private int num_rondes_max;
-    private dificultat dificultat;
+    private boolean partida_acabada;
     private int temps_usat;
     private List llista_rondes;
-    private boolean jugador1_es_codemaker;
 
     public Partida(int id, User cm, User cb, dificultat dif){
 
@@ -21,19 +24,24 @@ public class Partida {
         return indentificador;
     }
     public User get_codemaker(){
-
+        if(jugador1_es_codemaker) return jugador1;
+        else return jugador2;
     }
 
     public User get_codebreaer(){
-
+        if(jugador1_es_codemaker) return jugador2;
+        else return jugador1;
     }
 
     public boolean get_ajuda() {
         return this.ajuda;
     }
 
-    public void set_ajuda() {
-        this.ajuda = !this.ajudaajuda;
+    public void set_ajuda() throws exception{
+        if(this.ajuda == true) this.ajuda = !this.ajudaajuda;
+        else {
+            throw new Exception("Ja has demanat ajuda un cop");
+        }
     }
 
     public boolean temps_excedit(){
@@ -52,7 +60,7 @@ public class Partida {
 
     }
 
-    public void set_new_ronda(Ronda nova_ronda){
+    public void crea_nova_ronda(){
 
     }
 }
