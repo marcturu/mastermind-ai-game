@@ -5,7 +5,6 @@ import java.util.*;
 
 public static class Ronda  {
 
-    private int id_ronda;
     private int id_partida;
     private int num_ronda;
     private Sequencia sequencia_intentada = new Sequencia();
@@ -35,11 +34,18 @@ public static class Ronda  {
         return num_ronda;
     }
 
-    public void set_intentada(Sequencia sequencia_intentada) {
-        this.sequencia_intentada = sequencia_intentada;
+    public int set_intentada(Vector sequencia_intentada,int num_colors) {
+        return sequencia_intentada.set_array_intentada(sequencia_intentada,num_colors);
     }
 
-    public void set_verificacio(Sequencia sequencia_verificacio) {
-        this.sequencia_verificacio = sequencia_verificacio;
+    public int set_verificacio(Vector sequencia_verificacio, Vector solucio)
+    {
+        Vector seq_ver = calcula_verificacio(sequencia_verificacio);
+        Vector seq_comp = valida_sequencia(solucio,sequencia_intentada);
+        if (seq_ver == seq_comp) {
+            this.sequencia_verificacio = sequencia_verificacio;
+            return 1;
+        }
+        return -1;
     }
 }
