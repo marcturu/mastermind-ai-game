@@ -1,7 +1,8 @@
-import java.utils;
-import main.domain.classes;
+package main.domain.classes;
 
-public static class Record() {
+import java.util.*;
+
+public class Record{
     private String nom_record;
     private String nom_usuari;
     private int punts;
@@ -9,7 +10,7 @@ public static class Record() {
     public Record (String nom_record) {
         this.nom_record = nom_record;
         this.nom_usuari = null;
-        this.punts = null;
+        this.punts = -1;
     }
 
     //GETTERS
@@ -24,11 +25,14 @@ public static class Record() {
     }
 
     //FUNCIONAL
-    public boolean check_if_record(int punts, String nom_usuari) {
-        if((punts > this.punts) or (this.punts == null)) {
+    public boolean check_if_record(int punts, String nom_usuari) throws IllegalArgumentException{
+        if(punts < 0) {
+            throw new IllegalArgumentException("Invalid value for \'punts\', it should be positive");
+        }
+        if((punts > this.punts) || (this.punts == (-1))) {
             this.nom_usuari = nom_usuari;
             this.punts = punts;
-            Fullreturn true;
+            return true;
         }
         return false;
     }
