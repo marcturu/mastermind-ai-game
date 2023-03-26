@@ -7,11 +7,11 @@ public class User_persona extends User {
     private String password;
     private int rondes_totals;
     private int partides_totals;
-    private List llista_partides_no_acabades;
-    private List llista_partides_acabades;
+    private List llista_partides_no_acabades = new List<Partida>;
+    private List llista_partides_acabades = new List<Partida>;
 
-    public User_persona(int id, String nom, String password, int rondes_totals, int partides_totals, List llista_partides_no_acabades, List llista_partides_acabades) {
-        super(id, nom);
+    public User_persona(int id, String nom, Type_user tipus_user, String password) {
+        super(id, nom, tipus_user);
         this.password = password;
         this.rondes_totals = 0;
         this.partides_totals = 0;
