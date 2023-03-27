@@ -1,5 +1,6 @@
 CLASS_INPUT =  ./domain/classes/*.java \
-               ./domain/controller/*.java
+               ./domain/classes/enumerations/*.java \
+               ./domain/controller/*.java:
 
 CLASS_OUTPUT = ../EXE/out/
 
