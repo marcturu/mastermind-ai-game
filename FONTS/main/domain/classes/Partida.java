@@ -1,6 +1,8 @@
 package main.domain.classes;
 
+import main.domain.classes.enumerations.dificultats;
 import java.util.*;
+import java.time.*;
 
 public class Partida {
     private int indentificador;
@@ -9,14 +11,20 @@ public class Partida {
     private int ultima_ronda_jugada;
     private boolean jugador1_es_codemaker;
     private boolean ajuda;
-    private dificultat dificultat;
+    private dificultats dificultat;
     private int num_colors;
     private int temps_max;
     private int num_rondes_max;
     private boolean partida_acabada;
+<<<<<<< HEAD
     private Instant temps_inici;
+=======
+    private Duration temps_usat;
+>>>>>>> 7d19e67fcc42d87e1fd5029b52ceb829c339c582
     private List llista_rondes;
+    private Sequencia sequancia_solucio;
 
+<<<<<<< HEAD
     public Partida(int id, User cm, User cb, dificultat dif, boolean jugador1_es_codemaker) {
         this.indentificador = id;
 
@@ -64,6 +72,10 @@ public class Partida {
         }
     }
 
+    //ESTO ES INCORRECTO, DEBERIA ESTAR EN LA CREADORA
+    public void set_jugador1_es_codemaker(bool es_codemaker) {
+        this.jugador1_es_codemaker = es_codemaker;
+    }
 
     public dificultat dificultat(){
         return dificultat;

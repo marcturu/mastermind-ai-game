@@ -49,8 +49,8 @@ public class Sequencia {
 
     public Vector calcula_verificacio(Vector sequencia_verificacio) {
         int res = 0;
-        int blanc = 0; //espigas de color acertat
-        int negre = 0; //espigues de color i posicio acertades
+        int blanc = 0; //espigues de color encertat
+        int negre = 0; //espigues de color i posicio encertades
 
         for (int i = 0; i < sequencia_verificacio.size(); ++i) {
             if (sequencia_verificacio.elementAt(i) == 1) ++blanc;
