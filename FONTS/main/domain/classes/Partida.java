@@ -29,7 +29,7 @@ public class Partida {
         this.dificultat = dif;
         this.num_colors = dif.get_num_colors(); // INCORRECTO DEBERIA VENIR DE CONSTANTE
         this.temps_max = dif.get_temps_max();
-        this.num_rondes_max = dif.get_num_rondes_max();
+        this.num_rondes_max = dif.get_num_max_rondes();
         this.partida_acabada = false;
         this.temps_inici = Instant.now();
         this.llista_rondes = new ArrayList<Ronda>();
