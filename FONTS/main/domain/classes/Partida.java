@@ -16,23 +16,18 @@ public class Partida {
     private int temps_max;
     private int num_rondes_max;
     private boolean partida_acabada;
-<<<<<<< HEAD
     private Instant temps_inici;
-=======
-    private Duration temps_usat;
->>>>>>> 7d19e67fcc42d87e1fd5029b52ceb829c339c582
     private List llista_rondes;
-    private Sequencia sequancia_solucio;
+    private Sequencia sequencia_solucio;
 
-<<<<<<< HEAD
     public Partida(int id, User cm, User cb, dificultat dif, boolean jugador1_es_codemaker) {
         this.indentificador = id;
 
         this.ultima_ronda_jugada = 0;
-        this.jugador1_es_codemaker = true; // TODO: juntar amb el controlador
+        this.jugador1_es_codemaker = jugador1_es_codemaker;
         this.ajuda = false;
         this.dificultat = dif;
-        this.num_colors = dif.get_num_colors();
+        this.num_colors = dif.get_num_colors(); // INCORRECTO DEBERIA VENIR DE CONSTANTE
         this.temps_max = dif.get_temps_max();
         this.num_rondes_max = dif.get_num_rondes_max();
         this.partida_acabada = false;
@@ -87,7 +82,7 @@ public class Partida {
         else return false;
     }
 
-    public Instant get_temps_usat(){
+    public Duration get_temps_usat(){
         ara = Instant.now();
         temps_usat = Duration.between(temps_inici, ara);
         return temps_usat;
@@ -103,6 +98,17 @@ public class Partida {
 
     public List get_llista_rondes(){
         return llista_rondes;
+    }
+
+    public void acabar_partida(){
+        this.partida_acabada = true;
+        this.jugador1.set_partida_acabada(this);
+        this.jugador2.set_partida_acabada(this);
+
+    }
+    
+    public void set_sequencia_solucio(solucio){
+        this.sequencia_solucio = solucio;
     }
 
     public void crea_nova_ronda(){

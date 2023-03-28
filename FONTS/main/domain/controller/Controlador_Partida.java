@@ -93,7 +93,8 @@ public class controlador_partida {
             if(i == 0 && this.partida_actual.get_seq_solucio() == null) { //cas que començem la partida, cal que el codemaker fagi la combinació
                 Sequencia solucio = new Sequencia();
                 //codemaker entra el codi de solució
-                this.partida_actual.get_sequencia_solucio().set_sequencia(solucio);
+                
+                this.partida_actual.set_sequencia_solucio(solucio);
                 if(codebreaker.isOfType("user_persona"))codebreaker.incrementar_partides_totals();
             }
             Instant inici_ronda = Instant.now();
