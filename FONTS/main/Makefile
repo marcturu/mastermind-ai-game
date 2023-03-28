@@ -16,3 +16,7 @@ all:
 
 TestRecord: all
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
+
+TestUser: all
+    java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestUser
+
