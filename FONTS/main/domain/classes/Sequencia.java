@@ -3,7 +3,7 @@ package main.domain.classes;
 import java.util.*;
 
 public class Sequencia {
-    private colors[] array = new vector<colors>(4);
+    private colors[4] array;p```''
     private type_seq tipus;
 
     public Sequencia(type_seq) {
@@ -21,14 +21,13 @@ public class Sequencia {
     }
     //setters
     public int set_array_intentada(color[] array, int num_colors) {
-        //añadir que no se puede repetir color
         int size = array.length;
         if (size != 4) return -1;
         else {
             for (int i = 0; i < size; ++i) {
-                int aux = array.elementAt(i);
+                int aux = array[i];
                 if (aux >= 1 && aux <= num_colors) {
-                    this.array.add(i, aux);
+                    this.array[i] = array[i];
                 } else return -1;
             }
         }
