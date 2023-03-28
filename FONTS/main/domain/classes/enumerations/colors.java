@@ -1,4 +1,4 @@
-package main.domain.classes;
+package main.domain.classes.enumerations;
 
 public enum colors {
     VERMELL("vermell",1),      //Vermell
