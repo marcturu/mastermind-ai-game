@@ -22,7 +22,9 @@ public class controlador_partida {
 
     private void tractament_victoria() {
         this.partida_actual.set_partida_acabada();
-
+Instant final_ronda = Instant.now();
+            Duration temps_ronda = Duration.between(inici_ronda, final_ronda);
+            partida_actual.get_temps_usat.minus(temps_ronda);
     }
 
     private void tractament_partida_acabada() {
@@ -37,7 +39,7 @@ public class controlador_partida {
         if(this.partida_actual == null) {
             throw new JaExisteixPartida("Ja tens una partida començada amb id: " + this.partida_actual.get_id());
         }else {
-            this.partida_actual = new Partida(id, codemaker, codebreaker, dif);//ha de incrementar el numero de partides de l'usuari
+            this.partida_actual = new Partida(id, codemaker, codebreaker, dif, jugador1_es_codemaker);//ha de incrementar el numero de partides de l'usuari
         }
     }
 
@@ -93,14 +95,14 @@ public class controlador_partida {
             if(i == 0 && this.partida_actual.get_seq_solucio() == null) { //cas que començem la partida, cal que el codemaker fagi la combinació
                 Sequencia solucio = new Sequencia();
                 //codemaker entra el codi de solució
-                this.partida_actual.get_sequencia_solucio().set_sequencia(solucio);
+                this.partida_actual.set_sequencia_solucio(solucio);
                 if(codebreaker.isOfType("user_persona"))codebreaker.incrementar_partides_totals();
             }
-            Instant inici_ronda = Instant.now();
+
             Ronda ronda_actual = this.partida_actual.crea_nova_ronda();
 
             //codebreaker entra la seva sequencia intentada
-            ronda_actual.set_intentada(seq_int);//si no es valida es llença excepció: MalaSequencia
+            ronda_actual.set_intentada(seq_int, );//si no es valida es llença excepció: MalaSequencia
             //si tot va bé el codemaker entra la seva solucio
             ronda_actual.set_verificacio(seq_ver);//si no es valida es llença excepció: MalaSequencia
 
@@ -108,7 +110,6 @@ public class controlador_partida {
 
             if(ronda_actual.encerta_sequencia())  {
                 tractament_victoria();
-                exit;
             }
 
             //comprovem que no se'ns hagi acabat el temps
