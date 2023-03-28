@@ -1,6 +1,11 @@
 package main.domain.classes;
 
+import main.domain.classes.Sequencia;
+import main.domain.classes.enumerations.type_seq;
+import main.domain.classes.enumerations.colors;
+
 import java.util.*;
+import java.io.*;
 
 
 public class Ronda  {
@@ -13,8 +18,8 @@ public class Ronda  {
     public Ronda(int id_partida, int num_ronda){
         this.id_partida = id_partida;
         this.num_ronda = num_ronda;
-        this.sequencia_verificacio = new Sequencia();
-        th
+        this.sequencia_verificacio = new Sequencia(type_seq.verificacio);
+        this.sequencia_intentada = new Sequencia(type_seq.intentada);
     }
 
     public Sequencia get_seq_intentada() {
@@ -33,12 +38,22 @@ public class Ronda  {
         return num_ronda;
     }
 
-    public int set_intentada(colors[] sequencia_intentada,int num_colors) {
-        return this.sequencia_intentada.set_array_intentada(sequencia_intentada,num_colors);
+    public void set_intentada(colors[] sequencia_intentada,int num_colors) {
+        try {
+            this.sequencia_intentada.set_array(sequencia_intentada,num_colors);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
-    public int set_verificacio(colors[] sequencia_verificacio, colors[] solucio)
+    public void set_verificacio(colors[] sequencia_verificacio, colors[] solucio)
     {
-        return this.sequencia_verificacio.set_array_verificacio(sequencia_verificacio, solucio, sequencia_intentada.get_array());
+        try {
+            this.sequencia_verificacio.set_array_verificacio(sequencia_verificacio, solucio, sequencia_intentada.get_array());
+        }  catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
+
+    //mirar si ha encertat el intent la solucio
 }
