@@ -16,11 +16,31 @@ public class Partida {
     private int temps_max;
     private int num_rondes_max;
     private boolean partida_acabada;
-    private Duration temps_usat;
+    private Instant temps_inici;
     private List llista_rondes;
-    private Sequencia sequancia_solucio;
+    private Sequencia sequencia_solucio;
 
-    public Partida(int id, User cm, User cb, dificultats dif){
+    public Partida(int id, User cm, User cb, dificultat dif, boolean jugador1_es_codemaker) {
+        this.indentificador = id;
+
+        this.ultima_ronda_jugada = 0;
+        this.jugador1_es_codemaker = jugador1_es_codemaker;
+        this.ajuda = false;
+        this.dificultat = dif;
+        this.num_colors = dif.get_num_colors(); // INCORRECTO DEBERIA VENIR DE CONSTANTE
+        this.temps_max = dif.get_temps_max();
+        this.num_rondes_max = dif.get_num_rondes_max();
+        this.partida_acabada = false;
+        this.temps_inici = Instant.now();
+        this.llista_rondes = new ArrayList<Ronda>();
+
+        if (jugador1_es_codemaker) {
+            this.jugador1 = cm;
+            this.jugador2 = cb;
+        } else {
+            this.jugador1 = cb;
+            this.jugador2 = cm;
+        }
 
     }
     public int get_id() {
@@ -31,7 +51,7 @@ public class Partida {
         else return jugador2;
     }
 
-    public User get_codebreaer(){
+    public User get_codebreaker(){
         if(jugador1_es_codemaker) return jugador2;
         else return jugador1;
     }
@@ -47,12 +67,25 @@ public class Partida {
         }
     }
 
+    //ESTO ES INCORRECTO, DEBERIA ESTAR EN LA CREADORA
     public void set_jugador1_es_codemaker(bool es_codemaker) {
         this.jugador1_es_codemaker = es_codemaker;
     }
 
-    public boolean temps_excedit(){
+    public dificultat dificultat(){
+        return dificultat;
+    }
 
+    public boolean temps_excedit(){
+        temps_usat = (int) this.get_temps_usat().toSeconds();
+        if(temps_usat > temps_max) return true;
+        else return false;
+    }
+
+    public Duration get_temps_usat(){
+        ara = Instant.now();
+        temps_usat = Duration.between(temps_inici, ara);
+        return temps_usat;
     }
 
     public int get_num_colors() {
@@ -64,10 +97,22 @@ public class Partida {
     }
 
     public List get_llista_rondes(){
+        return llista_rondes;
+    }
 
+    public void acabar_partida(){
+        this.partida_acabada = true;
+        this.jugador1.set_partida_acabada(this);
+        this.jugador2.set_partida_acabada(this);
+
+    }
+    
+    public void set_sequencia_solucio(solucio){
+        this.sequencia_solucio = solucio;
     }
 
     public void crea_nova_ronda(){
-
+        ronda = new Ronda(ultima_ronda_jugada+1, identificador);
+        this.llista_rondes.add(ronda);
     }
 }
