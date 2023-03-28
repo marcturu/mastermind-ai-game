@@ -10,8 +10,8 @@ public class User_persona extends User {
     private List llista_partides_no_acabades = new List<Partida>;
     private List llista_partides_acabades = new List<Partida>;
 
-    public User_persona(int id, String nom, Type_user tipus_user, String password) {
-        super(id, nom, tipus_user);
+    public User_persona(int id, String nom, String password) {
+        super(id, nom);
         this.password = password;
         this.rondes_totals = 0;
         this.partides_totals = 0;
@@ -35,8 +35,13 @@ public class User_persona extends User {
         return partides_totals;
     }
 
-    public String[] get_estadistiques() {
-
+    public Vector<int> get_estadistiques() {
+        Vector<int> vstats = new Vector<int>();
+            vstats.add(get_partides_acabades());
+            vstats.add(get_partides_actuals());
+            vstats.add(get_rondes_totals());
+            vstats.add(get_partides_totals());
+            return vstats;
     }
 
     public void incrementar_rondes_totals() {
@@ -63,6 +68,10 @@ public class User_persona extends User {
     public void afegir_partida_acabada(Partida partida_acabada) {
         llista_partides_acabades.add(partida_acabada);
         llista_partides_no_acabades.remove(partida_acabada);
+    }
+
+    public set_acabar_partida(Partida partida) {
+
     }
 
 

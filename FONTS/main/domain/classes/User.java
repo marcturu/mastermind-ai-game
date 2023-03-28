@@ -29,4 +29,8 @@ public class User {
         return tipus_user;
     }
 
+    public set_acabar_partida(Partida partida) {
+
+    }
+
 }
