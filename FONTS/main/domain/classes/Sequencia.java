@@ -1,95 +1,76 @@
 package main.domain.classes;
+import static main.domain.classes.enumerations.*;
 
 import java.util.*;
 
 public class Sequencia {
-    private Vector array = new vector<colors>(4);
-    private Type_seq tipus = new Typeseq();
+    private colors[] array;
+    private type_seq tipus;
 
-   /* public Sequencia(Vector color, Type_seq tipus){
-        this.array = color;
-        this.tipus = tipus;
-    }*/
-
-    public Sequencia() {
+    public Sequencia(type_seq tipus) {
         array = null;
         tipus = null;
     }
 
-    public int set_array_intentada(java.util.Vector array, int num_colors) {
-        //añadir que no se puede repetir color
-        int size = array.size();
-        if (size != 4 || array.isEmpty) return -1;
+    //getters
+    public colors[] get_array() {
+        return array;
+    }
+
+    public type_seq getTipus() {
+        return tipus;
+    }
+    //setters
+    public int set_array_intentada(colors[] array, int num_colors) {
+        int size = array.length;
+        if (size != 4) return -1;
         else {
             for (int i = 0; i < size; ++i) {
-                int aux = array.elementAt(i);
+                int aux = array[i].get_id_color();
                 if (aux >= 1 && aux <= num_colors) {
-                    this.array.add(i, aux);
+                    this.array[i] = array[i];
                 } else return -1;
             }
         }
         return -1;
     }
 
-    public void set_array_verificacio(Vector array) {
-        this.array = array;
-    }
-
-    public void set_tipus(Type_seq tipus) {
-        this.tipus = tipus;
-    }
-
-    public Vector get_array() {
-        return array;
-    }
-
-    public Type_seq getTipus() {
-        return tipus;
-    }
-
-    public Vector calcula_verificacio(Vector sequencia_verificacio) {
-        int res = 0;
-        int blanc = 0; //espigas de color acertat
-        int negre = 0; //espigues de color i posicio acertades
-
-        for (int i = 0; i < sequencia_verificacio.size(); ++i) {
-            if (sequencia_verificacio.elementAt(i) == 1) ++blanc;
-            else if (sequencia_verificacio.elementAt(i) == 2) ++negre;
-            else ++res;
+    public int set_array_verificacio(colors[] array, colors[] solucio, colors[] intentada) {
+        if (valida_sequencia(array,solucio,intentada)) {
+            this.array = array;
+            return 1;
         }
-        Vector aux = new Vector<int>();
-        aux.add(0, res);
-        aux.add(1, blanc);
-        aux.add(2, negre);
-        return aux;
+        return -1;
     }
 
-    public boolean valida_sequencia(Vector solucio, Vector sequencia_intentada) {
-        int res = 0;
-        int blanc = 0;
-        int negre = 0;
+    private boolean valida_sequencia(colors[] sequencia_verificacio, colors[] solucio, colors[] sequencia_intentada) {
+        int res_ver = 0, res_calc = 0;
+        int blanc_ver = 0, blanc_calc = 0; //espigues de color encertat
+        int negre_ver = 0, negre_calc = 0; //espigues de color i posicio encertades
+
+        for (int i = 0; i < sequencia_verificacio.length; ++i) {
+           if (sequencia_verificacio[i].get_id_color() == 9) ++blanc_ver;
+           else if (sequencia_verificacio[i].get_id_color() == 10) ++negre_ver;
+           else ++res_ver;
+        }
 
         int i = 0;
         while (i < 4) {
             boolean find = false;
             int j = 0;
             while (j < 4) {
-                if (solucio.elementAt(i) == sequencia_intentada.elementAt(j)) {
-                    if (i == j) ++negre;
-                    else ++blanc;
-                    find = true;
+                if (solucio[i].get_id_color() == sequencia_intentada[i].get_id_color()) {
+                if (i == j) ++negre_calc;
+                else ++blanc_calc;
+                find = true;
                 }
                 ++j;
             }
             ++i;
-            if (!find) ++res;
+            if (!find) ++res_calc;
+            }
+            return res_ver == res_calc && blanc_ver == blanc_calc && negre_ver == negre_calc;
         }
-        Vector aux = new Vector<int>();
-        aux.add(0, res);
-        aux.add(1, blanc);
-        aux.add(2, negre);
-        return aux;
     }
-}
 
 

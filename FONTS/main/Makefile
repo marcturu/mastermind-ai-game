@@ -1,5 +1,6 @@
 CLASS_INPUT =  ./domain/classes/*.java \
-               ./domain/controller/*.java
+               ./domain/classes/enumerations/*.java \
+               ./domain/controller/*.java:
 
 CLASS_OUTPUT = ../EXE/out/
 
@@ -15,3 +16,7 @@ all:
 
 TestRecord: all
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
+
+TestUser: all
+    java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestUser
+
