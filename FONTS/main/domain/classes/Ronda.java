@@ -13,8 +13,8 @@ public class Ronda  {
     public Ronda(int id_partida, int num_ronda){
         this.id_partida = id_partida;
         this.num_ronda = num_ronda;
-        this.sequencia_verificacio = new Sequencia();
-        th
+        this.sequencia_verificacio = new Sequencia(type_seq.verificacio);
+        this.sequencia_intentada = new Sequencia(type_seq.intentada);
     }
 
     public Sequencia get_seq_intentada() {
@@ -41,4 +41,6 @@ public class Ronda  {
     {
         return this.sequencia_verificacio.set_array_verificacio(sequencia_verificacio, solucio, sequencia_intentada.get_array());
     }
+
+    //mirar si ha encertat el intent la solucio
 }
