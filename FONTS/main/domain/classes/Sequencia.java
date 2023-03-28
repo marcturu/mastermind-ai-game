@@ -1,5 +1,5 @@
 package main.domain.classes;
-import static main.domain.classes.enumerations.*;
+import  main.domain.classes.enumerations.type_seq;
 
 import java.util.*;
 

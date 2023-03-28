@@ -10,7 +10,7 @@ public enum colors {
     MARRO("marro",7),      //marro
     GRIS("gris",8),  //gris
     BLANC("blanc",9),      //blanc
-    NEGRE("negre",10),      //negre
+    NEGRE("negre",10);     //negre
 
 
     private String nom_color;
