@@ -17,7 +17,7 @@ public class Partida {
     private int num_rondes_max;
     private boolean partida_acabada;
     private Instant temps_inici;
-    private List llista_rondes;
+    private List<Ronda> llista_rondes;
     private Sequencia sequencia_solucio;
 
     public Partida(int id, User cm, User cb, dificultat dif, boolean jugador1_es_codemaker) {
@@ -96,7 +96,7 @@ public class Partida {
         return num_rondes_max;
     }
 
-    public List get_llista_rondes(){
+    public List<Ronda> get_llista_rondes(){
         return llista_rondes;
     }
 
@@ -112,7 +112,8 @@ public class Partida {
     }
 
     public void crea_nova_ronda(){
-        ronda = new Ronda(ultima_ronda_jugada+1, identificador);
+        Ronda ronda = new Ronda(ultima_ronda_jugada+1, identificador);
+        ++ultima_ronda_jugada;
         this.llista_rondes.add(ronda);
     }
 }
