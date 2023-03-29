@@ -12,7 +12,7 @@ public class Sequencia {
 
     public Sequencia(type_seq tipus) {
         array = new colors[4];
-        tipus = null;
+        this.tipus = tipus;
     }
 
     //getters
@@ -20,9 +20,10 @@ public class Sequencia {
         return array;
     }
 
-    public type_seq getTipus() {
+    public type_seq get_tipus() {
         return tipus;
     }
+
     //setters
     public void set_array(colors[] array, int num_colors) throws Exception{
         int size = array.length;
@@ -46,41 +47,37 @@ public class Sequencia {
         }
     }
 
+
     private boolean valida_sequencia(colors[] sequencia_verificacio, colors[] solucio, colors[] sequencia_intentada) {
-        int res_ver = 0, res_calc = 0;
+        int res = 0
         int blanc_ver = 0, blanc_calc = 0; //espigues de color encertat
         int negre_ver = 0, negre_calc = 0; //espigues de color i posicio encertades
 
         for (int i = 0; i < sequencia_verificacio.length; ++i) {
            if (sequencia_verificacio[i].get_id_color() == 9) ++blanc_ver;
            else if (sequencia_verificacio[i].get_id_color() == 10) ++negre_ver;
-           else ++res_ver;
+           else if (sequencia_verificacio[i].get_id_color() == 0) ++res;
+        }
+        if ((res + negre_ver + blanc_ver) != 4) return false;
+
+        colors[] aux = sequencia_intentada;
+        for (int i = 0; i < 4; ++i){
+            if (solucio[i].get_id_color() == aux[i]get_id_color()){
+                ++negre;
+                aux[i] = -1;
+            }
         }
 
-        int i = 0;
-        int j = 0;
-        boolean find_pos = false;
-        boolean find_col = false;
-        while (i < 4) {
-            if (! find_pos) j = 0;
-            find_pos = false;
-            find_col = false;
-            while (j < 4 && !find) {
-                if (solucio[i].get_id_color() == sequencia_intentada[i].get_id_color()) {
-                    if (i == j) {
-                        ++negre_calc;
-                        find_pos = true;
-                    } else {
-                        ++blanc_calc;
-                        find_col = true;
-                    }
+        for (int i = 0; i < 4; ++i){
+            for (int j = 0; j < 4; ++j){
+                if (solucio[i].get_id_color() == aux[j].get_id_color()){
+                    ++blanc;
+                    aux[j] = -1;
                 }
-                ++j;
             }
-            ++i;
-            if (!find_pos && !find_col) ++res_calc;
         }
-        return res_ver == res_calc && blanc_ver == blanc_calc && negre_ver == negre_calc;
+
+        return blanc_ver == blanc_calc && negre_ver == negre_calc;
         }
     }
 
