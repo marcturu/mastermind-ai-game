@@ -100,11 +100,28 @@ public class Partida {
         return llista_rondes;
     }
 
-    public void acabar_partida(){
+    public void codebreaker_guanya(){
         this.partida_acabada = true;
-        this.jugador1.set_partida_acabada(this);
-        this.jugador2.set_partida_acabada(this);
+        if(jugador1_es_codemaker) {
+            this.jugador1.set_partida_acabada(this, false);
+            this.jugador2.set_partida_acabada(this, true);
+        }
+        else {
+            this.jugador1.set_partida_acabada(this, true);
+            this.jugador2.set_partida_acabada(this, false);
+        }
+    }
 
+    public void codemaker_guanya() {
+        this.partida_acabada = true;
+        if(jugador1_es_codemaker) {
+            this.jugador1.set_partida_acabada(this, true);
+            this.jugador2.set_partida_acabada(this, false);
+        }
+        else {
+            this.jugador1.set_partida_acabada(this, false);
+            this.jugador2.set_partida_acabada(this, true);
+        }
     }
     
     public void set_sequencia_solucio(solucio){
@@ -115,5 +132,11 @@ public class Partida {
         Ronda ronda = new Ronda(ultima_ronda_jugada+1, identificador);
         ++ultima_ronda_jugada;
         this.llista_rondes.add(ronda);
+    }
+
+    public boolean ronda_te_intentada_correcte() {
+        Ronda ultima_ronda = llista_rondes.get(ultima_ronda_jugada);
+
+        return ultima_ronda.check_sequencia_encertada();
     }
 }
