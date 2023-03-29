@@ -1,4 +1,4 @@
-package main.domain.classes;
+package main.domain.classes.enumerations;
 
 public enum dificultat {
     FACIL("facil",1,4,1000,14),
