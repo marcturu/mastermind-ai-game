@@ -49,7 +49,7 @@ public class Sequencia {
 
 
     private boolean valida_sequencia(colors[] sequencia_verificacio, colors[] solucio, colors[] sequencia_intentada) {
-        int res = 0
+        int res = 0;
         int blanc_ver = 0, blanc_calc = 0; //espigues de color encertat
         int negre_ver = 0, negre_calc = 0; //espigues de color i posicio encertades
 
@@ -62,17 +62,17 @@ public class Sequencia {
 
         colors[] aux = sequencia_intentada;
         for (int i = 0; i < 4; ++i){
-            if (solucio[i].get_id_color() == aux[i]get_id_color()){
-                ++negre;
-                aux[i] = -1;
+            if (solucio[i].get_id_color() == aux[i].get_id_color()) {
+                ++negre_calc;
+                aux[i] = colors.NULL;
             }
         }
 
         for (int i = 0; i < 4; ++i){
             for (int j = 0; j < 4; ++j){
                 if (solucio[i].get_id_color() == aux[j].get_id_color()){
-                    ++blanc;
-                    aux[j] = -1;
+                    ++blanc_calc;
+                    aux[j] = colors.NULL;
                 }
             }
         }
