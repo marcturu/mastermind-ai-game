@@ -96,6 +96,10 @@ public class Partida {
         return num_rondes_max;
     }
 
+    public int get_ultima_ronda() {
+        return this.ultima_ronda_jugada;
+    }
+
     public List<Ronda> get_llista_rondes(){
         return llista_rondes;
     }
