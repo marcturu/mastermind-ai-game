@@ -58,19 +58,27 @@ public class Sequencia {
         }
 
         int i = 0;
+        int j = 0;
+        boolean find_pos = false;
+        boolean find_col = false;
         while (i < 4) {
-            boolean find = false;
-            int j = 0;
+            if (! find_pos) j = 0;
+            find_pos = false;
+            find_col = false;
             while (j < 4 && !find) {
                 if (solucio[i].get_id_color() == sequencia_intentada[i].get_id_color()) {
-                if (i == j) ++negre_calc;
-                else ++blanc_calc;
-                find = true;
+                    if (i == j) {
+                        ++negre_calc;
+                        find_pos = true;
+                    } else {
+                        ++blanc_calc;
+                        find_col = true;
+                    }
                 }
                 ++j;
             }
             ++i;
-            if (!find) ++res_calc;
+            if (!find_pos && !find_col) ++res_calc;
         }
         return res_ver == res_calc && blanc_ver == blanc_calc && negre_ver == negre_calc;
         }
