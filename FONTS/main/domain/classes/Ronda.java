@@ -55,5 +55,13 @@ public class Ronda  {
         }
     }
 
-    //mirar si ha encertat el intent la solucio
+    public boolean check_sequencia_encertada(){
+        colors[] array = sequencia_verificacio.get_array();
+        int n = 0;
+        for (int i = 0; i < array.length; ++i ){
+            if (array.get_id_color == 10) ++n;
+        }
+        return n == 4;
+    }
+
 }
