@@ -1,6 +1,7 @@
 package main.domain.classes;
 
 import java.util.*;
+import main.domain.classes.enumerations.Type_user;
 
 public class User {
     private int id;
@@ -27,6 +28,10 @@ public class User {
 
     public Type_user get_tipus_user() {
         return tipus_user;
+    }
+
+    public void set_partida_acabada(Partida partida, boolean guanyat) {
+
     }
 
 }

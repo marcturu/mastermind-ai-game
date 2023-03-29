@@ -1,6 +1,7 @@
 package main.domain.classes.enumerations;
 
 public enum colors {
+    NULL("null",0),
     VERMELL("vermell",1),      //Vermell
     VERD("verd",2),      //Verd
     BLAU("blau",3),       //Blau
