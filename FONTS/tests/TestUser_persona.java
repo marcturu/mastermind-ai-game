@@ -38,6 +38,5 @@ public class TestUser_persona {
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
         assertEquals("Mateixa llista partides no acabades", llista_partides_no_acabades.size(), 0);
         assertEquals("Mateixa llista partides  acabades", llista_partides_acabades.size(), 0);
-
     }
 }

@@ -29,22 +29,29 @@ public class TestUser {
      * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
      * Operativa: Creem un nou User amb els paràmetre “id”, "nom" i "tipus_user" i comprovem que els valors de id, nom i tipus_user siguin els mateixos.
      */
-
     @Test
     public void test_constructora_user() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", "tipus_user");
         assertEquals("Mateix id", u.get_id(), "1");
         assertEquals("Mateix nom", u.get_nom(), "Marc");
-        assertEquals("Mateix tipus_user", u.get_tipus_user(), user_persona);
+        assertEquals("Mateix tipus_user", u.get_nom(), "tipus_user");
+        assertEquals("Mateixes rondes totals", u.get_rondes_totals(), 0);
+        assertEquals("Mateixes partides totals", u.get_partides_totals(), 0);
+        assertEquals("Mateixpuntuació", u.get_puntuacio(), 0.0);
+        assertEquals("Mateixes partides guanyades", u.get_partides_guanyades(), 0);
+        assertEquals("Mateixa llista partides no acabades", u.llista_partides_no_acabades.size(), 0);
+        assertEquals("Mateixa llista partides  acabades", u.llista_partides_acabades.size(), 0);
+
+        }
+
     }
 
     /**
      * Objecte de la prova: Test de la funció get_id.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
      * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor id és el mateix que l’introduït (id).
      */
-
     @Test
     public void test_get_id() {
         User u = new User(1, "Marc", user_persona);
@@ -54,10 +61,9 @@ public class TestUser {
     /**
      * Objecte de la prova: Test de la funció get_nom.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
      * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor del nom és el mateix que l’introduït (nom).
      */
-
     @Test
     public void test_get_nom() {
         User u = new User(1, "Marc", user_persona);
@@ -70,7 +76,6 @@ public class TestUser {
      * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
      * Operativa: Creem un nou user amb paràmetres, es crida al setter del nom i se li assigna un nou. Es comprovem que efectivament el contingut del valor del nom nou és el mateix que l’introduït (nom).
      */
-
     @Test
     public void test_set_nom() {
         User u = new User(1, "Marc", user_persona);
@@ -79,17 +84,195 @@ public class TestUser {
     }
 
     /**
-     * Objecte de la prova: Test de la funció get_nom.
+     * Objecte de la prova: Test de la funció get_tipus_user.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
-     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor del user_persona és el mateix que l’introduït (user_persona).
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor del user_persona és el mateix que l’introduït.
      */
-
     @Test
     public void test_get_tipus_user() {
         User u = new User(1, "Marc", user_persona);
         assertEquals(u.get_tipus_user(), user_persona);
     }
 
+    /**
+     * Objecte de la prova: Test de la funció get_rondes_totals.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor num_rondes_totals és el mateix amb el qual l'hem inicialitzat al crear la classe User.
+     */
+    @Test
+    public void test_get_rondes_totals() {
+        User u = new User(1, "Marc", user_persona);
+        assertEquals(u.get_rondes_totals(), 0);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció incrementar_rondes_totals.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor num_rondes_totals és l'esperat (1) després d'augmentar-lo en 1a unitat.
+     */
+    @Test
+    public void test_incrementar_rondes_totals() {
+        User u = new User(1, "Marc", user_persona);
+        u.incrementar_rondes_totals();
+        assertEquals(u.get_rondes_totals(), 1);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció get_partides_totals.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor num_partides_totals és el mateix amb el qual l'hem inicialitzat al crear la classe User.
+     */
+    @Test
+    public void test_get_partides_totals() {
+        User u = new User(1, "Marc", user_persona);
+        assertEquals(u.get_partides_totals(), 0);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció incrementar_partides_totals.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor num_partides_totals és l'esperat (1) després d'augmentar-lo en 1a unitat.
+     */
+    @Test
+    public void test_incrementar_partides_totals() {
+        User u = new User(1, "Marc", user_persona);
+        u.incrementar_partides_totals();
+        assertEquals(u.get_partides_totals(), 1);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció get_puntuacio.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuacio és el mateix amb el qual l'hem inicialitzat al crear la classe User.
+     */
+    @Test
+    public void test_get_puntuacio() {
+        User u = new User(1, "Marc", user_persona);
+        assertEquals(u.get_puntuacio(), 0.0);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció set_puntuacio.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuació és l'esperat després de realitzar els canvis fets al test.
+     */
+    @Test
+    public void test_set_puntuacio() {
+        User u = new User(1, "Marc", user_persona);
+        u.incrementar_partides_totals(); u.incrementar_partides_totals();
+        u.incrementar_rondes_totals();
+        u.set_puntuacio();
+        assertEquals(u.get_puntuacio(), 50); // 1r/2p
+        u.incrementar_partides_totals();
+        u.set_puntuacio();
+        assertEquals(u.get_puntuacio(), (1/3)*100); // 1r/3p
+        u.incrementar_partides_totals(); u.incrementar_partides_totals();
+        u.incrementar_rondes_totals();
+        u.set_puntuacio();
+        assertEquals(u.get_puntuacio(), 40); // 2r/5p
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció get_partides_guanyades.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor partides_guanyades és el mateix amb el qual l'hem inicialitzat al crear la classe User.
+     *            Després, creem una nova partida que es guanya i mirem com l'atribut partides_guanyades ara és 1. Després fem el mateix però perdent, per veure com l'usuari u1 seguiex tenint només 1 partida guanyada.
+     */
+    @Test
+    public void test_get_partides_guanyades() {
+        User u1 = new User(1, "Marc", user_persona);
+        assertEquals(u1.get_partides_guanyades(), 0);
+        User u2 = new User(2, "Jordi", user_persona);
+        Partida partida_prova = new Partida(1, u1, u2, "FACIL");
+        u1.afegir_partida_nova(partida_prova);
+        u1.set_partida_acabada(partida_prova, true);
+        assertEquals(u1.get_partides_guanyades(), 1);
+        Partida partida_prova2 = new Partida(2, u1, u2, "FACIL");
+        u1.afegir_partida_nova(partida_prova2);
+        u1.set_partida_acabada(partida_prova2, false);
+        assertEquals(u1.get_partides_guanyades(), 1);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció get_partides_acabades.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el número de partides acabades correspon amb el que he inicialitzat la classe User (0).
+     */
+    @Test
+    public void test_get_partides_acabades() {
+        User u = new User(1, "Marc", user_persona);
+        assertEquals(u.get_partides_acabades(), 0);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció get_partides_actuals.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el número de partides actuals (no acabades) correspon amb el que he inicialitzat la classe User (0).
+     */
+    @Test
+    public void test_get_partides_actuals() {
+        User u = new User(1, "Marc", user_persona);
+        assertEquals(u.get_partides_no_acabades(), 0);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció get_estadistiques.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem un nou user amb paràmetres, comprovem que les estadístiques d'aquest usuari es corresponen amb les creades manualment pel test (tots els valors a 0, ja que encara no ha jugat aquest nou Usuari).
+     */
+    @Test
+    public void test_get_estadistiques() {
+        User u = new User(1, "Marc", user_persona);
+        vector<int> stats_prova = {0, 0, 0, 0, 0, 0};
+        assertArrayEquals(stats_prova, u.get_estadistiques());
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció afegir_partida_nova.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem dos nous users amb els paràmetres i una partida de prova pel test. Després la afegim a la llista de partides no acabades i, per tant, noves, per després comprovar que efectivament hi ha 1 partida en la llista de partides no acabades i totals.
+     */
+    @Test
+    public void test_afegir_partida_nova() {
+        User u1 = new User(1, "Marc", user_persona);
+        assertEquals(u1.get_partides_guanyades(), 0);
+        User u2 = new User(2, "Jordi", user_persona);
+        Partida partida_nova = new Partida(1, u1, u2, "FACIL");
+        u1.afegir_partida_nova(partida_nova);
+        assertEquals(u.get_partides_actuals(), 1);
+        assertEquals(u.get_partides_totals(), 1);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció set_partida_acabada.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem dos nous users amb els paràmetres i una partida de prova pel test. Després de fer una petita comprovació de que la partida s'afageix bé a la llista de partides no acabades, acabem la partida amb victòria de l'usuari u1 i comprovem com s'ha eliminat la partida de la llista de partides no acabades i s'ha afegit a la llista d'acabades, al mateix temps que es comprova que l'usuari u1 l'ha guanyat.
+     */
+    @Test
+    public void test_set_partida_acabada() {
+        User u1 = new User(1, "Marc", user_persona);
+        assertEquals(u1.get_partides_guanyades(), 0);
+        User u2 = new User(2, "Jordi", user_persona);
+        Partida partida_prova = new Partida(1, u1, u2, "FACIL");
+        u1.afegir_partida_nova(partida_prova);
+        assertEquals(u1.get_partides_actuals(), 1);
+        u1.set_partida_acabada(partida_prova, true);
+        assertEquals(u1.get_partides_acabades(), 1);
+        assertEquals(u1.get_partides_actuals(), 0);
+        assertEquals(u1.get_partides_guanyades(), 1);
+    }
 
 }
