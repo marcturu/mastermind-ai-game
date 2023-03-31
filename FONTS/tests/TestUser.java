@@ -31,10 +31,10 @@ public class TestUser {
      */
     @Test
     public void test_constructora_user() {
-        User u = new User(1, "Marc", "tipus_user");
+        User u = new User(1, "Marc", Type_user.user_persona);
         assertEquals("Mateix id", u.get_id(), "1");
         assertEquals("Mateix nom", u.get_nom(), "Marc");
-        assertEquals("Mateix tipus_user", u.get_nom(), "tipus_user");
+        assertEquals("Mateix tipus_user", u.get_nom(), Type_user.user_persona);
         assertEquals("Mateixes rondes totals", u.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", u.get_partides_totals(), 0);
         assertEquals("Mateixpuntuació", u.get_puntuacio(), 0.0);
@@ -54,7 +54,7 @@ public class TestUser {
      */
     @Test
     public void test_get_id() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         assertEquals(u.get_id(), 1);
     }
 
@@ -66,7 +66,7 @@ public class TestUser {
      */
     @Test
     public void test_get_nom() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         assertEquals(u.get_nom(), "Marc");
     }
 
@@ -78,7 +78,7 @@ public class TestUser {
      */
     @Test
     public void test_set_nom() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         u.set_nom("Jordi");
         assertEquals(u.get_nom(), "Jordi");
     }
@@ -91,8 +91,8 @@ public class TestUser {
      */
     @Test
     public void test_get_tipus_user() {
-        User u = new User(1, "Marc", user_persona);
-        assertEquals(u.get_tipus_user(), user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
+        assertEquals(u.get_tipus_user(), Type_user.user_persona);
     }
 
     /**
@@ -103,7 +103,7 @@ public class TestUser {
      */
     @Test
     public void test_get_rondes_totals() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         assertEquals(u.get_rondes_totals(), 0);
     }
 
@@ -115,7 +115,7 @@ public class TestUser {
      */
     @Test
     public void test_incrementar_rondes_totals() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         u.incrementar_rondes_totals();
         assertEquals(u.get_rondes_totals(), 1);
     }
@@ -128,7 +128,7 @@ public class TestUser {
      */
     @Test
     public void test_get_partides_totals() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         assertEquals(u.get_partides_totals(), 0);
     }
 
@@ -140,7 +140,7 @@ public class TestUser {
      */
     @Test
     public void test_incrementar_partides_totals() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         u.incrementar_partides_totals();
         assertEquals(u.get_partides_totals(), 1);
     }
@@ -153,7 +153,7 @@ public class TestUser {
      */
     @Test
     public void test_get_puntuacio() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         assertEquals(u.get_puntuacio(), 0.0);
     }
 
@@ -165,7 +165,7 @@ public class TestUser {
      */
     @Test
     public void test_set_puntuacio() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         u.incrementar_partides_totals(); u.incrementar_partides_totals();
         u.incrementar_rondes_totals();
         u.set_puntuacio();
@@ -188,14 +188,15 @@ public class TestUser {
      */
     @Test
     public void test_get_partides_guanyades() {
-        User u1 = new User(1, "Marc", user_persona);
+        User u1 = new User_persona(3, 'JUAN', 'PWD') ;
         assertEquals(u1.get_partides_guanyades(), 0);
-        User u2 = new User(2, "Jordi", user_persona);
-        Partida partida_prova = new Partida(1, u1, u2, "FACIL");
+        User u2 = new User_persona(1, 'FERRI', 'PWD2') ;
+        Dificultat dif = new Dificultat(1, 'facil', 4, 6, 12);
+        Partida partida_prova = new Partida(1, u1, u2, dif, true);
         u1.afegir_partida_nova(partida_prova);
         u1.set_partida_acabada(partida_prova, true);
         assertEquals(u1.get_partides_guanyades(), 1);
-        Partida partida_prova2 = new Partida(2, u1, u2, "FACIL");
+        Partida partida_prova2 = new Partida(2, u1, u2, dif, true);
         u1.afegir_partida_nova(partida_prova2);
         u1.set_partida_acabada(partida_prova2, false);
         assertEquals(u1.get_partides_guanyades(), 1);
@@ -209,7 +210,7 @@ public class TestUser {
      */
     @Test
     public void test_get_partides_acabades() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         assertEquals(u.get_partides_acabades(), 0);
     }
 
@@ -221,7 +222,7 @@ public class TestUser {
      */
     @Test
     public void test_get_partides_actuals() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         assertEquals(u.get_partides_no_acabades(), 0);
     }
 
@@ -233,7 +234,7 @@ public class TestUser {
      */
     @Test
     public void test_get_estadistiques() {
-        User u = new User(1, "Marc", user_persona);
+        User u = new User(1, "Marc", Type_user.user_persona);
         vector<int> stats_prova = {0, 0, 0, 0, 0, 0};
         assertArrayEquals(stats_prova, u.get_estadistiques());
     }
@@ -246,10 +247,11 @@ public class TestUser {
      */
     @Test
     public void test_afegir_partida_nova() {
-        User u1 = new User(1, "Marc", user_persona);
+        User u1 = new User_persona(3, 'JUAN', 'PWD') ;
         assertEquals(u1.get_partides_guanyades(), 0);
-        User u2 = new User(2, "Jordi", user_persona);
-        Partida partida_nova = new Partida(1, u1, u2, "FACIL");
+        User u2 = new User_persona(1, 'FERRI', 'PWD2') ;
+        Dificultat dif = new Dificultat(1, 'facil', 4, 6, 12);
+        Partida partida_nova = new Partida(1, u1, u2, dif, true);
         u1.afegir_partida_nova(partida_nova);
         assertEquals(u.get_partides_actuals(), 1);
         assertEquals(u.get_partides_totals(), 1);
@@ -263,10 +265,11 @@ public class TestUser {
      */
     @Test
     public void test_set_partida_acabada() {
-        User u1 = new User(1, "Marc", user_persona);
+        User u1 = new User_persona(3, 'JUAN', 'PWD') ;
         assertEquals(u1.get_partides_guanyades(), 0);
-        User u2 = new User(2, "Jordi", user_persona);
-        Partida partida_prova = new Partida(1, u1, u2, "FACIL");
+        User u2 = new User_persona(1, 'FERRI', 'PWD2') ;
+        Dificultat dif = new Dificultat(1, 'facil', 4, 6, 12);
+        Partida partida_nova = new Partida(1, u1, u2, dif, true);
         u1.afegir_partida_nova(partida_prova);
         assertEquals(u1.get_partides_actuals(), 1);
         u1.set_partida_acabada(partida_prova, true);

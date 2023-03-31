@@ -1,18 +1,20 @@
 package main.domain.classes;
 
 import java.util.*;
+import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
 
+
 public class User {
-    private int id;
-    private String nom;
-    private Type_user tipus_user;
-    private int num_rondes_totals;
-    private int num_partides_totals;
-    private double puntuacio; //en %
-    private int partides_guanyades;
-    private List<Partida> llista_partides_no_acabades;
-    private List<Partida> llista_partides_acabades;
+    protected int id;
+    protected String nom;
+    protected Type_user tipus_user;
+    protected int num_rondes_totals;
+    protected int num_partides_totals;
+    protected double puntuacio; //en %
+    protected int partides_guanyades;
+    protected List<Partida> llista_partides_no_acabades;
+    protected List<Partida> llista_partides_acabades;
 
     // INICIALITZADOR CLASSE USER GLOBAL
     public User(int id, String nom, Type_user tipus_user) {

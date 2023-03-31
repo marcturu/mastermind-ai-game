@@ -1,6 +1,8 @@
 package test;
 
-import main.domain.classes.Record;
+import main.domain.classes.User;
+import main.domain.classes.User_maquina;
+import main.domain.classes.enumerations.Type_user;
 
 import org.junit.*;
 
@@ -21,32 +23,59 @@ import static org.junit.Assert.assertNotNull;
 public class TestUser_maquina {
 
     /**
-     *Objecte de la prova: Test de la constructora User
+     *Objecte de la prova: Test de la constructora User_maquina (amb genetic_algorithm)
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
-     * Operativa: Creem un nou User amb els paràmetre “id”, "nom", "tipus_user" i genetic_algoritm i comprovem que els valors de id, nom i tipus_user siguin els mateixos.
+     * Operativa: Creem un nou User amb els paràmetres indicats i comprovem que els valors introduïts i els que haurien de tenir valor 0 o null siguin els mateixos.
      */
 
     @Test
     public void test_constructora_user_maquina() {
-        User_maquina um = new User_maquina(1, "Marc", "user_maquina", 1);
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, true, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
         assertEquals("Mateix id", um.get_id(), "1");
         assertEquals("Mateix nom", um.get_nom(), "Marc");
-        assertEquals("Mateix tipus_user", um.get_tipus_user(), "user_maquina");
-        assertEquals("Mateix algorithm", um.is_genetic(), 1);
+        assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
+        assertEquals("Mateix genetic algorithm", um.ig_genetic, true);
+        assertEquals("Mateixes rondes totals", um.get_rondes_totals(), 0);
+        assertEquals("Mateixes partides totals", um.get_partides_totals(), 0);
+        assertEquals("Mateixa puntuacio", um.get_puntuacio(), 0);
+        assertEquals("Mateixes partides guanyades", um.get_partides_guanyades(), 0);
+        assertEquals("Mateixa llista partides no acabades", um.llista_partides_no_acabades.size(), 0);
+        assertEquals("Mateixa llista partides  acabades", um.llista_partides_acabades.size(), 0);
+    }
+
+    /**
+     *Objecte de la prova: Test de la constructora User_maquina (sense genetic_algorithm)
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou User amb els paràmetres indicats i comprovem que els valors introduïts i els que haurien de tenir valor 0 o null siguin els mateixos.
+     */
+
+    @Test
+    public void test_constructora_user_maquina2() {
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        assertEquals("Mateix id", um.get_id(), "1");
+        assertEquals("Mateix nom", um.get_nom(), "Marc");
+        assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
+        assertEquals("Mateixes rondes totals", um.get_rondes_totals(), 0);
+        assertEquals("Mateixes partides totals", um.get_partides_totals(), 0);
+        assertEquals("Mateixa puntuacio", um.get_puntuacio(), 0);
+        assertEquals("Mateixes partides guanyades", um.get_partides_guanyades(), 0);
+        assertEquals("Mateixa llista partides no acabades", um.llista_partides_no_acabades.size(), 0);
+        assertEquals("Mateixa llista partides  acabades", um.llista_partides_acabades.size(), 0);
     }
 
     /**
      * Objecte de la prova: Test de la funció is_genetic().
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
-     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor del genetic_algorithm és el mateix que l’introduït (nom).
+     * Operativa: Creem un nou User_maquina amb paràmetres, comprovem que el contingut del valor del genetic_algorithm és el mateix que l’introduït (nom).
      */
 
     @Test
     public void test_is_genetic() {
-        User_maquina um = User_maquina(1, "Marc", "user_maquina", 1);
-        assertEquals(u.is_genetic(), 1);
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, true, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        assertEquals(um.is_genetic(), 1);
     }
 
 }
