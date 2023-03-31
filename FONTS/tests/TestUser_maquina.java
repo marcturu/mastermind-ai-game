@@ -66,10 +66,10 @@ public class TestUser_maquina {
     }
 
     /**
-     * Objecte de la prova: Test de la funció is_genetic().
+     *Objecte de la prova: Test de la funció is_genetic
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
-     * Operativa: Creem un nou User_maquina amb paràmetres, comprovem que el contingut del valor del genetic_algorithm és el mateix que l’introduït (nom).
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou User_maquina amb els paràmetres indicats i comprovem que, efectivament, el valor genetic_algorithm és true.
      */
 
     @Test
