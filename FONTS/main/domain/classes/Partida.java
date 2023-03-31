@@ -127,7 +127,15 @@ public class Partida {
             this.jugador2.set_partida_acabada(this, true);
         }
     }
-    
+
+    /**
+     * Funció per a facilitar els tests de la classe Ranking
+     * @param ronda
+     */
+    public void set_ultima_ronda(int ronda) {
+        this.ultima_ronda_jugada = ronda;
+    }
+
     public void set_sequencia_solucio(solucio){
         this.sequencia_solucio = solucio;
     }
