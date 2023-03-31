@@ -4,8 +4,6 @@ import main.domain.classes.Record;
 
 import org.junit.*;
 
-import java.io.*;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
