@@ -17,7 +17,7 @@ public class Partida {
     private int num_rondes_max;
     private boolean partida_acabada;
     private Instant temps_inici;
-    private List llista_rondes;
+    private List<Ronda> llista_rondes;
     private Sequencia sequencia_solucio;
 
     public Partida(int id, User cm, User cb, dificultat dif, boolean jugador1_es_codemaker) {
@@ -29,7 +29,7 @@ public class Partida {
         this.dificultat = dif;
         this.num_colors = dif.get_num_colors(); // INCORRECTO DEBERIA VENIR DE CONSTANTE
         this.temps_max = dif.get_temps_max();
-        this.num_rondes_max = dif.get_num_rondes_max();
+        this.num_rondes_max = dif.get_num_max_rondes();
         this.partida_acabada = false;
         this.temps_inici = Instant.now();
         this.llista_rondes = new ArrayList<Ronda>();
@@ -96,23 +96,59 @@ public class Partida {
         return num_rondes_max;
     }
 
-    public List get_llista_rondes(){
+    public int get_ultima_ronda() {
+        return this.ultima_ronda_jugada;
+    }
+
+    public List<Ronda> get_llista_rondes(){
         return llista_rondes;
     }
 
-    public void acabar_partida(){
+    public void codebreaker_guanya(){
         this.partida_acabada = true;
-        this.jugador1.set_partida_acabada(this);
-        this.jugador2.set_partida_acabada(this);
-
+        if(jugador1_es_codemaker) {
+            this.jugador1.set_partida_acabada(this, false);
+            this.jugador2.set_partida_acabada(this, true);
+        }
+        else {
+            this.jugador1.set_partida_acabada(this, true);
+            this.jugador2.set_partida_acabada(this, false);
+        }
     }
-    
+
+    public void codemaker_guanya() {
+        this.partida_acabada = true;
+        if(jugador1_es_codemaker) {
+            this.jugador1.set_partida_acabada(this, true);
+            this.jugador2.set_partida_acabada(this, false);
+        }
+        else {
+            this.jugador1.set_partida_acabada(this, false);
+            this.jugador2.set_partida_acabada(this, true);
+        }
+    }
+
+    /**
+     * Funció per a facilitar els tests de la classe Ranking
+     * @param ronda
+     */
+    public void set_ultima_ronda(int ronda) {
+        this.ultima_ronda_jugada = ronda;
+    }
+
     public void set_sequencia_solucio(solucio){
         this.sequencia_solucio = solucio;
     }
 
     public void crea_nova_ronda(){
-        ronda = new Ronda(ultima_ronda_jugada+1, identificador);
+        Ronda ronda = new Ronda(ultima_ronda_jugada+1, identificador);
+        ++ultima_ronda_jugada;
         this.llista_rondes.add(ronda);
+    }
+
+    public boolean ronda_te_intentada_correcte() {
+        Ronda ultima_ronda = llista_rondes.get(ultima_ronda_jugada);
+
+        return ultima_ronda.check_sequencia_encertada();
     }
 }
