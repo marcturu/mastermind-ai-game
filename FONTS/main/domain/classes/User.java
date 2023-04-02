@@ -3,6 +3,7 @@ package main.domain.classes;
 import java.util.*;
 import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.dificultat;
 
 
 public class User {
@@ -11,7 +12,10 @@ public class User {
     protected Type_user tipus_user;
     protected int num_rondes_totals;
     protected int num_partides_totals;
-    protected double puntuacio; //en %
+    protected double puntuacioF;
+    protected double puntuacioN;
+    protected double puntuacioD;
+    protected double puntuacioPvsP;
     protected int partides_guanyades;
     protected List<Partida> llista_partides_no_acabades;
     protected List<Partida> llista_partides_acabades;
@@ -23,18 +27,21 @@ public class User {
         this.tipus_user = tipus_user;
         this.num_rondes_totals = 0;
         this.num_partides_totals = 0;
-        this.puntuacio = 0.0;
+        this.puntuacioF = 0.0;
+        this.puntuacioN = 0.0;
+        this.puntuacioD = 0.0;
+        this.puntuacioPvsP = 0.0;
         this.partides_guanyades = 0;
         this.llista_partides_no_acabades = new ArrayList<Partida>;
         this.llista_partides_acabades = new ArrayList<Partida>;
     }
 
     public int get_id() {
-        return id;
+        return this.id;
     }
 
     public String get_nom() {
-        return nom;
+        return this.nom;
     }
 
     public void set_nom(String nom) {
@@ -42,35 +49,62 @@ public class User {
     }
 
     public Type_user get_tipus_user() {
-        return tipus_user;
+        return this.tipus_user;
     }
 
     public int get_rondes_totals() {
-        return rondes_totals;
+        return this.rondes_totals;
     }
 
     public void incrementar_rondes_totals() {
-        rondes_totals++;
+        this.rondes_totals++;
     }
 
     public int get_partides_totals() {
-        return partides_totals;
+        return this.partides_totals;
     }
 
     public void incrementar_partides_totals() {
-        partides_totals++;
+        this.partides_totals++;
     }
 
-    public float get_puntuacio() {
-        return puntuacio;
+    public double get_puntuacioF() {
+        return this.puntuacioF;
     }
 
-    public void set_puntuacio() {
-        puntuacio = (get_rondes_totals()/get_partides_totals())*100;
+    public double get_puntuacioN() {
+        return this.puntuacioN;
+    }
+
+    public double get_puntuacioD() {
+        return this.puntuacioD;
+    }
+
+    public void set_puntuacio(int punts_base, int win_bonus, int punts_penalitzacio_rondes, String dificultat) {
+        switch (dificultat) {
+            case "1":
+            case "facil": {
+                this.puntuacioF += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
+                if (puntuacioF < 0) this.puntuacioF = 0;
+                break;
+            }
+            case "2":
+            case "normal": {
+                this.puntuacioN += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
+                if (puntuacioN < 0) this.puntuacioN = 0;
+                break;
+            }
+            case "3":
+            case "dificil": {
+                this.puntuacioD += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
+                if (puntuacioD < 0) this.puntuacioD = 0;
+                break;
+            }
+        }
     }
 
     public int get_partides_guanyades() {
-        return partides_guanyades;
+        return this.partides_guanyades;
     }
 
     public int get_partides_acabades() {
@@ -83,7 +117,13 @@ public class User {
 
     public Vector<int> get_estadistiques() {
         Vector<int> vstats;
-        vstats.add(get_puntuacio());
+        vstats.add(get_puntuacioF());
+        vstats.add(get_puntuacioN());
+        vstats.add(get_puntuacioD());
+        if (tipus_user == tipus_user.user_persona) {
+            vstats.add(get_puntuacioPvsP());
+            else vstats.add(0);
+        }
         vstats.add(get_partides_actuals());
         vstats.add(get_partides_acabades());
         vstats.add(get_partides_totals());
@@ -100,20 +140,32 @@ public class User {
         }
     }
 
-    public void set_partida_acabada(Partida partida_acabada, boolean guanyat) {
+    public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
+        int punts_base = 50;
+        int win_bonus = 1;
+        int punts_penalitzacio_rondes = partida_acabada.get_ultima_ronda_jugada();
+        if (guanyat) {
+            partides_guanyades++;
+            int win_bonus = 5;
+        }
+        if (dificultat == "PvsP") set_puntuacio_PvsP(punts_base, win_bonus, punts_penalitzacio_rondes);
+        else set_puntuacio(punts_base, win_bonus, punts_penalitzacio_rondes, dificultat);
+
         llista_partides_acabades.add(partida_acabada);
         llista_partides_no_acabades.remove(partida_acabada);
-        if (guanyat) partides_guanyades++;
     }
 
-    /* No fa falta?
-    // FUNCIONS ESPECIFICAMENT DE USER_PERSONA
+    //USER_PERSONA
     public void set_password(String password) {}
 
     public boolean validate_password(String password) {}
 
-    //FUNCIONS ESPECIFICAMENT DE USER_MAQUINA
+    public double get_puntuacioPvsP() {}
+
+    public void set_puntuacio_PvsP(int punts_base, int win_bonus, int punts_penalitzacio_rondes) {}
+
+    //USER_MAQUINA
     public boolean is_genetic() {}
-    */
+
 
 }

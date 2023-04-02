@@ -21,6 +21,6 @@ public class User_maquina extends User {
     }
 
     public boolean is_genetic() {
-        return genetic_algorithm;
+        return this.genetic_algorithm;
     }
 }
