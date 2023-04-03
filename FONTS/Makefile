@@ -42,4 +42,5 @@ TestUser_persona: all
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestUser_persona
 
 clean:
-    rm -rf ../EXE/out ../EXE/*
+	rm -rf ../EXE/out/* ../EXE/*
+
