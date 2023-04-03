@@ -20,6 +20,8 @@ driver: all
 	jar cmvf ./drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT)
 	java -jar $(JAR_OUTPUT)Driver.jar
 
+allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_persona TestUser_persona
+
 TestRecord: all
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
 
