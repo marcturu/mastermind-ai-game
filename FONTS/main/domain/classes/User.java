@@ -2,6 +2,7 @@ package main.domain.classes;
 
 import java.util.*;
 import main.domain.classes.Partida;
+//import main.domain.classes.Ranking;
 import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.dificultat;
 
@@ -15,7 +16,6 @@ public class User {
     protected double puntuacioF;
     protected double puntuacioN;
     protected double puntuacioD;
-    protected double puntuacioPvsP;
     protected int partides_guanyades;
     protected List<Partida> llista_partides_no_acabades;
     protected List<Partida> llista_partides_acabades;
@@ -30,7 +30,6 @@ public class User {
         this.puntuacioF = 0.0;
         this.puntuacioN = 0.0;
         this.puntuacioD = 0.0;
-        this.puntuacioPvsP = 0.0;
         this.partides_guanyades = 0;
         this.llista_partides_no_acabades = new ArrayList<Partida>;
         this.llista_partides_acabades = new ArrayList<Partida>;
@@ -85,19 +84,19 @@ public class User {
             case "1":
             case "facil": {
                 this.puntuacioF += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
-                if (puntuacioF < 0) this.puntuacioF = 0;
+                if (this.puntuacioF < 0) this.puntuacioF = 0;
                 break;
             }
             case "2":
             case "normal": {
                 this.puntuacioN += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
-                if (puntuacioN < 0) this.puntuacioN = 0;
+                if (this.puntuacioN < 0) this.puntuacioN = 0;
                 break;
             }
             case "3":
             case "dificil": {
                 this.puntuacioD += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
-                if (puntuacioD < 0) this.puntuacioD = 0;
+                if (this.puntuacioD < 0) this.puntuacioD = 0;
                 break;
             }
         }
@@ -120,7 +119,7 @@ public class User {
         vstats.add(get_puntuacioF());
         vstats.add(get_puntuacioN());
         vstats.add(get_puntuacioD());
-        if (tipus_user == tipus_user.user_persona) {
+        if (this.tipus_user == tipus_user.user_persona) {
             vstats.add(get_puntuacioPvsP());
             else vstats.add(0);
         }
@@ -132,12 +131,10 @@ public class User {
         return vstats;
     }
 
+    //Ja es comprova que la llista no està plena (<10)
     public void afegir_partida_nova(Partida partida_nova) throws Exception {
-        if (llista_partides_no_acabades.size() == 10) throw new Exception("¡ Masses partides no acabades !");
-        else {
-            llista_partides_no_acabades.add(partida_nova);
-            incrementar_partides_totals();
-        }
+        llista_partides_no_acabades.add(partida_nova);
+        incrementar_partides_totals();
     }
 
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
@@ -150,6 +147,8 @@ public class User {
         }
         if (dificultat == "PvsP") set_puntuacio_PvsP(punts_base, win_bonus, punts_penalitzacio_rondes);
         else set_puntuacio(punts_base, win_bonus, punts_penalitzacio_rondes, dificultat);
+
+        //Crida a ranking (F, N, D, PvsP) per actualitzar-lo
 
         llista_partides_acabades.add(partida_acabada);
         llista_partides_no_acabades.remove(partida_acabada);

@@ -38,7 +38,7 @@ public class User_persona extends User {
 
     public void set_puntuacio_PvsP(int punts_base, int win_bonus, int punts_penalitzacio_rondes) {
         this.puntuacioPvsP += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
-        if (puntuacioPvsP < 0) this.puntuacioPvsP = 0;
+        if (this.puntuacioPvsP < 0) this.puntuacioPvsP = 0;
     }
 
 }
