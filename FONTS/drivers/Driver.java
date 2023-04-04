@@ -1,13 +1,14 @@
 package drivers;
 
+import main.domain.classes.enumerations.colors;
 /*import main.domain.classes.*;
-import main.domain.classes.enumerations.*;
 import main.domain.controller.Controlador_Domini;
 */
 import java.util.*;
 
 public class Driver {
     private Scanner in = null;
+
     //private Controlador_Domini domini;
     private void print_login(){
         System.out.println("\n"+"(Introdueix: '1' o 'login') - Iniciar Sessio");
@@ -70,6 +71,114 @@ public class Driver {
         }
     }
 
+    private void personalitza_partida(){
+        System.out.println("Creació Nova Partida");
+        System.out.println("Introdueix: \n" + "1 - Jugar contra la maquina\n" + "2 - Jugador vs Jugador");
+        String tipus_partida = in.nextLine();
+        switch (tipus_partida){
+            case "1":{
+                System.out.println("Introdueix: \n" + "0 - Ser CodeBreaker " + "1 - Ser CodeMaker\n");
+                int Rol_partida = in.nextInt();
+                System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
+                int dif_partida = in.nextInt();
+                try{
+                    //domini.inicialitza_partida(dif_partida,Rol_partida);
+                    jugar_partida_maquina();
+                } catch (Exception ex){
+                    System.out.println(ex.getMessage());
+                }
+                break;
+            }
+            case "2":{
+                System.out.print("Introdueix User2");
+                print_login();
+                String input = in.nextLine();
+                login(input,2);
+                System.out.println("Introdueix: \n" + "0 - User1 CodeBreaker"+ "1 - User1 CodeMaker\n");
+                int Rol_partida = in.nextInt();
+                System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
+                int dif_partida = in.nextInt();
+                try {
+                    //domini.inicialitza_partida_nova_pvp(dif_partida,Rol_partida);
+                }catch (Exception ex){
+                    System.out.println(ex.getMessage());
+                }
+                break;
+            }
+        }
+    }
+
+    private void print_colors(int num_colors){
+        if (num_colors == 4){
+            System.out.println("vermell, verd, blau, groc\n");
+        } else if (num_colors == 6) {
+            System.out.println("vermell, verd, blau, groc, magenta, cian\n");
+        } else if (num_colors == 8) {
+            System.out.println("vermell, verd, blau, groc, magenta, cian, marro, gris\n");
+        }
+    }
+
+    private colors crea_array_color(String input) throws Exception {
+        switch (input){
+            case "vermell":{
+                return colors.VERMELL;
+            }
+            case "verd":{
+                return colors.VERD;
+            }
+            case "blau":{
+                return colors.BLAU;
+            }
+            case "groc":{
+                return colors.GROC;
+            }
+            case "magenta":{
+                return colors.MAGENTA;
+            }
+            case "cian":{
+                return colors.CIAN;
+            }
+            case "marro":{
+                return colors.MARRO;
+            }
+            case "gris":{
+                return colors.GRIS;
+            }
+            case "blanc":{
+                return colors.BLANC;
+            }
+            case "negre":{
+                return colors.NEGRE;
+            }
+            default:{
+                throw new Exception("Color Incorrecte");
+            }
+        }
+    }
+
+    private void jugar_partida_maquina(){
+        int ronda_actual;
+        int num_colors = 6; // = domini.get_num_colors();
+        int num_rondas_max; // = domini.get_num_rondes();
+        boolean ajuda; // = domini.get_ajuda_partida();
+        boolean jug_1_cm = true; // domini.jugador_1_codemaker();
+        if (jug_1_cm){
+            System.out.println("\n"+"Introdueix la solucio (De mida 4)");
+            print_colors(num_colors);
+            colors[] color = new colors[4];
+            for (int i = 0; i < 4; ++i){
+                String input = in.nextLine();
+                try {
+                    color[i] = crea_array_color(input);
+                } catch (Exception ex){
+                    --i;
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+    }
+
+
     private void print_menu(){
         System.out.println("\n"+"(Introdueix: '1' o 'crear') - Crear Nova Partida");
         System.out.println("(Introdueix: '2' o 'jugar') - Jugar Partides NO Acabades");
@@ -78,32 +187,6 @@ public class Driver {
         System.out.println("(Introdueix: '5' o 'record') - Veure Records");
         System.out.println("(Introdueix: '6' o 'stats') - Veure Estadistiques del Juagador");
         System.out.println("(Introdueix: '0' o 'tancar') - Tancar Joc");
-    }
-
-    private void personalitza_partida(){
-        System.out.println("Creació Nova Partida");
-        System.out.println("Introdueix: \n" + "1 - Jugar contra la maquina\n" + "2 - Jugador vs Jugador");
-        String tipus_partida = in.nextLine();
-        switch (tipus_partida){
-            case "1":{
-                System.out.println("Introdueix: \n" + "1 - Ser CodeMaker\n" + "2 - Ser CodeBreaker");
-                String Rol_partida = in.nextLine();
-                System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
-                int dif_partida = in.nextInt();
-                break;
-            }
-            case "2":{
-                System.out.print("Introdueix User2");
-                print_login();
-                String input = in.nextLine();
-                login(input,2);
-                System.out.println("Introdueix: \n" + "1 - User1 CodeMaker\n" + "2 - User1 CodeBreaker");
-                String Rol_partida = in.nextLine();
-                System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
-                int dif_partida = in.nextInt();
-                break;
-            }
-        }
     }
 
     public static void main(String[] args) {

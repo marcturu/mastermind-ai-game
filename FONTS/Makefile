@@ -3,6 +3,7 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/controller/*.java \
                ./main/domain/classes/algorismes/*.java
 
+CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
 CLASS_OUTPUT = ../EXE/out/
 
 JUNIT_JARS = ../lib/junit-4.12.jar:../../lib/hamcrest-core-1.3.jar
@@ -15,10 +16,13 @@ all:
 	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT)
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
-driver: all
-	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT) ./drivers/Driver.java
-	jar cmvf ./drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT)
+driver:
+	javac -d $(CLASS_OUTPUT) $(CLASS_ENUM) ./drivers/Driver.java
+	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
 	java -jar $(JAR_OUTPUT)Driver.jar
+
+executa_driver:
+		java -jar $(JAR_OUTPUT)Driver.jar
 
 allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_persona TestUser_persona
 
