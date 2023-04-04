@@ -122,7 +122,7 @@ public class Controlador_Partida {
      * @param seq_ver sequencia que ha entrat el codemaker
      * Funcionalitat que gestiona una ronda. Se li passen dos sequencies que son valides i correctes i es fa el tractament d'aquestes.
      */
-    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
+    public void jugar_ronda(colors[] seq_int, colors[] seq_ver) {
 
         partida_actual.crea_nova_ronda();
         partida_actual.set_seq_int_a_ronda_actual(seq_int);

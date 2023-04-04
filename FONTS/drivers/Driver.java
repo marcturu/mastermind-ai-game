@@ -1,6 +1,6 @@
 package drivers;
 
-import main.domain.classes.enumerations.colors;
+import main.domain.classes.enumerations.*;
 /*import main.domain.classes.*;
 import main.domain.controller.Controlador_Domini;
 */
@@ -91,9 +91,11 @@ public class Driver {
                 System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
                 String dif_partida = in.nextLine();
                 while (dif_partida.length() == 0) dif_partida = in.nextLine();
+                int rol = Integer.parseInt(Rol_partida);
+                int dif = Integer.parseInt(dif_partida);
                 try{
                     //domini.inicialitza_partida(parseInt(dif_partida),parseInt(Rol_partida));
-                    jugar_partida_maquina();
+                    jugar_partida_maquina(dif);
                 } catch (Exception ex){
                     System.out.println(ex.getMessage());
                 }
@@ -110,8 +112,11 @@ public class Driver {
                 System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
                 String dif_partida = in.nextLine();
                 while (dif_partida.length() == 0) dif_partida = in.nextLine();
+                int rol = Integer.parseInt(Rol_partida);
+                int dif = Integer.parseInt(dif_partida);
                 try {
                     //domini.inicialitza_partida_nova_pvp(parseInt(dif_partida),parseInt(Rol_partida));
+                    jugar_partida_pvp(dif);
                 }catch (Exception ex){
                     System.out.println(ex.getMessage());
                 }
@@ -127,6 +132,8 @@ public class Driver {
             System.out.println("Introdueix: vermell, verd, blau, groc, magenta, cian\n");
         } else if (num_colors == 8) {
             System.out.println("Introdueix: vermell, verd, blau, groc, magenta, cian, marro, gris\n");
+        } else if (num_colors == 0){
+            System.out.println("Introdueix: blanc, negre o null");
         }
     }
 
@@ -168,27 +175,120 @@ public class Driver {
         }
     }
 
-    private void jugar_partida_maquina(){
+    private colors crea_array_ver(String input) throws Exception {
+        switch (input){
+            case "blanc":{
+                return colors.BLANC;
+            }
+            case "negre":{
+                return colors.NEGRE;
+            }
+            case "null":{
+                return colors.NULL;
+            }
+            default:{
+                throw new Exception("Color Incorrecte");
+            }
+        }
+    }
+
+    private void jugar_partida_maquina(int dif_partida){
         int ronda_actual;
-        int num_colors = 6; // = domini.get_num_colors();
-        int num_rondas_max; // = domini.get_num_rondes();
+        dificultat dif = dificultat.NORMAL ;
+        if (dif_partida == 1) dif = dificultat.FACIL;
+        if (dif_partida == 3) dif = dificultat.DIFICIL;
         boolean ajuda; // = domini.get_ajuda_partida();
         boolean jug_1_cm = true; // domini.jugador_1_codemaker();
         if (jug_1_cm){
             System.out.println("\n"+"Introdueix la solucio (De mida 4)");
-            print_colors(num_colors);
+            print_colors(dif.get_num_colors());
             colors[] color = new colors[4];
-            for (int i = 0; i < 4; ++i){
+            for (int i = 0; i < 4; ++i) {
                 try {
                     String input = in.nextLine();
                     while (input.length() == 0) input = in.nextLine();
                     color[i] = crea_array_color(input);
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     --i;
-                     System.out.println(ex.getMessage());
+                    System.out.println(ex.getMessage());
                 }
             }
-            for (int i = 0; i < 4; ++i) System.out.println("\n" + color[i].get_nom_color());
+            //domini.set_solucio(color);
+        }
+    }
+
+    private void jugar_partida_pvp(int dif_partida){
+        int ronda_actual = 1; // = domini.get_num_ronda_actual();
+        dificultat dif = dificultat.NORMAL;
+        if (dif_partida == 1) dif = dificultat.FACIL;
+        if (dif_partida == 3) dif = dificultat.DIFICIL;
+        boolean ajuda; // = domini.get_ajuda_partida();
+        if (ronda_actual != 1) {
+            System.out.println("\n" + "CodeMaker Introdueix la solucio (De mida 4)");
+            print_colors(dif.get_num_colors());
+            colors[] color = new colors[4];
+            for (int i = 0; i < 4; ++i) {
+                try {
+                    String input = in.nextLine();
+                    while (input.length() == 0) input = in.nextLine();
+                    color[i] = crea_array_color(input);
+                } catch (Exception ex) {
+                    --i;
+                    System.out.println(ex.getMessage());
+                }
+            }
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+        }
+
+        while (ronda_actual <= dif.get_num_max_rondes()){
+            colors[] seq_int = new colors[4];
+            colors[] seq_ver = new colors[4];
+            System.out.println("CodeBreaker Introdueix la Sequencia Intentada");
+            print_colors(dif.get_num_colors());
+
+            for (int i = 0; i < 4; ++i) {
+                try {
+                    String input = in.nextLine();
+                    while (input.length() == 0) input = in.nextLine();
+                    seq_int[i] = crea_array_color(input);
+                } catch (Exception ex) {
+                    --i;
+                    System.out.println(ex.getMessage());
+                }
+            }
+
+            System.out.println("CodeMaker Introdueix la Sequencia Verificacio");
+            print_colors(0);
+            for (int i = 0; i < 4; ++i) {
+                try {
+                    String input = in.nextLine();
+                    while (input.length() == 0) input = in.nextLine();
+                    seq_ver[i] = crea_array_ver(input);
+                } catch (Exception ex) {
+                    --i;
+                    System.out.println(ex.getMessage());
+                }
+            }
+            try {
+                //domini.jugar_ronda(seq_int,seq_ver);
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+
+    }
+
+    private void imprimeix_tauler(List<Ronda> partida){
+        int size = partida.size();
+        for (int i = size; i >= 0; --i){
+            System.out.print("Ronda " + i);
+            Ronda ronda = partida.get(i);
+            colors[] intentada = ronda.get_seq_intentada().get_array();
+            colors[] verficacio = ronda.get_seq_verificacio().get_array();
+            System.out.println("\nSequencia Verficacio: " + verficacio[0].get_nom_color() + " " + verficacio[1]..get_nom_color() +  " " + verficacio[2].get_nom_color() + " " + verficacio[3].get_nom_color());
+            System.out.println("  Sequencia Intentada: " + intentada[0].get_nom_color() + " " + intentada[1].get_nom_color() +  " " + intentada[2].get_nom_color() + " " + intentada[3].get_nom_color() + "\n");
+
         }
     }
 
@@ -207,7 +307,7 @@ public class Driver {
         Driver driver = new Driver();
         //driver.domini = new Controlador_Domini();
         System.out.println("Mastermind (PROP Grup 13.2)");
-        //driver.print_login();
+        driver.print_login();
         driver.in = new Scanner(System.in);
         String input = driver.in.nextLine();
         driver.login(input,1);
