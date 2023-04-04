@@ -1,6 +1,7 @@
 package main.domain.classes;
 
 import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.types.Pair;
 import java.util.*;
 import java.time.*;
 
@@ -100,6 +101,10 @@ public class Partida {
         return this.ultima_ronda_jugada;
     }
 
+    public booelan get_partida_acabada() {
+        return this.partida_acabada;
+    }
+
     public List<Ronda> get_llista_rondes(){
         return llista_rondes;
     }
@@ -107,24 +112,47 @@ public class Partida {
     public void codebreaker_guanya(){
         this.partida_acabada = true;
         if(jugador1_es_codemaker) {
-            this.jugador1.set_partida_acabada(this, false);
-            this.jugador2.set_partida_acabada(this, true);
+            this.jugador1.set_partida_acabada(this, false, dificultat.dificultat);
+            this.jugador2.set_partida_acabada(this, true, dificultat.dificultat);
         }
         else {
-            this.jugador1.set_partida_acabada(this, true);
-            this.jugador2.set_partida_acabada(this, false);
+            this.jugador1.set_partida_acabada(this, true, dificultat.dificultat);
+            this.jugador2.set_partida_acabada(this, false, dificultat.dificultat);
         }
     }
 
     public void codemaker_guanya() {
         this.partida_acabada = true;
         if(jugador1_es_codemaker) {
-            this.jugador1.set_partida_acabada(this, true);
-            this.jugador2.set_partida_acabada(this, false);
+            this.jugador1.set_partida_acabada(this, true, dificultat.dificultat);
+            this.jugador2.set_partida_acabada(this, false, dificultat.dificultat);
         }
         else {
-            this.jugador1.set_partida_acabada(this, false);
-            this.jugador2.set_partida_acabada(this, true);
+            this.jugador1.set_partida_acabada(this, false, dificultat.dificultat);
+            this.jugador2.set_partida_acabada(this, true, dificultat.dificultat);
+        }
+    }
+
+    public pair<double,double> get_puntuacionsF_users() {
+        pair<double,double> pair = new pair(jugador1.get_puntuacioF(), jugador2.get_puntuacioF());
+        return pair;
+    }
+
+    public pair<double,double> get_puntuacionsN_users() {
+        pair<double,double> pair = new pair(jugador1.get_puntuacioN(), jugador2.get_puntuacioN());
+        return pair;
+    }
+
+    public pair<double,double> get_puntuacioD_users() {
+        pair<double,double> pair = new pair(jugador1.get_puntuacioD(), jugador2.get_puntuacioD());
+        return pair;
+    }
+
+    public pair<double,double> get_puntuacioPvsP_users() throws Exception{
+        if (jugador2.get_tipus_user() == "user_maquina") throw new Exception ("El jugador2 (maquina) no té ounts PvsP");
+        else {
+            pair<double,double> pair = new pair(jugador1.get_puntuacioPvsP(), jugador2.get_puntuacioPvsP());
+            return pair;
         }
     }
 

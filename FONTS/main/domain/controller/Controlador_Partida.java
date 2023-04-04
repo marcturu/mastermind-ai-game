@@ -141,4 +141,12 @@ public class Controlador_Partida {
         } else tractament_partida_acabada();
 
     }
+
+    public boolean get_partida_acabada() {
+        return this.partida_actual.get_partida_acabada();
+    }
+
+    public dificultat get_dificultat() {
+        return this.partida_actual.dificultat();
+    }
 }

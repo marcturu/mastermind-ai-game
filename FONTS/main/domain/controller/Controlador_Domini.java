@@ -204,6 +204,7 @@ public class Controlador_Domini {
         else {
             Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
             afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
+            ++ids_partides;
         }
     }
 
@@ -305,8 +306,45 @@ public class Controlador_Domini {
         hashRecord.put("normal", Ranking);
         Ranking = new Ranking("dificil");
         hashRecord.put("dificl", Ranking);
-        Ranking = new Ranking("PvsP");
+        Ranking = new Ranking("pvp");
         hashRecord.put("PvsP", Ranking);
+    }
+
+    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
+        if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
+        else {
+            CtrlPartida.jugar_ronda();
+        }
+    }
+
+    public void actualitza_ranking() {
+        pair<double,double> pair;
+        double punts_u;
+        double punts_u2;
+        String nom_u = Usuari.get_nom();
+        String nom_u2 = Usuari2.get_nom();
+        switch ((CtrlPartida.get_dificultat()).dificultat) {
+            case "facil":
+                punts_u = this.Usuari.get_puntuacioF();
+                punts_u2 = this.Usuari2.get_puntuacioF();
+                hashRecord.get("facil").nova_partida(punts_u, nom_u); hashRecord.get("facil").nova_partida(punts_u2, nom_u2);
+                break;
+            case "normal":
+                punts_u = this.Usuari.get_puntuacioN();
+                punts_u2 = this.Usuari2.get_puntuacioN();
+                hashRecord.get("normal").nova_partida(punts_u, nom_u); hashRecord.get("normal").nova_partida(punts_u2, nom_u2);
+                break;
+            case "dificil":
+                punts_u = this.Usuari.get_puntuacioD();
+                punts_u2 = this.Usuari2.get_puntuacioD();
+                hashRecord.get("dificil").nova_partida(punts_u, nom_u); hashRecord.get("dificil").nova_partida(punts_u2, nom_u2);
+                break;
+            default:
+                punts_u = this.Usuari.get_puntuacioPvsP();
+                punts_u2 = this.Usuari2.get_puntuacioPvsP();
+                hashRecord.get("pvp").nova_partida(punts_u, nom_u); hashRecord.get("pvp").nova_partida(punts_u2, nom_u2);
+                break;
+        }
     }
 
 }
