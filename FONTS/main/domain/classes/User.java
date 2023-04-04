@@ -150,6 +150,7 @@ public class User {
 
         //Crida a ranking (F, N, D, PvsP) per actualitzar-lo
 
+
         llista_partides_acabades.add(partida_acabada);
         llista_partides_no_acabades.remove(partida_acabada);
     }

@@ -27,6 +27,8 @@ public class Controlador_Domini {
     private HashMap<String, Ranking> hashRanking;
     private static Controlador_Domini singletonObject;
 
+    private int ids_partides = 1;
+
     public Controlador_Domini() {
         this.Usuari = null;
         this.Usuari2 = null;
@@ -103,7 +105,6 @@ public class Controlador_Domini {
     /**
      * @throws java.lang.IllegalArgumentException
      */
-
     public boolean es_record(int punts, String nom_usuari) throws IllegalArgumentException {
         this.Record.check_if_record(punts, nom_usuari);
     }
@@ -187,26 +188,36 @@ public class Controlador_Domini {
         return Usuari.get_estadistiques();
     }
 
-    public void inicialitza_partida_nova(int id, User codemaker, User codebreaker, dificultat dif, boolean jugador1_es_codemaker) throws Exception {
-        if (codebreaker.get_partides_actuals() == 10 || codemaker.get_partides_actuals() == 10)
+    public void inicialitza_partida_nova(dificultat dif, boolean jugador1_es_codemaker) throws Exception {
+        if (Usuari.get_partides_actuals() == 10 || Usuari2.get_partides_actuals() == 10)
             throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
         else {
-            Partida partida_nova = start_partida_nova(id, codemaker, codebreaker, dif, jugador1_es_codemaker);
-            afegir_partida_nova_users(codemaker, codebreaker, partida_nova);
+            Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
+            afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
+            ++ids_partides;
         }
-
     }
 
-    public void afegir_partida_nova_users(User codemaker, User codebreaker, Partida partida_nova) {
-        codemaker.afegir_partida_nova(partida_nova);
-        codebreaker.afegir_partida_nova(partida_nova);
+    public void inicialitza_partida_nova_pvp(dificultat dif, boolean jugador1_es_codemaker) throws Exception {
+        if (Usuari.get_partides_actuals() == 10 || Usuari2.get_partides_actuals() == 10)
+            throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
+        else {
+            Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
+            afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
+        }
     }
 
+    public void afegir_partida_nova_users(User Usuari, User Usuari2, Partida partida_nova) {
+        Usuari.afegir_partida_nova(partida_nova);
+        Usuari2.afegir_partida_nova(partida_nova);
+    }
+
+    /*
     public void afegir_partida_nova_Usuari(Partida partida_nova) throws Exception {
         if (this.Usuari.get_partides_actuals_Usuari() == 10)
             throw new Exception("Masses partides actives per part de l'usuari");
         else this.Usuari.afegir_partida_nova(partida_nova);
-    }
+    } */
 
     public void elimina_Usuari(User usuari) {
         hashUsers.remove(usuari.get_nom(), usuari);
@@ -256,12 +267,8 @@ public class Controlador_Domini {
         CtrlPartida.jugar_ronda(seq_int, seq_ver);
     }
 
-    public void tractament_victoria() {
-        CtrlPartida.tractament_victoria();
-    }
-
-    public void tractament_partida_acabada() {
-        CtrlPartida.tractament_partida_acabada();
+    public int get_num_ronda_actual() {
+        return CtrlPartida.get_num_ronda_actual();
     }
 
     public User get_user_by_username(String username) {
