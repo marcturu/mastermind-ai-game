@@ -24,8 +24,10 @@ public class Driver {
                     case "login": {
                         System.out.println("Introdueix Username");
                         String username = in.nextLine();
+                        while (username.length() == 0) username = in.nextLine();
                         System.out.println("Introdueix Contrasenya");
                         String password = in.nextLine();
+                        while (password.length() == 0) username = in.nextLine();
                         System.out.println("Usuari No Existeix");
                         break;
                     }
@@ -34,8 +36,10 @@ public class Driver {
                         ok = true;
                         System.out.println("Introdueix el teu Nou Username");
                         String username = in.nextLine();
+                        while (username.length() == 0) username = in.nextLine();
                         System.out.println("Introdueix la teva Nova Contrasenya");
                         String password = in.nextLine();
+                        while (password.length() == 0) username = in.nextLine();
                         //domini.inicialitzaUserPersona(username,password);
                         break;
                     }
@@ -47,8 +51,10 @@ public class Driver {
                     case "login": {
                         System.out.println("Introdueix Username2");
                         String username = in.nextLine();
+                        while (username.length() == 0) username = in.nextLine();
                         System.out.println("Introdueix Contrasenya");
                         String password = in.nextLine();
+                        while (password.length() == 0) username = in.nextLine();
                         System.out.println("Usuari No Existeix");
                         break;
                     }
@@ -57,8 +63,10 @@ public class Driver {
                         ok = true;
                         System.out.println("Introdueix el teu Nou Username2");
                         String username = in.nextLine();
+                        while (username.length() == 0) username = in.nextLine();
                         System.out.println("Introdueix la teva Nova Contrasenya");
                         String password = in.nextLine();
+                        while (password.length() == 0) username = in.nextLine();
                         //domini.inicialitzaUserPersona2(username,password);
                         break;
                     }
@@ -78,11 +86,13 @@ public class Driver {
         switch (tipus_partida){
             case "1":{
                 System.out.println("Introdueix: \n" + "0 - Ser CodeBreaker " + "1 - Ser CodeMaker\n");
-                int Rol_partida = in.nextInt();
+                String Rol_partida = in.nextLine();
+                while (Rol_partida.length() == 0) Rol_partida = in.nextLine();
                 System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
-                int dif_partida = in.nextInt();
+                String dif_partida = in.nextLine();
+                while (dif_partida.length() == 0) dif_partida = in.nextLine();
                 try{
-                    //domini.inicialitza_partida(dif_partida,Rol_partida);
+                    //domini.inicialitza_partida(parseInt(dif_partida),parseInt(Rol_partida));
                     jugar_partida_maquina();
                 } catch (Exception ex){
                     System.out.println(ex.getMessage());
@@ -94,12 +104,14 @@ public class Driver {
                 print_login();
                 String input = in.nextLine();
                 login(input,2);
-                System.out.println("Introdueix: \n" + "0 - User1 CodeBreaker"+ "1 - User1 CodeMaker\n");
-                int Rol_partida = in.nextInt();
+                System.out.println("Introdueix: \n" + "0 - User1 CodeBreaker"+ "1 - User1 CodeMaker");
+                String Rol_partida = in.nextLine();
+                while (Rol_partida.length() == 0) Rol_partida = in.nextLine();
                 System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
-                int dif_partida = in.nextInt();
+                String dif_partida = in.nextLine();
+                while (dif_partida.length() == 0) dif_partida = in.nextLine();
                 try {
-                    //domini.inicialitza_partida_nova_pvp(dif_partida,Rol_partida);
+                    //domini.inicialitza_partida_nova_pvp(parseInt(dif_partida),parseInt(Rol_partida));
                 }catch (Exception ex){
                     System.out.println(ex.getMessage());
                 }
@@ -110,11 +122,11 @@ public class Driver {
 
     private void print_colors(int num_colors){
         if (num_colors == 4){
-            System.out.println("vermell, verd, blau, groc\n");
+            System.out.println("Introdueix: vermell, verd, blau, groc\n");
         } else if (num_colors == 6) {
-            System.out.println("vermell, verd, blau, groc, magenta, cian\n");
+            System.out.println("Introdueix: vermell, verd, blau, groc, magenta, cian\n");
         } else if (num_colors == 8) {
-            System.out.println("vermell, verd, blau, groc, magenta, cian, marro, gris\n");
+            System.out.println("Introdueix: vermell, verd, blau, groc, magenta, cian, marro, gris\n");
         }
     }
 
@@ -167,14 +179,16 @@ public class Driver {
             print_colors(num_colors);
             colors[] color = new colors[4];
             for (int i = 0; i < 4; ++i){
-                String input = in.nextLine();
                 try {
+                    String input = in.nextLine();
+                    while (input.length() == 0) input = in.nextLine();
                     color[i] = crea_array_color(input);
                 } catch (Exception ex){
                     --i;
-                    System.out.println(ex.getMessage());
+                     System.out.println(ex.getMessage());
                 }
             }
+            for (int i = 0; i < 4; ++i) System.out.println("\n" + color[i].get_nom_color());
         }
     }
 
@@ -193,7 +207,7 @@ public class Driver {
         Driver driver = new Driver();
         //driver.domini = new Controlador_Domini();
         System.out.println("Mastermind (PROP Grup 13.2)");
-        driver.print_login();
+        //driver.print_login();
         driver.in = new Scanner(System.in);
         String input = driver.in.nextLine();
         driver.login(input,1);
