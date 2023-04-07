@@ -116,7 +116,7 @@ public class Controlador_Domini {
         return this.Record.get_nom_record();
     }
 
-    public String get_nom_usuari() {
+    public String get_nom_usuari_del_record() {
         return this.Record.get_nom_usuari();
     }
 
@@ -157,7 +157,7 @@ public class Controlador_Domini {
     }
 
     public boolean get_password_Usuari1() {
-        return this.Usuari1.get_password();
+        return this.Usuari.get_password();
     }
 
     public boolean validate_password_Usuari1_by_user_name(String user_name) {
