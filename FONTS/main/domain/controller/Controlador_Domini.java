@@ -19,6 +19,7 @@ import java.time.*;
 public class Controlador_Domini {
     private User Usuari;
     private User Usuari2;
+    private User UsuariProves;
     private Record Record;
     private Ranking Ranking;
     private Controlador_Partida CtrlPartida;
@@ -32,6 +33,7 @@ public class Controlador_Domini {
     public Controlador_Domini() {
         this.Usuari = null;
         this.Usuari2 = null;
+        this.UsuariProves = null;
         this.Record = null;
         this.Ranking = null;
         this.CtrlPartida = new Controlador_Partida();
@@ -73,7 +75,7 @@ public class Controlador_Domini {
     public void inicialitza_UserMaquina_genetic(String nom) { //quan es treballi amb log in es passarà també la contrasenya.
         List<Partida> llista_partides_no_acabades;
         List<Partida> llista_partides_acabades;
-        Usuari2 = new User_maquina(hashUsers.size() + 1, nom, Type_user.user_persona, true, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        Usuari2 = new User_maquina(hashUsers.size() + 1, nom, Type_user.user_maquina, true, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
         hashUsers.putIfAbsent(nom, Usuari2);
     }
 
@@ -82,8 +84,28 @@ public class Controlador_Domini {
     public void inicialitza_UserMaquina_fiveguess(String nom) { //quan es treballi amb log in es passarà també la contrasenya.
         List<Partida> llista_partides_no_acabades;
         List<Partida> llista_partides_acabades;
-        Usuari2 = new User_maquina(hashUsers.size() + 1, nom, Type_user.user_persona, false, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        Usuari2 = new User_maquina(hashUsers.size() + 1, nom, Type_user.user_maquina, false, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
         hashUsers.putIfAbasent(nom, Usuari2);
+    }
+
+    /**
+     * @throws User1NoPotSerMaquina
+     *Comprova si l'usuari1 és de tipus muina. Si ho és, llença l'excepció
+     */
+    public void set_jugador1(String nom_user) throws User1NoPotSerMaquina {
+        if ((hashUsers.get(nom_user)).get_tipus_user_by_nom_user(nom_user) == Type_user.tipus_maquina) {
+            throw new Exception ("L'usuari1 no pot ser de tipus màquina");
+        }
+        else if (validate_password_Usuari1_by_user_name(nom_user)) Usuari = hashUsers.get(nom_user)
+    }
+
+    /**
+     * @throws PasswordUsuari2Incorrecte
+     *Comprova si el password del Usuari2 es correspon amb el del nou usuari entrat. Si no, salta l'excepció
+     */
+    public void set_jugador2(String nom_user) throws PasswordUsuari2Incorrecte {
+        if (get_tipus_user_by_nom_user(nom_user) == tipus_persona && !validate_password_Usuari2_by_user_name(nom_user)) throw new Exception ("Usuari2 no té el mateix password");
+        else Usuari2 = hashUsers.get(nom_user);
     }
 
     public void creacioRecord(String nom_record) {
@@ -109,7 +131,7 @@ public class Controlador_Domini {
         this.Record.check_if_record(punts, nom_usuari);
     }
 
-    public int get_id() {
+    public int get_id_Usuari1() {
         return this.Usuari.get_id();
     }
 
@@ -121,72 +143,107 @@ public class Controlador_Domini {
         this.Usuari.set_nom(nom);
     }
 
-    public Type_user get_tipus_user() {
+    public Type_user get_tipus_user_Usuari1() {
         return this.Usuari.get_tipus_user();
     }
 
-    public int get_rondes_totals_Usuari(String nom_user) {
+    public Type_user get_tipus_user_Usuari2() {
+        return this.Usuari2.get_tipus_user();
+    }
+
+    public Type_user get_tipus_user_by_nom_user(String nom_user) {
+        UsuariProves = get_user_by_username(nom_user);
+        return Usuari.get_tipus_user();
+    }
+
+    public boolean get_password_Usuari1() {
+        return this.Usuari1.get_password();
+    }
+
+    public boolean validate_password_Usuari1_by_user_name(String user_name) {
+        UsuariProves = hashUsers.get(user_name);
+        return Usuari.get_password() == UsuariProves.get_password();
+    }
+
+    public boolean validate_password_Usuari2_by_user_name(String user_name) {
+        UsuariProves = hashUsers.get(user_name);
+        return Usuari2.get_password() == UsuariProves.get_password();
+    }
+
+
+    public int get_rondes_totals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_rondes_totals();
     }
 
-    public void incrementar_rondes_totals_Usuari() {
+    public void incrementar_rondes_totals_Usuari1() {
         this.Usuari.incrementar_rondes_totals();
     }
 
-    public int get_partides_totals_Usuari(String nom_user) {
+    public int get_partides_totals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_partides_totals();
     }
 
-    public void incrementar_partides_totals_Usuari() {
+    public void incrementar_partides_totals_Usuari1() {
         this.Usuari.incrementar_partides_totals();
     }
+
+    public void incrementar_partides_totals_Usuari2() {
+        this.Usuari2.incrementar_partides_totals();
+    }
+
 
     public double get_puntuacioF_Usuari(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_puntuacioF();
     }
 
-    public double get_puntuacioN_Usuari(String nom_user) {
+    public double get_puntuacioN_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_puntuacioN();
     }
 
-    public double get_puntuacioD_Usuari(String nom_user) {
+    public double get_puntuacioD_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_puntuacioD();
     }
 
-    public double get_puntuacioPvsP_Usuari(String nom_user) {
+    /**
+     * @throws MaquinaNoTePuntsPvsP
+     *Demana els punts PvsP del Usuari2, es llença MaquinaNoTePuntsPvsP si l'Uusari2 és de tipus user_maquina
+     */
+    public double get_puntuacioPvsP_by_nom_user(String nom_user) throws MaquinaNoTePuntsPvsP{
         Usuari = get_user_by_username(nom_user);
-        return Usuari.get_puntuacioPvsP();
+        if (get_tipus_user_Usuari1() == Type_user.user_maquina) throw new Exception ("El user maquina no té punts PvsP")
+        else return Usuari.get_puntuacioPvsP();
     }
 
-    public void set_puntuacio_Usuari(String nom_user) {
+    public void set_puntuacio_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         Usuari.set_puntuacio();
     }
 
-    public int get_partides_guanyades_Usuari(String nom_user) {
+    public int get_partides_guanyades_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_partides_guanyades();
     }
 
-    public int get_partides_acabades_Usuari(String nom_user) {
+    public int get_partides_acabades_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_partides_acabades();
     }
 
-    public int get_partides_actuals_Usuari(String nom_user) {
+    public int get_partides_actuals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_partides_actuals();
     }
 
-    public vector<int> get_estadistiques_Usuari(String nom_user) {
+    public vector<int> get_estadistiques_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_estadistiques();
     }
+
 
     public void inicialitza_partida_nova(dificultat dif, boolean jugador1_es_codemaker) throws Exception {
         if (Usuari.get_partides_actuals() == 10 || Usuari2.get_partides_actuals() == 10)
@@ -220,7 +277,7 @@ public class Controlador_Domini {
         else this.Usuari.afegir_partida_nova(partida_nova);
     } */
 
-    public void elimina_Usuari(User usuari) {
+    public void elimina_Usuari_hashUsers(User usuari) {
         hashUsers.remove(usuari.get_nom(), usuari);
     }
 
@@ -264,10 +321,6 @@ public class Controlador_Domini {
         return CtrlPartida.get_codebreaker_partida-actual();
     }
 
-    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
-        CtrlPartida.jugar_ronda(seq_int, seq_ver);
-    }
-
     public int get_num_ronda_actual() {
         return CtrlPartida.get_num_ronda_actual();
     }
@@ -276,21 +329,21 @@ public class Controlador_Domini {
         return hashUsers.get(username);
     }
 
-    public Record get_record_by_name(String nom_record) {
+    public Record get_record_by_nom_record(String nom_record) {
         return hashRecord.get(nom_record);
     }
 
-    public int get_punts_record(String nom_record) {
+    public int get_punts_record_by_nom_record(String nom_record) {
         Record = get_record_by_name(nom_record);
         return Record.get_punts();
     }
 
-    public String get_nom_usuari_record(String nom_record) {
+    public String get_nom_usuari_by_nom_record(String nom_record) {
         Record = get_record_by_name(nom_record);
         return Record.get_nom_usuari()
     }
 
-    public Ranking get_ranking_by_name(String ranking_name) {
+    public Ranking get_ranking_by_ranking_name(String ranking_name) {
         return hashRanking.get(ranking_name);
     }
 
@@ -310,15 +363,15 @@ public class Controlador_Domini {
         hashRecord.put("PvsP", Ranking);
     }
 
-    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
+    public void jugar_ronda(colors[] seq_int, colors[] seq_ver) {
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
         else {
-            CtrlPartida.jugar_ronda();
+            CtrlPartida.jugar_ronda(seq_int, seq_ver);
         }
     }
 
     public void actualitza_ranking() {
-        pair<double,double> pair;
+        pair<double, double> pair;
         double punts_u;
         double punts_u2;
         String nom_u = Usuari.get_nom();
@@ -327,24 +380,36 @@ public class Controlador_Domini {
             case "facil":
                 punts_u = this.Usuari.get_puntuacioF();
                 punts_u2 = this.Usuari2.get_puntuacioF();
-                hashRecord.get("facil").nova_partida(punts_u, nom_u); hashRecord.get("facil").nova_partida(punts_u2, nom_u2);
+                (hashRanking.get("facil")).nova_partida_ranking(punts_u, nom_u);
+                (hashRanking.get("facil")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
             case "normal":
                 punts_u = this.Usuari.get_puntuacioN();
                 punts_u2 = this.Usuari2.get_puntuacioN();
-                hashRecord.get("normal").nova_partida(punts_u, nom_u); hashRecord.get("normal").nova_partida(punts_u2, nom_u2);
+                (hashRanking.get("normal")).nova_partida_ranking(punts_u, nom_u);
+                (hashRanking.get("normal")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
             case "dificil":
                 punts_u = this.Usuari.get_puntuacioD();
                 punts_u2 = this.Usuari2.get_puntuacioD();
-                hashRecord.get("dificil").nova_partida(punts_u, nom_u); hashRecord.get("dificil").nova_partida(punts_u2, nom_u2);
+                (hashRanking.get("dificil")).nova_partida_ranking(punts_u, nom_u);
+                (hashRanking.get("dificil")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
             default:
                 punts_u = this.Usuari.get_puntuacioPvsP();
                 punts_u2 = this.Usuari2.get_puntuacioPvsP();
-                hashRecord.get("pvp").nova_partida(punts_u, nom_u); hashRecord.get("pvp").nova_partida(punts_u2, nom_u2);
+                (hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
+                (hashRanking.get("pvp")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
         }
+    }
+
+    public void jugar_partides_antigues(int id_partida_activa) {
+        //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
+    }
+
+    public List<int> get_ids_partides_actives_Usuari1() {
+        return Usuari.get_ids_partides_actives();
     }
 
 }

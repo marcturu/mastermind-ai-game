@@ -23,7 +23,7 @@ public class Ranking {
         return rank;
     }
 
-    public void nova_partida(double punts_usuari, String username_jugador) {
+    public void nova_partida_ranking(double punts_usuari, String username_jugador) {
         if(rank.is_empty()) {
             rank.add(new Pair<>(new Pair<>(punts_usuari, username_jugador), LocalDate.now()));
             return;

@@ -106,12 +106,20 @@ public class User {
         return this.partides_guanyades;
     }
 
-    public int get_partides_acabades() {
+    public int get_num_partides_acabades() {
         return llista_partides_acabades.size();
     }
 
-    public int get_partides_actuals() {
+    public int get_num_partides_actuals() {
         return llista_partides_no_acabades.size();
+    }
+
+    public List<int> get_ids_partides_actives() {
+        ArrayList<Integer> llista = new ArrayList<Integer>()
+        for (int i = 0; i < llista_partides_no_acabades.size(); i++) {
+            llista.add((llista_partides_no_acabades.get(0)).get_id());
+        }
+        return llista;
     }
 
     public Vector<int> get_estadistiques() {

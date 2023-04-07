@@ -32,6 +32,10 @@ public class User_persona extends User {
         return this.password == password;
     }
 
+    public String get_password() {
+        return this.password;
+    }
+
     public double get_puntuacioPvsP() {
         return this.puntuacioPvsP;
     }
