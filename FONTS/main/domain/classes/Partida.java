@@ -61,10 +61,10 @@ public class Partida {
         return this.ajuda;
     }
 
-    public void set_ajuda() throws exception{
-        if(this.ajuda == true) this.ajuda = !this.ajudaajuda;
+    public void set_ajuda() throws AjudaJaDemanada{
+        if(this.ajuda == true) this.ajuda = !this.ajuda;
         else {
-            throw new Exception("Ja has demanat ajuda un cop");
+            throw new AjudaJaDemanda("Ja has demanat ajuda un cop");
         }
     }
 
@@ -154,6 +154,14 @@ public class Partida {
             pair<double,double> pair = new pair(jugador1.get_puntuacioPvsP(), jugador2.get_puntuacioPvsP());
             return pair;
         }
+    }
+
+    public void set_seq_int_a_ronda_actual(colors[] seq_int) {
+        llista_rondes.get(ultima_ronda_jugada).set_intentada(seq_int, num_colors);
+    }
+
+    public void set_seq_ver_a_ronda_actual(colors[] seq_ver) {
+        llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver, num_colors);
     }
 
     /**

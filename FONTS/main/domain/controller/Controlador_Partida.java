@@ -14,11 +14,15 @@ import java.time.*;
  */
 
 public class Controlador_Partida {
+    private HashMap<int, Partida> hashPartida;
     private Partida partida_actual;
 
-
+    /**
+     * Creadora de la classe controlador Partida
+     */
     public Controlador_Partida (){
         this.partida_actual = null;
+        this.hashPartida = new HashMap<int, Partida>();
     }
 
 
@@ -51,6 +55,21 @@ public class Controlador_Partida {
      */
     public void start_partida_nova(int id, User codemaker, User codebreaker, dificultat dif, boolean jugador1_es_codemaker){
         this.partida_actual = new Partida(id, codemaker, codebreaker, dif, jugador1_es_codemaker);//ha de incrementar el numero de partides de l'usuari
+        hashPartida.put(id, partida_actual);
+    }
+
+    /**
+     * @pre Previament s'ha guardat la partida o actualitzat el seu valor dins de la llista.
+     * S'assumeix que no hi ha cap partida jugant-se quan es carrega una nova
+     * @post Es passa a jugar la partida que s'ha carregat
+     * @param id_partida_nova
+     * @throws NoExisteixPartida
+     */
+    public void carrega_partida(int id_partida_nova) throws NoExisteixPartida{
+        partida_actual = hashPartida.get(id_partida_nova);
+        if(partida_actual == null) {
+            throw new NoExisteixPartida("La partida que vols carregar no existeix");
+        }
     }
 
     /**
@@ -142,10 +161,17 @@ public class Controlador_Partida {
 
     }
 
+    /**
+     * @return si l'ha partida s'ha acabat o no
+     */
     public boolean get_partida_acabada() {
         return this.partida_actual.get_partida_acabada();
     }
 
+    /**
+     *
+     * @return la dificultat de la partida actual
+     */
     public dificultat get_dificultat() {
         return this.partida_actual.dificultat();
     }

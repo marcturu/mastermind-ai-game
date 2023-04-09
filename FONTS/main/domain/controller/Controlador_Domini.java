@@ -39,7 +39,7 @@ public class Controlador_Domini {
         this.CtrlPartida = new Controlador_Partida();
         this.hashUsers = new HashMap<String, User>();
         this.hashRecord = new HashMap<String, Record>();
-        this.hashRanking = new HashMap<String,Ranking>()
+        this.hashRanking = new HashMap<String,Ranking>();
     }
 
     public static Controlador_Domini get_CtrlDomini {
@@ -406,6 +406,7 @@ public class Controlador_Domini {
 
     public void jugar_partides_antigues(int id_partida_activa) {
         //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
+        CtrlPartida.carregar_partida(id_partida_activa);
     }
 
     public List<int> get_ids_partides_actives_Usuari1() {
