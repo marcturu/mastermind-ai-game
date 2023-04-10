@@ -292,13 +292,52 @@ public class Driver {
         }
     }
 
+    private boolean id_ok(List<int> ids, int id){
+        int idd = Integer.parseInt(id);
+        for (int i = 0; i < ids.size(); ++i){
+            if (ids[i] == id) return true;
+        }
+        return false;
+    }
+
     private void jugar_partides_antigues(){
         List<int> ids_partida; // = domini.get_ids_partides_actives_Usuari1();
-        System.out.println("Aquestes")
+        System.out.println("IDs de les partides no acabades:")
         for (int i = 0; i < ids_partida.size(); ++i){
             System.out.println(ids_partida[i]);
         }
+        System.out.println("Selecciona la partidas que vols continuar:");
+        String id = in.nextLine();
+        while (id.lenght() == 0) id = in.nextLine();
+        int idd = Integer.parseInt(id);
+        while (!id_ok(ids_partida,idd)){
+            id = in.nextLine();
+            while (id.lenght() == 0) id = in.nextLine();
+        }
+        domini.jugar_partides_antigues(idd);
+    }
 
+    private void veure_partides_antigues(){
+        //List<int> ids_partides_acabdes = domini.get_ids_partides_acabades_Usuari1
+        System.out.println("IDs de les partides acabades:")
+        for (int i = 0; i < ids_partida.size(); ++i){
+            System.out.println(ids_partida[i]);
+        }
+        System.out.println("Selecciona la partidas que vols veure:");
+        String id = in.nextLine();
+        while (id.lenght() == 0) id = in.nextLine();
+        int idd = Integer.parseInt(id);
+        while (!id_ok(ids_partida,idd)){
+            id = in.nextLine();
+            while (id.lenght() == 0) id = in.nextLine();
+        }
+        Partida part = dominin.get_partida(idd);
+        System.out.println("Partida amb id: " + part.indentificador);
+        for (int i = part.num_rondes_max; i > 0; --i){
+            System.out.println("Ronda: " + i);
+            System.out.print("\n Sequencia de Verficacio: " + part.imprmeix_sequencia(type_seq.verificacio));
+            System.out.print("\n Sequencia de Intentada : " + part.imprmeix_sequencia(type_seq.intentada));
+        }
 
     }
 
@@ -337,10 +376,12 @@ public class Driver {
                 }
                 case "3":
                 case "antigues":{
+                    driver.veure_partides_antigues();
                     break;
                 }
                 case "4":
                 case "ranking":{
+                    driver.veure_ranking()
                     break;
                 }
                 case "5":
