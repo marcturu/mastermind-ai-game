@@ -1,10 +1,11 @@
 package main.domain.classes;
 
-import java.util.*;
-import main.domain.classes.Partida;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 //import main.domain.classes.Ranking;
 import main.domain.classes.enumerations.Type_user;
-import main.domain.classes.enumerations.dificultats;
 
 
 public class User {
@@ -19,6 +20,7 @@ public class User {
     protected int partides_guanyades;
     protected List<Partida> llista_partides_no_acabades;
     protected List<Partida> llista_partides_acabades;
+
 
     // INICIALITZADOR CLASSE USER GLOBAL
     public User(int id, String nom, Type_user tipus_user) {
@@ -122,19 +124,28 @@ public class User {
         return llista;
     }
 
+    public List<Integer> get_ids_partides_acabades() {
+        ArrayList<Integer> llista = new ArrayList<Integer>();
+        for (int i = 0; i < llista_partides_acabades.size(); i++) {
+            llista.add((llista_partides_acabades.get(i)).get_id());
+        }
+        return llista;
+    }
+
     public Vector<Double> get_estadistiques() {
-        Vector<Double> vstats;
+        Vector<Double> vstats = new Vector<Double>();
         vstats.add(get_puntuacioF());
         vstats.add(get_puntuacioN());
         vstats.add(get_puntuacioD());
         if (this.tipus_user == tipus_user.user_persona) {
             vstats.add(get_puntuacioPvsP());    
         }else vstats.add(0.0);
-        vstats.add(get_partides_actuals());
-        vstats.add(get_partides_acabades());
-        vstats.add(get_partides_totals());
-        vstats.add(get_partides_guanyades());
-        vstats.add(get_rondes_totals());
+
+        vstats.add((double)get_num_partides_actuals());
+        vstats.add((double)get_num_partides_acabades());
+        vstats.add((double)get_partides_totals());
+        vstats.add((double)get_partides_guanyades());
+        vstats.add((double)get_rondes_totals());
         return vstats;
     }
 
@@ -147,7 +158,7 @@ public class User {
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
         int punts_base = 50;
         int win_bonus = 1;
-        int punts_penalitzacio_rondes = partida_acabada.get_ultima_ronda_jugada();
+        int punts_penalitzacio_rondes = partida_acabada.get_ultima_ronda();
         if (guanyat) {
             partides_guanyades++;
             int win_bonus = 5;
@@ -162,6 +173,7 @@ public class User {
         llista_partides_no_acabades.remove(partida_acabada);
     }
 
+    /*
     //USER_PERSONA
     public void set_password(String password) {}
 
@@ -173,6 +185,6 @@ public class User {
 
     //USER_MAQUINA
     public boolean is_genetic() {}
-
+    */
 
 }

@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import main.domain.classes.User;
 import main.domain.classes.User_persona;
@@ -40,8 +40,8 @@ public class TestUser_persona {
         assertEquals("Mateixes partides totals", up.get_partides_totals(), 0);
         assertEquals("Mateixa puntuacio", up.get_puntuacio(), 0);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", llista_partides_no_acabades.size(), 0);
-        assertEquals("Mateixa llista partides  acabades", llista_partides_acabades.size(), 0);
+        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_actuals(), 0);
+        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_acabades(), 0);
     }
 
     /**
@@ -61,8 +61,8 @@ public class TestUser_persona {
         assertEquals("Mateixes partides totals", up.get_partides_totals(), 0);
         assertEquals("Mateixa puntuacio", up.get_puntuacio(), 0);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", llista_partides_no_acabades.size(), 0);
-        assertEquals("Mateixa llista partides  acabades", llista_partides_acabades.size(), 0);
+        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_actuals(), 0);
+        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_acabades(), 0);
     }
 
     /**

@@ -1,6 +1,7 @@
 package main.domain.classes;
 
 import main.domain.classes.enumerations.type_seq;
+import main.domain.classes.exceptions.MyException;
 import main.domain.classes.enumerations.colors;
 
 
@@ -23,13 +24,13 @@ public class Sequencia {
     }
 
     //setters
-    public void set_array(colors[] array, int num_colors) throws Exception{
+    public void set_array(colors[] array, int num_colors) throws MyException{
         int size = array.length;
-        if (size != 4) throw new Exception("El tamany de la sequencia no es 4");
+        if (size != 4) throw new MyException("El tamany de la sequencia no es 4");
         else {
             for (int i = 0; i < size; ++i) {
                 int aux = array[i].get_id_color();
-                if (aux < 1 && aux > num_colors && array[i] == null) throw new Exception("Sequencia incorrecta");
+                if (aux < 1 && aux > num_colors && array[i] == null) throw new MyException("Sequencia incorrecta");
                 else {
                     this.array[i] = array[i];
                 }
@@ -37,9 +38,9 @@ public class Sequencia {
         }
     }
 
-    public void set_array_verificacio(colors[] array, colors[] solucio, colors[] intentada) throws Exception{
-        if (array.length != 4) throw new Exception("El tamany de la sequencia no es 4");
-        if (!valida_sequencia(array,solucio,intentada)) throw new Exception("Sequencia de Verficacio incorrecte");
+    public void set_array_verificacio(colors[] array, colors[] solucio, colors[] intentada) throws MyException{
+        if (array.length != 4) throw new MyException("El tamany de la sequencia no es 4");
+        if (!valida_sequencia(array,solucio,intentada)) throw new MyException("Sequencia de Verficacio incorrecte");
         else{
             this.array = array;
         }
