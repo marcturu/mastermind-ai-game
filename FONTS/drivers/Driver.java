@@ -292,6 +292,16 @@ public class Driver {
         }
     }
 
+    private void jugar_partides_antigues(){
+        List<int> ids_partida; // = domini.get_ids_partides_actives_Usuari1();
+        System.out.println("Aquestes")
+        for (int i = 0; i < ids_partida.size(); ++i){
+            System.out.println(ids_partida[i]);
+        }
+
+
+    }
+
 
     private void print_menu(){
         System.out.println("\n"+"(Introdueix: '1' o 'crear') - Crear Nova Partida");
@@ -322,6 +332,7 @@ public class Driver {
                 }
                 case "2":
                 case "jugar":{
+                    driver.jugar_partides_antigues();
                     break;
                 }
                 case "3":
