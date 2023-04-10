@@ -1,6 +1,9 @@
 package main.domain.classes;
 
 import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.exceptions.MyException;
+import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.colors;
 import main.domain.classes.types.Pair;
 import java.util.*;
 import java.time.*;
@@ -19,9 +22,9 @@ public class Partida {
     private boolean partida_acabada;
     private Instant temps_inici;
     private List<Ronda> llista_rondes;
-    private Sequencia sequencia_solucio;
+    private colors[] sequencia_solucio;
 
-    public Partida(int id, User cm, User cb, dificultat dif, boolean jugador1_es_codemaker) {
+    public Partida(int id, User cm, User cb, dificultats dif, boolean jugador1_es_codemaker) {
         this.indentificador = id;
 
         this.ultima_ronda_jugada = 0;
@@ -61,31 +64,31 @@ public class Partida {
         return this.ajuda;
     }
 
-    public void set_ajuda() throws AjudaJaDemanada{
+    public void set_ajuda() throws MyException{
         if(this.ajuda == true) this.ajuda = !this.ajuda;
         else {
-            throw new AjudaJaDemanda("Ja has demanat ajuda un cop");
+            throw new MyException("Ja has demanat ajuda un cop");
         }
     }
 
     //ESTO ES INCORRECTO, DEBERIA ESTAR EN LA CREADORA
-    public void set_jugador1_es_codemaker(bool es_codemaker) {
+    public void set_jugador1_es_codemaker(boolean es_codemaker) {
         this.jugador1_es_codemaker = es_codemaker;
     }
 
-    public dificultat dificultat(){
+    public dificultats dificultat(){
         return dificultat;
     }
 
     public boolean temps_excedit(){
-        temps_usat = (int) this.get_temps_usat().toSeconds();
+        int temps_usat = (int) this.get_temps_usat().toSeconds();
         if(temps_usat > temps_max) return true;
         else return false;
     }
 
     public Duration get_temps_usat(){
-        ara = Instant.now();
-        temps_usat = Duration.between(temps_inici, ara);
+        Instant ara = Instant.now();
+        Duration temps_usat = Duration.between(temps_inici, ara);
         return temps_usat;
     }
 
@@ -101,7 +104,7 @@ public class Partida {
         return this.ultima_ronda_jugada;
     }
 
-    public booelan get_partida_acabada() {
+    public boolean get_partida_acabada() {
         return this.partida_acabada;
     }
 
@@ -112,47 +115,47 @@ public class Partida {
     public void codebreaker_guanya(){
         this.partida_acabada = true;
         if(jugador1_es_codemaker) {
-            this.jugador1.set_partida_acabada(this, false, dificultat.dificultat);
-            this.jugador2.set_partida_acabada(this, true, dificultat.dificultat);
+            this.jugador1.set_partida_acabada(this, false, dificultat.get_dificultat());
+            this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
         }
         else {
-            this.jugador1.set_partida_acabada(this, true, dificultat.dificultat);
-            this.jugador2.set_partida_acabada(this, false, dificultat.dificultat);
+            this.jugador1.set_partida_acabada(this, true, dificultat.get_dificultat());
+            this.jugador2.set_partida_acabada(this, false, dificultat.get_dificultat());
         }
     }
 
     public void codemaker_guanya() {
         this.partida_acabada = true;
         if(jugador1_es_codemaker) {
-            this.jugador1.set_partida_acabada(this, true, dificultat.dificultat);
-            this.jugador2.set_partida_acabada(this, false, dificultat.dificultat);
+            this.jugador1.set_partida_acabada(this, true, dificultat.get_dificultat());
+            this.jugador2.set_partida_acabada(this, false, dificultat.get_dificultat());
         }
         else {
-            this.jugador1.set_partida_acabada(this, false, dificultat.dificultat);
-            this.jugador2.set_partida_acabada(this, true, dificultat.dificultat);
+            this.jugador1.set_partida_acabada(this, false, dificultat.get_dificultat());
+            this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
         }
     }
 
-    public pair<double,double> get_puntuacionsF_users() {
-        pair<double,double> pair = new pair(jugador1.get_puntuacioF(), jugador2.get_puntuacioF());
-        return pair;
+    public Pair<Double,Double> get_puntuacionsF_users() {
+        Pair<Double,Double> Pair = new Pair<>(jugador1.get_puntuacioF(), jugador2.get_puntuacioF());
+        return Pair;
     }
 
-    public pair<double,double> get_puntuacionsN_users() {
-        pair<double,double> pair = new pair(jugador1.get_puntuacioN(), jugador2.get_puntuacioN());
-        return pair;
+    public Pair<Double,Double> get_puntuacionsN_users() {
+        Pair<Double,Double> Pair = new Pair<>(jugador1.get_puntuacioN(), jugador2.get_puntuacioN());
+        return Pair;
     }
 
-    public pair<double,double> get_puntuacioD_users() {
-        pair<double,double> pair = new pair(jugador1.get_puntuacioD(), jugador2.get_puntuacioD());
-        return pair;
+    public Pair<Double,Double> get_puntuacioD_users() {
+        Pair<Double,Double> Pair = new Pair<>(jugador1.get_puntuacioD(), jugador2.get_puntuacioD());
+        return Pair;
     }
 
-    public pair<double,double> get_puntuacioPvsP_users() throws Exception{
-        if (jugador2.get_tipus_user() == "user_maquina") throw new Exception ("El jugador2 (maquina) no té ounts PvsP");
+    public Pair<Double,Double> get_puntuacioPvsP_users() throws Exception{
+        if (jugador2.get_tipus_user() == Type_user.user_maquina) throw new Exception ("El jugador2 (maquina) no té ounts PvsP");
         else {
-            pair<double,double> pair = new pair(jugador1.get_puntuacioPvsP(), jugador2.get_puntuacioPvsP());
-            return pair;
+            Pair<Double,Double> Pair = new Pair<>(jugador1.get_puntuacioPvsP(), jugador2.get_puntuacioPvsP());
+            return Pair;
         }
     }
 
@@ -161,7 +164,7 @@ public class Partida {
     }
 
     public void set_seq_ver_a_ronda_actual(colors[] seq_ver) {
-        llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver, num_colors);
+        llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver, sequencia_solucio);
     }
 
     /**
@@ -172,12 +175,12 @@ public class Partida {
         this.ultima_ronda_jugada = ronda;
     }
 
-    public void set_sequencia_solucio(solucio){
+    public void set_sequencia_solucio(colors[] solucio){
         this.sequencia_solucio = solucio;
     }
 
     public void crea_nova_ronda(){
-        Ronda ronda = new Ronda(ultima_ronda_jugada+1, identificador);
+        Ronda ronda = new Ronda(this.indentificador, ultima_ronda_jugada+1);
         ++ultima_ronda_jugada;
         this.llista_rondes.add(ronda);
     }

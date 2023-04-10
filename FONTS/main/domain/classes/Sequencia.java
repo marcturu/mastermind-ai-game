@@ -3,8 +3,6 @@ package main.domain.classes;
 import main.domain.classes.enumerations.type_seq;
 import main.domain.classes.enumerations.colors;
 
-import java.util.*;
-import java.io.*;
 
 public class Sequencia {
     private colors[] array;

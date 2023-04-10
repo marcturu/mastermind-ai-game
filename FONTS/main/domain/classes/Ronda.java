@@ -1,11 +1,11 @@
 package main.domain.classes;
 
-import main.domain.classes.Sequencia;
+//import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.type_seq;
 import main.domain.classes.enumerations.colors;
 
-import java.util.*;
-import java.io.*;
+//import java.util.*;
+//import java.io.*;
 
 
 public class Ronda  {

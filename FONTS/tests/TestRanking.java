@@ -1,7 +1,7 @@
-package test;
+package tests;
 
 import main.domain.classes.Ranking;
-import javafx.util.Pair;
+import main.domain.classes.types.Pair;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import java.util.*;
  * @author ferran solanes (ferran.solanes@estudiantat.upc.edu)
  */
 
-public class RankingTest {
+public class TestRanking {
 
     private Ranking ranking;
 
@@ -37,9 +37,9 @@ public class RankingTest {
     public void test_nova_partida_amb_ranking_buit() {
         double punts = 5.5;
         String username = "user1";
-        ranking.nova_partida(punts, username);
+        ranking.nova_partida_ranking(punts, username);
         List<Pair<Pair<Double, String>, LocalDate>> expected = new ArrayList<>();
-        expected.add(new Pair<>(punts, username), LocalDate.now());
+        expected.add(new Pair<>(new Pair<>(punts, username), LocalDate.now()));
         assertEquals(expected, ranking.get_rank());
     }
 
@@ -59,13 +59,13 @@ public class RankingTest {
         String username1 = "user1";
         String username2 = "user2";
 
-        ranking.nova_partida(punts1, username1);
-        ranking.nova_partida(punts2, username2);
+        ranking.nova_partida_ranking(punts1, username1);
+        ranking.nova_partida_ranking(punts2, username2);
 
         List<Pair<Pair<Double, String>, LocalDate>> expected = new ArrayList<>();
 
-        expected.add(new Pair<>(punts2, username2), LocalDate.now());
-        expected.add(new Pair<>(punts1, username1), LocalDate.now());
+        expected.add(new Pair<>(new Pair<>(punts2, username2), LocalDate.now()));
+        expected.add(new Pair<>(new Pair<>(punts1, username1), LocalDate.now()));
         assertEquals(expected, ranking.get_rank());
     }
 }

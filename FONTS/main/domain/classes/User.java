@@ -4,7 +4,7 @@ import java.util.*;
 import main.domain.classes.Partida;
 //import main.domain.classes.Ranking;
 import main.domain.classes.enumerations.Type_user;
-import main.domain.classes.enumerations.dificultat;
+import main.domain.classes.enumerations.dificultats;
 
 
 public class User {
@@ -31,8 +31,8 @@ public class User {
         this.puntuacioN = 0.0;
         this.puntuacioD = 0.0;
         this.partides_guanyades = 0;
-        this.llista_partides_no_acabades = new ArrayList<Partida>;
-        this.llista_partides_acabades = new ArrayList<Partida>;
+        this.llista_partides_no_acabades = new ArrayList<Partida>();
+        this.llista_partides_acabades = new ArrayList<Partida>();
     }
 
     public int get_id() {
@@ -52,19 +52,19 @@ public class User {
     }
 
     public int get_rondes_totals() {
-        return this.rondes_totals;
+        return this.num_rondes_totals;
     }
 
     public void incrementar_rondes_totals() {
-        this.rondes_totals++;
+        this.num_rondes_totals++;
     }
 
     public int get_partides_totals() {
-        return this.partides_totals;
+        return this.num_partides_totals;
     }
 
     public void incrementar_partides_totals() {
-        this.partides_totals++;
+        this.num_partides_totals++;
     }
 
     public double get_puntuacioF() {
@@ -114,23 +114,22 @@ public class User {
         return llista_partides_no_acabades.size();
     }
 
-    public List<int> get_ids_partides_actives() {
-        ArrayList<Integer> llista = new ArrayList<Integer>()
+    public List<Integer> get_ids_partides_actives() {
+        ArrayList<Integer> llista = new ArrayList<Integer>();
         for (int i = 0; i < llista_partides_no_acabades.size(); i++) {
             llista.add((llista_partides_no_acabades.get(0)).get_id());
         }
         return llista;
     }
 
-    public Vector<int> get_estadistiques() {
-        Vector<int> vstats;
+    public Vector<Double> get_estadistiques() {
+        Vector<Double> vstats;
         vstats.add(get_puntuacioF());
         vstats.add(get_puntuacioN());
         vstats.add(get_puntuacioD());
         if (this.tipus_user == tipus_user.user_persona) {
-            vstats.add(get_puntuacioPvsP());
-            else vstats.add(0);
-        }
+            vstats.add(get_puntuacioPvsP());    
+        }else vstats.add(0.0);
         vstats.add(get_partides_actuals());
         vstats.add(get_partides_acabades());
         vstats.add(get_partides_totals());
