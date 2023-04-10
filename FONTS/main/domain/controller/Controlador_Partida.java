@@ -1,14 +1,15 @@
 package main.domain.controller;
 
+//import java.time.*;
+import java.util.HashMap;
+import java.util.List;
+
 import main.domain.classes.Partida;
 import main.domain.classes.Ronda;
 import main.domain.classes.User;
+import main.domain.classes.enumerations.colors;
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.exceptions.MyException;
-import main.domain.classes.enumerations.colors;
-
-import java.util.*;
-//import java.time.*;
 
 /**
  * Classe del Controlador de Partida
@@ -55,9 +56,10 @@ public class Controlador_Partida {
      * @param jugador1_es_codemaker
      * Crea una partida nova amb els parametres entrats. Aquests parametres han d'estar conprovats abans de cridar a la funció.
      */
-    public void start_partida_nova(int id, User codemaker, User codebreaker, dificultats dif, boolean jugador1_es_codemaker){
+    public Partida start_partida_nova(int id, User codemaker, User codebreaker, dificultats dif, boolean jugador1_es_codemaker){
         this.partida_actual = new Partida(id, codemaker, codebreaker, dif, jugador1_es_codemaker);//ha de incrementar el numero de partides de l'usuari
         hashPartida.put(id, partida_actual);
+        return partida_actual;
     }
 
     /**
@@ -67,7 +69,7 @@ public class Controlador_Partida {
      * @param id_partida_nova
      * @throws MyException
      */
-    public void carrega_partida(int id_partida_nova) throws MyException{
+    public void carregar_partida(int id_partida_nova) throws MyException{
         partida_actual = hashPartida.get(id_partida_nova);
         if(partida_actual == null) {
             throw new MyException("La partida que vols carregar no existeix");
@@ -84,7 +86,7 @@ public class Controlador_Partida {
     /**
      * @return User que té com a rol codebreaker
      */
-    public User get_codebraker_partida_actual() {
+    public User get_codebreaker_partida_actual() {
         return this.partida_actual.get_codebreaker();
     }
 

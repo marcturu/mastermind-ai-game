@@ -1,15 +1,24 @@
-package main.domain.controllers;
+package main.domain.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Vector;
+
+import main.domain.classes.Partida;
+import main.domain.classes.Ranking;
+import main.domain.classes.Ranking_dificil;
+import main.domain.classes.Ranking_facil;
+import main.domain.classes.Ranking_normal;
+import main.domain.classes.Ranking_pvp;
+import main.domain.classes.Record;
+import main.domain.classes.Ronda;
 import main.domain.classes.User;
 import main.domain.classes.User_maquina;
 import main.domain.classes.User_persona;
-import main.domain.classes.Ranking;
-import main.domain.classes.Record;
-import main.domain.controller.Controlador.Partida;
 import main.domain.classes.enumerations.Type_user;
-
-import java.util.*;
-import java.time.*;
+import main.domain.classes.enumerations.colors;
+import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.exceptions.MyException;
 
 /**
  * Classe del Controlador de Domin
@@ -42,7 +51,7 @@ public class Controlador_Domini {
         this.hashRanking = new HashMap<String,Ranking>();
     }
 
-    public static Controlador_Domini get_CtrlDomini {
+    public static Controlador_Domini get_CtrlDomini() {
         if (singletonObject == null) singletonObject = new Controlador_Domini();
         return singletonObject;
     }
@@ -85,26 +94,26 @@ public class Controlador_Domini {
         List<Partida> llista_partides_no_acabades;
         List<Partida> llista_partides_acabades;
         Usuari2 = new User_maquina(hashUsers.size() + 1, nom, Type_user.user_maquina, false, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
-        hashUsers.putIfAbasent(nom, Usuari2);
+        hashUsers.putIfAbsent(nom, Usuari2);
     }
 
     /**
      * @throws User1NoPotSerMaquina
      *Comprova si l'usuari1 és de tipus muina. Si ho és, llença l'excepció
      */
-    public void set_jugador1(String nom_user) throws User1NoPotSerMaquina {
-        if ((hashUsers.get(nom_user)).get_tipus_user_by_nom_user(nom_user) == Type_user.tipus_maquina) {
-            throw new Exception ("L'usuari1 no pot ser de tipus màquina");
+    public void set_jugador1(String nom_user) throws MyException {
+        if ((hashUsers.get(nom_user)).get_tipus_user() == Type_user.user_maquina) {
+            throw new MyException ("L'usuari1 no pot ser de tipus màquina");
         }
-        else if (validate_password_Usuari1_by_user_name(nom_user)) Usuari = hashUsers.get(nom_user)
+        else if (validate_password_Usuari1_by_user_name(nom_user)) Usuari = hashUsers.get(nom_user);
     }
 
     /**
-     * @throws PasswordUsuari2Incorrecte
+     * @throws MyException
      *Comprova si el password del Usuari2 es correspon amb el del nou usuari entrat. Si no, salta l'excepció
      */
-    public void set_jugador2(String nom_user) throws PasswordUsuari2Incorrecte {
-        if (get_tipus_user_by_nom_user(nom_user) == tipus_persona && !validate_password_Usuari2_by_user_name(nom_user)) throw new Exception ("Usuari2 no té el mateix password");
+    public void set_jugador2(String nom_user) throws MyException {
+        if (get_tipus_user_by_nom_user(nom_user) == Type_user.user_persona && !validate_password_Usuari2_by_user_name(nom_user)) throw new Exception ("Usuari2 no té el mateix password");
         else Usuari2 = hashUsers.get(nom_user);
     }
 
@@ -128,14 +137,14 @@ public class Controlador_Domini {
      * @throws java.lang.IllegalArgumentException
      */
     public boolean es_record(int punts, String nom_usuari) throws IllegalArgumentException {
-        this.Record.check_if_record(punts, nom_usuari);
+        return this.Record.check_if_record(punts, nom_usuari);
     }
 
     public int get_id_Usuari1() {
         return this.Usuari.get_id();
     }
 
-    public int get_nom_Usuari() {
+    public String get_nom_Usuari() {
         return this.Usuari.get_nom();
     }
 
@@ -231,23 +240,23 @@ public class Controlador_Domini {
 
     public int get_partides_acabades_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
-        return Usuari.get_partides_acabades();
+        return Usuari.get_num_partides_acabades();
     }
 
     public int get_partides_actuals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
-        return Usuari.get_partides_actuals();
+        return Usuari.get_num_partides_actuals();
     }
 
-    public vector<int> get_estadistiques_by_nom_user(String nom_user) {
+    public Vector<Double> get_estadistiques_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_estadistiques();
     }
 
 
-    public void inicialitza_partida_nova(dificultat dif, boolean jugador1_es_codemaker) throws Exception {
-        if (Usuari.get_partides_actuals() == 10 || Usuari2.get_partides_actuals() == 10)
-            throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
+    public void inicialitza_partida_nova(dificultats dif, boolean jugador1_es_codemaker) throws MyException {
+        if (Usuari.get_num_partides_actuals() == 10 || Usuari2.get_num_partides_actuals() == 10)
+            throw new MyException("Masses partides actives per part d'algun dels dos jugadors");
         else {
             Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
             afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
@@ -255,9 +264,9 @@ public class Controlador_Domini {
         }
     }
 
-    public void inicialitza_partida_nova_pvp(dificultat dif, boolean jugador1_es_codemaker) throws Exception {
-        if (Usuari.get_partides_actuals() == 10 || Usuari2.get_partides_actuals() == 10)
-            throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
+    public void inicialitza_partida_nova_pvp(dificultats dif, boolean jugador1_es_codemaker) throws MyException {
+        if (Usuari.get_num_partides_actuals() == 10 || Usuari2.get_num_partides_actuals() == 10)
+            throw new MyException("Masses partides actives per part d'algun dels dos jugadors");
         else {
             Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
             afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
@@ -265,7 +274,7 @@ public class Controlador_Domini {
         }
     }
 
-    public void afegir_partida_nova_users(User Usuari, User Usuari2, Partida partida_nova) {
+    public void afegir_partida_nova_users(User Usuari, User Usuari2, Partida partida_nova) throws MyException{
         Usuari.afegir_partida_nova(partida_nova);
         Usuari2.afegir_partida_nova(partida_nova);
     }
@@ -309,7 +318,7 @@ public class Controlador_Domini {
      * @throws AjudaJaDemanada
      * Demana ajuda al sistema, es llença AjudaJaDemanada si ja ha demanat ajuda previament
      */
-    public void set_ajuda() throws AjudaJaDemanada{
+    public void set_ajuda() throws MyException{
         CtrlPartida.set_ajuda();
     }
 
@@ -318,11 +327,11 @@ public class Controlador_Domini {
     }
 
     public User get_codebraker_partida_actual() {
-        return CtrlPartida.get_codebreaker_partida-actual();
+        return CtrlPartida.get_codebreaker_partida_actual();
     }
 
     public int get_num_ronda_actual() {
-        return CtrlPartida.get_num_ronda_actual();
+        return CtrlPartida.get_ultima_ronda_partida_actual();
     }
 
     public User get_user_by_username(String username) {
@@ -334,13 +343,13 @@ public class Controlador_Domini {
     }
 
     public int get_punts_record_by_nom_record(String nom_record) {
-        Record = get_record_by_name(nom_record);
+        Record = hashRecord.get(nom_record);
         return Record.get_punts();
     }
 
     public String get_nom_usuari_by_nom_record(String nom_record) {
-        Record = get_record_by_name(nom_record);
-        return Record.get_nom_usuari()
+        Record = hashRecord.get(nom_record);
+        return Record.get_nom_usuari();
     }
 
     public Ranking get_ranking_by_ranking_name(String ranking_name) {
@@ -353,14 +362,14 @@ public class Controlador_Domini {
     }
 
     public void inicialitza_rankings() {
-        Ranking = new Ranking("facil");
-        hashRecord.put("facil", Ranking);
-        Ranking = new Ranking("normal");
-        hashRecord.put("normal", Ranking);
-        Ranking = new Ranking("dificil");
-        hashRecord.put("dificl", Ranking);
-        Ranking = new Ranking("pvp");
-        hashRecord.put("PvsP", Ranking);
+        Ranking = new Ranking_facil();
+        hashRanking.put("facil", Ranking);
+        Ranking = new Ranking_normal();
+        hashRanking.put("normal", Ranking);
+        Ranking = new Ranking_dificil();
+        hashRanking.put("dificl", Ranking);
+        Ranking = new Ranking_pvp();
+        hashRanking.put("PvsP", Ranking);
     }
 
     public void jugar_ronda(colors[] seq_int, colors[] seq_ver) {
@@ -371,12 +380,12 @@ public class Controlador_Domini {
     }
 
     public void actualitza_ranking() {
-        pair<double, double> pair;
+        Pair<Double, Double> pair;
         double punts_u;
         double punts_u2;
         String nom_u = Usuari.get_nom();
         String nom_u2 = Usuari2.get_nom();
-        switch ((CtrlPartida.get_dificultat()).dificultat) {
+        switch ((CtrlPartida.get_dificultat()).get_dificultat()) {
             case "facil":
                 punts_u = this.Usuari.get_puntuacioF();
                 punts_u2 = this.Usuari2.get_puntuacioF();
@@ -404,17 +413,16 @@ public class Controlador_Domini {
         }
     }
 
-    public void jugar_partides_antigues(int id_partida_activa) {
+    public void jugar_partides_antigues(int id_partida_activa) throws MyException{
         //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
         CtrlPartida.carregar_partida(id_partida_activa);
     }
 
-    public List<int> get_ids_partides_actives_Usuari1() {
+    public List<Integer> get_ids_partides_actives_Usuari1() {
         return Usuari.get_ids_partides_actives();
     }
 
-    //faltaaaa!!!
-    public List<int> get_ids_partides_acabades_Usuari1() {
+    public List<Integer> get_ids_partides_acabades_Usuari1() {
         return Usuari.get_ids_partides_acabades();
     }
     //faltaa"!!!
