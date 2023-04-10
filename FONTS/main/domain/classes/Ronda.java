@@ -64,4 +64,12 @@ public class Ronda  {
         return n == 4;
     }
 
+    public void imprimeix_sequencia(type_seq tip){
+        if (tip == type_seq.intentada){
+            sequencia_intentada.imprimeix_sequencia();
+        }
+        else if (tip == type_seq.verificacio){
+            sequencia_verificacio.imprimeix_sequencia();
+        }
+    }
 }

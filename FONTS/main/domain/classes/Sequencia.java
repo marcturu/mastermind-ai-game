@@ -45,6 +45,12 @@ public class Sequencia {
         }
     }
 
+    public void imprimeix_sequencia(){
+        for (int i  = 0; i < 4; ++i){
+            System.out.print(array[i].get_nom_color() + " ");
+        }
+    }
+
 
     private boolean valida_sequencia(colors[] sequencia_verificacio, colors[] solucio, colors[] sequencia_intentada) {
         int res = 0;
