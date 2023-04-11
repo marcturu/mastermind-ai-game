@@ -27,4 +27,8 @@ public class User_maquina extends User {
     public boolean is_genetic() {
         return this.genetic_algorithm;
     }
+
+    public double get_puntuacioPvsP() throws Exception{
+        throw new Exception ("El user maquina no té punts PvsP");
+    }
 }

@@ -223,10 +223,9 @@ public class Controlador_Domini {
      * @throws MaquinaNoTePuntsPvsP
      *Demana els punts PvsP del Usuari2, es llença MaquinaNoTePuntsPvsP si l'Uusari2 és de tipus user_maquina
      */
-    public double get_puntuacioPvsP_by_nom_user(String nom_user) throws MaquinaNoTePuntsPvsP{
+    public double get_puntuacioPvsP_by_nom_user(String nom_user){
         Usuari = get_user_by_username(nom_user);
-        if (get_tipus_user_Usuari1() == Type_user.user_maquina) throw new Exception ("El user maquina no té punts PvsP")
-        else return Usuari.get_puntuacioPvsP();
+        return Usuari.get_puntuacioPvsP();
     }
 
     public void set_puntuacio_by_nom_user(String nom_user) {
