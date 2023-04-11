@@ -11,25 +11,22 @@ public class Five_guess_algorithm {
 
 
     public static void main(String[] args) {
-        int[] solution = {4, 5, 1, 4}; // Aquí se define la solución
+        int[] solution = {2, 3, 1, 1}; // Aquí se define la solución
         printArray(solution);
         System.out.println("this is the solution, lets see how we got there:");
 
 
-        List<int[]> guesses = fiveGuess(solution);
+        List<int[]> guesses = solve(solution);
         for (int[] guess : guesses) {
             System.out.println(Arrays.toString(guess));
         }
     }
 
-    public static List<int[]> fiveGuess(int[] solution) {
+    public static List<int[]> solve(int[] solution) {
         List<int[]> guesses = new ArrayList<>();
-        int[] colors = {1, 2, 3, 4, 5 ,6}; // Aquí se define el número de colores
+        int[] colors = {1, 2, 3}; // Aquí se define el número de colores
 
-        //printArray(colors);
         int[][] possibleCodes = generateCodes(colors, solution.length);
-
-        //printArray(possibleCodes);
 
         int[] guess = {1, 1, 2, 2}; // Primera jugada recomendada por Five Guess
 
