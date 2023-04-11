@@ -6,11 +6,18 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
 CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
 
 CLASS_RECORD = ./main/domain/classes/Record.java
+CLASS_PARTIDA = ./main/domain/classes/Partida.java
+
 CLASS_OUTPUT = ../EXE/out/
 
 JUNIT_JARS = ../lib/junit-4.12.jar:../lib/hamcrest-core-1.3.jar
 
-JUNIT_TESTS = ./test/*.java
+JUNIT_TESTS_RECORD = ./test/TestRecord.java
+JUNIT_TESTS_PARTIDA = ./test/TestPartida.java
+JUNIT_TESTS_RANKING = ./test/TestRanking.java
+JUNIT_TESTS_RONDA = ./test/TestRonda.java
+JUNIT_TESTS_SEQUENCIA = ./test/TestSequencia.java
+JUNIT_TESTS_USER = ./test/TestUser.java
 
 JAR_OUTPUT =	../EXE/
 
@@ -30,10 +37,17 @@ allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_person
 
 TestRecord:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(JUNIT_TESTS_RECORD)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
 
-TestRanking: all
+TestRanking:
+	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS_RANKING)
+	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRanking
+
+TestPartida:
+	javac -d $(CLASS_OUTPUT) $(CLASS_PARTIDA)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT)  $(JUNIT_TESTS_PARTIDA)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRanking
 
 TestRonda: all
