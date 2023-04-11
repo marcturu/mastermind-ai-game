@@ -2,7 +2,7 @@ package main.domain.classes;
 
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.exceptions.MyException;
-import main.domain.classes.enumerations.Type_user;
+//import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.colors;
 import main.domain.classes.types.Pair;
 import java.util.*;
@@ -114,8 +114,12 @@ public class Partida {
      * Funció que retorna la dificultat de la partida
      * @return La dificultat de la partida
      */
-    public dificultats dificultat(){
+    public dificultats get_dificultat(){
         return dificultat;
+    }
+
+    public boolean get_jugador1_es_codemaker() {
+        return jugador1_es_codemaker;
     }
 
     /**

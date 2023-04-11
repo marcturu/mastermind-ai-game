@@ -11,7 +11,7 @@ public class User_persona extends User {
     private double puntuacioPvsP;
 
     //Creació User_persona amb password
-    public User_persona(int id, String nom, Type_user tipus_user, String password, int num_rondes_totals, int num_partides_totals, int puntuacioF, int puntuacioN, int puntuacioD, int partides_guanyades, List<Partida> llista_partides_no_acabades, List<Partida> llista_partides_acabades) {
+    public User_persona(int id, String nom, Type_user tipus_user, String password) {
         //super(id, nom, tipus_user, num_rondes_totals, num_partides_totals, puntuacioF, puntuacioN, puntuacioD, partides_guanyades, llista_partides_no_acabades, llista_partides_acabades);
         super(id, nom, tipus_user);
         
@@ -20,7 +20,7 @@ public class User_persona extends User {
     }
 
     //Creació User_persona sense password
-    public User_persona(int id, String nom, Type_user tipus_user, int num_rondes_totals, int num_partides_totals, int puntuacioF, int puntuacioN, int puntuacioD, int partides_guanyades, List<Partida> llista_partides_no_acabades, List<Partida> llista_partides_acabades) {
+    public User_persona(int id, String nom, Type_user tipus_user) {
         //super(id, nom, tipus_user, num_rondes_totals, num_partides_totals, puntuacioF, puntuacioN, puntuacioD, partides_guanyades, llista_partides_no_acabades, llista_partides_acabades);
         super(id, nom, tipus_user);
         this.password = null;
@@ -64,8 +64,14 @@ public class User_persona extends User {
 
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
         super.set_partida_acabada(partida_acabada, guanyat, dificultat);
+        int punts_base = 50;
+        int win_bonus = 1;
+        int punts_penalitzacio_rondes = partida_acabada.get_ultima_ronda();
+        if (guanyat) {
+            partides_guanyades++;
+            win_bonus = 5;
+        }
         if (dificultat == "PvsP") set_puntuacio_PvsP(punts_base, win_bonus, punts_penalitzacio_rondes);
-        else super.set_puntuacio(punts_base, win_bonus, punts_penalitzacio_rondes, dificultat);
     }
 
 }

@@ -185,6 +185,6 @@ public class Controlador_Partida {
      * @return la dificultat de la partida actual
      */
     public dificultats get_dificultat() {
-        return this.partida_actual.dificultat();
+        return this.partida_actual.get_dificultat();
     }
 }

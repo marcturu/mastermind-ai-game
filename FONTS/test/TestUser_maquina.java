@@ -31,7 +31,7 @@ public class TestUser_maquina {
 
     @Test
     public void test_constructora_user_maquina() {
-        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, true, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
         assertEquals("Mateix id", um.get_id(), "1");
         assertEquals("Mateix nom", um.get_nom(), "Marc");
         assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
@@ -53,7 +53,7 @@ public class TestUser_maquina {
 
     @Test
     public void test_constructora_user_maquina2() {
-        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
         assertEquals("Mateix id", um.get_id(), "1");
         assertEquals("Mateix nom", um.get_nom(), "Marc");
         assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
@@ -74,8 +74,8 @@ public class TestUser_maquina {
 
     @Test
     public void test_is_genetic() {
-        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, true, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
-        assertEquals(um.is_genetic(), 1);
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
+        assertFalse(um.is_genetic());
     }
 
 }
