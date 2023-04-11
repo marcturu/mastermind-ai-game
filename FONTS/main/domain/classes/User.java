@@ -165,7 +165,7 @@ public class User {
         }
     }
 
-    public double get_puntuacioPvsP();
+    public abstract double  get_puntuacioPvsP() throws Exception;
 
     /*
     //USER_PERSONA
