@@ -166,7 +166,7 @@ public class User {
     }
 
     public double get_puntuacioPvsP() throws Exception{
-        return;
+        return 0.0;
     }
 
     /*
