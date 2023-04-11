@@ -4,6 +4,8 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/classes/algorismes/*.java
 
 CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
+
+CLASS_RECORD = ./main/domain/classes/record.java
 CLASS_OUTPUT = ../EXE/out/
 
 JUNIT_JARS = ../lib/junit-4.12.jar:../../lib/hamcrest-core-1.3.jar
@@ -26,7 +28,8 @@ executa_driver:
 
 allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_persona TestUser_persona
 
-TestRecord: all
+TestRecord:
+	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
 
 TestRanking: all
