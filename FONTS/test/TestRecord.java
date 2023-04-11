@@ -4,6 +4,7 @@ import main.domain.classes.Record;
 
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 
@@ -24,7 +25,7 @@ public class TestRecord {
         Record r = new Record("min_rondes");
         assertEquals("Mateix nom record", r.get_nom_record(), "min_rondes");
         assertNull("El record no té un usuari que l'ha batut", r.get_nom_usuari());
-        assertNull("El record no té punts", r.get_punts());
+        assertEquals("El record no té punts", -1, r.get_punts());
     }
 
 
@@ -38,14 +39,14 @@ public class TestRecord {
     @Test
     public void test_check_if_record(){
         Record record = new Record("Test Record");
-        assertTrue(record.check_if_record(100, "Ferran"));
-        assertEquals("Ferran", record.get_nom_usuari());
-        assertEquals(100, record.get_punts());
-        assertTrue(record.check_if_record(200, "Jordi"));
-        assertEquals("Jordi", record.get_nom_usuari());
-        assertEquals(200, record.get_punts());
-        assertTrue(record.check_if_record(150, "Marc"));
-        assertEquals("Jordi", record.get_nom_usuari());
-        assertEquals(200, record.get_punts());
+        assertTrue("Es un record",record.check_if_record(100, "Ferran"));
+        assertEquals("El nom d'usuari es Ferran","Ferran", record.get_nom_usuari());
+        assertEquals("Ha fet 100 punts",100, record.get_punts());
+        assertTrue("Jordi bat el record amb 200 punts",record.check_if_record(200, "Jordi"));
+        assertEquals("L'usuari Jordi te el record ara","Jordi", record.get_nom_usuari());
+        assertEquals("Els punts del record son 200",200, record.get_punts());
+        assertFalse("El marc no bat el record amb 150 punts",record.check_if_record(150, "Marc"));
+        assertEquals("El record el segueix tenint el Jordi","Jordi", record.get_nom_usuari());
+        assertEquals("El record esta en 200 punts encara",200, record.get_punts());
     }
 }
