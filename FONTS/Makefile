@@ -1,7 +1,7 @@
 CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/classes/enumerations/*.java \
                ./main/domain/controller/*.java \
-               ./main/domain/classes/algorismes/*.java
+               #./main/domain/classes/algorismes/*.java
 
 CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
 
