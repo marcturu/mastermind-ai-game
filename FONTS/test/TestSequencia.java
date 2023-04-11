@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -56,7 +57,7 @@ public class TestSequencia {
         Sequencia seq = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERMELL,colors.BLAU,colors.MAGENTA,colors.VERMELL};
         seq.set_array(array,6);
-        assertEquals("Array identic",seq.get_array(),array);
+        assertArrayEquals("Array identic",seq.get_array(),array);
 
     }
 
@@ -80,12 +81,12 @@ public class TestSequencia {
      * Operativa: Creem un nova Sequencia amb el paràmetre “type_seq.verificacio”, i comprovemq que retorni be el tipus
      */
     @Test
-    public void test_set_array_verificacio() throws MyException{
+    public void test_set_array_verificacio() throws Exception{
         Sequencia seq = new Sequencia(type_seq.intentada);
         colors[] ver = {colors.NULL,colors.BLANC,colors.BLANC,colors.NEGRE};
         colors[] sol = {colors.VERMELL,colors.BLAU,colors.GROC,colors.MAGENTA};
         colors[] inte = {colors.VERMELL,colors.MAGENTA,colors.BLAU,colors.VERD};
         seq.set_array_verificacio(ver,sol,inte);
-        assertEquals("Set ben fet de verifcacio",seq.get_array(),ver);
+        assertArrayEquals("Set ben fet de verifcacio",seq.get_array(),ver);
     }
 }

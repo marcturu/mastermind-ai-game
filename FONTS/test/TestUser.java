@@ -1,7 +1,13 @@
 package test;
 
 import main.domain.classes.User;
+import main.domain.classes.User_persona;
+import main.domain.classes.User_maquina;
+import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.dificultats;
+
+import java.util.Vector;
 
 import org.junit.*;
 
@@ -37,7 +43,9 @@ public class TestUser {
         assertEquals("Mateix tipus_user", u.get_nom(), Type_user.user_persona);
         assertEquals("Mateixes rondes totals", u.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", u.get_partides_totals(), 0);
-        assertEquals("Mateixpuntuació", u.get_puntuacio(), 0.0);
+        assertEquals("Mateixa puntuació facil", 0.0, u.get_puntuacioF(), 1.0);
+        assertEquals("Mateixa puntuació normal", 0.0, u.get_puntuacioN(), 1.0);
+        assertEquals("Mateixa puntuació dificil", 0.0, u.get_puntuacioD(), 1.0);       
         assertEquals("Mateixes partides guanyades", u.get_partides_guanyades(), 0);
         assertEquals("Mateixa llista partides no acabades", u.get_num_partides_actuals(), 0);
         assertEquals("Mateixa llista partides  acabades", u.get_num_partides_acabades(), 0);
@@ -143,15 +151,39 @@ public class TestUser {
     }
 
     /**
-     * Objecte de la prova: Test de la funció get_puntuacio.
+     * Objecte de la prova: Test de la funció get_puntuacioF.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
      * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuacio és el mateix amb el qual l'hem inicialitzat al crear la classe User.
      */
     @Test
-    public void test_get_puntuacio() {
-        User u = new User(1, "Marc", Type_user.user_persona);
-        assertEquals(u.get_puntuacio(), 0.0);
+    public void test_get_puntuacioF() {
+        User_persona u = new User_persona(1, "Marc", Type_user.user_persona);
+        assertEquals(0.0, u.get_puntuacioF(), 1.0);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció get_puntuacioF.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuacio és el mateix amb el qual l'hem inicialitzat al crear la classe User.
+     */
+    @Test
+    public void test_get_puntuacioN() {
+        User_persona u = new User_persona(1, "Marc", Type_user.user_persona);
+        assertEquals(0.0, u.get_puntuacioN(), 1.0);
+    }
+
+    /**
+     * Objecte de la prova: Test de la funció get_puntuacioF.
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuacio és el mateix amb el qual l'hem inicialitzat al crear la classe User.
+     */
+    @Test
+    public void test_get_puntuacioD() {
+        User_persona u = new User_persona(1, "Marc", Type_user.user_persona);
+        assertEquals(0.0, u.get_puntuacioD(), 1.0);
     }
 
     /**
@@ -161,19 +193,19 @@ public class TestUser {
      * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuació és l'esperat després de realitzar els canvis fets al test.
      */
     @Test
-    public void test_set_puntuacio() {
+    public void test_set_puntuacioF() {
         User u = new User(1, "Marc", Type_user.user_persona);
         u.incrementar_partides_totals(); u.incrementar_partides_totals();
         u.incrementar_rondes_totals();
         u.set_puntuacio();
-        assertEquals(u.get_puntuacio(), 50); // 1r/2p
+        assertEquals(u.get_puntuacioF(), 50); // 1r/2p
         u.incrementar_partides_totals();
         u.set_puntuacio();
-        assertEquals(u.get_puntuacio(), (1/3)*100); // 1r/3p
+        assertEquals(u.get_puntuacioF(), (1/3)*100); // 1r/3p
         u.incrementar_partides_totals(); u.incrementar_partides_totals();
         u.incrementar_rondes_totals();
         u.set_puntuacio();
-        assertEquals(u.get_puntuacio(), 40); // 2r/5p
+        assertEquals(u.get_puntuacioF(), 40); // 2r/5p
     }
 
     /**
@@ -184,18 +216,18 @@ public class TestUser {
      *            Després, creem una nova partida que es guanya i mirem com l'atribut partides_guanyades ara és 1. Després fem el mateix però perdent, per veure com l'usuari u1 seguiex tenint només 1 partida guanyada.
      */
     @Test
-    public void test_get_partides_guanyades() {
-        User u1 = new User_persona(3, 'JUAN', 'PWD') ;
+    public void test_get_partides_guanyades() throws Exception{
+        User u1 = new User(3, "JUAN", Type_user.user_persona) ;
         assertEquals(u1.get_partides_guanyades(), 0);
-        User u2 = new User_persona(1, 'FERRI', 'PWD2') ;
-        Dificultat dif = new Dificultat(1, 'facil', 4, 6, 12);
-        Partida partida_prova = new Partida(1, u1, u2, dif, true);
+        User u2 = new User(1, "FERRI", Type_user.user_persona);
+        //dificultats dif = new dificultats(1, "facil", 4, 6, 12);
+        Partida partida_prova = new Partida(1, u1, u2, dificultats.FACIL, true);
         u1.afegir_partida_nova(partida_prova);
-        u1.set_partida_acabada(partida_prova, true);
+        u1.set_partida_acabada(partida_prova, true, dificultats.FACIL.get_dificultat());
         assertEquals(u1.get_partides_guanyades(), 1);
-        Partida partida_prova2 = new Partida(2, u1, u2, dif, true);
+        Partida partida_prova2 = new Partida(2, u1, u2, dificultats.FACIL, true);
         u1.afegir_partida_nova(partida_prova2);
-        u1.set_partida_acabada(partida_prova2, false);
+        u1.set_partida_acabada(partida_prova2, false, dificultats.FACIL.get_dificultat());
         assertEquals(u1.get_partides_guanyades(), 1);
     }
 
@@ -206,9 +238,9 @@ public class TestUser {
      * Operativa: Creem un nou user amb paràmetres, comprovem que el número de partides acabades correspon amb el que he inicialitzat la classe User (0).
      */
     @Test
-    public void test_get_partides_acabades() {
+    public void test_get_num_partides_acabades() {
         User u = new User(1, "Marc", Type_user.user_persona);
-        assertEquals(u.get_partides_acabades(), 0);
+        assertEquals(u.get_num_partides_acabades(), 0);
     }
 
     /**
@@ -220,7 +252,7 @@ public class TestUser {
     @Test
     public void test_get_partides_actuals() {
         User u = new User(1, "Marc", Type_user.user_persona);
-        assertEquals(u.get_partides_no_acabades(), 0);
+        assertEquals(u.get_num_partides_actuals(), 0);
     }
 
     /**
@@ -232,8 +264,12 @@ public class TestUser {
     @Test
     public void test_get_estadistiques() {
         User u = new User(1, "Marc", Type_user.user_persona);
-        vector<int> stats_prova = {0, 0, 0, 0, 0, 0};
-        assertArrayEquals(stats_prova, u.get_estadistiques());
+        //Vector<Double> stats_prova = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+        Vector<Double> stats_prova = new Vector<Double>();
+        for(int i = 0; i < 6; ++i) {
+            stats_prova.add(0.0);
+        }
+        assertEquals(stats_prova, u.get_estadistiques());
     }
 
     /**
@@ -243,15 +279,15 @@ public class TestUser {
      * Operativa: Creem dos nous users amb els paràmetres i una partida de prova pel test. Després la afegim a la llista de partides no acabades i, per tant, noves, per després comprovar que efectivament hi ha 1 partida en la llista de partides no acabades i totals.
      */
     @Test
-    public void test_afegir_partida_nova() {
-        User u1 = new User_persona(3, 'JUAN', 'PWD') ;
+    public void test_afegir_partida_nova() throws Exception{
+        User u1 = new User(3, "JUAN",Type_user.user_persona);
         assertEquals(u1.get_partides_guanyades(), 0);
-        User u2 = new User_persona(1, 'FERRI', 'PWD2') ;
-        Dificultat dif = new Dificultat(1, 'facil', 4, 6, 12);
-        Partida partida_nova = new Partida(1, u1, u2, dif, true);
+        User u2 = new User(1, "FERRI", Type_user.user_persona);
+        //Dificultat dif = new Dificultat(1, "facil", 4, 6, 12);
+        Partida partida_nova = new Partida(1, u1, u2, dificultats.FACIL, true);
         u1.afegir_partida_nova(partida_nova);
-        assertEquals(u.get_partides_actuals(), 1);
-        assertEquals(u.get_partides_totals(), 1);
+        assertEquals(u1.get_num_partides_actuals(), 1);
+        assertEquals(u1.get_partides_totals(), 1);
     }
 
     /**
@@ -261,17 +297,17 @@ public class TestUser {
      * Operativa: Creem dos nous users amb els paràmetres i una partida de prova pel test. Després de fer una petita comprovació de que la partida s'afageix bé a la llista de partides no acabades, acabem la partida amb victòria de l'usuari u1 i comprovem com s'ha eliminat la partida de la llista de partides no acabades i s'ha afegit a la llista d'acabades, al mateix temps que es comprova que l'usuari u1 l'ha guanyat.
      */
     @Test
-    public void test_set_partida_acabada() {
-        User u1 = new User_persona(3, 'JUAN', 'PWD') ;
+    public void test_set_partida_acabada() throws Exception{
+        User u1 = new User(3, "JUAN", Type_user.user_persona);
         assertEquals(u1.get_partides_guanyades(), 0);
-        User u2 = new User_persona(1, 'FERRI', 'PWD2') ;
-        Dificultat dif = new Dificultat(1, 'facil', 4, 6, 12);
-        Partida partida_nova = new Partida(1, u1, u2, dif, true);
+        User u2 = new User(1, "FERRI", Type_user.user_persona) ;
+        //Dificultat dif = new Dificultat(1, "facil", 4, 6, 12);
+        Partida partida_prova = new Partida(1, u1, u2, dificultats.FACIL, true);
         u1.afegir_partida_nova(partida_prova);
-        assertEquals(u1.get_partides_actuals(), 1);
-        u1.set_partida_acabada(partida_prova, true);
-        assertEquals(u1.get_partides_acabades(), 1);
-        assertEquals(u1.get_partides_actuals(), 0);
+        assertEquals(u1.get_num_partides_actuals(), 1);
+        u1.set_partida_acabada(partida_prova, true, dificultats.FACIL.get_dificultat());
+        assertEquals(u1.get_num_partides_acabades(), 1);
+        assertEquals(u1.get_num_partides_actuals(), 0);
         assertEquals(u1.get_partides_guanyades(), 1);
     }
 
