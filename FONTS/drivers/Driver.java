@@ -336,7 +336,7 @@ public class Driver {
         int idd = Integer.parseInt(id);
         while (!id_ok(ids_partida,idd)){
             id = in.nextLine();
-            while (id.lenght() == 0) id = in.nextLine();
+            while (id.length() == 0) id = in.nextLine();
         }
         Partida part = domini.get_partida(idd);
         System.out.println("Partida amb id: " + part.get_id());
@@ -355,7 +355,7 @@ public class Driver {
                 "\n'dificil' - Visualitar ranking dificultat dificil" +
                 "\n'pvp' - Visualitar ranking Player Vs Player");
         String dif = in.nextLine();
-        while (dif.lenght() == 0) dif = in.nextLine();
+        while (dif.length() == 0) dif = in.nextLine();
 
     }
 
