@@ -30,6 +30,7 @@ allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_person
 
 TestRecord:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
 
 TestRanking: all
