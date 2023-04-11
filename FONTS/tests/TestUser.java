@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import main.domain.classes.User;
 import main.domain.classes.enumerations.Type_user;
