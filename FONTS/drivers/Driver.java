@@ -348,6 +348,10 @@ public class Driver {
 
     }
 
+    private void veure_ranking(){
+
+    }
+
 
     private void print_menu(){
         System.out.println("\n"+"(Introdueix: '1' o 'crear') - Crear Nova Partida");
