@@ -165,6 +165,7 @@ public class Controlador_Domini {
         return Usuari.get_tipus_user();
     }
 
+    /*
     public boolean get_password_Usuari1() {
         return this.Usuari.get_password();
     }
@@ -177,7 +178,7 @@ public class Controlador_Domini {
     public boolean validate_password_Usuari2_by_user_name(String user_name) {
         UsuariProves = hashUsers.get(user_name);
         return Usuari2.get_password() == UsuariProves.get_password();
-    }
+    } */
 
 
     public int get_rondes_totals_by_nom_user(String nom_user) {
