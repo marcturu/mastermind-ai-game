@@ -48,4 +48,19 @@ public class User_persona extends User {
         if (this.puntuacioPvsP < 0) this.puntuacioPvsP = 0;
     }
 
+    public Vector<Double> get_estadistiques() {
+        Vector<Double> vstats = new Vector<Double>();
+        vstats.add(get_puntuacioF());
+        vstats.add(get_puntuacioN());
+        vstats.add(get_puntuacioD());
+        vstats.add(get_puntuacioPvsP());
+        vstats.add((double)get_num_partides_actuals());
+        vstats.add((double)get_num_partides_acabades());
+        vstats.add((double)get_partides_totals());
+        vstats.add((double)get_partides_guanyades());
+        vstats.add((double)get_rondes_totals());
+        return vstats;
+    }
+
+
 }
