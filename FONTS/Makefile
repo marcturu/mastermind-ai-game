@@ -8,7 +8,8 @@ CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
 CLASS_RECORD = ./main/domain/classes/Record.java
 CLASS_PARTIDA = ./main/domain/classes/Partida.java
 CLASS_SEQUENCIA = ./main/domain/classes/Sequencia.java \
-				  ./main/domain/classes/enumerations/*.java
+				  ./main/domain/classes/enumerations/colors.java \
+				  ./main/domain/classes/enumerations/type_seq.java
 
 CLASS_OUTPUT = ../EXE/out/
 
@@ -39,17 +40,17 @@ allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_person
 
 TestRecord:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(JUNIT_TESTS_RECORD)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_RECORD) $(JUNIT_TESTS_RECORD)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
 
 TestRanking:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS_RANKING)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_RANKING) $(JUNIT_TESTS_RANKING)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRanking
 
 TestPartida:
 	javac -d $(CLASS_OUTPUT) $(CLASS_PARTIDA)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT)  $(JUNIT_TESTS_PARTIDA)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_PARTIDA) $(JUNIT_TESTS_PARTIDA)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRanking
 
 TestRonda: all
@@ -57,7 +58,7 @@ TestRonda: all
 
 TestSequencia:
 	javac -d $(CLASS_OUTPUT) $(CLASS_SEQUENCIA)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(JUNIT_TESTS_SEQUENCIA)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_SEQUENCIA) $(JUNIT_TESTS_SEQUENCIA)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestSequencia
 
 TestUser: all

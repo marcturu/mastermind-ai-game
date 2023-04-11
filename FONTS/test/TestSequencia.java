@@ -8,7 +8,6 @@ import org.junit.Test;
 import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.colors;
 import main.domain.classes.enumerations.type_seq;
-import main.domain.classes.exceptions.MyException;
 
 
 /**
@@ -53,7 +52,7 @@ public class TestSequencia {
      * Operativa: Creem un nova Sequencia amb el paràmetre “type_seq.intentada”, fem un set de un array i comprovem que el retorni bé.
      */
     @Test
-    public void test_get_array() throws MyException{
+    public void test_get_array() throws Exception{
         Sequencia seq = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERMELL,colors.BLAU,colors.MAGENTA,colors.VERMELL};
         seq.set_array(array,6);
