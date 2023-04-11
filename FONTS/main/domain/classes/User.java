@@ -133,6 +133,7 @@ public class User {
     }
 
     public Vector<Double> get_estadistiques() {
+        return null;
     }
 
     //Ja es comprova que la llista no està plena (<10)
@@ -149,8 +150,6 @@ public class User {
             partides_guanyades++;
             win_bonus = 5;
         }
-        if (dificultat == "PvsP") set_puntuacio_PvsP(punts_base, win_bonus, punts_penalitzacio_rondes);
-        else set_puntuacio(punts_base, win_bonus, punts_penalitzacio_rondes, dificultat);
 
         //Crida a ranking (F, N, D, PvsP) per actualitzar-lo
 
@@ -159,9 +158,9 @@ public class User {
         llista_partides_no_acabades.remove(partida_acabada);
     }
 
-    Partida get_partida_acabada(int id_partida) {
-        for (int i = 0; i < llista_partides_no_acabades().size; i++) {
-            if (llista_partides_acabades[i].get_id() == id_partida) return llista_partides_acabades[i];
+    public Partida get_partida_acabada(int id_partida) {
+        for (int i = 0; i < get_num_partides_acabades(); i++) {
+            if ((llista_partides_acabades.get(i)).get_id() == id_partida) return llista_partides_acabades.get(i);
         }
     }
 
