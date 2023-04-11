@@ -42,7 +42,7 @@ public class Ronda  {
         try {
             this.sequencia_intentada.set_array(sequencia_intentada,num_colors);
         } catch (Exception ex){
-            System.out.println(ex.getMessage());
+            //System.out.println(ex.getMessage());
         }
     }
 
@@ -51,7 +51,7 @@ public class Ronda  {
         try {
             this.sequencia_verificacio.set_array_verificacio(sequencia_verificacio, solucio, sequencia_intentada.get_array());
         }  catch (Exception ex){
-            System.out.println(ex.getMessage());
+            //System.out.println(ex.getMessage());
         }
     }
 
@@ -64,12 +64,4 @@ public class Ronda  {
         return n == 4;
     }
 
-    public void imprimeix_sequencia(type_seq tip){
-        if (tip == type_seq.intentada){
-            sequencia_intentada.imprimeix_sequencia();
-        }
-        else if (tip == type_seq.verificacio){
-            sequencia_verificacio.imprimeix_sequencia();
-        }
-    }
 }

@@ -29,19 +29,25 @@ public class TestSequencia {
         Sequencia sol = new Sequencia(type_seq.solucio);
         assertEquals("Mateix tipus", sol.get_tipus(), type_seq.solucio);
         assertEquals("Array de mida 4", sol.get_array().length,4);
-        assertNull("Array buit", sol.get_array());
+        for (int i = 0; i < 4; ++i){
+            assertNull("Array buit", sol.get_array()[i]);
+        }
 
         //test sequencia tipus intentada
         Sequencia intent = new Sequencia(type_seq.intentada);
         assertEquals("Mateix tipus", intent.get_tipus(), type_seq.intentada);
         assertEquals("Array de mida 4", intent.get_array().length,4);
-        assertNull("Array buit", sol.get_array());
+        for (int i = 0; i < 4; ++i){
+            assertNull("Array buit", intent.get_array()[i]);
+        }
 
         //test sequencia tipus verificacio
         Sequencia verificacio = new Sequencia(type_seq.verificacio);
         assertEquals("Mateix tipus", verificacio.get_tipus(), type_seq.verificacio);
         assertEquals("Array de mida 4", verificacio.get_array().length,4);
-        assertNull("Array buit", sol.get_array());
+        for (int i = 0; i < 4; ++i){
+            assertNull("Array buit", verificacio.get_array()[i]);
+        }
     }
 
 
@@ -80,7 +86,7 @@ public class TestSequencia {
      * Operativa: Creem un nova Sequencia amb el paràmetre “type_seq.verificacio”, i comprovemq que retorni be el tipus
      */
     @Test
-    public void test_set_array_verificacio() throws MyException{
+    public void test_set_array_verificacio() throws Exception{
         Sequencia seq = new Sequencia(type_seq.intentada);
         colors[] ver = {colors.NULL,colors.BLANC,colors.BLANC,colors.NEGRE};
         colors[] sol = {colors.VERMELL,colors.BLAU,colors.GROC,colors.MAGENTA};

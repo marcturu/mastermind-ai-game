@@ -284,8 +284,10 @@ public class Driver {
             }
         }
 
-    }
 
+
+    }
+/*
     private void imprimeix_tauler(List<Ronda> partida){
         int size = partida.size();
         for (int i = size; i >= 0; --i){
@@ -357,7 +359,7 @@ public class Driver {
         String dif = in.nextLine();
         while (dif.lenght() == 0) dif = in.nextLine();
 
-    }
+    }*/
 
 
     private void print_menu(){
