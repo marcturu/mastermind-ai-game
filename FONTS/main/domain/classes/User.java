@@ -6,6 +6,7 @@ import java.util.Vector;
 
 //import main.domain.classes.Ranking;
 import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.exceptions.MyException;
 
 
 public class User {
@@ -143,6 +144,7 @@ public class User {
     }
 
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
+        
         int punts_base = 50;
         int win_bonus = 1;
         int punts_penalitzacio_rondes = partida_acabada.get_ultima_ronda();
@@ -150,6 +152,7 @@ public class User {
             partides_guanyades++;
             win_bonus = 5;
         }
+        if (dificultat != "PvsP") set_puntuacio(punts_base, win_bonus, punts_penalitzacio_rondes, dificultat);
 
         //Crida a ranking (F, N, D, PvsP) per actualitzar-lo
 
@@ -158,10 +161,11 @@ public class User {
         llista_partides_no_acabades.remove(partida_acabada);
     }
 
-    public Partida get_partida_acabada(int id_partida) {
+    public Partida get_partida_acabada(int id_partida) throws MyException{
         for (int i = 0; i < get_num_partides_acabades(); i++) {
             if ((llista_partides_acabades.get(i)).get_id() == id_partida) return llista_partides_acabades.get(i);
         }
+        throw new MyException("No esta la partida");
     }
 
     public double get_puntuacioPvsP() throws Exception{
