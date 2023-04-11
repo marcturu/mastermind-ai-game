@@ -161,7 +161,7 @@ public class User {
         int punts_penalitzacio_rondes = partida_acabada.get_ultima_ronda();
         if (guanyat) {
             partides_guanyades++;
-            int win_bonus = 5;
+            win_bonus = 5;
         }
         if (dificultat == "PvsP") set_puntuacio_PvsP(punts_base, win_bonus, punts_penalitzacio_rondes);
         else set_puntuacio(punts_base, win_bonus, punts_penalitzacio_rondes, dificultat);
@@ -171,6 +171,12 @@ public class User {
 
         llista_partides_acabades.add(partida_acabada);
         llista_partides_no_acabades.remove(partida_acabada);
+    }
+
+    Partida get_partida_acabada(int id_partida) {
+        for (int i = 0; i < llista_partides_no_acabades().size; i++) {
+            if (llista_partides_acabades[i].get_id() == id_partida) return llista_partides_acabades[i];
+        }
     }
 
     /*
