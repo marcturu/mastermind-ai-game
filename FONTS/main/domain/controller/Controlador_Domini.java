@@ -28,7 +28,6 @@ import main.domain.classes.exceptions.MyException;
 public class Controlador_Domini {
     private User Usuari;
     private User Usuari2;
-    private User UsuariProves;
     private Record Record;
     private Ranking Ranking;
     private Controlador_Partida CtrlPartida;
@@ -42,7 +41,6 @@ public class Controlador_Domini {
     public Controlador_Domini() {
         this.Usuari = null;
         this.Usuari2 = null;
-        this.UsuariProves = null;
         this.Record = null;
         this.Ranking = null;
         this.CtrlPartida = new Controlador_Partida();
@@ -159,27 +157,6 @@ public class Controlador_Domini {
     public Type_user get_tipus_user_Usuari2() {
         return this.Usuari2.get_tipus_user();
     }
-
-    public Type_user get_tipus_user_by_nom_user(String nom_user) {
-        UsuariProves = get_user_by_username(nom_user);
-        return Usuari.get_tipus_user();
-    }
-
-    /*
-    public boolean get_password_Usuari1() {
-        return this.Usuari.get_password();
-    }
-
-    public boolean validate_password_Usuari1_by_user_name(String user_name) {
-        UsuariProves = hashUsers.get(user_name);
-        return Usuari.get_password() == UsuariProves.get_password();
-    }
-
-    public boolean validate_password_Usuari2_by_user_name(String user_name) {
-        UsuariProves = hashUsers.get(user_name);
-        return Usuari2.get_password() == UsuariProves.get_password();
-    } */
-
 
     public int get_rondes_totals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
