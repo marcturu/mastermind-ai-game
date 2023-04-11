@@ -62,5 +62,10 @@ public class User_persona extends User {
         return vstats;
     }
 
+    public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
+        super.set_partida_acabada(partida_acabada, guanyat, dificultat);
+        if (dificultat == "PvsP") set_puntuacio_PvsP(punts_base, win_bonus, punts_penalitzacio_rondes);
+        else super.set_puntuacio(punts_base, win_bonus, punts_penalitzacio_rondes, dificultat);
+    }
 
 }
