@@ -1,29 +1,15 @@
-package tests;
-
-import main.domain.classes.Record;
-
-import org.junit.*;
-
-import java.io.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-
+package test;
 /**
  * Classe de testeig de Record.java
  * @author Juan Clusellas
  */
 
-package test.domain.classes;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 import main.domain.classes.*;
 import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.exceptions.MyException;
 
 public class TestPartida {
@@ -78,7 +64,7 @@ public class TestPartida {
     @Test
     public void testDificultat() {
         Partida partida = new Partida(1, new User(7, "cm", Type_user.user_persona), new User(5, "cb", Type_user.user_persona), dificultats.DIFICIL, true);
-        assertEquals(partida.dificultat(), dificultats.DIFICIL);
+        assertEquals(partida.get_dificultat(), dificultats.DIFICIL);
     }
 
     @Test
