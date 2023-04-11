@@ -165,13 +165,15 @@ public class User {
         }
     }
 
+    public double get_puntuacioPvsP();
+
     /*
     //USER_PERSONA
     public void set_password(String password) {}
 
     public boolean validate_password(String password) {}
 
-    public double get_puntuacioPvsP() {}
+
 
     public void set_puntuacio_PvsP(int punts_base, int win_bonus, int punts_penalitzacio_rondes) {}
 
