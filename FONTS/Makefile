@@ -7,6 +7,8 @@ CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
 
 CLASS_RECORD = ./main/domain/classes/Record.java
 CLASS_PARTIDA = ./main/domain/classes/Partida.java
+CLASS_SEQUENCIA = ./main/domain/classes/Sequencia.java \
+				  ./main/domain/classes/enumerations/*.java
 
 CLASS_OUTPUT = ../EXE/out/
 
@@ -53,7 +55,9 @@ TestPartida:
 TestRonda: all
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRonda
 
-TestSequencia: all
+TestSequencia:
+	javac -d $(CLASS_OUTPUT) $(CLASS_SEQUENCIA)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(JUNIT_TESTS_SEQUENCIA)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestSequencia
 
 TestUser: all
