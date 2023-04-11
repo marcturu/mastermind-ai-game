@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import main.domain.classes.User;
 import main.domain.classes.User_maquina;

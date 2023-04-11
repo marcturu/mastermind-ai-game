@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import main.domain.classes.Ranking;
 import main.domain.classes.types.Pair;

@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import main.domain.classes.User;
 import main.domain.classes.enumerations.Type_user;
@@ -41,9 +41,6 @@ public class TestUser {
         assertEquals("Mateixes partides guanyades", u.get_partides_guanyades(), 0);
         assertEquals("Mateixa llista partides no acabades", u.llista_partides_no_acabades.size(), 0);
         assertEquals("Mateixa llista partides  acabades", u.llista_partides_acabades.size(), 0);
-
-        }
-
     }
 
     /**

@@ -1,8 +1,10 @@
-package tests;
+package test;
 
 import main.domain.classes.Record;
 
 import org.junit.*;
+
+import junit.framework.TestCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -13,7 +15,7 @@ import static org.junit.Assert.assertNull;
  * @author Ferran Solanes (ferran.solanes@estudiantat.upc.edu)
  */
 
-public class TestRecord {
+public class TestRecord extends TestCase{
     /**
      * Objecte de la prova: Test de la constructora de Record
      * Fitxers de dades necessaris: Dades introduïdes manualment.
