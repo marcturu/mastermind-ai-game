@@ -349,6 +349,13 @@ public class Driver {
     }
 
     private void veure_ranking(){
+        System.out.println("Selecciona dificultat per visualitzar el ranking, introdueix: " +
+                "\n'facil' - Visualitar ranking dificultat Facil" +
+                "\n'normal' - Visualitar ranking dificultat Normal" +
+                "\n'dificil' - Visualitar ranking dificultat dificil" +
+                "\n'pvp' - Visualitar ranking Player Vs Player");
+        String dif = in.nextLine();
+        while (dif.lenght() == 0) dif = in.nextLine();
 
     }
 
