@@ -12,7 +12,7 @@ import main.domain.classes.types.Pair;
  */
 
 public class Ranking {
-    protected List<Pair<Pair<Double, String>, LocalDate>> rank; //int: rondes, String: username, LocalDate: data de finalització partida
+    protected List<Pair<Pair<Double, String>, LocalDate>> rank; //Double: ratio, String: username, LocalDate: data de finalització partida
 
 
     public Ranking() {
