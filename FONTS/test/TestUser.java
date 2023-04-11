@@ -39,8 +39,8 @@ public class TestUser {
         assertEquals("Mateixes partides totals", u.get_partides_totals(), 0);
         assertEquals("Mateixpuntuació", u.get_puntuacio(), 0.0);
         assertEquals("Mateixes partides guanyades", u.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", u.llista_partides_no_acabades.size(), 0);
-        assertEquals("Mateixa llista partides  acabades", u.llista_partides_acabades.size(), 0);
+        assertEquals("Mateixa llista partides no acabades", u.get_num_partides_actuals(), 0);
+        assertEquals("Mateixa llista partides  acabades", u.get_num_partides_acabades(), 0);
     }
 
     /**
