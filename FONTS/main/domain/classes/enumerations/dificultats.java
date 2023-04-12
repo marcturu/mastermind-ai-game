@@ -1,9 +1,9 @@
 package main.domain.classes.enumerations;
 
 public enum dificultats {
-    FACIL("facil",1,4,1000,14),
-    NORMAL("normal",2,6,1000,10),
-    DIFICIL("dificil",3,8,1000,6);
+    FACIL("facil",1,4,600,14),
+    NORMAL("normal",2,6,600,10),
+    DIFICIL("dificil",3,8,600,6);
 
     private String dificultat;
     private int num_dificultat;
