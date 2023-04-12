@@ -218,11 +218,11 @@ public class Controlador_Domini {
      *Demana els punts PvsP del Usuari2, es llença MaquinaNoTePuntsPvsP si l'Uusari2 és de tipus user_maquina
      */
 
-    /*
+
     public void set_puntuacio_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         Usuari.set_puntuacio();
-    }*/
+    }
 
     public int get_partides_guanyades_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
