@@ -99,7 +99,7 @@ TestRanking:
 TestPartida:
 	javac -d $(CLASS_OUTPUT) $(CLASS_PARTIDA)
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_PARTIDA) $(JUNIT_TESTS_PARTIDA)
-	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRanking
+	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestPartida
 
 TestRonda:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RONDA)

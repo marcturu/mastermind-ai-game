@@ -95,7 +95,7 @@ public class Partida {
      * @throws MyException Si ja s'ha demanat ajuda abans
      */
     public void set_ajuda() throws Exception{
-        if(this.ajuda == true) this.ajuda = !this.ajuda;
+        if(this.ajuda == false) this.ajuda = !this.ajuda;
         else {
             throw new Exception("Ja has demanat ajuda un cop");
         }
