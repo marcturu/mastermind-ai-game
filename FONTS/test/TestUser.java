@@ -256,23 +256,6 @@ public class TestUser {
     }
 
     /**
-     * Objecte de la prova: Test de la funció get_estadistiques.
-     * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
-     * Operativa: Creem un nou user amb paràmetres, comprovem que les estadístiques d'aquest usuari es corresponen amb les creades manualment pel test (tots els valors a 0, ja que encara no ha jugat aquest nou Usuari).
-     */
-    @Test
-    public void test_get_estadistiques() {
-        User u = new User(1, "Marc", Type_user.user_persona);
-        //Vector<Double> stats_prova = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-        Vector<Double> stats_prova = new Vector<Double>();
-        for(int i = 0; i < 6; ++i) {
-            stats_prova.add(0.0);
-        }
-        assertEquals(stats_prova, u.get_estadistiques());
-    }
-
-    /**
      * Objecte de la prova: Test de la funció afegir_partida_nova.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.

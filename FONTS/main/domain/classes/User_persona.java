@@ -59,6 +59,10 @@ public class User_persona extends User {
         return super.get_puntuacioD();
     }
 
+    public double get_puntuacioPvsP() {
+        return this.puntuacioPvsP;
+    }
+
     public int get_partides_guanyades() {
         return super.get_partides_guanyades();
     }
@@ -87,16 +91,12 @@ public class User_persona extends User {
         return this.password;
     }
 
-    public double get_puntuacioPvsP() {
-        return this.puntuacioPvsP;
-    }
-
     public Vector<Double> get_estadistiques() {
         Vector<Double> vstats = new Vector<Double>();
         vstats.add(super.get_puntuacioF());
         vstats.add(super.get_puntuacioN());
         vstats.add(super.get_puntuacioD());
-        vstats.add(super.get_puntuacioPvsP());
+        vstats.add(get_puntuacioPvsP());
         vstats.add((double)super.get_num_partides_actuals());
         vstats.add((double)super.get_num_partides_acabades());
         vstats.add((double)super.get_partides_totals());
