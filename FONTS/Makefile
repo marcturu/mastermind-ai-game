@@ -1,9 +1,9 @@
 CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/classes/enumerations/*.java \
-               ./main/domain/controller/*.java \
+               ./main/domain/classes/types/*.java \
+               ./main/domain/controller/*.java
                #./main/domain/classes/algorismes/*.java
 
-CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
 
 CLASS_RECORD = ./main/domain/classes/Record.java
 
@@ -85,7 +85,7 @@ all:
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
 driver:
-	javac -d $(CLASS_OUTPUT) $(CLASS_ENUM) ./drivers/Driver.java
+	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT) ./drivers/Driver.java
 	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
 	java -jar $(JAR_OUTPUT)Driver.jar
 
