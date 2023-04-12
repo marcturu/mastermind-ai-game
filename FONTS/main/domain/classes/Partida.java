@@ -1,7 +1,7 @@
 package main.domain.classes;
 
 import main.domain.classes.enumerations.dificultats;
-import main.domain.classes.exceptions.MyException;
+// import main.domain.classes.exceptions.MyException;
 //import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.colors;
 import main.domain.classes.types.Pair;

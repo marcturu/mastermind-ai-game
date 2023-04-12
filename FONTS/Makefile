@@ -11,7 +11,8 @@ CLASS_PARTIDA = ./main/domain/classes/Partida.java \
 				./main/domain/classes/enumerations/*.java \
 				./main/domain/classes/Ronda.java \
 				./main/domain/classes/Sequencia.java \
-				./main/domain/classes/User.java
+				./main/domain/classes/User.java \
+				./main/domain/classes/enumerations/type_seq.java
 
 CLASS_SEQUENCIA = ./main/domain/classes/Sequencia.java \
 				  ./main/domain/classes/enumerations/colors.java \
@@ -108,20 +109,19 @@ TestSequencia:
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestSequencia
 
 TestUser:
-	javac -d $(CLASS_OUTPUT) $(CLASS_USER)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_USER) $(JUNIT_TESTS_USER)
+	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS_USER)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestUser
 
 TestUser_maquina:
-	javac -d $(CLASS_OUTPUT) $(CLASS_USER_MAQUINA)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_USER_MAQUINA) $(JUNIT_TESTS_USER_MAQUINA)
+	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS_USER_MAQUINA)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestUser_maquina
 
 TestUser_persona:
-	javac -d $(CLASS_OUTPUT) $(CLASS_USER_PERSONA)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_USER_PERSONA) $(JUNIT_TESTS_USER_PERSONA)
+	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS_USER_PERSONA)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestUser_persona
 
 clean:
 	rm -rf ../EXE/out/* ../EXE/*
-
