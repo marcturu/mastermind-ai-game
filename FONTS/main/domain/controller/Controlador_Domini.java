@@ -218,11 +218,11 @@ public class Controlador_Domini {
      *Demana els punts PvsP del Usuari2, es llença MaquinaNoTePuntsPvsP si l'Uusari2 és de tipus user_maquina
      */
 
-
+/*
     public void set_puntuacio_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         Usuari.set_puntuacio();
-    }
+    } */
 
     public int get_partides_guanyades_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
@@ -372,8 +372,8 @@ public class Controlador_Domini {
 
     public void actualitza_ranking() {
         Pair<Double, Double> pair;
-        double punts_u;
-        double punts_u2;
+        double punts_u = 0.0;
+        double punts_u2 = 0.0;
         String nom_u = Usuari.get_nom();
         String nom_u2 = Usuari2.get_nom();
         switch ((CtrlPartida.get_dificultat()).get_dificultat()) {
@@ -396,8 +396,13 @@ public class Controlador_Domini {
                 (hashRanking.get("dificil")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
             default:
-                punts_u = this.Usuari.get_puntuacioPvsP();
-                punts_u2 = this.Usuari2.get_puntuacioPvsP();
+                try {
+                    punts_u = this.Usuari.get_puntuacioPvsP();
+                    punts_u2 = this.Usuari2.get_puntuacioPvsP();
+                }
+                catch (Exception ex){
+                    //System.out.println(ex.getMessage());
+                }
                 (hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
                 (hashRanking.get("pvp")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
@@ -416,13 +421,17 @@ public class Controlador_Domini {
     public List<Integer> get_ids_partides_acabades_Usuari1() {
         return Usuari.get_ids_partides_acabades();
     }
-    //faltaa"!!!
-    public Partida get_partida(int id){ 
-        try{
+
+    public Partida get_partida(int id){
+        try {
             return Usuari.get_partida_acabada(id);
         }
         catch (Exception ex) {
             //System.out.println(ex.getMessage());
         }
+        //No em deixava fer la funció sense return d'algo
+        Partida partida_no_valida = new Partida(-1, Usuari, Usuari2, dificultats.FACIL, true);
+        return partida_no_valida;
     }
+
 }

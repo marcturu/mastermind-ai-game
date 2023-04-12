@@ -108,8 +108,13 @@ public class Controlador_Partida {
      * @throws AjudaJaDemanada
      * Demana ajuda al sistema, es llença AjudaJaDemanada si ja ha demanat ajuda previament
      */
-    public void set_ajuda() throws MyException{
-        this.partida_actual.set_ajuda();
+    public void set_ajuda(){
+        try{
+            this.partida_actual.set_ajuda();
+        }
+        catch (Exception ex) {
+            //System.out.println(ex.getMessage());
+        }
     }
 
     /**

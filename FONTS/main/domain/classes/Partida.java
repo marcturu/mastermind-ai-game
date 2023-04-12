@@ -94,10 +94,10 @@ public class Partida {
      * Funció que activa o desactiva l'ajuda durant la partida
      * @throws MyException Si ja s'ha demanat ajuda abans
      */
-    public void set_ajuda() throws MyException{
+    public void set_ajuda() throws Exception{
         if(this.ajuda == true) this.ajuda = !this.ajuda;
         else {
-            throw new MyException("Ja has demanat ajuda un cop");
+            throw new Exception("Ja has demanat ajuda un cop");
         }
     }
 
