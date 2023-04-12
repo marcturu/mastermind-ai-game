@@ -153,7 +153,7 @@ public class TestUser_persona {
         up.set_puntuacio_PvsP(50, 5, 10);
         assertEquals(up.get_puntuacio_PvsP(), 200.0);
 
-        //No pot ser negatiu:
+        //No pot ser negatiu :
         User_persona up2 = new User_persona(2, "Ferran", Type_user.user_persona);
         up2.set_puntuacio_PvsP(50, 1, 11*5);
         assertEquals(up2.get_puntuacioPvsP(), 0.0);
