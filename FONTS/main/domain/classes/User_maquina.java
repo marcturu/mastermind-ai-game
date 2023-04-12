@@ -29,7 +29,83 @@ public class User_maquina extends User {
         return this.genetic_algorithm;
     }
 
-    public double get_puntuacioPvsP() throws Exception{
-        throw new Exception ("El user maquina no té punts PvsP");
+    public int get_id() {
+        return super.get_id();
     }
+
+    public String get_nom() {
+        return super.get_nom();
+    }
+
+    public Type_user get_tipus_user() {
+        return super.get_tipus_suer();
+    }
+
+    public int get_rondes_totals() {
+        return super.get_rondes_totals();
+    }
+
+    public int get_partides_totals() {
+        return super.get_partides_totals();
+    }
+
+    public double get_puntuacioF() {
+        return super.get_puntuacioF();
+    }
+
+    public double get_puntuacioN() {
+        return super.get_puntuacioN();
+    }
+
+    public double get_puntuacioD() {
+        return super.get_puntuacioD();
+    }
+
+    public double get_puntuacioPvsP() throws MyException{
+        throw new MyException("El user maquina no té punts PvsP");
+    }
+
+    public int get_partides_guanyades() {
+        return super.get_partides_guanyades();
+    }
+
+    public int get_num_partides_acabades() {
+        return super.get_num_partides_acabades();
+    }
+
+    public int get_num_partides_actuals() {
+        return super.get_num_partides_actuals();
+    }
+
+    public List<Integer> get_ids_partides_actives() {
+        return super.get_ids_partides_actives();
+    }
+
+    public List<Integer> get_ids_partides_acabades() {
+        return super.get_ids_partides_acabades();
+    }
+
+    public Partida get_partida_acabada(int id_partida){
+        super.get_partida_acabada();
+    }
+
+    //Ja mires que no sigui PvsP a la superclasse
+    public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
+        super.set_partida_acabada(partida_acabada, guanyat, dificultat);
+    }
+
+    public void incrementar_rondes_totals() {
+        super.incrementar_rondes_totals();
+    }
+
+    public void incrementar_partides_totals() {
+        super.incrementar_partides_totals();
+    }
+
+    public void afegir_partida_nova(Partida partida_nova){
+        super.afegir_partida_nova(partida_nova);
+    }
+
+
+
 }

@@ -163,7 +163,7 @@ public class TestUser {
     }
 
     /**
-     * Objecte de la prova: Test de la funció get_puntuacioF.
+     * Objecte de la prova: Test de la funció get_puntuacioN.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
      * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuacio és el mateix amb el qual l'hem inicialitzat al crear la classe User.
@@ -175,7 +175,7 @@ public class TestUser {
     }
 
     /**
-     * Objecte de la prova: Test de la funció get_puntuacioF.
+     * Objecte de la prova: Test de la funció get_puntuacioD.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
      * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuacio és el mateix amb el qual l'hem inicialitzat al crear la classe User.
@@ -193,19 +193,19 @@ public class TestUser {
      * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuació és l'esperat després de realitzar els canvis fets al test.
      */
     @Test
-    public void test_set_puntuacioF() {
+    public void test_set_puntuacio() {
         User u = new User(1, "Marc", Type_user.user_persona);
-        u.incrementar_partides_totals(); u.incrementar_partides_totals();
-        u.incrementar_rondes_totals();
-        u.set_puntuacio();
-        assertEquals(u.get_puntuacioF(), 50); // 1r/2p
-        u.incrementar_partides_totals();
-        u.set_puntuacio();
-        assertEquals(u.get_puntuacioF(), (1/3)*100); // 1r/3p
-        u.incrementar_partides_totals(); u.incrementar_partides_totals();
-        u.incrementar_rondes_totals();
-        u.set_puntuacio();
-        assertEquals(u.get_puntuacioF(), 40); // 2r/5p
+        u.set_puntuacio(50, 5, 10, "dificil");
+        assertEquals(u.get_puntuacioD(), 200.0);
+        u.set_puntuacio(50, 5, 10, "facil");
+        assertEquals(u.get_puntuacioF(), 200.0);
+        u.set_puntuacio(50, 5, 10, "normal");
+        assertEquals(u.get_puntuacioN(), 200.0);
+
+        //No pot ser negatiu:
+        User u2 = new User(2, "Ferran", Type_user.user_persona);
+        u.set_puntuacio(50, 1, 11*5, "dificil");
+        assertEquals(u.get_puntuacioD(), 0.0);
     }
 
     /**

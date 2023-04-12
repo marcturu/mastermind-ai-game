@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-//import main.domain.classes.Ranking;
+import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.exceptions.MyException;
 
@@ -87,19 +87,19 @@ public class User {
             case "1":
             case "facil": {
                 this.puntuacioF += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
-                if (this.puntuacioF < 0) this.puntuacioF = 0;
+                if (this.puntuacioF < 0.0) this.puntuacioF = 0.0;
                 break;
             }
             case "2":
             case "normal": {
                 this.puntuacioN += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
-                if (this.puntuacioN < 0) this.puntuacioN = 0;
+                if (this.puntuacioN < 0.0) this.puntuacioN = 0.0;
                 break;
             }
             case "3":
             case "dificil": {
                 this.puntuacioD += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
-                if (this.puntuacioD < 0) this.puntuacioD = 0;
+                if (this.puntuacioD < 0.0) this.puntuacioD = 00;
                 break;
             }
         }
@@ -138,7 +138,7 @@ public class User {
     }
 
     //Ja es comprova que la llista no està plena (<10)
-    public void afegir_partida_nova(Partida partida_nova) throws Exception {
+    public void afegir_partida_nova(Partida partida_nova){
         llista_partides_no_acabades.add(partida_nova);
         incrementar_partides_totals();
     }
@@ -160,6 +160,11 @@ public class User {
         llista_partides_acabades.add(partida_acabada);
         llista_partides_no_acabades.remove(partida_acabada);
     }
+
+    /**
+     * Funció que retorna la partida acabada a aprtir del seu id
+     * @throws MyException Si no es troba la partida
+     */
 
     public Partida get_partida_acabada(int id_partida) throws MyException{
         for (int i = 0; i < get_num_partides_acabades(); i++) {
