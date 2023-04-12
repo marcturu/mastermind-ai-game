@@ -18,7 +18,6 @@ import main.domain.classes.User_persona;
 import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.colors;
 import main.domain.classes.enumerations.dificultats;
-import main.domain.classes.exceptions.MyException;
 import main.domain.classes.types.Pair;
 
 /**
@@ -94,18 +93,14 @@ public class Controlador_Domini {
      * @throws User1NoPotSerMaquina
      *Comprova si l'usuari1 és de tipus muina. Si ho és, llença l'excepció
      */
-    public void set_jugador1(String nom_user) throws MyException {
+    public void set_jugador1(String nom_user) throws Exception {
         if ((hashUsers.get(nom_user)).get_tipus_user() == Type_user.user_maquina) {
-            throw new MyException ("L'usuari1 no pot ser de tipus màquina");
+            throw new Exception ("L'usuari1 no pot ser de tipus màquina");
         }
         //else if (validate_password_Usuari1_by_user_name(nom_user)) Usuari = hashUsers.get(nom_user);
     }
 
-    /**
-     * @throws MyException
-     *Comprova si el password del Usuari2 es correspon amb el del nou usuari entrat. Si no, salta l'excepció
-     */
-    public void set_jugador2(String nom_user) throws MyException {
+    public void set_jugador2(String nom_user)  {
         //if (get_tipus_user_by_nom_user(nom_user) == Type_user.user_persona && !validate_password_Usuari2_by_user_name(nom_user)) throw new Exception ("Usuari2 no té el mateix password");
         Usuari2 = hashUsers.get(nom_user);
     }
@@ -247,7 +242,7 @@ public class Controlador_Domini {
 
     public void inicialitza_partida_nova(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
         if (Usuari.get_num_partides_actuals() == 10 || Usuari2.get_num_partides_actuals() == 10)
-            throw new MyException("Masses partides actives per part d'algun dels dos jugadors");
+            throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
         else {
             Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
             afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
@@ -257,7 +252,7 @@ public class Controlador_Domini {
 
     public void inicialitza_partida_nova_pvp(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
         if (Usuari.get_num_partides_actuals() == 10 || Usuari2.get_num_partides_actuals() == 10)
-            throw new MyException("Masses partides actives per part d'algun dels dos jugadors");
+            throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
         else {
             Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
             afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
@@ -309,7 +304,7 @@ public class Controlador_Domini {
      * @throws AjudaJaDemanada
      * Demana ajuda al sistema, es llença AjudaJaDemanada si ja ha demanat ajuda previament
      */
-    public void set_ajuda() throws MyException{
+    public void set_ajuda() throws Exception{
         CtrlPartida.set_ajuda();
     }
 
@@ -409,7 +404,7 @@ public class Controlador_Domini {
         }
     }
 
-    public void jugar_partides_antigues(int id_partida_activa) throws MyException{
+    public void jugar_partides_antigues(int id_partida_activa) throws Exception{
         //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
         CtrlPartida.carregar_partida(id_partida_activa);
     }

@@ -35,8 +35,7 @@ CLASS_USER = ./main/domain/classes/Partida.java \
             ./main/domain/classes/Ronda.java \
             ./main/domain/classes/Sequencia.java \
             ./main/domain/classes/types/Pair.java \
-            ./main/domain/classes/enumerations/type_seq.java \
-            ./main/domain/classes/types/Pair.java
+            ./main/domain/classes/enumerations/type_seq.java
 
 
 CLASS_USER_MAQUINA = ./main/domain/classes/Partida.java \

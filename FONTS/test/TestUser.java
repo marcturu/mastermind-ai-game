@@ -6,7 +6,7 @@ import main.domain.classes.User_maquina;
 import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.dificultats;
-import main.domain.classes.types.Pair.java;
+import main.domain.classes.types.Pair;
 
 import java.util.Vector;
 

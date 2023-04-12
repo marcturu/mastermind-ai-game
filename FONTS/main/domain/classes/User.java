@@ -6,7 +6,10 @@ import java.util.Vector;
 
 //import main.domain.classes.Ranking;
 import main.domain.classes.enumerations.Type_user;
-
+import main.domain.classes.Partida;
+import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.types.Pair;
 
 
 public class User {
