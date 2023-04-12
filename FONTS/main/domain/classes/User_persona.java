@@ -83,7 +83,7 @@ public class User_persona extends User {
         return super.get_ids_partides_acabades();
     }
 
-    public Partida get_partida_acabada(int id_partida){
+    public Partida get_partida_acabada(int id_partida) throws Exception{
         return super.get_partida_acabada(id_partida);
     }
 

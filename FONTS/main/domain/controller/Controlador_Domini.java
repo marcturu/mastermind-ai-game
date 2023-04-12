@@ -418,6 +418,11 @@ public class Controlador_Domini {
     }
     //faltaa"!!!
     public Partida get_partida(int id){ 
-        return Usuari.get_partida_acabada(id);
+        try{
+            return Usuari.get_partida_acabada(id);
+        }
+        catch (Exception ex) {
+            //System.out.println(ex.getMessage());
+        }
     }
 }

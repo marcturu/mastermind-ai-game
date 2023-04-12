@@ -5,6 +5,8 @@ package main.domain.classes;
 //import main.domain.classes.User;
 //import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
+import java.util.List;
+import java.util.Vector;
 
 public class User_maquina extends User {
     private boolean genetic_algorithm; //false = five_guess; true = genetic;
@@ -38,7 +40,7 @@ public class User_maquina extends User {
     }
 
     public Type_user get_tipus_user() {
-        return super.get_tipus_suer();
+        return super.get_tipus_user();
     }
 
     public int get_rondes_totals() {
@@ -61,8 +63,8 @@ public class User_maquina extends User {
         return super.get_puntuacioD();
     }
 
-    public double get_puntuacioPvsP() throws MyException{
-        throw new MyException("El user maquina no té punts PvsP");
+    public double get_puntuacioPvsP() throws Exception {
+        throw new Exception("El user maquina no té punts PvsP");
     }
 
     public int get_partides_guanyades() {
@@ -85,8 +87,8 @@ public class User_maquina extends User {
         return super.get_ids_partides_acabades();
     }
 
-    public Partida get_partida_acabada(int id_partida){
-        super.get_partida_acabada();
+    public Partida get_partida_acabada(int id_partida) throws Exception{
+        return super.get_partida_acabada(id_partida);
     }
 
     //Ja mires que no sigui PvsP a la superclasse
@@ -102,7 +104,7 @@ public class User_maquina extends User {
         super.incrementar_partides_totals();
     }
 
-    public void afegir_partida_nova(Partida partida_nova){
+    public void afegir_partida_nova(Partida partida_nova) {
         super.afegir_partida_nova(partida_nova);
     }
 
