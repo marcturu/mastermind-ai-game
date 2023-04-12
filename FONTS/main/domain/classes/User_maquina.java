@@ -6,7 +6,6 @@ package main.domain.classes;
 //import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
 import java.util.List;
-import java.util.Vector;
 
 public class User_maquina extends User {
     private boolean genetic_algorithm; //false = five_guess; true = genetic;

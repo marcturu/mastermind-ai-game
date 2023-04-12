@@ -1,8 +1,6 @@
 package main.domain.classes;
 
 import java.util.*;
-import main.domain.classes.User;
-import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
 
 

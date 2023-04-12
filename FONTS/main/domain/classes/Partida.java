@@ -1,9 +1,10 @@
 package main.domain.classes;
 
+//import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.dificultats;
 // import main.domain.classes.exceptions.MyException;
 //import main.domain.classes.enumerations.Type_user;
-import main.domain.classes.enumerations.colors;
+//import main.domain.classes.enumerations.colors;
 import main.domain.classes.types.Pair;
 import java.util.*;
 import java.time.*;
@@ -22,7 +23,7 @@ public class Partida {
     private boolean partida_acabada;
     private Instant temps_inici;
     private List<Ronda> llista_rondes;
-    private colors[] sequencia_solucio;
+    private Sequencia sequencia_solucio;
 
 
     /**
@@ -254,7 +255,7 @@ public class Partida {
      * Funció que crea una nova sequencia intentada a la ronda actual
      * @param  sequencia intentada
      */
-    public void set_seq_int_a_ronda_actual(colors[] seq_int) {
+    public void set_seq_int_a_ronda_actual(Sequencia seq_int) {
         llista_rondes.get(ultima_ronda_jugada).set_intentada(seq_int, num_colors);
     }
 
@@ -262,7 +263,7 @@ public class Partida {
      * Funció que crea una nova sequencia verificada a la ronda actual
      * @param  sequencia verificada
      */
-    public void set_seq_ver_a_ronda_actual(colors[] seq_ver) {
+    public void set_seq_ver_a_ronda_actual(Sequencia seq_ver) {
         llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver, sequencia_solucio);
     }
 
@@ -278,7 +279,7 @@ public class Partida {
      * Funció que seteja la sequencia solucio de la partida
      * @param solucio
      */
-    public void set_sequencia_solucio(colors[] solucio){
+    public void set_sequencia_solucio(Sequencia solucio){
         this.sequencia_solucio = solucio;
     }
 

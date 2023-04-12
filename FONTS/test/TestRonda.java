@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -44,12 +45,14 @@ public class TestRonda {
     @Test
     public void test_get_seq_intentada() throws Exception{
         Ronda ronda = new Ronda(1,1);
-        colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
-        ronda.set_intentada(array,6);
         Sequencia seq = new Sequencia(type_seq.intentada);
-        seq.set_array(array,6);
+        colors[] arr_col = {colors.VERD, colors.BLAU, colors.GROC, colors.MAGENTA};
+        seq.set_array(arr_col, 6);
+        ronda.set_intentada(seq,6);
+        Sequencia seq2 = new Sequencia(type_seq.intentada);
+        seq2.set_array(seq.get_array(),6);
 
-        assertEquals("Retorna la mateixa sequencia",ronda.get_seq_intentada().get_array(),seq.get_array());
+        assertArrayEquals("Retorna la mateixa sequencia",ronda.get_seq_intentada().get_array(),seq.get_array());
         assertEquals("Retorna la mateixa tipus de sequencia",ronda.get_seq_intentada().get_tipus(),seq.get_tipus());
     }
 
@@ -64,17 +67,22 @@ public class TestRonda {
     public void test_get_seq_verificacio() throws Exception{
         Ronda ronda = new Ronda(1,1);
         //creem la seq_intentada
+        Sequencia seq_int = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
-        ronda.set_intentada(array,6);
+        seq_int.set_array(array, 6);
+        ronda.set_intentada(seq_int, 6);
         //creem la seq_verificacio
+        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+        Sequencia seq_sol = new Sequencia(type_seq.solucio);
         colors[] verificacio = {colors.NULL,colors.BLANC, colors.NEGRE, colors.NULL};
         colors[] sol = {colors.VERMELL,colors.BLAU,colors.VERMELL,colors.VERD};
-        ronda.set_verificacio(verificacio,sol);
+        seq_ver.set_array_verificacio(verificacio, sol, seq_int.get_array());
+        seq_sol.set_array(sol, 6);
+        ronda.set_verificacio(seq_ver, seq_sol);
         //creem la sequencia de verificacio per poder comprovar
-        Sequencia seq = new Sequencia(type_seq.verificacio);
-        seq.set_array_verificacio(verificacio,sol,array);
-        assertEquals("Retorna el mateix array",ronda.get_seq_verificacio().get_array(),seq.get_array());
-        assertEquals("Retorno el matix tipus de sequencia",ronda.get_seq_verificacio().get_tipus(),seq.get_tipus());
+        
+        assertArrayEquals("Retorna el mateix array",ronda.get_seq_verificacio().get_array(), verificacio);
+        assertEquals("Retorno el matix tipus de sequencia",ronda.get_seq_verificacio().get_tipus(),seq_ver.get_tipus());
 
     }
 
@@ -106,11 +114,13 @@ public class TestRonda {
      * Operativa: Creem un nova Ronda amb el paràmetre “id partida i num_ronda”, i comproven que el set de la
      * sequencia intentada sigui el correcte*/
     @Test
-    public void test_set_intentada() {
+    public void test_set_intentada() throws Exception{
         Ronda ronda = new Ronda(1, 1);
+        Sequencia seq_int = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
-        ronda.set_intentada(array,6);
-        assertEquals("Comprovem si el set ha funcionat",ronda.get_seq_intentada().get_array(),array);
+        seq_int.set_array(array, 6);
+        ronda.set_intentada(seq_int, 6);
+        assertArrayEquals("Comprovem si el set ha funcionat",ronda.get_seq_intentada().get_array(), array);
     }
     /**
      * Objecte de la prova: Test de la set_verificacio de Ronda
@@ -119,16 +129,22 @@ public class TestRonda {
      * Operativa: Creem un nova Ronda amb el paràmetre “id partida i num_ronda”, i comproven que el set de la
      * sequencia verificacio sigui el correcte*/
     @Test
-    public void test_set_verificacio() {
+    public void test_set_verificacio() throws Exception{
         Ronda ronda = new Ronda(1,1);
         //creem la seq_intentada
+        Sequencia seq_int = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
-        ronda.set_intentada(array,6);
+        seq_int.set_array(array, 6);
+        ronda.set_intentada(seq_int,6);
         //creem la seq_verificacio
+        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+        Sequencia seq_sol = new Sequencia(type_seq.solucio);
         colors[] verificacio = {colors.NULL,colors.BLANC, colors.NEGRE, colors.NULL};
         colors[] sol = {colors.VERMELL,colors.BLAU,colors.VERMELL,colors.VERD};
-        ronda.set_verificacio(verificacio,sol);
-        assertEquals("Comprovem si el set ha funcionat",ronda.get_seq_verificacio().get_array(),verificacio);
+        seq_ver.set_array_verificacio(verificacio, sol, seq_int.get_array());
+        seq_sol.set_array(sol, 6);
+        ronda.set_verificacio(seq_ver, seq_sol);
+        assertArrayEquals("Comprovem si el set ha funcionat",ronda.get_seq_verificacio().get_array(),verificacio);
     }
 
     /**
@@ -139,16 +155,22 @@ public class TestRonda {
      * verificacio te 4 espigues negres, i per tant ha acabat la partida
      * */
     @Test
-    public void test_check_sequencia_encertada() {
+    public void test_check_sequencia_encertada() throws Exception{
         Ronda ronda = new Ronda(1,1);
         //creem la seq_intentada
+        Sequencia seq_int = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
-        ronda.set_intentada(array,6);
+        seq_int.set_array(array, 6);
+        ronda.set_intentada(seq_int,6);
         //creem la seq_verificacio
+        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+        Sequencia seq_sol = new Sequencia(type_seq.solucio);
         colors[] verificacio = {colors.NEGRE, colors.NEGRE, colors.NEGRE, colors.NEGRE};
         colors[] sol = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
-        ronda.set_verificacio(verificacio, sol);
-        assertTrue("Comprovem retorna true",ronda.check_sequencia_encertada());
+        seq_ver.set_array_verificacio(verificacio, sol, seq_int.get_array());
+        seq_sol.set_array(sol, 6);
+        ronda.set_verificacio(seq_ver, seq_sol);
+        assertTrue("Comprovem retorna true", ronda.check_sequencia_encertada());
     }
 
 }

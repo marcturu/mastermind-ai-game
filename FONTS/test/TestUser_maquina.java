@@ -1,19 +1,12 @@
 package test;
 
-import main.domain.classes.User;
 import main.domain.classes.User_maquina;
 import main.domain.classes.enumerations.Type_user;
 
 import org.junit.*;
 
-import java.io.*;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Classe de testeig de User_maquina.java
@@ -32,13 +25,15 @@ public class TestUser_maquina {
     @Test
     public void test_constructora_user_maquina() {
         User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
-        assertEquals("Mateix id", um.get_id(), "1");
+        assertEquals("Mateix id", um.get_id(), 1);
         assertEquals("Mateix nom", um.get_nom(), "Marc");
         assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
-        assertEquals("Mateix genetic algorithm", um.is_genetic(), true);
+        assertFalse("Mateix genetic algorithm", um.is_genetic());
         assertEquals("Mateixes rondes totals", um.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", um.get_partides_totals(), 0);
-        assertEquals("Mateixa puntuacio", um.get_puntuacio(), 0);
+        assertEquals("Mateixa puntuacio facil", um.get_puntuacioF(), 0, 0.5);
+        assertEquals("Mateixa puntuacio normal", um.get_puntuacioN(), 0, 0.5);
+        assertEquals("Mateixa puntuacio dificil", um.get_puntuacioD(), 0, 0.5);
         assertEquals("Mateixes partides guanyades", um.get_partides_guanyades(), 0);
         assertEquals("Mateixa llista partides no acabades", um.get_num_partides_actuals(), 0);
         assertEquals("Mateixa llista partides  acabades", um.get_num_partides_acabades(), 0);
@@ -54,12 +49,14 @@ public class TestUser_maquina {
     @Test
     public void test_constructora_user_maquina2() {
         User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
-        assertEquals("Mateix id", um.get_id(), "1");
+        assertEquals("Mateix id", um.get_id(), 1);
         assertEquals("Mateix nom", um.get_nom(), "Marc");
         assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
         assertEquals("Mateixes rondes totals", um.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", um.get_partides_totals(), 0);
-        assertEquals("Mateixa puntuacio", um.get_puntuacio(), 0);
+        assertEquals("Mateixa puntuacio facil", um.get_puntuacioF(), 0, 0.5);
+        assertEquals("Mateixa puntuacio normal", um.get_puntuacioN(), 0, 0.5);
+        assertEquals("Mateixa puntuacio dificil", um.get_puntuacioD(), 0, 0.5);
         assertEquals("Mateixes partides guanyades", um.get_partides_guanyades(), 0);
         assertEquals("Mateixa llista partides no acabades", um.get_num_partides_actuals(), 0);
         assertEquals("Mateixa llista partides  acabades", um.get_num_partides_acabades(), 0);

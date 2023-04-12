@@ -1,19 +1,14 @@
 package test;
 
-import main.domain.classes.User;
+
 import main.domain.classes.User_persona;
 import main.domain.classes.enumerations.Type_user;
 
-import org.junit.*;
+import java.util.Vector;
 
-import java.io.*;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Classe de testeig de User_persona.java
@@ -32,16 +27,16 @@ public class TestUser_persona {
     @Test
     public void test_constructora_user_persona() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password123");
-        assertEquals("Mateix id", up.get_id(), "1");
+        assertEquals("Mateix id", up.get_id(), 1);
         assertEquals("Mateix nom", up.get_nom(), "Marc");
         assertEquals("Mateix tipus", up.get_tipus_user(), Type_user.user_persona);
         assertEquals("Mateix password", up.validate_password("password123"), true);
         assertEquals("Mateixes rondes totals", up.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", up.get_partides_totals(), 0);
-        assertEquals("Mateixa puntuacioF", up.get_puntuacioF(), 0.0);
-        assertEquals("Mateixa puntuacioN", up.get_puntuacioN(), 0.0);
-        assertEquals("Mateixa puntuacioD", up.get_puntuacioD(), 0.0);
-        assertEquals("Mateixa puntuacioPvsP", up.get_puntuacioPvsP(), 0.0);
+        assertEquals("Mateixa puntuacioF", up.get_puntuacioF(), 0.0, 0.5);
+        assertEquals("Mateixa puntuacioN", up.get_puntuacioN(), 0.0, 0.5);
+        assertEquals("Mateixa puntuacioD", up.get_puntuacioD(), 0.0, 0.5);
+        assertEquals("Mateixa puntuacioPvsP", up.get_puntuacioPvsP(), 0.0, 0.5);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
         assertEquals("Mateixa llista partides  acabades", up.get_num_partides_actuals(), 0);
         assertEquals("Mateixa llista partides  acabades", up.get_num_partides_acabades(), 0);
@@ -57,15 +52,15 @@ public class TestUser_persona {
     @Test
     public void test_constructora_user_persona2() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
-        assertEquals("Mateix id", up.get_id(), "1");
+        assertEquals("Mateix id", up.get_id(), 1);
         assertEquals("Mateix nom", up.get_nom(), "Marc");
         assertEquals("Mateix tipus", up.get_tipus_user(), Type_user.user_persona);
         assertEquals("Mateixes rondes totals", up.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", up.get_partides_totals(), 0);
-        assertEquals("Mateixa puntuacioF", up.get_puntuacioF(), 0.0);
-        assertEquals("Mateixa puntuacioN", up.get_puntuacioN(), 0.0);
-        assertEquals("Mateixa puntuacioD", up.get_puntuacioD(), 0.0);
-        assertEquals("Mateixa puntuacioPvsP", up.get_puntuacioPvsP(), 0.0);
+        assertEquals("Mateixa puntuacioF", up.get_puntuacioF(), 0.0, 0.5);
+        assertEquals("Mateixa puntuacioN", up.get_puntuacioN(), 0.0, 0.5);
+        assertEquals("Mateixa puntuacioD", up.get_puntuacioD(), 0.0, 0.5);
+        assertEquals("Mateixa puntuacioPvsP", up.get_puntuacioPvsP(), 0.0, 0.5);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
         assertEquals("Mateixa llista partides  acabades", up.get_num_partides_actuals(), 0);
         assertEquals("Mateixa llista partides  acabades", up.get_num_partides_acabades(), 0);
@@ -110,7 +105,7 @@ public class TestUser_persona {
         for(int i = 0; i < 9; ++i) {
             stats_prova.add(0.0);
         }
-        assertEquals(stats_prova, u.get_estadistiques());
+        assertEquals(stats_prova, up.get_estadistiques());
     }
 
     /**
@@ -151,12 +146,12 @@ public class TestUser_persona {
     public void test_set_puntuacio_PvsP() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
         up.set_puntuacio_PvsP(50, 5, 10);
-        assertEquals(up.get_puntuacio_PvsP(), 200.0);
+        assertEquals(up.get_puntuacioPvsP(), 200.0, 0.5);
 
         //No pot ser negatiu :
         User_persona up2 = new User_persona(2, "Ferran", Type_user.user_persona);
         up2.set_puntuacio_PvsP(50, 1, 11*5);
-        assertEquals(up2.get_puntuacioPvsP(), 0.0);
+        assertEquals(up2.get_puntuacioPvsP(), 0.0, 0.5);
     }
 
 }

@@ -12,13 +12,12 @@ import main.domain.classes.Ranking_normal;
 import main.domain.classes.Ranking_pvp;
 import main.domain.classes.Record;
 import main.domain.classes.Ronda;
+import main.domain.classes.Sequencia;
 import main.domain.classes.User;
 import main.domain.classes.User_maquina;
 import main.domain.classes.User_persona;
 import main.domain.classes.enumerations.Type_user;
-import main.domain.classes.enumerations.colors;
 import main.domain.classes.enumerations.dificultats;
-import main.domain.classes.types.Pair;
 
 /**
  * Classe del Controlador de Domin
@@ -358,7 +357,7 @@ public class Controlador_Domini {
         hashRanking.put("PvsP", Ranking);
     }
 
-    public void jugar_ronda(colors[] seq_int, colors[] seq_ver) {
+    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
         else {
             CtrlPartida.jugar_ronda(seq_int, seq_ver);
@@ -366,7 +365,6 @@ public class Controlador_Domini {
     }
 
     public void actualitza_ranking() {
-        Pair<Double, Double> pair;
         double punts_u = 0.0;
         double punts_u2 = 0.0;
         String nom_u = Usuari.get_nom();
