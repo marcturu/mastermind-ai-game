@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Vector;
 
 //import main.domain.classes.Ranking;
-import main.domain.classes.enumerations.*;
+import main.domain.classes.enumerations.Type_user;
+
 
 
 public class User {

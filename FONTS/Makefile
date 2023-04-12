@@ -12,7 +12,8 @@ CLASS_PARTIDA = ./main/domain/classes/Partida.java \
 				./main/domain/classes/Ronda.java \
 				./main/domain/classes/Sequencia.java \
 				./main/domain/classes/User.java \
-				./main/domain/classes/enumerations/type_seq.java
+				./main/domain/classes/enumerations/type_seq.java \
+				./main/domain/classes/types/Pair.java
 
 CLASS_SEQUENCIA = ./main/domain/classes/Sequencia.java \
 				  ./main/domain/classes/enumerations/colors.java \
@@ -32,7 +33,10 @@ CLASS_USER = ./main/domain/classes/Partida.java \
 			./main/domain/classes/User_persona.java \
 			./main/domain/classes/enumerations/colors.java \
             ./main/domain/classes/Ronda.java \
-            ./main/domain/classes/Sequencia.java
+            ./main/domain/classes/Sequencia.java \
+            ./main/domain/classes/types/Pair.java \
+            ./main/domain/classes/enumerations/type_seq.java \
+            ./main/domain/classes/types/Pair.java
 
 
 CLASS_USER_MAQUINA = ./main/domain/classes/Partida.java \
