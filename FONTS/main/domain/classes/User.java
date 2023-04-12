@@ -6,7 +6,7 @@ import java.util.Vector;
 
 //import main.domain.classes.Ranking;
 import main.domain.classes.enumerations.Type_user;
-import main.domain.classes.exceptions.MyException;
+//import main.domain.classes.exceptions.MyException;
 
 
 public class User {
@@ -161,11 +161,11 @@ public class User {
         llista_partides_no_acabades.remove(partida_acabada);
     }
 
-    public Partida get_partida_acabada(int id_partida) throws MyException{
+    public Partida get_partida_acabada(int id_partida) throws Exception{
         for (int i = 0; i < get_num_partides_acabades(); i++) {
             if ((llista_partides_acabades.get(i)).get_id() == id_partida) return llista_partides_acabades.get(i);
         }
-        throw new MyException("No esta la partida");
+        throw new Exception("No esta la partida");
     }
 
     public double get_puntuacioPvsP() throws Exception{

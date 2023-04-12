@@ -357,7 +357,7 @@ public class Driver {
                 "\n'dificil' - Visualitar ranking dificultat dificil" +
                 "\n'pvp' - Visualitar ranking Player Vs Player");
         String dif = in.nextLine();
-        while (dif.length() == 0) dif = in.nextLine();
+        while ((dif.length() == 0) && (dif != "facil" && dif != "normal" && dif != "dificil" && dif != "pvp")) dif = in.nextLine();
 
     }*/
 
