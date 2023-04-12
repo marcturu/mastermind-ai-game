@@ -1,12 +1,15 @@
 package main.domain.controller;
 
-import main.domain.classes.Partida;
-import main.domain.classes.User;
-import main.domain.classes.Ranking;
-import main.domain.classes.Record;
+//import java.time.*;
+import java.util.HashMap;
+import java.util.List;
 
-import java.util.*;
-import java.time.*;
+import main.domain.classes.Partida;
+import main.domain.classes.Ronda;
+import main.domain.classes.User;
+import main.domain.classes.enumerations.colors;
+import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.exceptions.MyException;
 
 /**
  * Classe del Controlador de Partida
@@ -14,11 +17,15 @@ import java.time.*;
  */
 
 public class Controlador_Partida {
+    private HashMap<Integer, Partida> hashPartida;
     private Partida partida_actual;
 
-
+    /**
+     * Creadora de la classe controlador Partida
+     */
     public Controlador_Partida (){
         this.partida_actual = null;
+        this.hashPartida = new HashMap<Integer, Partida>();
     }
 
 
@@ -49,8 +56,24 @@ public class Controlador_Partida {
      * @param jugador1_es_codemaker
      * Crea una partida nova amb els parametres entrats. Aquests parametres han d'estar conprovats abans de cridar a la funció.
      */
-    public void start_partida_nova(int id, User codemaker, User codebreaker, dificultat dif, boolean jugador1_es_codemaker){
+    public Partida start_partida_nova(int id, User codemaker, User codebreaker, dificultats dif, boolean jugador1_es_codemaker){
         this.partida_actual = new Partida(id, codemaker, codebreaker, dif, jugador1_es_codemaker);//ha de incrementar el numero de partides de l'usuari
+        hashPartida.put(id, partida_actual);
+        return partida_actual;
+    }
+
+    /**
+     * @pre Previament s'ha guardat la partida o actualitzat el seu valor dins de la llista.
+     * S'assumeix que no hi ha cap partida jugant-se quan es carrega una nova
+     * @post Es passa a jugar la partida que s'ha carregat
+     * @param id_partida_nova
+     * @throws MyException
+     */
+    public void carregar_partida(int id_partida_nova) throws MyException{
+        partida_actual = hashPartida.get(id_partida_nova);
+        if(partida_actual == null) {
+            throw new MyException("La partida que vols carregar no existeix");
+        }
     }
 
     /**
@@ -63,8 +86,8 @@ public class Controlador_Partida {
     /**
      * @return User que té com a rol codebreaker
      */
-    public User get_codebraker_partida_actual() {
-        return this.partida_actual.get_codebraker();
+    public User get_codebreaker_partida_actual() {
+        return this.partida_actual.get_codebreaker();
     }
 
     /**
@@ -85,7 +108,7 @@ public class Controlador_Partida {
      * @throws AjudaJaDemanada
      * Demana ajuda al sistema, es llença AjudaJaDemanada si ja ha demanat ajuda previament
      */
-    public void set_ajuda() throws AjudaJaDemanada{
+    public void set_ajuda() throws MyException{
         this.partida_actual.set_ajuda();
     }
 
@@ -117,12 +140,20 @@ public class Controlador_Partida {
         return this.partida_actual.get_llista_rondes();
     }
 
+    public Integer get_ultima_ronda_partida_actual() {
+        return this.partida_actual.get_ultima_ronda();
+    }
+
+    public void set_seq_solucio(colors[] seq_sol) {
+        this.partida_actual.set_sequencia_solucio(seq_sol);
+    }
+
     /**
      * @param seq_int sequencia que ha entrar el codebreaker
      * @param seq_ver sequencia que ha entrat el codemaker
      * Funcionalitat que gestiona una ronda. Se li passen dos sequencies que son valides i correctes i es fa el tractament d'aquestes.
      */
-    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
+    public void jugar_ronda(colors[] seq_int, colors[] seq_ver) {
 
         partida_actual.crea_nova_ronda();
         partida_actual.set_seq_int_a_ronda_actual(seq_int);
@@ -131,7 +162,7 @@ public class Controlador_Partida {
 
         if (res) tractament_victoria();
 
-        partida_actual.get_temps_usat(); //actualitzar el valor de temps_usat
+        //partida_actual.get_temps_usat(); //actualitzar el valor de temps_usat
 
         if (temps_excedit_partida_actual()) {//comprovem que no se'ns hagi acabat el temps
             tractament_partida_acabada();
@@ -140,5 +171,20 @@ public class Controlador_Partida {
             partida_actual.crea_nova_ronda();
         } else tractament_partida_acabada();
 
+    }
+
+    /**
+     * @return si l'ha partida s'ha acabat o no
+     */
+    public boolean get_partida_acabada() {
+        return this.partida_actual.get_partida_acabada();
+    }
+
+    /**
+     *
+     * @return la dificultat de la partida actual
+     */
+    public dificultats get_dificultat() {
+        return this.partida_actual.get_dificultat();
     }
 }

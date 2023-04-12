@@ -31,7 +31,7 @@ public class TestUser_persona {
 
     @Test
     public void test_constructora_user_persona() {
-        User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password123", 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password123");
         assertEquals("Mateix id", up.get_id(), "1");
         assertEquals("Mateix nom", up.get_nom(), "Marc");
         assertEquals("Mateix tipus", up.get_tipus_user(), Type_user.user_persona);
@@ -40,8 +40,8 @@ public class TestUser_persona {
         assertEquals("Mateixes partides totals", up.get_partides_totals(), 0);
         assertEquals("Mateixa puntuacio", up.get_puntuacio(), 0);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", llista_partides_no_acabades.size(), 0);
-        assertEquals("Mateixa llista partides  acabades", llista_partides_acabades.size(), 0);
+        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_actuals(), 0);
+        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_acabades(), 0);
     }
 
     /**
@@ -53,7 +53,7 @@ public class TestUser_persona {
 
     @Test
     public void test_constructora_user_persona2() {
-        User_persona up = new User_persona(1, "Marc", Type_user.user_persona, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
         assertEquals("Mateix id", up.get_id(), "1");
         assertEquals("Mateix nom", up.get_nom(), "Marc");
         assertEquals("Mateix tipus", up.get_tipus_user(), Type_user.user_persona);
@@ -61,8 +61,8 @@ public class TestUser_persona {
         assertEquals("Mateixes partides totals", up.get_partides_totals(), 0);
         assertEquals("Mateixa puntuacio", up.get_puntuacio(), 0);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", llista_partides_no_acabades.size(), 0);
-        assertEquals("Mateixa llista partides  acabades", llista_partides_acabades.size(), 0);
+        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_actuals(), 0);
+        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_acabades(), 0);
     }
 
     /**
@@ -74,7 +74,7 @@ public class TestUser_persona {
 
     @Test
     public void test_set_password() {
-        User_persona up = new User_persona(1, "Marc", Type_user.user_persona, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
         up.set_password("password_afegit");
         assertEquals(up.validate_password("password_afegit"), true);
     }
@@ -88,7 +88,7 @@ public class TestUser_persona {
 
     @Test
     public void test_validate_password() {
-        User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password_a_validar", 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password_a_validar");
         assertEquals(up.validate_password("password_a_validar"), true);
     }
 

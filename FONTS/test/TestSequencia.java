@@ -1,15 +1,15 @@
 package test;
 
-import main.domain.classes.Sequencia;
-
-import org.junit.*;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+
+import main.domain.classes.Sequencia;
+import main.domain.classes.enumerations.colors;
+import main.domain.classes.enumerations.type_seq;
+
 
 /**
  * Classe de testeig de Sequencia.java
@@ -28,21 +28,27 @@ public class TestSequencia {
     public void test_constructora_sequencia(){
         //test sequencia tipus solucio
         Sequencia sol = new Sequencia(type_seq.solucio);
-        assertEquals("Mateix tipus", sol.getTipus, type_seq.solucio);
+        assertEquals("Mateix tipus", sol.get_tipus(), type_seq.solucio);
         assertEquals("Array de mida 4", sol.get_array().length,4);
-        assertNull("Array buit", sol.get_array());
+        for (int i = 0; i < 4; ++i){
+            assertNull("Array buit", sol.get_array()[i]);
+        }
 
         //test sequencia tipus intentada
         Sequencia intent = new Sequencia(type_seq.intentada);
-        assertEquals("Mateix tipus", intent.getTipus, type_seq.intentada);
+        assertEquals("Mateix tipus", intent.get_tipus(), type_seq.intentada);
         assertEquals("Array de mida 4", intent.get_array().length,4);
-        assertNull("Array buit", sol.get_array());
+        for (int i = 0; i < 4; ++i){
+            assertNull("Array buit", intent.get_array()[i]);
+        }
 
         //test sequencia tipus verificacio
         Sequencia verificacio = new Sequencia(type_seq.verificacio);
-        assertEquals("Mateix tipus", verificacio.getTipus, type_seq.verificacio);
+        assertEquals("Mateix tipus", verificacio.get_tipus(), type_seq.verificacio);
         assertEquals("Array de mida 4", verificacio.get_array().length,4);
-        assertNull("Array buit", sol.get_array());
+        for (int i = 0; i < 4; ++i){
+            assertNull("Array buit", verificacio.get_array()[i]);
+        }
     }
 
 
@@ -53,11 +59,11 @@ public class TestSequencia {
      * Operativa: Creem un nova Sequencia amb el paràmetre “type_seq.intentada”, fem un set de un array i comprovem que el retorni bé.
      */
     @Test
-    public void test_get_array(){
+    public void test_get_array() throws Exception{
         Sequencia seq = new Sequencia(type_seq.intentada);
-        colors[] array = {2,3,5,2}
+        colors[] array = {colors.VERMELL,colors.BLAU,colors.MAGENTA,colors.VERMELL};
         seq.set_array(array,6);
-        assertEquals("Array identic",seq.get_array(),array);
+        assertArrayEquals("Array identic",seq.get_array(),array);
 
     }
 
@@ -81,12 +87,12 @@ public class TestSequencia {
      * Operativa: Creem un nova Sequencia amb el paràmetre “type_seq.verificacio”, i comprovemq que retorni be el tipus
      */
     @Test
-    public void test_set_array_verificacio(){
+    public void test_set_array_verificacio() throws Exception{
         Sequencia seq = new Sequencia(type_seq.intentada);
-        colors[] ver = {0,9,9,10};
-        colors[] sol = {1,3,4,5};
-        colors[] inte = {1,5,3,2};
+        colors[] ver = {colors.NULL,colors.BLANC,colors.BLANC,colors.NEGRE};
+        colors[] sol = {colors.VERMELL,colors.BLAU,colors.GROC,colors.MAGENTA};
+        colors[] inte = {colors.VERMELL,colors.MAGENTA,colors.BLAU,colors.VERD};
         seq.set_array_verificacio(ver,sol,inte);
-        assertEquals("Set ben fet de verifcacio",seq.get_array(),ver);
+        assertArrayEquals("Set ben fet de verifcacio",seq.get_array(),ver);
     }
 }

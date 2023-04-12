@@ -1,5 +1,7 @@
 package main.domain.classes.types;
 
+import java.util.*;
+
 public class Pair<A, B> {
     private final A first;
     private final B second;

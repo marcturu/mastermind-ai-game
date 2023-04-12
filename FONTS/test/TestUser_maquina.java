@@ -31,17 +31,17 @@ public class TestUser_maquina {
 
     @Test
     public void test_constructora_user_maquina() {
-        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, true, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
         assertEquals("Mateix id", um.get_id(), "1");
         assertEquals("Mateix nom", um.get_nom(), "Marc");
         assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
-        assertEquals("Mateix genetic algorithm", um.ig_genetic, true);
+        assertEquals("Mateix genetic algorithm", um.is_genetic(), true);
         assertEquals("Mateixes rondes totals", um.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", um.get_partides_totals(), 0);
         assertEquals("Mateixa puntuacio", um.get_puntuacio(), 0);
         assertEquals("Mateixes partides guanyades", um.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", um.llista_partides_no_acabades.size(), 0);
-        assertEquals("Mateixa llista partides  acabades", um.llista_partides_acabades.size(), 0);
+        assertEquals("Mateixa llista partides no acabades", um.get_num_partides_actuals(), 0);
+        assertEquals("Mateixa llista partides  acabades", um.get_num_partides_acabades(), 0);
     }
 
     /**
@@ -53,7 +53,7 @@ public class TestUser_maquina {
 
     @Test
     public void test_constructora_user_maquina2() {
-        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
         assertEquals("Mateix id", um.get_id(), "1");
         assertEquals("Mateix nom", um.get_nom(), "Marc");
         assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
@@ -61,8 +61,8 @@ public class TestUser_maquina {
         assertEquals("Mateixes partides totals", um.get_partides_totals(), 0);
         assertEquals("Mateixa puntuacio", um.get_puntuacio(), 0);
         assertEquals("Mateixes partides guanyades", um.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", um.llista_partides_no_acabades.size(), 0);
-        assertEquals("Mateixa llista partides  acabades", um.llista_partides_acabades.size(), 0);
+        assertEquals("Mateixa llista partides no acabades", um.get_num_partides_actuals(), 0);
+        assertEquals("Mateixa llista partides  acabades", um.get_num_partides_acabades(), 0);
     }
 
     /**
@@ -74,8 +74,8 @@ public class TestUser_maquina {
 
     @Test
     public void test_is_genetic() {
-        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, true, 0, 0, 0, 0, llista_partides_no_acabades, llista_partides_acabades);
-        assertEquals(um.is_genetic(), 1);
+        User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
+        assertFalse(um.is_genetic());
     }
 
 }

@@ -1,6 +1,6 @@
 package main.domain.classes;
 
-import java.util.*;
+//import java.util.*;
 
 public class Record{
     private String nom_record;

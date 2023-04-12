@@ -1,11 +1,11 @@
 package main.domain.classes;
 
-import main.domain.classes.Sequencia;
+//import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.type_seq;
 import main.domain.classes.enumerations.colors;
 
-import java.util.*;
-import java.io.*;
+//import java.util.*;
+//import java.io.*;
 
 
 public class Ronda  {
@@ -42,7 +42,7 @@ public class Ronda  {
         try {
             this.sequencia_intentada.set_array(sequencia_intentada,num_colors);
         } catch (Exception ex){
-            System.out.println(ex.getMessage());
+            //System.out.println(ex.getMessage());
         }
     }
 
@@ -51,7 +51,7 @@ public class Ronda  {
         try {
             this.sequencia_verificacio.set_array_verificacio(sequencia_verificacio, solucio, sequencia_intentada.get_array());
         }  catch (Exception ex){
-            System.out.println(ex.getMessage());
+            //System.out.println(ex.getMessage());
         }
     }
 

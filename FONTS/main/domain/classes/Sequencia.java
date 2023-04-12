@@ -3,8 +3,6 @@ package main.domain.classes;
 import main.domain.classes.enumerations.type_seq;
 import main.domain.classes.enumerations.colors;
 
-import java.util.*;
-import java.io.*;
 
 public class Sequencia {
     private colors[] array;
@@ -46,7 +44,6 @@ public class Sequencia {
             this.array = array;
         }
     }
-
 
     private boolean valida_sequencia(colors[] sequencia_verificacio, colors[] solucio, colors[] sequencia_intentada) {
         int res = 0;
