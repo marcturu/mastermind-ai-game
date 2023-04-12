@@ -23,13 +23,34 @@ CLASS_RONDA = ./main/domain/classes/Sequencia.java \
 				./main/domain/classes/Ronda.java
 
 CLASS_USER = ./main/domain/classes/Partida.java \
-			./main/domain/classes/User.java
+			./main/domain/classes/User.java \
+			./main/domain/classes/enumerations/Type_user.java \
+			./main/domain/classes/enumerations/dificultats.java \
+			./main/domain/classes/enumerations/Type_user.java \
+			./main/domain/classes/User_maquina.java \
+			./main/domain/classes/User_persona.java \
+			./main/domain/classes/enumerations/colors.java \
+            ./main/domain/classes/Ronda.java \
+            ./main/domain/classes/Sequencia.java
+
 
 CLASS_USER_MAQUINA = ./main/domain/classes/Partida.java \
-					./main/domain/classes/User.java
+					./main/domain/classes/User.java \
+                    ./main/domain/classes/enumerations/Type_user.java \
+                    ./main/domain/classes/enumerations/dificultats.java \
+                    ./main/domain/classes/enumerations/Type_user.java \
+                    ./main/domain/classes/enumerations/colors.java \
+                    ./main/domain/classes/Ronda.java \
+                    ./main/domain/classes/Sequencia.java
 
 CLASS_USER_PERSONA = ./main/domain/classes/Partida.java \
-					./main/domain/classes/User.java
+                     ./main/domain/classes/User.java \
+                     ./main/domain/classes/enumerations/Type_user.java \
+                     ./main/domain/classes/enumerations/dificultats.java \
+                     ./main/domain/classes/enumerations/Type_user.java \
+                     ./main/domain/classes/enumerations/colors.java \
+                     ./main/domain/classes/Ronda.java \
+                     ./main/domain/classes/Sequencia.java
 
 
 CLASS_OUTPUT = ../EXE/out/
