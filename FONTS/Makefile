@@ -7,6 +7,10 @@ CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
 
 CLASS_RECORD = ./main/domain/classes/Record.java
 
+CLASS_RANKING = ./main/domain/classes/Ranking.java \
+				./main/domain/classes/types/Pair.java
+
+
 CLASS_PARTIDA = ./main/domain/classes/Partida.java \
 				./main/domain/classes/enumerations/*.java \
 				./main/domain/classes/Ronda.java \
@@ -88,7 +92,7 @@ driver:
 executa_driver:
 		java -jar $(JAR_OUTPUT)Driver.jar
 
-allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_persona TestUser_persona
+allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_maquina TestUser_persona
 
 TestRecord:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
@@ -96,7 +100,7 @@ TestRecord:
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
 
 TestRanking:
-	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
+	javac -d $(CLASS_OUTPUT) $(CLASS_RANKING)
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_RANKING) $(JUNIT_TESTS_RANKING)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRanking
 
