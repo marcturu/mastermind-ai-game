@@ -1,46 +1,43 @@
 package main.domain.classes.algorismes;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
 public class Five_guess_algorithm {
 
-//public List<List<Integer>> solve(List<Integer> solution) {}
-
+    //public List<List<Integer>> solve(List<Integer> solution) {}
 
     public static void main(String[] args) {
-        int[] solution = {2, 3, 1, 1}; // Aquí se define la solución
-        printArray(solution);
+        List<Integer> solution = Arrays.asList(6, 3, 1, 2); // Aquí se define la solución
+        printList(solution);
         System.out.println("this is the solution, lets see how we got there:");
 
-
-        List<int[]> guesses = solve(solution);
-        for (int[] guess : guesses) {
-            System.out.println(Arrays.toString(guess));
+        List<List<Integer>> guesses = solve(solution);
+        for (List<Integer> guess : guesses) {
+            System.out.println(guess.toString());
         }
     }
 
-    public static List<int[]> solve(int[] solution) {
-        List<int[]> guesses = new ArrayList<>();
-        int[] colors = {1, 2, 3}; // Aquí se define el número de colores
+    public static List<List<Integer>> solve(List<Integer> solution) {
+        List<List<Integer>> guesses = new ArrayList<>();
+        Integer[] colors = {1, 2, 3,4,5,6}; // Aquí se define el número de colores
 
-        int[][] possibleCodes = generateCodes(colors, solution.length);
+        List<List<Integer>> possibleCodes = generateCodes(Arrays.asList(colors), solution.size());
 
-        int[] guess = {1, 1, 2, 2}; // Primera jugada recomendada por Five Guess
+        List<Integer> guess = Arrays.asList(1, 1, 2, 2); // Primera jugada recomendada por Five Guess
 
-        //printArray(guess);
+        //printList(guess);
 
-        int[] result = getResult(guess, solution);
-
+        List<Integer> result = getResult(guess, solution);
 
         guesses.add(guess);
 
-        while (!Arrays.equals(guess, solution)) {
+        while (!guess.equals(solution)) {
             possibleCodes = filterCodes(possibleCodes, guess, result);
 
-            //printArray(possibleCodes);
+            //printList(possibleCodes);
 
             guess = minimax(possibleCodes);
 
@@ -51,88 +48,87 @@ public class Five_guess_algorithm {
         return guesses;
     }
 
-    public static int[][] generateCodes(int[] colors, int solutionLength) {
-        int numColors = colors.length;
+    /**
+     * Función que genera todos los códigos posibles
+     * @return Lista de códigos posibles
+     * @param colors Lista de colores, largada de la solución
+     */
+    public static List<List<Integer>> generateCodes(List<Integer> colors, int solutionLength) {
+        int numColors = colors.size();
         int numCodes = (int) Math.pow(numColors, solutionLength);
-        int[][] allCodes = new int[numCodes][solutionLength];
+        List<List<Integer>> allCodes = new ArrayList<>();
 
         // Generate all possible codes using nested loops
         for (int i = 0; i < numCodes; i++) {
             int quotient = i;
+            List<Integer> code = new ArrayList<>();
             for (int j = solutionLength - 1; j >= 0; j--) {
                 int remainder = quotient % numColors;
-                allCodes[i][j] = colors[remainder];
+                code.add(colors.get(remainder));
                 quotient /= numColors;
             }
+            allCodes.add(code);
         }
 
         return allCodes;
     }
 
-    private static int getArrayIndex(int[][] array, int[] value) {
-        for (int i = 0; i < array.length; i++) {
-            if (Arrays.equals(array[i], value)) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
-    private static int[] getResult(int[] guess, int[] solution) {
-        int[] result = new int[2];
+    /**
+     * Función que devuelve el resultado (blancas y negras) de una posible solucion
+     * @return lista el resultado (blancas y negras) de una posible solucion
+     * @param colors intento y solucion
+     */
+    private static List<Integer> getResult(List<Integer> guess, List<Integer> solution) {
+        List<Integer> result = new ArrayList<>();
         int correct = 0;
         int misplaced = 0;
 
-        for (int i = 0; i < guess.length; i++) {
-            if (guess[i] == solution[i]) {
+        for (int i = 0; i < guess.size(); i++) {
+            if (guess.get(i).equals(solution.get(i))) {
                 correct++;
-            } else if (contains(solution, guess[i])) {
+            } else if (solution.contains(guess.get(i))) {
                 misplaced++;
             }
         }
 
-        result[0] = correct;
-        result[1] = misplaced;
+        result.add(correct);
+        result.add(misplaced);
 
         return result;
     }
 
-    private static boolean contains(int[] array, int value) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == value) {
-                return true;
-            }
-        }
+    /**
+     * Función que filtra de todos los codigos posibles los que tienen el mismo resultado que la intentada
+     * @return Lista de codigos posibles y filtrados
+     * @param colors Lista de posibles codigos, sequencia intentada y resultado de la intentada
+     */
+    private static List<List<Integer>> filterCodes(List<List<Integer>> possibleCodes, List<Integer> guess, List<Integer> result) {
+        List<List<Integer>> filteredCodes = new ArrayList<>();
 
-        return false;
-    }
-
-    private static int[][] filterCodes(int[][] possibleCodes, int[] guess, int[] result) {
-        List<int[]> filteredCodes = new ArrayList<>();
-
-        for (int[] code : possibleCodes) {
-            int[] codeResult = getResult(guess, code);
-            if (Arrays.equals(codeResult, result)) {
+        for (List<Integer> code : possibleCodes) {
+            List<Integer> codeResult = getResult(guess, code);
+            if (codeResult.equals(result)) {
                 filteredCodes.add(code);
             }
         }
 
-        return filteredCodes.toArray(new int[filteredCodes.size()][guess.length]);
+        return filteredCodes;
     }
 
-
-    private static int[] minimax(int[][] possibleCodes) {
-        int[] bestGuess = null;
+    /**
+     * Función que devuelve la mejor solucion posible dada una lista de posibles soluciones
+     * @return la mejor solucion posible dada una lista de posibles soluciones
+     * @param una lista de posibles soluciones
+     */
+    private static List<Integer> minimax(List<List<Integer>> possibleCodes) {
+        List<Integer> bestGuess = null;
         int minmax = Integer.MAX_VALUE;
 
-        for (int i = 0; i < possibleCodes.length; i++) {
-            int[] guess = possibleCodes[i];
+        for (List<Integer> guess : possibleCodes) {
             int[] score = new int[5];
 
-            for (int j = 0; j < possibleCodes.length; j++) {
-                int[] code = possibleCodes[j];
-                score[getResult(guess, code)[0]]++;
+            for (List<Integer> code : possibleCodes) {
+                score[getResult(guess, code).get(0)]++;
             }
 
             int maxScore = Arrays.stream(score).max().getAsInt();
@@ -146,24 +142,10 @@ public class Five_guess_algorithm {
         return bestGuess;
     }
 
-    private static void printArray(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
+    public static void printList(List<Integer> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i) + " ");
         }
         System.out.println();
     }
-
-    private static void printArray(int[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                System.out.print(array[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-
-
-
-
 }

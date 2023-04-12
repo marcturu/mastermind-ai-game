@@ -78,4 +78,6 @@ public class TestPartida {
         Partida partida = new Partida(1, new User(7, "cm", Type_user.user_persona), new User(5, "cb", Type_user.user_persona), dificultats.DIFICIL, true);
         assertNotNull(partida.get_temps_usat());
     }
+
 }
+
