@@ -62,7 +62,7 @@ public class TestUser_persona {
         assertEquals("Mateixa puntuacioD", up.get_puntuacioD(), 0.0, 0.5);
         assertEquals("Mateixa puntuacioPvsP", up.get_puntuacioPvsP(), 0.0, 0.5);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides  acabades", up.get_num_partides_actuals(), 0);
+        assertEquals("Mateixa llista partides no acabades", up.get_num_partides_actuals(), 0);
         assertEquals("Mateixa llista partides  acabades", up.get_num_partides_acabades(), 0);
     }
 
