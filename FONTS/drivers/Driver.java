@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import main.domain.classes.Partida;
 import main.domain.classes.Ronda;
+import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.colors;
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.enumerations.type_seq;
@@ -74,7 +75,7 @@ public class Driver {
                         System.out.println("Introdueix la teva Nova Contrasenya");
                         String password = in.nextLine();
                         while (password.length() == 0) username = in.nextLine();
-                        //domini.inicialitzaUserPersona2(username,password);
+                        domini.inicialitzaUserPersona2(username, password);
                         break;
                     }
                 }
@@ -124,16 +125,19 @@ public class Driver {
                             jugar_partida_pvp(dificultats.FACIL);
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
+
                         }
                         break;
                     }
                     case "2":{
                         try {
-                            domini.inicialitza_partida_nova_pvp(dificultats.NORMAL,rol);
-                            //peta aqui
+                            domini.inicialitza_partida_nova_pvp(dificultats.NORMAL,rol); //peta aqui
+                            System.out.println("Partida inicialitzada\n");
+                            
                             jugar_partida_pvp(dificultats.NORMAL);
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
+                            System.out.println("Salta excepcio");
                         }
                         break;
                     }
@@ -175,8 +179,10 @@ public class Driver {
         }
 
         while (ronda_actual <= dif.get_num_max_rondes()) {
-            colors[] seq_int = new colors[4];
-            colors[] seq_ver = new colors[4];
+            Sequencia seq_int = new Sequencia(type_seq.intentada);
+            Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+            colors[] arr_int = new colors[4];
+            colors[] arr_ver = new colors[4];
             System.out.println("CodeBreaker Introdueix la Sequencia Intentada");
             print_colors(dif.get_num_colors());
 
@@ -184,11 +190,16 @@ public class Driver {
                 try {
                     String input = in.nextLine();
                     while (input.length() == 0) input = in.nextLine();
-                    seq_int[i] = crea_array_color(input);
+                    arr_int[i] = crea_array_color(input);
                 } catch (Exception ex) {
                     --i;
                     System.out.println(ex.getMessage());
                 }
+            }
+            try {
+            seq_int.set_array(arr_int, dif.get_num_colors());
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
             }
 
             System.out.println("CodeMaker Introdueix la Sequencia Verificacio");
@@ -197,14 +208,21 @@ public class Driver {
                 try {
                     String input = in.nextLine();
                     while (input.length() == 0) input = in.nextLine();
-                    seq_ver[i] = crea_array_ver(input);
+                    arr_ver[i] = crea_array_ver(input);
                 } catch (Exception ex) {
                     --i;
                     System.out.println(ex.getMessage());
                 }
             }
             try {
-                //domini.jugar_ronda(seq_int,seq_ver);
+                //falla aqui
+                seq_ver.set_array_verificacio(arr_ver, domini.get_seq_solucio().get_array(), arr_int);
+                } catch(Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Salta excepcio perque verificacio no es valida");
+                }
+            try {
+                domini.jugar_ronda(seq_int,seq_ver);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
@@ -284,7 +302,7 @@ public class Driver {
         if (dif_partida == 1) dif = dificultats.FACIL;
         if (dif_partida == 3) dif = dificultats.DIFICIL;
         boolean ajuda; // = domini.get_ajuda_partida();
-        boolean jug_1_cm = true; // domini.jugador_1_codemaker();
+        boolean jug_1_cm = domini.get_jugador1_es_codemaker(); // domini.jugador_1_codemaker();
         if (jug_1_cm){
             System.out.println("\n"+"Introdueix la solucio (De mida 4)");
             print_colors(dif.get_num_colors());

@@ -183,6 +183,10 @@ public class Partida {
         return llista_rondes;
     }
 
+    public Sequencia get_solucio() {
+        return this.sequencia_solucio;
+    }
+
     /**
      * Funció que fa que el codebreaker guanyi la partida
      */

@@ -89,6 +89,10 @@ public class Controlador_Partida {
         return this.partida_actual.get_codebreaker();
     }
 
+    public boolean get_jugador1_es_codemaker_partida_actual() {
+        return this.partida_actual.get_jugador1_es_codemaker();
+    }
+
     /**
      * @return Id de la partida que s'està jugant
      */
@@ -146,6 +150,10 @@ public class Controlador_Partida {
 
     public Integer get_ultima_ronda_partida_actual() {
         return this.partida_actual.get_ultima_ronda();
+    }
+
+    public Sequencia get_seq_solucio_partida_actual() {
+        return this.partida_actual.get_solucio();
     }
 
     public void set_seq_solucio(Sequencia seq_sol) {

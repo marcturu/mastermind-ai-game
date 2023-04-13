@@ -29,7 +29,7 @@ public class Sequencia {
         else {
             for (int i = 0; i < size; ++i) {
                 int aux = array[i].get_id_color();
-                if (aux < 1 && aux > num_colors && array[i] == null) throw new Exception("Sequencia incorrecta");
+                if (aux < 1 || aux > num_colors || array[i] == null) throw new Exception("Sequencia incorrecta");
                 else {
                     this.array[i] = array[i];
                 }
@@ -46,31 +46,34 @@ public class Sequencia {
     }
 
     private boolean valida_sequencia(colors[] sequencia_verificacio, colors[] solucio, colors[] sequencia_intentada) {
-        int res = 0;
+        int res_ver = 0;
         int blanc_ver = 0, blanc_calc = 0; //espigues de color encertat
         int negre_ver = 0, negre_calc = 0; //espigues de color i posicio encertades
 
         for (int i = 0; i < sequencia_verificacio.length; ++i) {
-           if (sequencia_verificacio[i].get_id_color() == 9) ++blanc_ver;
-           else if (sequencia_verificacio[i].get_id_color() == 10) ++negre_ver;
-           else if (sequencia_verificacio[i].get_id_color() == 0) ++res;
+           if (sequencia_verificacio[i] == colors.BLANC) ++blanc_ver;
+           else if (sequencia_verificacio[i] == colors.NEGRE) ++negre_ver;
+           else if (sequencia_verificacio[i] == colors.NULL) ++res_ver;
         }
-        if ((res + negre_ver + blanc_ver) != 4) return false;
 
-        colors[] aux = sequencia_intentada;
+        if ((res_ver + negre_ver + blanc_ver) != 4) return false;
+
+        colors[] aux = new colors[4];
+        for(int i = 0; i < 4; ++i) {
+            aux[i] = sequencia_intentada[i];
+        }
+
         for (int i = 0; i < 4; ++i){
-            if (solucio[i].get_id_color() == aux[i].get_id_color()) {
+            if (solucio[i] == aux[i]) {
                 ++negre_calc;
-                aux[i] = colors.NULL;
-            }
-        }
-
-        for (int i = 0; i < 4; ++i){
-            for (int j = 0; j < 4; ++j){
-                if (solucio[i].get_id_color() == aux[j].get_id_color()){
-                    ++blanc_calc;
-                    aux[j] = colors.NULL;
-                }
+            }else {
+                boolean done = false;
+                for (int j = 0; j < 4 && !done; ++j){
+                    if (aux[i] == solucio[j]){
+                        ++blanc_calc;
+                        done = true;
+                    }
+                }  
             }
         }
 

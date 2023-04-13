@@ -238,6 +238,14 @@ public class Controlador_Domini {
         return Usuari.get_estadistiques();
     }
 
+    public Sequencia get_seq_solucio() {
+        return CtrlPartida.get_seq_solucio_partida_actual();
+    }
+
+    public boolean get_jugador1_es_codemaker() {
+        return CtrlPartida.get_jugador1_es_codemaker_partida_actual();
+    }
+
 
     public void inicialitza_partida_nova(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
         if (Usuari.get_num_partides_actuals() == 10 || Usuari2.get_num_partides_actuals() == 10)
@@ -250,8 +258,10 @@ public class Controlador_Domini {
     }
 
     public void inicialitza_partida_nova_pvp(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
-        if (Usuari.get_num_partides_actuals() == 10 || Usuari2.get_num_partides_actuals() == 10)
-            throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
+        if (Usuari.get_num_partides_actuals() == 10)
+            throw new Exception("Masses partides actives User1");
+        else if(Usuari2.get_num_partides_actuals() == 10)
+            throw new Exception("Masses partides actives User2");
         else {
             Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
             afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
