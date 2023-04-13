@@ -29,7 +29,6 @@ public class Controlador_Domini {
     private User Usuari2;
     //private User UsuariProves;
     private Record Record;
-    private Ranking Ranking;
     private Controlador_Partida CtrlPartida;
     private HashMap<String, User> hashUsers;
     private HashMap<String, Record> hashRecord;
@@ -43,7 +42,6 @@ public class Controlador_Domini {
         this.Usuari2 = null;
         //this.UsuariProves = null;
         this.Record = null;
-        this.Ranking = null;
         this.CtrlPartida = new Controlador_Partida();
         this.hashUsers = new HashMap<String, User>();
         this.hashRecord = new HashMap<String, Record>();
@@ -361,14 +359,10 @@ public class Controlador_Domini {
     }
 
     public void inicialitza_rankings() {
-        Ranking = new Ranking_facil();
-        hashRanking.put("facil", Ranking);
-        Ranking = new Ranking_normal();
-        hashRanking.put("normal", Ranking);
-        Ranking = new Ranking_dificil();
-        hashRanking.put("dificl", Ranking);
-        Ranking = new Ranking_pvp();
-        hashRanking.put("PvsP", Ranking);
+        hashRanking.put("facil", new Ranking_facil());
+        hashRanking.put("normal", new Ranking_normal());
+        hashRanking.put("dificl", new Ranking_dificil());
+        hashRanking.put("PvsP", new Ranking_pvp());
     }
 
     public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {

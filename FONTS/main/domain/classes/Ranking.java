@@ -12,11 +12,11 @@ import main.domain.classes.types.Pair;
  */
 
 public class Ranking {
-    protected List<Pair<Pair<Double, String>, LocalDate>> rank; //Double: ratio, String: username, LocalDate: data de finalització partida
+    protected LinkedList<Pair<Pair<Double, String>, LocalDate>> rank; //Double: ratio, String: username, LocalDate: data de finalització partida
 
 
     public Ranking() {
-        rank = new ArrayList<>();
+        rank = new LinkedList<Pair<Pair<Double, String>, LocalDate>>();
     }
 
     public List<Pair<Pair<Double, String>, LocalDate>> get_rank() {

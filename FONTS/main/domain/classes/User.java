@@ -17,8 +17,8 @@ public class User {
     protected double puntuacioN;
     protected double puntuacioD;
     protected int partides_guanyades;
-    protected List<Partida> llista_partides_no_acabades;
-    protected List<Partida> llista_partides_acabades;
+    protected ArrayList<Partida> llista_partides_no_acabades;
+    protected ArrayList<Partida> llista_partides_acabades;
 
 
     // INICIALITZADOR CLASSE USER GLOBAL

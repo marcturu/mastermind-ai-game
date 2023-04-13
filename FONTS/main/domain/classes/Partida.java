@@ -22,7 +22,7 @@ public class Partida {
     private int num_rondes_max;
     private boolean partida_acabada;
     private Instant temps_inici;
-    private List<Ronda> llista_rondes;
+    private LinkedList<Ronda> llista_rondes;
     private Sequencia sequencia_solucio;
 
 
@@ -46,7 +46,7 @@ public class Partida {
         this.num_rondes_max = dif.get_num_max_rondes();
         this.partida_acabada = false;
         this.temps_inici = Instant.now();
-        this.llista_rondes = new ArrayList<Ronda>();
+        this.llista_rondes = new LinkedList<Ronda>();
 
         if (jugador1_es_codemaker) {
             this.jugador1 = cm;
