@@ -1,0 +1,23 @@
+Comienza creando una población inicial de intentos aleatorios.
+
+Evalúa cada intento de la población inicial comparándolo con la solución proporcionada. Cada intento se evalúa asignando
+una puntuación basada en el número de aciertos y la posición correcta de los colores. La evaluación se realiza mediante
+la función solve proporcionada.
+
+Selecciona los mejores intentos de la población actual para crear la siguiente generación. La selección se realiza utilizando
+el método de la ruleta, donde los intentos mejor evaluados tienen más probabilidades de ser seleccionados.
+
+Aplica una mutación a algunos de los intentos seleccionados de la generación actual para generar la siguiente generación.
+La mutación se realiza intercambiando aleatoriamente dos colores en la secuencia de colores de un intento.
+
+Repite los pasos 2 a 4 hasta que se encuentre una solución o se alcance el número máximo de generaciones permitido.
+
+
+empezar Elitismo de 1
+
+con 0.5 probabilidad de mutación
+comn 0.5 de probabilidad de permutación
+
+adaptacion 10 a 1 o 5 a 1
+
+ademas mirar la funcionalidad de five guess de cuantos descarto

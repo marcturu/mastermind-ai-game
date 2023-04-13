@@ -1,4 +1,5 @@
 package main.domain.classes.algorismes;
+import java.util.List;
 
 
 public interface Maquina {
