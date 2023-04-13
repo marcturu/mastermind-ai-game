@@ -10,7 +10,7 @@ public class Five_guess_algorithm {
     //public List<List<Integer>> solve(List<Integer> solution) {}
 
     public static void main(String[] args) {
-        List<Integer> solution = Arrays.asList(6, 3, 1, 2); // Aquí se define la solución
+        List<Integer> solution = Arrays.asList(6, 3, 1, 9); // Aquí se define la solución
         printList(solution);
         System.out.println("this is the solution, lets see how we got there:");
 
@@ -22,7 +22,7 @@ public class Five_guess_algorithm {
 
     public static List<List<Integer>> solve(List<Integer> solution) {
         List<List<Integer>> guesses = new ArrayList<>();
-        Integer[] colors = {1, 2, 3,4,5,6}; // Aquí se define el número de colores
+        Integer[] colors = {1, 2, 3,4,5,6, 8 ,9}; // Aquí se define el número de colores
 
         List<List<Integer>> possibleCodes = generateCodes(Arrays.asList(colors), solution.size());
 
