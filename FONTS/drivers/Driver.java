@@ -47,7 +47,7 @@ public class Driver {
                         while (username.length() == 0) username = in.nextLine();
                         System.out.println("Introdueix la teva Nova Contrasenya");
                         String password = in.nextLine();
-                        while (password.length() == 0) username = in.nextLine();
+                        while (password.length() == 0) password = in.nextLine();
                         domini.inicialitzaUserPersona(username,password);
                         break;
                     }
@@ -74,7 +74,7 @@ public class Driver {
                         while (username.length() == 0) username = in.nextLine();
                         System.out.println("Introdueix la teva Nova Contrasenya");
                         String password = in.nextLine();
-                        while (password.length() == 0) username = in.nextLine();
+                        while (password.length() == 0) password = in.nextLine();
                         domini.inicialitzaUserPersona2(username, password);
                         break;
                     }
@@ -131,7 +131,7 @@ public class Driver {
                     }
                     case "2":{
                         try {
-                            domini.inicialitza_partida_nova_pvp(dificultats.NORMAL,rol); //peta aqui
+                            domini.inicialitza_partida_nova_pvp(dificultats.NORMAL,rol);
                             System.out.println("Partida inicialitzada\n");
                             
                             jugar_partida_pvp(dificultats.NORMAL);
@@ -156,7 +156,6 @@ public class Driver {
     }
 
     private void jugar_partida_pvp(dificultats dif) {
-        System.out.println("hola");
         int ronda_actual = domini.get_num_ronda_actual();
         boolean ajuda = domini.get_ajuda_partida();
         if (ronda_actual != 1) {
@@ -239,9 +238,7 @@ public class Driver {
         for (int i = 0; i < 4; ++i) {
             try {
                 String input = in.nextLine();
-                while (!(input.equals(colors.NEGRE.get_nom_color()) || input.equals(colors.BLANC.get_nom_color()) || input.equals(colors.NULL.get_nom_color()))) {
-                    input = in.nextLine();
-                }
+                while (input.length() == 0) input = in.nextLine();
                 arr_ver[i] = crea_array_ver(input);
             } catch (Exception ex) {
                 --i;

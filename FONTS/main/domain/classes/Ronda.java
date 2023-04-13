@@ -38,21 +38,13 @@ public class Ronda  {
         return num_ronda;
     }
 
-    public void set_intentada(Sequencia sequencia_intentada,int num_colors) {
-        try {
-            this.sequencia_intentada.set_array(sequencia_intentada.get_array(),num_colors);
-        } catch (Exception ex){
-            //System.out.println(ex.getMessage());
-        }
+    public void set_intentada(Sequencia sequencia_intentada) {
+        this.sequencia_intentada = sequencia_intentada;
     }
 
-    public void set_verificacio(Sequencia sequencia_verificacio, Sequencia solucio)
+    public void set_verificacio(Sequencia sequencia_verificacio)
     {
-        try {
-            this.sequencia_verificacio.set_array_verificacio(sequencia_verificacio.get_array(), solucio.get_array(), sequencia_intentada.get_array());
-        }  catch (Exception ex){
-            //System.out.println(ex.getMessage());
-        }
+        this.sequencia_verificacio = sequencia_verificacio;
     }
 
     public boolean check_sequencia_encertada(){

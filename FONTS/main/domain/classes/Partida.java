@@ -37,7 +37,7 @@ public class Partida {
     public Partida(int id, User cm, User cb, dificultats dif, boolean jugador1_es_codemaker) {
         this.indentificador = id;
 
-        this.ultima_ronda_jugada = 0;
+        this.ultima_ronda_jugada = -1;
         this.jugador1_es_codemaker = jugador1_es_codemaker;
         this.ajuda = false;
         this.dificultat = dif;
@@ -260,7 +260,7 @@ public class Partida {
      * @param  sequencia intentada
      */
     public void set_seq_int_a_ronda_actual(Sequencia seq_int) {
-        llista_rondes.get(ultima_ronda_jugada).set_intentada(seq_int, num_colors);
+        llista_rondes.get(ultima_ronda_jugada).set_intentada(seq_int);
     }
 
     /**
@@ -268,7 +268,7 @@ public class Partida {
      * @param  sequencia verificada
      */
     public void set_seq_ver_a_ronda_actual(Sequencia seq_ver) {
-        llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver, sequencia_solucio);
+        llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver);
     }
 
     /**
@@ -294,6 +294,7 @@ public class Partida {
         Ronda ronda = new Ronda(this.indentificador, ultima_ronda_jugada+1);
         ++ultima_ronda_jugada;
         this.llista_rondes.add(ronda);
+        System.out.println("Ronda num: " + ultima_ronda_jugada + "\n");
     }
 
     /**
