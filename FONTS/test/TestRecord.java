@@ -28,6 +28,46 @@ public class TestRecord {
         assertEquals("El record no té punts", -1, r.get_punts());
     }
 
+    /**
+     *Objecte de la prova: Test de la funció get_nom_record
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe Record
+     * Operativa: Creem un nou Record amb un cert nom. Després verifiquem que aquest nom introduït és el que correspon.
+     */
+
+    @Test
+    public void test_get_nom_record() {
+        Record r = new Record("min_rondes");;
+        assertEquals("Mateix nom record", r.get_nom_record(), "min_rondes");
+    }
+
+    /**
+     *Objecte de la prova: Test de la funció get_nom_usuari
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem un nou Record amb un cert nom. Fem que un usuari sigui el que té aquest record amb uns certs punts. Comprovem que, efectivament, aquest record té com a nom d'usuari que l'ha batut el que hem proposat.
+     */
+
+    @Test
+    public void test_get_nom_usuari() {
+        Record r = new Record("RecordX");;
+        assertTrue("Es un record",r.check_if_record(10, "Jordi"));
+        assertEquals("El nom d'usuari es Jordi","Jordi", r.get_nom_usuari());
+    }
+
+    /**
+     *Objecte de la prova: Test de la funció get_punts
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Seguint una estructura similar al test anterior, creem un nou Record amb un cert nom. Fem que un usuari sigui el que té aquest record amb uns certs punts. Comprovem que, efectivament, aquest record (que té l'usuari introduit) té els punts proposats.
+     */
+
+    @Test
+    public void test_get_punts() {
+        Record r = new Record("RecordY");;
+        assertTrue("Es un record",r.check_if_record(20, "Juan"));
+        assertEquals("Ha fet 20 punts",20, r.get_punts());
+    }
 
 
     /**
