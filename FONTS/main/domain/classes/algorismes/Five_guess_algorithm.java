@@ -7,28 +7,24 @@ import java.util.Random;
 
 public class Five_guess_algorithm {
 
-    //public List<List<Integer>> solve(List<Integer> solution) {}
-
-    public static void main(String[] args) {
-        List<Integer> solution = Arrays.asList(6, 3, 1, 9); // Aquí se define la solución
-        printList(solution);
-        System.out.println("this is the solution, lets see how we got there:");
-
-        List<List<Integer>> guesses = solve(solution);
-        for (List<Integer> guess : guesses) {
-            System.out.println(guess.toString());
-        }
-    }
+//    public static void main(String[] args) {
+//        List<Integer> solution = Arrays.asList(6, 3, 1, 9); // Aquí se define la solución
+//        printList(solution);
+//        System.out.println("this is the solution, lets see how we got there:");
+//
+//        List<List<Integer>> guesses = solve(solution);
+//        for (List<Integer> guess : guesses) {
+//            System.out.println(guess.toString());
+//        }
+//    }
 
     public static List<List<Integer>> solve(List<Integer> solution) {
         List<List<Integer>> guesses = new ArrayList<>();
-        Integer[] colors = {1, 2, 3,4,5,6, 8 ,9}; // Aquí se define el número de colores
+        Integer[] colors = {1, 2, 3, 4, 5, 6, 8, 9}; // Aquí se define el número de colores
 
         List<List<Integer>> possibleCodes = generateCodes(Arrays.asList(colors), solution.size());
 
         List<Integer> guess = Arrays.asList(1, 1, 2, 2); // Primera jugada recomendada por Five Guess
-
-        //printList(guess);
 
         List<Integer> result = getResult(guess, solution);
 
@@ -36,8 +32,6 @@ public class Five_guess_algorithm {
 
         while (!guess.equals(solution)) {
             possibleCodes = filterCodes(possibleCodes, guess, result);
-
-            //printList(possibleCodes);
 
             guess = minimax(possibleCodes);
 
@@ -50,15 +44,16 @@ public class Five_guess_algorithm {
 
     /**
      * Función que genera todos los códigos posibles
-     * @return Lista de códigos posibles
+     *
      * @param colors Lista de colores, largada de la solución
+     * @return Lista de códigos posibles
      */
     public static List<List<Integer>> generateCodes(List<Integer> colors, int solutionLength) {
         int numColors = colors.size();
         int numCodes = (int) Math.pow(numColors, solutionLength);
         List<List<Integer>> allCodes = new ArrayList<>();
 
-        // Generate all possible codes using nested loops
+        // generar todos los códigos posibles usando nested loops
         for (int i = 0; i < numCodes; i++) {
             int quotient = i;
             List<Integer> code = new ArrayList<>();
@@ -75,8 +70,9 @@ public class Five_guess_algorithm {
 
     /**
      * Función que devuelve el resultado (blancas y negras) de una posible solucion
-     * @return lista el resultado (blancas y negras) de una posible solucion
+     *
      * @param colors intento y solucion
+     * @return lista el resultado (blancas y negras) de una posible solucion
      */
     private static List<Integer> getResult(List<Integer> guess, List<Integer> solution) {
         List<Integer> result = new ArrayList<>();
@@ -99,8 +95,9 @@ public class Five_guess_algorithm {
 
     /**
      * Función que filtra de todos los codigos posibles los que tienen el mismo resultado que la intentada
-     * @return Lista de codigos posibles y filtrados
+     *
      * @param colors Lista de posibles codigos, sequencia intentada y resultado de la intentada
+     * @return Lista de codigos posibles y filtrados
      */
     private static List<List<Integer>> filterCodes(List<List<Integer>> possibleCodes, List<Integer> guess, List<Integer> result) {
         List<List<Integer>> filteredCodes = new ArrayList<>();
@@ -117,8 +114,9 @@ public class Five_guess_algorithm {
 
     /**
      * Función que devuelve la mejor solucion posible dada una lista de posibles soluciones
-     * @return la mejor solucion posible dada una lista de posibles soluciones
+     *
      * @param una lista de posibles soluciones
+     * @return la mejor solucion posible dada una lista de posibles soluciones
      */
     private static List<Integer> minimax(List<List<Integer>> possibleCodes) {
         List<Integer> bestGuess = null;
