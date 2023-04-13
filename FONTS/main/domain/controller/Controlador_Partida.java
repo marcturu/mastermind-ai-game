@@ -168,7 +168,9 @@ public class Controlador_Partida {
     public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
 
         partida_actual.crea_nova_ronda();
+        System.out.println("set_int");
         partida_actual.set_seq_int_a_ronda_actual(seq_int);
+        System.out.println("set_ver");
         partida_actual.set_seq_ver_a_ronda_actual(seq_ver);
         boolean res = partida_actual.ronda_te_intentada_correcte();
 
@@ -176,9 +178,9 @@ public class Controlador_Partida {
 
         //partida_actual.get_temps_usat(); //actualitzar el valor de temps_usat
 
-        if (temps_excedit_partida_actual()) {//comprovem que no se'ns hagi acabat el temps
+       /* if (temps_excedit_partida_actual()) {//comprovem que no se'ns hagi acabat el temps
             tractament_partida_acabada();
-        }
+        }*/
         if (get_ultima_ronda_partida_actual() + 1 == get_num_rondes_max_partida_actual()) {//se'ns han acabat les rondes
             partida_actual.crea_nova_ronda();
         } else tractament_partida_acabada();

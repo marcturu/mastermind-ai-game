@@ -68,14 +68,18 @@ public class Driver {
                     }
                     case "2":
                     case "register": {
-                        ok = true;
-                        System.out.println("Introdueix el teu Nou Username2");
-                        String username = in.nextLine();
-                        while (username.length() == 0) username = in.nextLine();
-                        System.out.println("Introdueix la teva Nova Contrasenya");
-                        String password = in.nextLine();
-                        while (password.length() == 0) password = in.nextLine();
-                        domini.inicialitzaUserPersona2(username, password);
+                        try {
+                            System.out.println("Introdueix el teu Nou Username2");
+                            String username = in.nextLine();
+                            while (username.length() == 0) username = in.nextLine();
+                            System.out.println("Introdueix la teva Nova Contrasenya");
+                            String password = in.nextLine();
+                            while (password.length() == 0) password = in.nextLine();
+                            domini.inicialitzaUserPersona2(username, password);
+                            ok = true;
+                        } catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
                         break;
                     }
                 }
@@ -158,21 +162,28 @@ public class Driver {
     private void jugar_partida_pvp(dificultats dif) {
         int ronda_actual = domini.get_num_ronda_actual();
         boolean ajuda = domini.get_ajuda_partida();
-        if (ronda_actual != 1) {
+        if (ronda_actual == -1) {
             codemaker_entra_solucio(dif);
         }
 
-        while (ronda_actual <= dif.get_num_max_rondes()) {
+        while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada()) {
 
             Sequencia seq_int = codebreaker_entra_intentada(dif);
 
             Sequencia seq_ver = codemaker_entra_verificacio(seq_int.get_array());
 
-            System.out.println("Peta Aqui?\n");//NO
-            domini.jugar_ronda(seq_int, seq_ver);//PETA AQUIIIIIIII
-            System.out.println("Peta Aqui?\n");
+            System.out.println("Peta Aqui?\n" + dif.get_num_max_rondes() + ronda_actual);//NO
+            try {
+                domini.jugar_ronda(seq_int, seq_ver);//PETA AQUIIIIIIII
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
+            System.out.println("bucldin?\n" + domini.partida_acabada());
 
         }
+        if (domini.partida_acabada() && ronda_actual < dif.get_num_max_rondes()){
+            System.out.println("CodeBreaker Guanya la Partida\n");
+        }else System.out.println("CodeMaker Guanya la Partida\n");
     }
 
     private Sequencia codemaker_entra_solucio(dificultats dif){
