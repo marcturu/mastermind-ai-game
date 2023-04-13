@@ -1,17 +1,23 @@
 CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/classes/enumerations/*.java \
-               ./main/domain/controller/*.java \
+               ./main/domain/classes/types/*.java \
+               ./main/domain/controller/*.java
                #./main/domain/classes/algorismes/*.java
 
-CLASS_ENUM =  ./main/domain/classes/enumerations/*.java
 
 CLASS_RECORD = ./main/domain/classes/Record.java
+
+CLASS_RANKING = ./main/domain/classes/Ranking.java \
+				./main/domain/classes/types/Pair.java
+
 
 CLASS_PARTIDA = ./main/domain/classes/Partida.java \
 				./main/domain/classes/enumerations/*.java \
 				./main/domain/classes/Ronda.java \
 				./main/domain/classes/Sequencia.java \
-				./main/domain/classes/User.java
+				./main/domain/classes/User.java \
+				./main/domain/classes/enumerations/type_seq.java \
+				./main/domain/classes/types/Pair.java
 
 CLASS_SEQUENCIA = ./main/domain/classes/Sequencia.java \
 				  ./main/domain/classes/enumerations/colors.java \
@@ -23,13 +29,40 @@ CLASS_RONDA = ./main/domain/classes/Sequencia.java \
 				./main/domain/classes/Ronda.java
 
 CLASS_USER = ./main/domain/classes/Partida.java \
-			./main/domain/classes/User.java
+			./main/domain/classes/User.java \
+			./main/domain/classes/enumerations/Type_user.java \
+			./main/domain/classes/enumerations/dificultats.java \
+			./main/domain/classes/enumerations/Type_user.java \
+			./main/domain/classes/User_maquina.java \
+			./main/domain/classes/User_persona.java \
+			./main/domain/classes/enumerations/colors.java \
+            ./main/domain/classes/Ronda.java \
+            ./main/domain/classes/Sequencia.java \
+            ./main/domain/classes/types/Pair.java \
+            ./main/domain/classes/enumerations/type_seq.java
 
-CLASS_USER_MAQUINA = ./main/domain/classes/Partida.java \
-					./main/domain/classes/User.java
 
-CLASS_USER_PERSONA = ./main/domain/classes/Partida.java \
-					./main/domain/classes/User.java
+CLASS_USER_MAQUINA = ./main/domain/classes/User_maquina.java \
+					./main/domain/classes/User.java \
+					./main/domain/classes/Partida.java \
+            		./main/domain/classes/Ronda.java \
+					./main/domain/classes/Sequencia.java \
+					./main/domain/classes/types/Pair.java \
+					./main/domain/classes/enumerations/dificultats.java \
+					./main/domain/classes/enumerations/colors.java \
+					./main/domain/classes/enumerations/type_seq.java \
+					./main/domain/classes/enumerations/Type_user.java 
+
+CLASS_USER_PERSONA = ./main/domain/classes/User_persona.java \
+					./main/domain/classes/User.java \
+					./main/domain/classes/Partida.java \
+            		./main/domain/classes/Ronda.java \
+					./main/domain/classes/Sequencia.java \
+					./main/domain/classes/types/Pair.java \
+					./main/domain/classes/enumerations/dificultats.java \
+					./main/domain/classes/enumerations/colors.java \
+					./main/domain/classes/enumerations/type_seq.java \
+					./main/domain/classes/enumerations/Type_user.java 
 
 
 CLASS_OUTPUT = ../EXE/out/
@@ -52,14 +85,14 @@ all:
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
 driver:
-	javac -d $(CLASS_OUTPUT) $(CLASS_ENUM) ./drivers/Driver.java
+	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT) ./drivers/Driver.java
 	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
 	java -jar $(JAR_OUTPUT)Driver.jar
 
 executa_driver:
 		java -jar $(JAR_OUTPUT)Driver.jar
 
-allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_persona TestUser_persona
+allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_maquina TestUser_persona
 
 TestRecord:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
@@ -67,14 +100,14 @@ TestRecord:
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
 
 TestRanking:
-	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
+	javac -d $(CLASS_OUTPUT) $(CLASS_RANKING)
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_RANKING) $(JUNIT_TESTS_RANKING)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRanking
 
 TestPartida:
 	javac -d $(CLASS_OUTPUT) $(CLASS_PARTIDA)
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_PARTIDA) $(JUNIT_TESTS_PARTIDA)
-	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRanking
+	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestPartida
 
 TestRonda:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RONDA)
@@ -103,4 +136,3 @@ TestUser_persona:
 
 clean:
 	rm -rf ../EXE/out/* ../EXE/*
-

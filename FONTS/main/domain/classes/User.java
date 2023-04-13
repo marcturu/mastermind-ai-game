@@ -6,8 +6,6 @@ import java.util.Vector;
 
 //import main.domain.classes.Ranking;
 import main.domain.classes.enumerations.Type_user;
-//import main.domain.classes.exceptions.MyException;
-
 
 public class User {
     protected int id;
@@ -137,8 +135,7 @@ public class User {
         return null;
     }
 
-    //Ja es comprova que la llista no està plena (<10)
-    public void afegir_partida_nova(Partida partida_nova) throws Exception {
+    public void afegir_partida_nova(Partida partida_nova){
         llista_partides_no_acabades.add(partida_nova);
         incrementar_partides_totals();
     }

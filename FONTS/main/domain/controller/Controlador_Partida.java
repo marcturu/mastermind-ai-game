@@ -6,10 +6,9 @@ import java.util.List;
 
 import main.domain.classes.Partida;
 import main.domain.classes.Ronda;
+import main.domain.classes.Sequencia;
 import main.domain.classes.User;
-import main.domain.classes.enumerations.colors;
 import main.domain.classes.enumerations.dificultats;
-import main.domain.classes.exceptions.MyException;
 
 /**
  * Classe del Controlador de Partida
@@ -69,10 +68,10 @@ public class Controlador_Partida {
      * @param id_partida_nova
      * @throws MyException
      */
-    public void carregar_partida(int id_partida_nova) throws MyException{
+    public void carregar_partida(int id_partida_nova) throws Exception{
         partida_actual = hashPartida.get(id_partida_nova);
         if(partida_actual == null) {
-            throw new MyException("La partida que vols carregar no existeix");
+            throw new Exception("La partida que vols carregar no existeix");
         }
     }
 
@@ -88,6 +87,10 @@ public class Controlador_Partida {
      */
     public User get_codebreaker_partida_actual() {
         return this.partida_actual.get_codebreaker();
+    }
+
+    public boolean get_jugador1_es_codemaker_partida_actual() {
+        return this.partida_actual.get_jugador1_es_codemaker();
     }
 
     /**
@@ -108,8 +111,13 @@ public class Controlador_Partida {
      * @throws AjudaJaDemanada
      * Demana ajuda al sistema, es llença AjudaJaDemanada si ja ha demanat ajuda previament
      */
-    public void set_ajuda() throws MyException{
-        this.partida_actual.set_ajuda();
+    public void set_ajuda(){
+        try{
+            this.partida_actual.set_ajuda();
+        }
+        catch (Exception ex) {
+            //System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -144,7 +152,11 @@ public class Controlador_Partida {
         return this.partida_actual.get_ultima_ronda();
     }
 
-    public void set_seq_solucio(colors[] seq_sol) {
+    public Sequencia get_seq_solucio_partida_actual() {
+        return this.partida_actual.get_solucio();
+    }
+
+    public void set_seq_solucio(Sequencia seq_sol) {
         this.partida_actual.set_sequencia_solucio(seq_sol);
     }
 
@@ -153,7 +165,7 @@ public class Controlador_Partida {
      * @param seq_ver sequencia que ha entrat el codemaker
      * Funcionalitat que gestiona una ronda. Se li passen dos sequencies que son valides i correctes i es fa el tractament d'aquestes.
      */
-    public void jugar_ronda(colors[] seq_int, colors[] seq_ver) {
+    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
 
         partida_actual.crea_nova_ronda();
         partida_actual.set_seq_int_a_ronda_actual(seq_int);
