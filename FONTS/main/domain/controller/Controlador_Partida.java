@@ -179,7 +179,7 @@ public class Controlador_Partida {
         if (temps_excedit_partida_actual()) {//comprovem que no se'ns hagi acabat el temps
             tractament_partida_acabada();
         }
-        if (get_ultima_ronda_partida_actual() + 1 <= get_num_rondes_max_partida_actual()) {//se'ns han acabat les rondes
+        if (get_ultima_ronda_partida_actual() + 1 == get_num_rondes_max_partida_actual()) {//se'ns han acabat les rondes
             partida_actual.crea_nova_ronda();
         } else tractament_partida_acabada();
 
