@@ -63,15 +63,21 @@ public class Controlador_Domini {
     //Pre: Es rep un nom d'usuari d'usuari i un password
     //Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
     public void inicialitzaUserPersona(String nom, String password) { //quan es treballi amb log in es passarà també la contrasenya.
+        System.out.println("Hola");
         Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, Usuari);
     }
 
     //Pre: Es rep un nom d'usuari d'usuari i un password
     //Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
-    public void inicialitzaUserPersona2(String nom, String password) { //quan es treballi amb log in es passarà també la contrasenya.
-        Usuari2 = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
-        hashUsers.putIfAbsent(nom, Usuari2);
+    public void inicialitzaUserPersona2(String nom, String password) throws Exception { //quan es treballi amb log in es passarà també la contrasenya.
+            if (!hashUsers.containsKey(nom)) {
+                Usuari2 = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
+                hashUsers.putIfAbsent(nom, Usuari2);
+            }
+            else {
+                throw new Exception("Error: Usuario2 con mismo nombre que Usuario1");
+            }
     }
 
     //Pre: Es rep un nom d'usuari.
