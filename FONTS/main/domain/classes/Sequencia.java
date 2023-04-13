@@ -45,6 +45,12 @@ public class Sequencia {
         }
     }
 
+    /**
+     * @param sequencia_verificacio
+     * @param solucio
+     * @param sequencia_intentada
+     * @return si la sequencia de verificacio s'ha fet bé
+     */
     private boolean valida_sequencia(colors[] sequencia_verificacio, colors[] solucio, colors[] sequencia_intentada) {
         int res_ver = 0;
         int blanc_ver = 0, blanc_calc = 0; //espigues de color encertat
@@ -58,18 +64,14 @@ public class Sequencia {
 
         if ((res_ver + negre_ver + blanc_ver) != 4) return false;
 
-        colors[] aux = new colors[4];
-        for(int i = 0; i < 4; ++i) {
-            aux[i] = sequencia_intentada[i];
-        }
-
         for (int i = 0; i < 4; ++i){
-            if (solucio[i] == aux[i]) {
+            if (sequencia_intentada[i] == solucio[i]) {
                 ++negre_calc;
-            }else {
+            }
+            else {
                 boolean done = false;
                 for (int j = 0; j < 4 && !done; ++j){
-                    if (aux[i] == solucio[j]){
+                    if (sequencia_intentada[i] == solucio[j]){
                         ++blanc_calc;
                         done = true;
                     }
@@ -78,7 +80,7 @@ public class Sequencia {
         }
 
         return blanc_ver == blanc_calc && negre_ver == negre_calc;
-        }
     }
+}
 
 

@@ -317,6 +317,10 @@ public class Controlador_Domini {
         CtrlPartida.set_ajuda();
     }
 
+    public void set_seq_solucio(Sequencia solucio) {
+        CtrlPartida.set_seq_solucio(solucio);
+    }
+
     public User get_codemaker_partida_actual() {
         return CtrlPartida.get_codemaker_partida_actual();
     }

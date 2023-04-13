@@ -137,7 +137,6 @@ public class Driver {
                             jugar_partida_pvp(dificultats.NORMAL);
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
-                            System.out.println("Salta excepcio");
                         }
                         break;
                     }
@@ -161,28 +160,55 @@ public class Driver {
         int ronda_actual = domini.get_num_ronda_actual();
         boolean ajuda = domini.get_ajuda_partida();
         if (ronda_actual != 1) {
-            System.out.println("\n" + "CodeMaker Introdueix la solucio (De mida 4)");
-            print_colors(dif.get_num_colors());
-            colors[] color = new colors[4];
-            for (int i = 0; i < 4; ++i) {
-                try {
-                    String input = in.nextLine();
-                    while (input.length() == 0) input = in.nextLine();
-                    color[i] = crea_array_color(input);
-                } catch (Exception ex) {
-                    --i;
-                    System.out.println(ex.getMessage());
-                }
-            }
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            codemaker_entra_solucio(dif);
         }
 
         while (ronda_actual <= dif.get_num_max_rondes()) {
-            Sequencia seq_int = new Sequencia(type_seq.intentada);
-            Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+
+            Sequencia seq_int = codebreaker_entra_intentada(dif);
+
+            Sequencia seq_ver = codemaker_entra_verificacio(seq_int.get_array());
+
+            System.out.println("Peta Aqui?\n");//NO
+            domini.jugar_ronda(seq_int, seq_ver);//PETA AQUIIIIIIII
+            System.out.println("Peta Aqui?\n");
+
+        }
+    }
+
+    private Sequencia codemaker_entra_solucio(dificultats dif){
+        System.out.println("\n" + "CodeMaker Introdueix la solucio (De mida 4)");
+        print_colors(dif.get_num_colors());
+        Sequencia solucio = new Sequencia(type_seq.solucio);
+        colors[] arr_sol = new colors[4];
+        for (int i = 0; i < 4; ++i) {
+            try {
+                String input = in.nextLine();
+                while (input.length() == 0) input = in.nextLine();
+                arr_sol[i] = crea_array_color(input);
+            } catch (Exception ex) {
+                --i;
+                System.out.println(ex.getMessage());
+            }
+        }
+        try {
+            solucio.set_array(arr_sol, dif.get_num_colors());
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+        domini.set_seq_solucio(solucio);
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    
+        return solucio;
+    }
+
+    private Sequencia codebreaker_entra_intentada(dificultats dif ) {
+        Sequencia seq_int = new Sequencia(type_seq.intentada);
+            
             colors[] arr_int = new colors[4];
-            colors[] arr_ver = new colors[4];
+            
             System.out.println("CodeBreaker Introdueix la Sequencia Intentada");
             print_colors(dif.get_num_colors());
 
@@ -201,32 +227,34 @@ public class Driver {
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
+        return seq_int;
+    }
 
-            System.out.println("CodeMaker Introdueix la Sequencia Verificacio");
-            print_colors(0);
-            for (int i = 0; i < 4; ++i) {
-                try {
-                    String input = in.nextLine();
-                    while (input.length() == 0) input = in.nextLine();
-                    arr_ver[i] = crea_array_ver(input);
-                } catch (Exception ex) {
-                    --i;
-                    System.out.println(ex.getMessage());
-                }
-            }
+    private Sequencia codemaker_entra_verificacio(colors[] array_intent) {
+        System.out.println("CodeMaker Introdueix la Sequencia Verificacio");
+        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+        colors[] arr_ver = new colors[4];
+
+        print_colors(0);
+        for (int i = 0; i < 4; ++i) {
             try {
-                //falla aqui
-                seq_ver.set_array_verificacio(arr_ver, domini.get_seq_solucio().get_array(), arr_int);
-                } catch(Exception e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("Salta excepcio perque verificacio no es valida");
+                String input = in.nextLine();
+                while (!(input.equals(colors.NEGRE.get_nom_color()) || input.equals(colors.BLANC.get_nom_color()) || input.equals(colors.NULL.get_nom_color()))) {
+                    input = in.nextLine();
                 }
-            try {
-                domini.jugar_ronda(seq_int,seq_ver);
+                arr_ver[i] = crea_array_ver(input);
             } catch (Exception ex) {
+                --i;
                 System.out.println(ex.getMessage());
             }
         }
+        try {
+            seq_ver.set_array_verificacio(arr_ver, domini.get_seq_solucio().get_array(), array_intent);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            codemaker_entra_verificacio(array_intent);
+        }
+        return seq_ver;
     }
 
     private void print_colors(int num_colors){
