@@ -20,7 +20,7 @@ public class TestUser_persona {
     /**
      *Objecte de la prova: Test de la constructora User_persona (amb password)
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
      * Operativa: Creem un nou User amb els paràmetres indicats i comprovem que els valors introduïts i els que haurien de tenir valor 0 o null siguin els mateixos.
      */
 
@@ -45,7 +45,7 @@ public class TestUser_persona {
     /**
      *Objecte de la prova: Test de la constructora User_persona (sense password)
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
      * Operativa: Creem un nou User amb els paràmetres indicats i comprovem que els valors introduïts i els que haurien de tenir valor 0 o null siguin els mateixos.
      */
 
@@ -69,7 +69,7 @@ public class TestUser_persona {
     /**
      * Objecte de la prova: Test de la funció get_puntuacioPvsP.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
      * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor puntuacio és el mateix amb el qual l'hem inicialitzat al crear la classe User.
      */
     @Test
@@ -81,14 +81,14 @@ public class TestUser_persona {
     /**
      *Objecte de la prova: Test de la funció get_password
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
      * Operativa: Creem un nou User amb els paràmetres indicats. Després verifiquem que el password introduït és el que correspon.
      */
 
     @Test
     public void test_get_password() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password_a_validar");
-        assertEquals(up.get_password(), "password_a_validar");
+        assertEquals("Mateix password", up.get_password(), "password_a_validar");
     }
 
     /**
@@ -105,13 +105,13 @@ public class TestUser_persona {
         for(int i = 0; i < 9; ++i) {
             stats_prova.add(0.0);
         }
-        assertEquals(stats_prova, up.get_estadistiques());
+        assertEquals("Mateixes estadístiques", stats_prova, up.get_estadistiques());
     }
 
     /**
      *Objecte de la prova: Test de la funció set_password
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
      * Operativa: Creem un nou User amb els paràmetres indicats. Després, creem un password i comprovem que el valor afegit en aquest set_password ha estat afegit correctement.
      */
 
@@ -119,7 +119,7 @@ public class TestUser_persona {
     public void test_set_password() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
         up.set_password("password_afegit");
-        assertEquals(up.validate_password("password_afegit"), true);
+        assertEquals("Mateix password afegit", up.validate_password("password_afegit"), true);
     }
 
     /**
@@ -132,13 +132,13 @@ public class TestUser_persona {
     @Test
     public void test_validate_password() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password_a_validar");
-        assertEquals(up.validate_password("password_a_validar"), true);
+        assertEquals("Password a validar correcte", up.validate_password("password_a_validar"), true);
     }
 
     /**
      *Objecte de la prova: Test de la funció set_puntuacio_PvsP
      * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
      * Operativa: Creem un nou User amb els paràmetres indicats. Després, creem un password i comprovem que el valor afegit en aquest set_password ha estat afegit correctement.
      */
 
