@@ -1,8 +1,8 @@
 CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/classes/enumerations/*.java \
                ./main/domain/classes/types/*.java \
-               ./main/domain/controller/*.java
-               #./main/domain/classes/algorismes/*.java
+               ./main/domain/controller/*.java \
+               ./main/domain/classes/algorismes/*.java
 
 
 CLASS_RECORD = ./main/domain/classes/Record.java
@@ -40,7 +40,8 @@ CLASS_USER = ./main/domain/classes/Partida.java \
             ./main/domain/classes/Sequencia.java \
             ./main/domain/classes/types/Pair.java \
             ./main/domain/classes/enumerations/type_seq.java \
-			./main/domain/classes/algorismes/Five_guess_algorithm.java
+			./main/domain/classes/algorismes/Five_guess_algorithm.java \
+			./main/domain/classes/algorismes/Maquina.java
 
 
 CLASS_USER_MAQUINA = ./main/domain/classes/User_maquina.java \
