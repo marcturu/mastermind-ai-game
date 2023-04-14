@@ -167,7 +167,7 @@ public class Driver {
             codemaker_entra_solucio(dif);
         }
 
-        while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada() ) {
+        while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada() && !acabar) {
             System.out.println("Dessitges guardar la partida a mitges? \n Introdueix: true or false");
             acabar = in.nextBoolean();
             if (!acabar){
@@ -185,11 +185,8 @@ public class Driver {
                         }
                     }
                 }
-
                 Sequencia seq_int = codebreaker_entra_intentada(dif);
-
                 Sequencia seq_ver = codemaker_entra_verificacio(seq_int.get_array());
-
                 System.out.println("Peta Aqui?\n" + dif.get_num_max_rondes() + ronda_actual);//NO
                 try {
                     domini.jugar_ronda(seq_int, seq_ver);//PETA AQUIIIIIIII
@@ -200,7 +197,7 @@ public class Driver {
                 if (ronda_actual == 10) domini.tractament_partida_acabada();
             }
             else {
-
+                domini.guardar_partida_a_mitges();
             }
 
         }

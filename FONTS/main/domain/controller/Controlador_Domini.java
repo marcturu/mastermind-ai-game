@@ -425,8 +425,8 @@ public class Controlador_Domini {
         return Usuari.get_ids_partides_actives();
     }
 
-    public List<Integer> get_ids_partides_acabades_Usuari1() {
-        return Usuari.get_ids_partides_acabades();
+    public List<Integer> get_ids_partides_no_acabades_Usuari1() {
+        return Usuari.get_ids_partides_no_acabades();
     }
 
     public Partida get_partida(int id){
@@ -449,4 +449,10 @@ public class Controlador_Domini {
         CtrlPartida.tractament_partida_acabada();
     }
 
+    public void guardar_partida_a_mitges(){
+        int id_par = CtrlPartida.get_id_partida_actual();
+        Usuari.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
+        Usuari2.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
+
+    }
 }

@@ -201,4 +201,9 @@ public class Controlador_Partida {
     public dificultats get_dificultat() {
         return this.partida_actual.get_dificultat();
     }
+
+    public Partida get_partida_actual(){
+        return partida_actual;
+    }
+
 }
