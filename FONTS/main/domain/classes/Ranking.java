@@ -15,14 +15,28 @@ public class Ranking {
     protected LinkedList<Pair<Pair<Double, String>, LocalDate>> rank; //Double: ratio, String: username, LocalDate: data de finalització partida
 
 
+
+    /**
+     * Creadora de la classe ranking
+     */
     public Ranking() {
         rank = new LinkedList<Pair<Pair<Double, String>, LocalDate>>();
     }
 
+
+    /**
+     * Consultora de ranking
+     * @return El ranking sencer que hi ha guardat
+     */
     public List<Pair<Pair<Double, String>, LocalDate>> get_rank() {
         return rank;
     }
 
+    /**
+     * Es passen els punts d'un usuari i el seu nom despres d'una partida per veure si entra al ranking
+     * @param punts_usuari
+     * @param username_jugador
+     */
     public void nova_partida_ranking(double punts_usuari, String username_jugador) {
         if(rank.isEmpty()) {
             rank.add(new Pair<>(new Pair<>(punts_usuari, username_jugador), LocalDate.now()));
