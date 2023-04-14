@@ -49,8 +49,9 @@ public class Controlador_Domini {
 
         inicialitza_UserMaquina_fiveguess();
         inicialitza_rankings();
-        creacioRecord("ratio");
-        creacioRecord("time");
+        inicialitza_nou_record("record_facil");
+        inicialitza_nou_record("record_normal");
+        inicialitza_nou_record("record_dificl");
 
     }
 
@@ -434,6 +435,19 @@ public class Controlador_Domini {
                 (hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
                 (hashRanking.get("pvp")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
+        }
+        dificultats dif = get_dificultat_partida();
+        if(dif == dificultats.FACIL){
+            hashRecord.get("record_facil").check_if_record((int)punts_u,Usuari.get_nom());
+            hashRecord.get("record_facil").check_if_record((int)punts_u2,Usuari2.get_nom());
+        }
+        else if(dif == dificultats.FACIL){
+            hashRecord.get("record_normal").check_if_record((int)punts_u,Usuari.get_nom());
+            hashRecord.get("record_normal").check_if_record((int)punts_u2,Usuari2.get_nom());
+        }
+        else if(dif == dificultats.FACIL){
+            hashRecord.get("record_dificl").check_if_record((int)punts_u,Usuari.get_nom());
+            hashRecord.get("record_dificl").check_if_record((int)punts_u2,Usuari2.get_nom());
         }
     }
 

@@ -715,7 +715,26 @@ public class Driver {
         else System.out.println("No hi ha Ranking");
     }
     public void veure_record(){
-
+        System.out.println("Selecciona la dificultat de record que vols veure.");
+        System.out.println("Introdueix: 'facil' 'normal' 'dificil'");
+        String input = in.nextLine();
+        while (input.length() == 0)  input = in.nextLine();
+        Record rec = new Record(null);
+        switch (input){
+            case "facil":{
+                rec = domini.get_record_by_nom_record("record_facil");
+                break;
+            }
+            case "normal":{
+                rec = domini.get_record_by_nom_record("record_normal");
+                break;
+            }
+            case "dificil":{
+                rec = domini.get_record_by_nom_record("record_dificl");
+                break;
+            }
+        }
+        System.out.println("Record: " + rec.get_nom_record() + " fet per: " + rec.get_nom_usuari() + " amb " + rec.get_punts() + " punts");
 
     }
 
