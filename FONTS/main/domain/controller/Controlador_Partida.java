@@ -82,25 +82,28 @@ public class Controlador_Partida {
     }
 
     /**
-     * @return User que té com a rol codemaker
+     * @return User que te com a rol codemaker
      */
     public User get_codemaker_partida_actual() {
         return this.partida_actual.get_codemaker();
     }
 
     /**
-     * @return User que té com a rol codebreaker
+     * @return User que te com a rol codebreaker
      */
     public User get_codebreaker_partida_actual() {
         return this.partida_actual.get_codebreaker();
     }
 
+    /**
+     * @return si el jugador1 es el codemaker de la partida
+     */
     public boolean get_jugador1_es_codemaker_partida_actual() {
         return this.partida_actual.get_jugador1_es_codemaker();
     }
 
     /**
-     * @return Id de la partida que s'està jugant
+     * @return Id de la partida que s'esta jugant
      */
     public int get_id_partida_actual() {
         return this.partida_actual.get_id();
@@ -115,7 +118,7 @@ public class Controlador_Partida {
 
     /**
      * @throws AjudaJaDemanada
-     * Demana ajuda al sistema, es llença AjudaJaDemanada si ja ha demanat ajuda previament
+     * Demana ajuda al sistema, es llenca AjudaJaDemanada si ja ha demanat ajuda previament
      */
     public void set_ajuda(){
         try{
@@ -126,16 +129,22 @@ public class Controlador_Partida {
         }
     }
 
+    /**Setter de la matriu que ens retorna la maquina per guardar-ho a Controlador_Partida
+     * @param sol
+     */
     public void set_solucio_partida_actual(List<List<Integer>> sol) {
         this.solution_maquina = sol;
     }
 
+    /**
+     * @return la matriu que retorna la maquina amb l'algorisme pertinent
+     */
     public List<List<Integer>> get_solucio_partida_actual() {
         return this.solution_maquina;
     }
 
     /**
-     * @return si s'ha excedit el temps limit que té la partida
+     * @return si s'ha excedit el temps limit que te la partida
      */
     public boolean temps_excedit_partida_actual() {
         return this.partida_actual.temps_excedit();
@@ -162,18 +171,32 @@ public class Controlador_Partida {
         return this.partida_actual.get_llista_rondes();
     }
 
+
+    /**
+     * @return el numero de la ultima ronda de la partida actual
+     */
     public Integer get_ultima_ronda_partida_actual() {
         return this.partida_actual.get_ultima_ronda();
     }
 
+    /**
+     * @return la sequencia que es solucio de la partida que s'esta jugant
+     */
     public Sequencia get_seq_solucio_partida_actual() {
         return this.partida_actual.get_solucio();
     }
 
+    /**
+     * @return el List<Integer> que pertany a l'intent que toca per la ronda que es
+     */
     public List<Integer> get_guess_maquina() {
         return solution_maquina.get(partida_actual.get_ultima_ronda()+1);
     }
 
+    /**
+     * Es guarda la sequencia solucio dins de Partida
+     * @param seq_sol
+     */
     public void set_seq_solucio(Sequencia seq_sol) {
         this.partida_actual.set_sequencia_solucio(seq_sol);
     }
@@ -218,10 +241,16 @@ public class Controlador_Partida {
         return this.partida_actual.get_dificultat();
     }
 
+    /**
+     * @return la partida que s'esta jugant actualment
+     */
     public Partida get_partida_actual(){
         return partida_actual;
     }
 
+    /**
+     * funcio per pausar la partida i guardar-la on toca
+     */
     public void pausar_partida(){
         hashPartida.replace(partida_actual.get_id(), partida_actual);
         solution_maquina = null;
