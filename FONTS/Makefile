@@ -39,7 +39,8 @@ CLASS_USER = ./main/domain/classes/Partida.java \
             ./main/domain/classes/Ronda.java \
             ./main/domain/classes/Sequencia.java \
             ./main/domain/classes/types/Pair.java \
-            ./main/domain/classes/enumerations/type_seq.java
+            ./main/domain/classes/enumerations/type_seq.java \
+			./main/domain/classes/algorismes/Five_guess_algorithm.java
 
 
 CLASS_USER_MAQUINA = ./main/domain/classes/User_maquina.java \
@@ -51,7 +52,9 @@ CLASS_USER_MAQUINA = ./main/domain/classes/User_maquina.java \
 					./main/domain/classes/enumerations/dificultats.java \
 					./main/domain/classes/enumerations/colors.java \
 					./main/domain/classes/enumerations/type_seq.java \
-					./main/domain/classes/enumerations/Type_user.java 
+					./main/domain/classes/enumerations/Type_user.java \
+					./main/domain/classes/algorismes/Maquina.java \
+					./main/domain/classes/algorismes/Five_guess_algorithm.java
 
 CLASS_USER_PERSONA = ./main/domain/classes/User_persona.java \
 					./main/domain/classes/User.java \
