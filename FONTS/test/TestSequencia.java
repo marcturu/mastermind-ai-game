@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -31,7 +30,7 @@ public class TestSequencia {
         assertEquals("Mateix tipus", sol.get_tipus(), type_seq.solucio);
         assertEquals("Array de mida 4", sol.get_array().length,4);
         for (int i = 0; i < 4; ++i){
-            assertNull("Array buit", sol.get_array()[i]);
+            assertEquals("Array buit", colors.NULL, sol.get_array()[i]);
         }
 
         //test sequencia tipus intentada
@@ -39,7 +38,7 @@ public class TestSequencia {
         assertEquals("Mateix tipus", intent.get_tipus(), type_seq.intentada);
         assertEquals("Array de mida 4", intent.get_array().length,4);
         for (int i = 0; i < 4; ++i){
-            assertNull("Array buit", intent.get_array()[i]);
+            assertEquals("Array buit", colors.NULL,intent.get_array()[i]);
         }
 
         //test sequencia tipus verificacio
@@ -47,7 +46,7 @@ public class TestSequencia {
         assertEquals("Mateix tipus", verificacio.get_tipus(), type_seq.verificacio);
         assertEquals("Array de mida 4", verificacio.get_array().length,4);
         for (int i = 0; i < 4; ++i){
-            assertNull("Array buit", verificacio.get_array()[i]);
+            assertEquals("Array buit", colors.NULL, verificacio.get_array()[i]);
         }
     }
 
