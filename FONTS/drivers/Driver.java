@@ -301,7 +301,7 @@ public class Driver {
                 default: break;
             }
 
-            if (!acabar){
+            if (!acabar && !pause){
                 ++ronda_actual;
                 System.out.println("Ronda Actual: " + ronda_actual);
                 if (ronda_actual >= 5 && !ajuda && jug_1_cm) {
@@ -622,35 +622,40 @@ public class Driver {
 
     private void jugar_partides_antigues(){
         List<Integer> ids_partida = domini.get_ids_partides_actives_Usuari1();
-        System.out.println("IDs de les partides no acabades:");
-        for (int i = 0; i < ids_partida.size(); ++i){
-            System.out.println(ids_partida.get(i));
-        }
-        System.out.println("Selecciona la partidas que vols continuar:");
-        String id = in.nextLine();
-        while (id.length() == 0) id = in.nextLine();
-        int idd = Integer.parseInt(id);
-        while (!id_ok(ids_partida,idd)){
-            id = in.nextLine();
+        if (ids_partida.size() > 0){
+            System.out.println("IDs de les partides no acabades:");
+            for (int i = 0; i < ids_partida.size(); ++i){
+                System.out.println(ids_partida.get(i));
+            }
+            System.out.println("Selecciona la partidas que vols continuar:");
+            String id = in.nextLine();
             while (id.length() == 0) id = in.nextLine();
-        }
-        try {
-            domini.jugar_partides_antigues(idd);
-            veure_partida_no_acabada();
-            jugar_partida_maquina();
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            int idd = Integer.parseInt(id);
+            while (!id_ok(ids_partida,idd)){
+                id = in.nextLine();
+                while (id.length() == 0) id = in.nextLine();
+            }
+            try {
+                domini.jugar_partides_antigues(idd);
+                veure_partida_no_acabada();
+                jugar_partida_maquina();
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
 
+            }
+        }
+        else {
+            System.out.println("No hi han NO acabades");
         }
     }
 
     private void veure_partida_no_acabada(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        Partida part = domini.get_partida_actual(idd);
+        Partida part = domini.get_partida_actual();
         System.out.println("\nPartida amb id: " + part.get_id());
 
-        for (int i = 0; i <= part.get_ultima_ronda(); --i){
+        for (int i = 0; i <= part.get_ultima_ronda(); ++i){
             System.out.println("\nRonda: " + i);
             System.out.print("\nSequencia de Verficacio: " );
             for (int j = 0; j < 4; ++j) System.out.print(part.get_llista_rondes().get(i).get_seq_verificacio().get_array()[j].get_nom_color() + " ");
@@ -690,9 +695,18 @@ public class Driver {
             for (int k = 0; k < 4; ++k) System.out.print(part.get_llista_rondes().get(i).get_seq_intentada().get_array()[k].get_nom_color() + " ");
             System.out.print("\n");
         }
-
     }
 
+    private void veure_ranking() {
+        System.out.println("Selecciona dificultat per visualitzar el ranking, introdueix: " +
+                "\n'facil' - Visualitar ranking dificultat Facil" +
+                "\n'normal' - Visualitar ranking dificultat Normal" +
+                "\n'dificil' - Visualitar ranking dificultat dificil" +
+                "\n'pvp' - Visualitar ranking Player Vs Player");
+        String dif = in.nextLine();
+        while ((dif.length() == 0) && (dif != "facil" && dif != "normal" && dif != "dificil" && dif != "pvp"))
+            dif = in.nextLine();
+    }
 
     private void print_menu(){
         System.out.println("\n"+"(Introdueix: '1' o 'crear') - Crear Nova Partida");
@@ -735,7 +749,7 @@ public class Driver {
                 }
                 case "4":
                 case "ranking":{
-                   // driver.veure_ranking();
+                    driver.veure_ranking();
                     break;
                 }
                 case "5":
@@ -754,20 +768,3 @@ public class Driver {
     }
 }
 
-
-/*
-
-
-
-
-
-    private void veure_ranking(){
-        System.out.println("Selecciona dificultat per visualitzar el ranking, introdueix: " +
-                "\n'facil' - Visualitar ranking dificultat Facil" +
-                "\n'normal' - Visualitar ranking dificultat Normal" +
-                "\n'dificil' - Visualitar ranking dificultat dificil" +
-                "\n'pvp' - Visualitar ranking Player Vs Player");
-        String dif = in.nextLine();
-        while ((dif.length() == 0) && (dif != "facil" && dif != "normal" && dif != "dificil" && dif != "pvp")) dif = in.nextLine();
-
-    }*/
