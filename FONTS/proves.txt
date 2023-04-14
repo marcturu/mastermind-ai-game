@@ -20,4 +20,4 @@ negre
 negre
 negre
 4
-facil
+normal
