@@ -109,7 +109,7 @@ public class Driver {
                         try {
                             System.out.println("nova partida vs maquina iniciada\n");
                             domini.inicialitza_partida_nova(dificultats.FACIL,rol);
-                            jugar_partida_maquina(dificultats.FACIL);
+                            jugar_partida_maquina();
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
 
@@ -121,7 +121,7 @@ public class Driver {
                             System.out.println("nova partida vs maquina iniciada\n");
                             domini.inicialitza_partida_nova(dificultats.NORMAL,rol);
                             System.out.println("Entrem a jugar partida\n");
-                            jugar_partida_maquina(dificultats.NORMAL);
+                            jugar_partida_maquina();
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
                         }
@@ -131,7 +131,7 @@ public class Driver {
                         try {
                             System.out.println("nova partida vs maquina iniciada\n");
                             domini.inicialitza_partida_nova(dificultats.DIFICIL,rol);
-                            jugar_partida_maquina(dificultats.DIFICIL);
+                            jugar_partida_maquina();
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
                         }
@@ -151,7 +151,7 @@ public class Driver {
                     case "1":{
                         try {
                             domini.inicialitza_partida_nova_pvp(dificultats.FACIL,rol);
-                            jugar_partida_pvp(dificultats.FACIL);
+                            jugar_partida_pvp();
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
 
@@ -163,7 +163,7 @@ public class Driver {
                             domini.inicialitza_partida_nova_pvp(dificultats.NORMAL,rol);
                             System.out.println("Partida inicialitzada\n");
                             
-                            jugar_partida_pvp(dificultats.NORMAL);
+                            jugar_partida_pvp();
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
                         }
@@ -172,7 +172,7 @@ public class Driver {
                     case "3":{
                         try {
                             domini.inicialitza_partida_nova_pvp(dificultats.DIFICIL,rol);
-                            jugar_partida_pvp(dificultats.DIFICIL);
+                            jugar_partida_pvp();
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
                         }
@@ -209,8 +209,9 @@ public class Driver {
                 
     }
 
-    private void jugar_partida_pvp(dificultats dif) {
+    private void jugar_partida_pvp() {
         int ronda_actual = domini.get_num_ronda_actual();
+        dificultats dif = domini.get_dificultat_partida();
         boolean ajuda = domini.get_ajuda_partida();
         boolean acabar = false;
         if (ronda_actual == -1) {
@@ -263,9 +264,10 @@ public class Driver {
         }else System.out.println("CodeMaker Guanya la Partida\n");
     }
 
-    private void jugar_partida_maquina(dificultats dif){
+    private void jugar_partida_maquina(){
         int ronda_actual = domini.get_num_ronda_actual();
         boolean ajuda = domini.get_ajuda_partida();
+        dificultats dif = domini.get_dificultat_partida();
         boolean jug_1_cm = domini.get_jugador1_es_codemaker();
         boolean acabar = false;
         boolean pause = false;
@@ -415,7 +417,7 @@ public class Driver {
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
-        System.out.println("Sequencia intentada: {" + arr_int[0].get_nom_color() + "," + arr_int[1].get_nom_color() + "," + arr_int[2].get_nom_color() + "," + arr_int[3].get_nom_color() + "}\n");
+        System.out.println("Sequencia intentada: {" + arr_int[0] + "," + arr_int[1] + "," + arr_int[2] + "," + arr_int[3] + "}\n");
         return seq_int;
     }
 
@@ -427,7 +429,7 @@ public class Driver {
 
         if(resultat != null)seq_int = de_list_a_seq(resultat.get(0), dif);
 
-        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0].get_nom_color() + "," + seq_int.get_array()[1].get_nom_color() + "," + seq_int.get_array()[2].get_nom_color() + "," + seq_int.get_array()[3].get_nom_color() + "}\n");
+        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0] + "," + seq_int.get_array()[1] + "," + seq_int.get_array()[2] + "," + seq_int.get_array()[3] + "}\n");
         return seq_int;
     }
 
@@ -454,7 +456,7 @@ public class Driver {
             codemaker_entra_verificacio(array_intent);
         }
 
-        System.out.println("Sequencia verificacio: {" + arr_ver[0].get_nom_color() + "," + arr_ver[1].get_nom_color() + "," + arr_ver[2].get_nom_color() + "," + arr_ver[3].get_nom_color() + "}\n");
+        System.out.println("Sequencia verificacio: {" + arr_ver[0] + "," + arr_ver[1] + "," + arr_ver[2] + "," + arr_ver[3] + "}\n");
         return seq_ver;
     }
 
@@ -636,10 +638,28 @@ public class Driver {
             while (id.length() == 0) id = in.nextLine();
         }
         try {
-        domini.jugar_partides_antigues(idd);
+            domini.jugar_partides_antigues(idd);
+            veure_partida_no_acabada();
+            jugar_partida_maquina();
         }catch (Exception ex){
             System.out.println(ex.getMessage());
 
+        }
+    }
+
+    private void veure_partida_no_acabada(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        Partida part = domini.get_partida_actual(idd);
+        System.out.println("\nPartida amb id: " + part.get_id());
+
+        for (int i = 0; i <= part.get_ultima_ronda(); --i){
+            System.out.println("\nRonda: " + i);
+            System.out.print("\nSequencia de Verficacio: " );
+            for (int j = 0; j < 4; ++j) System.out.print(part.get_llista_rondes().get(i).get_seq_verificacio().get_array()[j].get_nom_color() + " ");
+            System.out.print("\nSequencia de Intentada : ");
+            for (int k = 0; k < 4; ++k) System.out.print(part.get_llista_rondes().get(i).get_seq_intentada().get_array()[k].get_nom_color() + " ");
+            System.out.print("\n");
         }
     }
 
