@@ -171,7 +171,7 @@ public class Controlador_Partida {
     }
 
     public List<Integer> get_guess_maquina() {
-        return solution_maquina.get(partida_actual.get_ultima_ronda());
+        return solution_maquina.get(partida_actual.get_ultima_ronda()+1);
     }
 
     public void set_seq_solucio(Sequencia seq_sol) {
