@@ -2,7 +2,9 @@ package test;
 
 
 import main.domain.classes.User_persona;
+import main.domain.classes.Partida;
 import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.dificultats;
 
 import java.util.Vector;
 
@@ -67,6 +69,18 @@ public class TestUser_persona {
     }
 
     /**
+     *Objecte de la prova: Test de la funció get_password
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
+     * Operativa: Creem un nou User amb els paràmetres indicats. Després verifiquem que el password introduït és el que correspon.
+     */
+    @Test
+    public void test_get_password() {
+        User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password_a_validar");
+        assertEquals("Mateix password", up.get_password(), "password_a_validar");
+    }
+
+    /**
      * Objecte de la prova: Test de la funció get_puntuacioPvsP.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
@@ -76,19 +90,6 @@ public class TestUser_persona {
     public void test_get_puntuacioPvsP() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
         assertEquals(0.0, up.get_puntuacioPvsP(), 1.0);
-    }
-
-    /**
-     *Objecte de la prova: Test de la funció get_password
-     * Fitxers de dades necessaris: Dades introduïdes manualment.
-     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
-     * Operativa: Creem un nou User amb els paràmetres indicats. Després verifiquem que el password introduït és el que correspon.
-     */
-
-    @Test
-    public void test_get_password() {
-        User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password_a_validar");
-        assertEquals("Mateix password", up.get_password(), "password_a_validar");
     }
 
     /**
@@ -114,7 +115,6 @@ public class TestUser_persona {
      * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
      * Operativa: Creem un nou User amb els paràmetres indicats. Després, creem un password i comprovem que el valor afegit en aquest set_password ha estat afegit correctement.
      */
-
     @Test
     public void test_set_password() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
@@ -128,7 +128,6 @@ public class TestUser_persona {
      * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User
      * Operativa: Creem un nou User amb els paràmetres indicats. Després verifiquem que el password introduït és el que correspon.
      */
-
     @Test
     public void test_validate_password() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona, "password_a_validar");
@@ -139,9 +138,8 @@ public class TestUser_persona {
      *Objecte de la prova: Test de la funció set_puntuacio_PvsP
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
-     * Operativa: Creem un nou User amb els paràmetres indicats. Després, creem un password i comprovem que el valor afegit en aquest set_password ha estat afegit correctement.
+     * Operativa: Creem un nou User amb els paràmetres indicats. Després, comprovem que les puntuacions de les partides acabades síon les que corresponen.
      */
-
     @Test
     public void test_set_puntuacio_PvsP() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
@@ -152,6 +150,26 @@ public class TestUser_persona {
         User_persona up2 = new User_persona(2, "Ferran", Type_user.user_persona);
         up2.set_puntuacio_PvsP(50, 1, 11*5);
         assertEquals(up2.get_puntuacioPvsP(), 0.0, 0.5);
+    }
+
+    /**
+     *Objecte de la prova: Test de la funció set_partida_acabada
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
+     * Operativa: Creem dous nous nou Usuaris persona amb els paràmetres indicats. Després, fem que juguin una partida, la guanyi el usuari1 i comprovem que tot s'actualitza bé després d'acabar la partida i fer el set_partida_acabada(...)
+     */
+    @Test
+    public void test_set_partida_acabada() {
+        User_persona up = new User_persona(3, "JUAN", Type_user.user_persona);
+        assertEquals(up.get_partides_guanyades(), 0);
+        User_persona up2 = new User_persona(1, "FERRI", Type_user.user_persona) ;
+        //Dificultat dif = new Dificultat(1, "facil", 4, 6, 12);
+        Partida partida_prova = new Partida(1, up, up2, dificultats.FACIL, true);
+        up.afegir_partida_nova(partida_prova);
+        assertEquals(up.get_num_partides_actuals(), 1);
+        up.set_partida_acabada(partida_prova, true, "PvsP");
+        assertEquals(up.get_num_partides_acabades(), 1);
+        assertEquals(up.get_num_partides_actuals(), 0);
     }
 
 }

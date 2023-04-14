@@ -113,6 +113,7 @@ public class User_persona extends User {
             win_bonus = 5;
         }
         if (dificultat == "PvsP") set_puntuacio_PvsP(punts_base, win_bonus, punts_penalitzacio_rondes);
+
     }
 
     //Funcions de la superclasse
