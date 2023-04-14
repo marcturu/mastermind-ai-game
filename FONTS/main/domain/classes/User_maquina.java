@@ -4,17 +4,21 @@ package main.domain.classes;
 
 //import main.domain.classes.User;
 //import main.domain.classes.Partida;
+import main.domain.classes.algorismes.*;
 import main.domain.classes.enumerations.Type_user;
 import java.util.List;
 
 public class User_maquina extends User {
     private boolean genetic_algorithm; //false = five_guess; true = genetic;
-
+    private Maquina algorisme;
 
     public User_maquina(int id, String nom, Type_user tipus_user, boolean algorithm) {
         //super(id, nom, tipus_user, num_rondes_totals, num_partides_totals, puntuacio, partides_guanyades, llista_partides_no_acabades, llista_partides_acabades);
         super(id, nom, tipus_user);
         this.genetic_algorithm = algorithm;
+        if(!algorithm) {
+            algorisme = new Five_guess_algorithm();
+        }
     }
 
     public boolean is_genetic() {
@@ -79,6 +83,10 @@ public class User_maquina extends User {
 
     public Partida get_partida_acabada(int id_partida) throws Exception{
         return super.get_partida_acabada(id_partida);
+    }
+
+    public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
+        return algorisme.solve(solucio);
     }
 
     //Ja mires que no sigui PvsP a la superclasse

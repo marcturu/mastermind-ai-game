@@ -1,5 +1,8 @@
 package main.domain.classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.domain.classes.enumerations.type_seq;
 import main.domain.classes.enumerations.colors;
 
@@ -10,6 +13,9 @@ public class Sequencia {
 
     public Sequencia(type_seq tipus) {
         array = new colors[4];
+        for(int i = 0; i < 4; ++i) {
+            array[i] = colors.NULL;
+        }
         this.tipus = tipus;
     }
 
@@ -35,6 +41,10 @@ public class Sequencia {
                 }
             }
         }
+    }
+
+    public void set_position(int i, colors col) {
+        array[i] = col;
     }
 
     public void set_array_verificacio(colors[] array, colors[] solucio, colors[] intentada) throws Exception{
@@ -80,6 +90,14 @@ public class Sequencia {
         }
 
         return blanc_ver == blanc_calc && negre_ver == negre_calc;
+    }
+
+    public List<Integer> toListInteger() {
+        List<Integer> ret = new ArrayList<Integer>(4);
+        for(int i = 0; i < array.length; ++i) {
+            ret.add(i, array[i].get_id_color());
+        }
+        return ret;
     }
 }
 

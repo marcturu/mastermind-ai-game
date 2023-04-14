@@ -3,9 +3,8 @@ package main.domain.classes.algorismes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
-public class Five_guess_algorithm {
+public class Five_guess_algorithm implements Maquina{
 
 //    public static void main(String[] args) {
 //        List<Integer> solution = Arrays.asList(6, 3, 1, 9); // Aquí se define la solución
@@ -18,7 +17,7 @@ public class Five_guess_algorithm {
 //        }
 //    }
 
-    public static List<List<Integer>> solve(List<Integer> solution) {
+    public List<List<Integer>> solve(List<Integer> solution) {
         List<List<Integer>> guesses = new ArrayList<>();
         Integer[] colors = {1, 2, 3, 4, 5, 6, 8, 9}; // Aquí se define el número de colores
 

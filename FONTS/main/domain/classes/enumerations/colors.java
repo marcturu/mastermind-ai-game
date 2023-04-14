@@ -29,4 +29,14 @@ public enum colors {
     public int get_id_color() {
         return id_color;
     }
+
+    public static colors get_color_by_id(int id) {
+        for (colors c : colors.values()) {
+            if (c.get_id_color() == id) {
+                return c;
+            }
+        }
+        return colors.NULL; // or throw an exception if id doesn't match any color
+    }
+    
 }

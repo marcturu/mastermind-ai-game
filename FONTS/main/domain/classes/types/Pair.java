@@ -3,8 +3,8 @@ package main.domain.classes.types;
 import java.util.*;
 
 public class Pair<A, B> {
-    private final A first;
-    private final B second;
+    private A first;
+    private B second;
 
     public Pair(A first, B second) {
         this.first = first;
@@ -17,6 +17,13 @@ public class Pair<A, B> {
 
     public B second() {
         return second;
+    }
+
+    public void set_first(A new_first) {
+        this.first = new_first;
+    }
+    public void set_second(B new_second) {
+        this.second = new_second;
     }
 
     @Override

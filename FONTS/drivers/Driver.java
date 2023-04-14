@@ -1,17 +1,19 @@
 package drivers;
 
+import java.util.ArrayList;
 /*import main.domain.classes.*;
 import main.domain.controller.Controlador_Domini;
 */
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import main.domain.classes.Partida;
-import main.domain.classes.Ronda;
 import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.colors;
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.enumerations.type_seq;
+import main.domain.classes.types.Pair;
 import main.domain.controller.Controlador_Domini;
 
 public class Driver {
@@ -97,19 +99,45 @@ public class Driver {
         while (tipus_partida.length() == 0) tipus_partida = in.nextLine();
         switch (tipus_partida){
             case "1":{
-                System.out.println("Introdueix: \n" + "0 - Ser CodeBreaker " + "1 - Ser CodeMaker\n");
-                /*String Rol_partida = in.nextLine();
-                while (Rol_partida.length() == 0) Rol_partida = in.nextLine();
-                System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
-                String dif_partida = in.nextLine();
-                while (dif_partida.length() == 0) dif_partida = in.nextLine();
-                int rol = Integer.parseInt(Rol_partida);
-                try{
-                    //domini.inicialitza_partida(dif,rol);
-                    //jugar_partida_maquina(dif);
-                } catch (Exception ex){
-                    System.out.println(ex.getMessage());
-                }*/
+                
+                String dif_partida = pregunta_dificultat();
+                boolean rol = pregunta_rol();
+
+                System.out.println("dificultat i rol ben entrats\n");
+                switch (dif_partida){
+                    case "1":{
+                        try {
+                            domini.inicialitza_partida_nova(dificultats.FACIL,rol);
+                            System.out.println("nova partida vs maquina iniciada\n");
+                            jugar_partida_maquina(dificultats.FACIL);
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+
+                        }
+                        break;
+                    }
+                    case "2":{
+                        try {
+                            domini.inicialitza_partida_nova(dificultats.NORMAL,rol);
+                            System.out.println("nova partida vs maquina iniciada\n");
+                            System.out.println("Entrem a jugar partida\n");
+                            jugar_partida_maquina(dificultats.NORMAL);
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                        break;
+                    }
+                    case "3":{
+                        try {
+                            domini.inicialitza_partida_nova(dificultats.DIFICIL,rol);
+                            System.out.println("nova partida vs maquina iniciada\n");
+                            jugar_partida_maquina(dificultats.DIFICIL);
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                        break;
+                    }
+                }
                 break;
             }
             case "2":{
@@ -119,9 +147,7 @@ public class Driver {
                 login(input,2);
                 System.out.println("Usuari 1 serà CodeMaker? Introdueix --> True or False");
                 boolean rol = in.nextBoolean();
-                System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
-                String dif_partida = in.nextLine();
-                while (dif_partida.length() == 0) dif_partida = in.nextLine();
+                String dif_partida = pregunta_dificultat();
                 switch (dif_partida){
                     case "1":{
                         try {
@@ -159,6 +185,31 @@ public class Driver {
         }
     }
 
+    private boolean pregunta_rol() {
+        System.out.println("Introdueix: \n" + "True|1 - Ser CodeMaker " + "False|0 - Ser CodeBreaker\n");
+
+        String Rol_partida = in.nextLine();
+        if ((Rol_partida.equals("True") || Rol_partida.equals("1")) || (Rol_partida.equals("False") || Rol_partida.equals("0")) ){
+            switch(Rol_partida) {
+                case "True":
+                case "1":
+                    return true;
+                case "False":
+                case "0":
+                    return false;
+            }
+        } 
+        return pregunta_rol();
+    }
+
+    private String pregunta_dificultat() {
+        System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
+        String dif_partida = in.nextLine();
+        if (dif_partida.equals("1") || dif_partida.equals("2") || dif_partida.equals("3")) return dif_partida;
+        return pregunta_dificultat();
+                
+    }
+
     private void jugar_partida_pvp(dificultats dif) {
         int ronda_actual = domini.get_num_ronda_actual();
         boolean ajuda = domini.get_ajuda_partida();
@@ -174,8 +225,7 @@ public class Driver {
                 ++ronda_actual;
                 System.out.println("Ronda Actual: " + ronda_actual);
                 if (ronda_actual >= 5 && !ajuda) {
-                    System.out.println("Demanar ajuda? \n Introdueix: true or false");
-                    ajuda = in.nextBoolean();
+                    ajuda = vols_ajuda();
                     if (ajuda){
                         try {
                             domini.set_ajuda();
@@ -190,9 +240,9 @@ public class Driver {
 
                 Sequencia seq_ver = codemaker_entra_verificacio(seq_int.get_array());
 
-                System.out.println("Peta Aqui?\n" + dif.get_num_max_rondes() + ronda_actual);//NO
+                System.out.println("Peta Aqui?\n" + dif.get_num_max_rondes() + ronda_actual);
                 try {
-                    domini.jugar_ronda(seq_int, seq_ver);//PETA AQUIIIIIIII
+                    domini.jugar_ronda(seq_int, seq_ver);
                 }catch (Exception ex){
                     System.out.println(ex.getMessage());
                 }
@@ -207,6 +257,65 @@ public class Driver {
         if (domini.partida_acabada() && ronda_actual < dif.get_num_max_rondes()){
             System.out.println("CodeBreaker Guanya la Partida\n");
         }else System.out.println("CodeMaker Guanya la Partida\n");
+    }
+
+    private void jugar_partida_maquina(dificultats dif){
+        int ronda_actual = domini.get_num_ronda_actual();
+        boolean ajuda = domini.get_ajuda_partida();
+        boolean jug_1_cm = domini.get_jugador1_es_codemaker();
+        boolean acabar = false;
+        if(ronda_actual == -1) {
+            if (jug_1_cm){
+                codemaker_entra_solucio(dif);
+            }else {
+                genera_sequencia_solucio_random(dif);
+            }
+        }
+
+        while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada() ) {
+            System.out.println("Dessitges guardar la partida a mitges? \n Introdueix: true or false");
+            acabar = in.nextBoolean();
+            if (!acabar){
+                ++ronda_actual;
+                System.out.println("Ronda Actual: " + ronda_actual);
+                if (ronda_actual >= 5 && !ajuda) {
+                    ajuda = vols_ajuda();
+                    
+                    if (ajuda){
+                        try {
+                            domini.set_ajuda();
+                            donar_ajuda();
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                }
+                Sequencia seq_int = new Sequencia(type_seq.intentada);
+                Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+                if(jug_1_cm) {
+                    seq_int = maquina_entra_intentada(dif);
+                    seq_ver = codemaker_entra_verificacio(seq_int.get_array());
+                }else {
+                    seq_int = codebreaker_entra_intentada(dif);
+                    seq_ver = maquina_entra_verificacio(seq_int);
+                } 
+
+                
+
+                System.out.println("Peta Aqui?\n" + dif.get_num_max_rondes() + ronda_actual);
+                try {
+                    domini.jugar_ronda(seq_int, seq_ver);
+                }catch (Exception ex){
+                    System.out.println(ex.getMessage());
+                }
+                System.out.println("bucldin?\n" + domini.partida_acabada());
+                if (ronda_actual == 10) domini.tractament_partida_acabada();
+            }
+            else {
+                
+            }
+
+        }
     }
 
     private Sequencia codemaker_entra_solucio(dificultats dif){
@@ -237,6 +346,26 @@ public class Driver {
         return solucio;
     }
 
+    private Sequencia genera_sequencia_solucio_random(dificultats dif) {
+        Sequencia solucio = new Sequencia(type_seq.solucio);
+        colors[] arr_sol = new colors[4];
+        for(int i = 0; i < 4; ++i) {
+            int random_color_id = (new Random()).nextInt(dif.get_num_colors()-2) + 1;// NULL, BLANC, NEGRE no es poden fer servir
+            arr_sol[i] = colors.get_color_by_id(random_color_id);
+        }
+        try {
+            solucio.set_array(arr_sol, dif.get_num_colors());
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+        domini.set_seq_solucio(solucio);
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        return solucio;
+    }
+
     private Sequencia codebreaker_entra_intentada(dificultats dif ) {
         Sequencia seq_int = new Sequencia(type_seq.intentada);
             
@@ -260,6 +389,19 @@ public class Driver {
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
+        System.out.println("Sequencia intentada: {" + arr_int[0] + "," + arr_int[1] + "," + arr_int[2] + "," + arr_int[3] + "}\n");
+        return seq_int;
+    }
+
+    private Sequencia maquina_entra_intentada(dificultats dif) {
+        Sequencia seq_int = new Sequencia(type_seq.intentada);
+        List<Integer> solucio = new ArrayList<Integer>(4);
+        solucio = domini.get_seq_solucio().toListInteger();
+        List<List<Integer>> resultat = domini.get_solve_maquina(solucio);
+
+        if(resultat != null)seq_int = de_list_a_seq(resultat.get(0), dif);
+
+        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0] + "," + seq_int.get_array()[1] + "," + seq_int.get_array()[2] + "," + seq_int.get_array()[3] + "}\n");
         return seq_int;
     }
 
@@ -285,7 +427,88 @@ public class Driver {
             System.out.println(e.getMessage());
             codemaker_entra_verificacio(array_intent);
         }
+
+        System.out.println("Sequencia verificacio: {" + arr_ver[0] + "," + arr_ver[1] + "," + arr_ver[2] + "," + arr_ver[3] + "}\n");
         return seq_ver;
+    }
+
+    private Sequencia maquina_entra_verificacio(Sequencia seq_int) {
+        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+        Sequencia seq_sol = domini.get_seq_solucio();
+
+        Pair<Integer, Integer> resultat= negres_blanques(seq_int, seq_sol);
+
+        seq_ver = crea_seq_ver_random(resultat.first(), resultat.second());
+
+        System.out.println("Sequencia verificacio de la maquina: {" + seq_ver.get_array()[0] + "," + seq_ver.get_array()[1] + "," + seq_ver.get_array()[2] + "," + seq_ver.get_array()[3] + "}\n");
+        return seq_ver;
+    }
+
+    private Sequencia de_list_a_seq(List<Integer> llista, dificultats dif) {
+        colors[] aux = new colors[4];
+        for(int i = 0; i < 4; ++i) {
+            aux[i] = colors.get_color_by_id(llista.get(i));
+        }
+        Sequencia ret = new Sequencia(type_seq.intentada);
+        try{
+        ret.set_array(aux, dif.get_num_colors());
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
+            maquina_entra_intentada(dif);
+        }
+        
+        return ret;
+    }
+
+    private Pair<Integer, Integer> negres_blanques(Sequencia seq_int, Sequencia seq_sol) {
+        int negres = 0;
+        int blanques = 0;
+        Pair<Integer, Integer> res = new Pair<>(negres, blanques);
+        
+        for (int i = 0; i < 4; ++i){
+            if (seq_int.get_array()[i] == seq_sol.get_array()[i]) {
+                ++negres;
+                res.set_first(negres);
+            }
+            else {
+                boolean done = false;
+                for (int j = 0; j < 4 && !done; ++j){
+                    if (seq_int.get_array()[i] == seq_sol.get_array()[j]){
+                        ++blanques;
+                        res.set_second(blanques);
+                        done = true;
+                    }
+                }  
+            }
+        }
+
+        return res;
+    }
+
+    private Sequencia crea_seq_ver_random(Integer negres, Integer blanques) {
+        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+        while(negres > 0) {
+            int i = (new Random()).nextInt(4);
+            if(seq_ver.get_array()[i] == colors.NULL) {
+                --negres;
+                seq_ver.set_position(i, colors.NEGRE);
+            }
+        }
+        while(blanques > 0) {
+            int i = (new Random()).nextInt(4);
+            if(seq_ver.get_array()[i] != colors.NEGRE && seq_ver.get_array()[i] != colors.BLANC) {
+                --blanques;
+                seq_ver.set_position(i, colors.BLANC);
+            }
+        }
+
+        return seq_ver;
+    }
+
+    private boolean vols_ajuda() {
+        System.out.println("Demanar ajuda? \n Introdueix: true or false");
+        boolean ret = in.nextBoolean();
+        return ret;
     }
 
     private void donar_ajuda(){
@@ -364,30 +587,7 @@ public class Driver {
         }
     }
 
-    private void jugar_partida_maquina(int dif_partida){
-        int ronda_actual;
-        dificultats dif = dificultats.NORMAL ;
-        if (dif_partida == 1) dif = dificultats.FACIL;
-        if (dif_partida == 3) dif = dificultats.DIFICIL;
-        boolean ajuda; // = domini.get_ajuda_partida();
-        boolean jug_1_cm = domini.get_jugador1_es_codemaker(); // domini.jugador_1_codemaker();
-        if (jug_1_cm){
-            System.out.println("\n"+"Introdueix la solucio (De mida 4)");
-            print_colors(dif.get_num_colors());
-            colors[] color = new colors[4];
-            for (int i = 0; i < 4; ++i) {
-                try {
-                    String input = in.nextLine();
-                    while (input.length() == 0) input = in.nextLine();
-                    color[i] = crea_array_color(input);
-                } catch (Exception ex) {
-                    --i;
-                    System.out.println(ex.getMessage());
-                }
-            }
-            //domini.set_solucio(color);
-        }
-    }
+    
 
     private boolean id_ok(List<Integer> ids, int id){
         //int idd = Integer.parseInt(id);

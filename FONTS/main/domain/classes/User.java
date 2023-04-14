@@ -169,6 +169,10 @@ public class User {
         return 0.0;
     }
 
+    public List<List<Integer>> get_solve_maquina(List<Integer> sol) {
+        return null;
+    }
+
     /*
     //USER_PERSONA
     public void set_password(String password) {}

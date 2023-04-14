@@ -48,7 +48,7 @@ public class TestRonda {
         Sequencia seq = new Sequencia(type_seq.intentada);
         colors[] arr_col = {colors.VERD, colors.BLAU, colors.GROC, colors.MAGENTA};
         seq.set_array(arr_col, 6);
-        ronda.set_intentada(seq,6);
+        ronda.set_intentada(seq);
         Sequencia seq2 = new Sequencia(type_seq.intentada);
         seq2.set_array(seq.get_array(),6);
 
@@ -70,7 +70,7 @@ public class TestRonda {
         Sequencia seq_int = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
         seq_int.set_array(array, 6);
-        ronda.set_intentada(seq_int, 6);
+        ronda.set_intentada(seq_int);
         //creem la seq_verificacio
         Sequencia seq_ver = new Sequencia(type_seq.verificacio);
         Sequencia seq_sol = new Sequencia(type_seq.solucio);
@@ -78,7 +78,7 @@ public class TestRonda {
         colors[] sol = {colors.VERMELL,colors.BLAU,colors.VERMELL,colors.VERD};
         seq_ver.set_array_verificacio(verificacio, sol, seq_int.get_array());
         seq_sol.set_array(sol, 6);
-        ronda.set_verificacio(seq_ver, seq_sol);
+        ronda.set_verificacio(seq_ver);
         //creem la sequencia de verificacio per poder comprovar
         
         assertArrayEquals("Retorna el mateix array",ronda.get_seq_verificacio().get_array(), verificacio);
@@ -119,7 +119,7 @@ public class TestRonda {
         Sequencia seq_int = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
         seq_int.set_array(array, 6);
-        ronda.set_intentada(seq_int, 6);
+        ronda.set_intentada(seq_int);
         assertArrayEquals("Comprovem si el set ha funcionat",ronda.get_seq_intentada().get_array(), array);
     }
     /**
@@ -135,7 +135,7 @@ public class TestRonda {
         Sequencia seq_int = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
         seq_int.set_array(array, 6);
-        ronda.set_intentada(seq_int,6);
+        ronda.set_intentada(seq_int);
         //creem la seq_verificacio
         Sequencia seq_ver = new Sequencia(type_seq.verificacio);
         Sequencia seq_sol = new Sequencia(type_seq.solucio);
@@ -143,7 +143,7 @@ public class TestRonda {
         colors[] sol = {colors.VERMELL,colors.BLAU,colors.VERMELL,colors.VERD};
         seq_ver.set_array_verificacio(verificacio, sol, seq_int.get_array());
         seq_sol.set_array(sol, 6);
-        ronda.set_verificacio(seq_ver, seq_sol);
+        ronda.set_verificacio(seq_ver);
         assertArrayEquals("Comprovem si el set ha funcionat",ronda.get_seq_verificacio().get_array(),verificacio);
     }
 
@@ -161,7 +161,7 @@ public class TestRonda {
         Sequencia seq_int = new Sequencia(type_seq.intentada);
         colors[] array = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
         seq_int.set_array(array, 6);
-        ronda.set_intentada(seq_int,6);
+        ronda.set_intentada(seq_int);
         //creem la seq_verificacio
         Sequencia seq_ver = new Sequencia(type_seq.verificacio);
         Sequencia seq_sol = new Sequencia(type_seq.solucio);
@@ -169,7 +169,7 @@ public class TestRonda {
         colors[] sol = {colors.VERD,colors.BLAU,colors.GROC,colors.MAGENTA};
         seq_ver.set_array_verificacio(verificacio, sol, seq_int.get_array());
         seq_sol.set_array(sol, 6);
-        ronda.set_verificacio(seq_ver, seq_sol);
+        ronda.set_verificacio(seq_ver);
         assertTrue("Comprovem retorna true", ronda.check_sequencia_encertada());
     }
 
