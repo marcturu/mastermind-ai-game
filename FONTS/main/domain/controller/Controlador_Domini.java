@@ -255,6 +255,18 @@ public class Controlador_Domini {
         return Usuari2.get_solve_maquina(solucio);
     }
 
+    public List<Integer> get_seguent_guess_maquina() {
+        return CtrlPartida.get_guess_maquina();
+    }
+
+    public List<List<Integer>> get_solucio_partida_actual() {
+        return CtrlPartida.get_solucio_partida_actual();
+    }
+
+    public void set_solucio_partida_actual(List<List<Integer>> sol) {
+        CtrlPartida.set_solucio_partida_actual(sol);
+    }
+
 
     public void inicialitza_partida_nova(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
         if (Usuari.get_num_partides_actuals() == 10)

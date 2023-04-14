@@ -170,6 +170,10 @@ public class Controlador_Partida {
         return this.partida_actual.get_solucio();
     }
 
+    public List<Integer> get_guess_maquina() {
+        return solution_maquina.get(partida_actual.get_ultima_ronda());
+    }
+
     public void set_seq_solucio(Sequencia seq_sol) {
         this.partida_actual.set_sequencia_solucio(seq_sol);
     }

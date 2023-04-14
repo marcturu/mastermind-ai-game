@@ -279,11 +279,11 @@ public class Driver {
             }
         }
 
-        if(domini.get_solucio_partida_actual()) {
+        if(domini.get_solucio_partida_actual() == null) {
             List<Integer> solucio = new ArrayList<Integer>(4);
             solucio = domini.get_seq_solucio().toListInteger();
             List<List<Integer>> resultat = domini.get_solve_maquina(solucio);
-
+            domini.set_solucio_partida_actual(resultat);
         }
 
         while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada() && !acabar && !pause) {
@@ -319,7 +319,7 @@ public class Driver {
                 Sequencia seq_int = new Sequencia(type_seq.intentada);
                 Sequencia seq_ver = new Sequencia(type_seq.verificacio);
                 if(jug_1_cm) {
-                    //seq_int = maquina_entra_intentada(dif);
+                    seq_int = maquina_entra_intentada(dif);
                     seq_ver = codemaker_entra_verificacio(seq_int.get_array());
                 }else {
                     seq_int = codebreaker_entra_intentada(dif);
@@ -422,14 +422,11 @@ public class Driver {
     }
 
     private Sequencia maquina_entra_intentada(dificultats dif) {
-        Sequencia seq_int = new Sequencia(type_seq.intentada);
-        List<Integer> solucio = new ArrayList<Integer>(4);
-        solucio = domini.get_seq_solucio().toListInteger();
-        List<List<Integer>> resultat = domini.get_solve_maquina(solucio);
 
-        if(resultat != null)seq_int = de_list_a_seq(resultat.get(0), dif);
+        List<Integer> list_int= domini.get_seguent_guess_maquina();
+        Sequencia seq_int = de_list_a_seq(list_int, dif);
 
-        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0] + "," + seq_int.get_array()[1] + "," + seq_int.get_array()[2] + "," + seq_int.get_array()[3] + "}\n");
+        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0].get_nom_color() + "," + seq_int.get_array()[1].get_nom_color() + "," + seq_int.get_array()[2].get_nom_color() + "," + seq_int.get_array()[3].get_nom_color() + "}\n");
         return seq_int;
     }
 
