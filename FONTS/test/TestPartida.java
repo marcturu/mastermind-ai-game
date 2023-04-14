@@ -102,4 +102,6 @@ public class TestPartida {
         assertFalse("La partida no ha acabat", partida.get_partida_acabada());
         assertEquals("Llista rondes es nova", partida.get_llista_rondes(), new ArrayList<Ronda>());
     }
+
 }
+

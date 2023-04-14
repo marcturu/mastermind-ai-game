@@ -34,7 +34,7 @@ public class Controlador_Partida {
      */
     private void tractament_victoria() {
         this.partida_actual.codebreaker_guanya();
-        this.partida_actual = null;
+       // this.partida_actual = null; provoca fallades
 
     }
 
@@ -42,9 +42,9 @@ public class Controlador_Partida {
      * Aquesta funció serveix per fer el tractament en cas que al codebreaker se li acabin les rondes o el temps. Avisa a partida_actual
      * perque aquesta avisi als usuaris del tractament pertinent
      */
-    private void tractament_partida_acabada() {
+    public void tractament_partida_acabada() {
         this.partida_actual.codemaker_guanya();
-        this.partida_actual = null;
+        //this.partida_actual = null; provaca fallades
     }
 
     /**
@@ -168,7 +168,9 @@ public class Controlador_Partida {
     public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
 
         partida_actual.crea_nova_ronda();
+        System.out.println("set_int");
         partida_actual.set_seq_int_a_ronda_actual(seq_int);
+        System.out.println("set_ver");
         partida_actual.set_seq_ver_a_ronda_actual(seq_ver);
         boolean res = partida_actual.ronda_te_intentada_correcte();
 
@@ -179,9 +181,9 @@ public class Controlador_Partida {
         if (temps_excedit_partida_actual()) {//comprovem que no se'ns hagi acabat el temps
             tractament_partida_acabada();
         }
-        if (get_ultima_ronda_partida_actual() + 1 <= get_num_rondes_max_partida_actual()) {//se'ns han acabat les rondes
+      /*  if (get_ultima_ronda_partida_actual() + 1 == get_num_rondes_max_partida_actual()) {//se'ns han acabat les rondes
             partida_actual.crea_nova_ronda();
-        } else tractament_partida_acabada();
+        } //else tractament_partida_acabada();*/
 
     }
 
