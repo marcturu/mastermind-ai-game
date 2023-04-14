@@ -213,4 +213,9 @@ public class Controlador_Partida {
     public Partida get_partida_actual(){
         return partida_actual;
     }
+
+    public void pausar_partida(){
+        hashPartida.get(partida_actual.get_id()) = partida_actual;
+    }
+
 }

@@ -458,6 +458,7 @@ public class Controlador_Domini {
     public void guardar_partida_a_mitges(){
         int id_par = CtrlPartida.get_id_partida_actual();
         Usuari.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
+        CtrlPartida.pausar_partida();
         //Usuari2.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
 
     }

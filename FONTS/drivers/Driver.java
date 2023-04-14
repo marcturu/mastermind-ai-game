@@ -253,7 +253,7 @@ public class Driver {
             }
             else {
                 domini.tractament_partida_acabada();
-                System.out.println("Sequencia solucio: {" + domini.get_seq_solucio().get_array()[0].get_num_color() + "," + domini.get_seq_solucio().get_array()[1].get_num_color() + "," + domini.get_seq_solucio().get_array()[2].get_num_color() + "," + domini.get_seq_solucio().get_array()[3].get_num_color() + "}\n");
+                System.out.println("Sequencia solucio: {" + domini.get_seq_solucio().get_array()[0] + "," + domini.get_seq_solucio().get_array()[1] + "," + domini.get_seq_solucio().get_array()[2] + "," + domini.get_seq_solucio().get_array()[3] + "}\n");
 
             }
 
@@ -325,7 +325,7 @@ public class Driver {
             }
             else {
                 if (acabar){
-                    System.out.println("Sequencia solucio: {" + domini.get_seq_solucio().get_array()[0].get_num_color() + "," + domini.get_seq_solucio().get_array()[1].get_num_color() + "," + domini.get_seq_solucio().get_array()[2].get_num_color() + "," + domini.get_seq_solucio().get_array()[3].get_num_color() + "}\n");
+                    System.out.println("Sequencia solucio: {" + domini.get_seq_solucio().get_array()[0] + "," + domini.get_seq_solucio().get_array()[1] + "," + domini.get_seq_solucio().get_array()[2] + "," + domini.get_seq_solucio().get_array()[3] + "}\n");
                     domini.tractament_partida_acabada();
                 }
                 else if(pause) domini.guardar_partida_a_mitges();
@@ -408,7 +408,7 @@ public class Driver {
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
-        System.out.println("Sequencia intentada: {" + arr_int[0].get_num_color() + "," + arr_int[1].get_num_color() + "," + arr_int[2].get_num_color() + "," + arr_int[3].get_num_color() + "}\n");
+        System.out.println("Sequencia intentada: {" + arr_int[0] + "," + arr_int[1] + "," + arr_int[2] + "," + arr_int[3] + "}\n");
         return seq_int;
     }
 
@@ -420,7 +420,7 @@ public class Driver {
 
         if(resultat != null)seq_int = de_list_a_seq(resultat.get(0), dif);
 
-        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0].get_num_color() + "," + seq_int.get_array()[1].get_num_color() + "," + seq_int.get_array()[2].get_num_color() + "," + seq_int.get_array()[3].get_num_color() + "}\n");
+        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0] + "," + seq_int.get_array()[1] + "," + seq_int.get_array()[2] + "," + seq_int.get_array()[3] + "}\n");
         return seq_int;
     }
 
@@ -447,7 +447,7 @@ public class Driver {
             codemaker_entra_verificacio(array_intent);
         }
 
-        System.out.println("Sequencia verificacio: {" + arr_ver[0].get_num_color() + "," + arr_ver[1].get_num_color() + "," + arr_ver[2].get_num_color() + "," + arr_ver[3].get_num_color() + "}\n");
+        System.out.println("Sequencia verificacio: {" + arr_ver[0] + "," + arr_ver[1] + "," + arr_ver[2] + "," + arr_ver[3] + "}\n");
         return seq_ver;
     }
 
