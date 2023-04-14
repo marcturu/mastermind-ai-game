@@ -118,7 +118,7 @@ public class User {
     public List<Integer> get_ids_partides_actives() {
         ArrayList<Integer> llista = new ArrayList<Integer>();
         for (int i = 0; i < llista_partides_no_acabades.size(); i++) {
-            llista.add((llista_partides_no_acabades.get(0)).get_id());
+            llista.add((llista_partides_no_acabades.get(i)).get_id());
         }
         return llista;
     }
