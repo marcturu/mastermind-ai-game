@@ -253,7 +253,7 @@ public class Driver {
             }
             else {
                 domini.tractament_partida_acabada();
-                System.out.println("Sequencia solucio: {" + domini.get_seq_solucio().get_array()[0] + "," + domini.get_seq_solucio().get_array()[1] + "," + domini.get_seq_solucio().get_array()[2] + "," + domini.get_seq_solucio().get_array()[3] + "}\n");
+                System.out.println("Sequencia solucio: {" + domini.get_seq_solucio().get_array()[0].get_nom_color() + "," + domini.get_seq_solucio().get_array()[1].get_nom_color() + "," + domini.get_seq_solucio().get_array()[2].get_nom_color() + "," + domini.get_seq_solucio().get_array()[3].get_nom_color() + "}\n");
 
             }
 
@@ -275,6 +275,13 @@ public class Driver {
             }else {
                 genera_sequencia_solucio_random(dif);
             }
+        }
+
+        if(domini.get_solucio_partida_actual()) {
+            List<Integer> solucio = new ArrayList<Integer>(4);
+            solucio = domini.get_seq_solucio().toListInteger();
+            List<List<Integer>> resultat = domini.get_solve_maquina(solucio);
+
         }
 
         while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada() && !acabar && !pause) {
@@ -310,7 +317,7 @@ public class Driver {
                 Sequencia seq_int = new Sequencia(type_seq.intentada);
                 Sequencia seq_ver = new Sequencia(type_seq.verificacio);
                 if(jug_1_cm) {
-                    seq_int = maquina_entra_intentada(dif);
+                    //seq_int = maquina_entra_intentada(dif);
                     seq_ver = codemaker_entra_verificacio(seq_int.get_array());
                 }else {
                     seq_int = codebreaker_entra_intentada(dif);
@@ -325,7 +332,7 @@ public class Driver {
             }
             else {
                 if (acabar){
-                    System.out.println("Sequencia solucio: {" + domini.get_seq_solucio().get_array()[0] + "," + domini.get_seq_solucio().get_array()[1] + "," + domini.get_seq_solucio().get_array()[2] + "," + domini.get_seq_solucio().get_array()[3] + "}\n");
+                    System.out.println("Sequencia solucio: {" + domini.get_seq_solucio().get_array()[0].get_nom_color() + "," + domini.get_seq_solucio().get_array()[1].get_nom_color() + "," + domini.get_seq_solucio().get_array()[2].get_nom_color() + "," + domini.get_seq_solucio().get_array()[3].get_nom_color() + "}\n");
                     domini.tractament_partida_acabada();
                 }
                 else if(pause) domini.guardar_partida_a_mitges();
@@ -408,7 +415,7 @@ public class Driver {
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
-        System.out.println("Sequencia intentada: {" + arr_int[0] + "," + arr_int[1] + "," + arr_int[2] + "," + arr_int[3] + "}\n");
+        System.out.println("Sequencia intentada: {" + arr_int[0].get_nom_color() + "," + arr_int[1].get_nom_color() + "," + arr_int[2].get_nom_color() + "," + arr_int[3].get_nom_color() + "}\n");
         return seq_int;
     }
 
@@ -420,7 +427,7 @@ public class Driver {
 
         if(resultat != null)seq_int = de_list_a_seq(resultat.get(0), dif);
 
-        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0] + "," + seq_int.get_array()[1] + "," + seq_int.get_array()[2] + "," + seq_int.get_array()[3] + "}\n");
+        System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0].get_nom_color() + "," + seq_int.get_array()[1].get_nom_color() + "," + seq_int.get_array()[2].get_nom_color() + "," + seq_int.get_array()[3].get_nom_color() + "}\n");
         return seq_int;
     }
 
@@ -447,7 +454,7 @@ public class Driver {
             codemaker_entra_verificacio(array_intent);
         }
 
-        System.out.println("Sequencia verificacio: {" + arr_ver[0] + "," + arr_ver[1] + "," + arr_ver[2] + "," + arr_ver[3] + "}\n");
+        System.out.println("Sequencia verificacio: {" + arr_ver[0].get_nom_color() + "," + arr_ver[1].get_nom_color() + "," + arr_ver[2].get_nom_color() + "," + arr_ver[3].get_nom_color() + "}\n");
         return seq_ver;
     }
 
@@ -629,7 +636,7 @@ public class Driver {
             while (id.length() == 0) id = in.nextLine();
         }
         try {
-            domini.jugar_partides_antigues(idd);
+        domini.jugar_partides_antigues(idd);
         }catch (Exception ex){
             System.out.println(ex.getMessage());
 

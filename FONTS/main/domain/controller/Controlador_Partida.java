@@ -36,8 +36,8 @@ public class Controlador_Partida {
      */
     private void tractament_victoria() {
         this.partida_actual.codebreaker_guanya();
-        hashPartida.remove(partida_actual.get_id());
-        hashPartida.put(partida_actual.get_id(), partida_actual);
+        hashPartida.replace(partida_actual.get_id(), partida_actual);
+        solution_maquina = null;
        // this.partida_actual = null; provoca fallades
 
     }
@@ -48,8 +48,8 @@ public class Controlador_Partida {
      */
     public void tractament_partida_acabada() {
         this.partida_actual.codemaker_guanya();
-        hashPartida.remove(partida_actual.get_id());
-        hashPartida.put(partida_actual.get_id(), partida_actual);
+        hashPartida.replace(partida_actual.get_id(), partida_actual);
+        solution_maquina = null;
         //this.partida_actual = null; provaca fallades
     }
 
@@ -219,8 +219,8 @@ public class Controlador_Partida {
     }
 
     public void pausar_partida(){
-        hashPartida.remove(partida_actual.get_id());
-        hashPartida.put(partida_actual.get_id(), partida_actual);
+        hashPartida.replace(partida_actual.get_id(), partida_actual);
+        solution_maquina = null;
     }
 
 }
