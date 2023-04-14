@@ -19,5 +19,5 @@ negre
 negre
 negre
 negre
-4
-normal
+5
+facil

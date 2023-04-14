@@ -719,23 +719,23 @@ public class Driver {
         System.out.println("Introdueix: 'facil' 'normal' 'dificil'");
         String input = in.nextLine();
         while (input.length() == 0)  input = in.nextLine();
-        Record rec = new Record(null);
+
         switch (input){
             case "facil":{
-                rec = domini.get_record_by_nom_record("record_facil");
+                System.out.println("Record: 'record_facil'" + " fet per: " + domini.get_nom_usuari_by_nom_record("record_facil") + " amb " + domini.get_punts_record_by_nom_record("record_facil") + " punts");
                 break;
             }
             case "normal":{
-                rec = domini.get_record_by_nom_record("record_normal");
+                System.out.println("Record: 'record_normal'" + " fet per: " + domini.get_nom_usuari_by_nom_record("record_normal") + " amb " + domini.get_punts_record_by_nom_record("record_normal") + " punts");
+
                 break;
             }
             case "dificil":{
-                rec = domini.get_record_by_nom_record("record_dificl");
+                System.out.println("Record: 'record_dificil'" + " fet per: " + domini.get_nom_usuari_by_nom_record("record_dificil") + " amb " + domini.get_punts_record_by_nom_record("record_dificil") + " punts");
+
                 break;
             }
         }
-        System.out.println("Record: " + rec.get_nom_record() + " fet per: " + rec.get_nom_usuari() + " amb " + rec.get_punts() + " punts");
-
     }
 
     private void veure_stats(){
