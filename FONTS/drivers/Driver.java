@@ -1,20 +1,16 @@
 package drivers;
 
 import java.util.ArrayList;
-/*import main.domain.classes.*;
+import main.domain.classes.*;
+import main.domain.classes.types.*;
+import main.domain.classes.enumerations.*;
 import main.domain.controller.Controlador_Domini;
-*/
+
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.time.*;
 
-import main.domain.classes.Partida;
-import main.domain.classes.Sequencia;
-import main.domain.classes.enumerations.colors;
-import main.domain.classes.enumerations.dificultats;
-import main.domain.classes.enumerations.type_seq;
-import main.domain.classes.types.Pair;
-import main.domain.controller.Controlador_Domini;
 
 public class Driver {
     private Scanner in = null;
@@ -704,8 +700,21 @@ public class Driver {
                 "\n'dificil' - Visualitar ranking dificultat dificil" +
                 "\n'pvp' - Visualitar ranking Player Vs Player");
         String dif = in.nextLine();
-        while ((dif.length() == 0) && (dif != "facil" && dif != "normal" && dif != "dificil" && dif != "pvp"))
-            dif = in.nextLine();
+        while ((dif.length() == 0) && (dif != "facil" && dif != "normal" && dif != "dificil" && dif != "pvp")) dif = in.nextLine();
+
+        Ranking rank  = domini.get_ranking_by_ranking_name(dif);
+        List<Pair<Pair<Double, String>, LocalDate>> list_rank = rank.get_rank();
+        if (list_rank.size() > 0){
+            for (int i = 0; i < list_rank.size(); ++i){
+                System.out.println("Ranking de dificultat: " + dif);
+                System.out.println("Pos:                  Username:                 Date:");
+                System.out.println(list_rank.get(i).first().first() + "                  " + list_rank.get(i).first().second() + "                 " +  list_rank.get(i).second() );
+            }
+        }
+        else{
+            System.out.println("No hi ha Ranking");
+        }
+
     }
 
     private void print_menu(){

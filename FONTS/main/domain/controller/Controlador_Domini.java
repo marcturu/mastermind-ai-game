@@ -48,6 +48,7 @@ public class Controlador_Domini {
         this.hashRanking = new HashMap<String,Ranking>();
 
         inicialitza_UserMaquina_fiveguess();
+        inicialitza_rankings();
     }
 
     public static Controlador_Domini get_CtrlDomini() {
