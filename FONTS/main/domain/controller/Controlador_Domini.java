@@ -474,4 +474,12 @@ public class Controlador_Domini {
         //Usuari2.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
 
     }
+
+    public dificultats get_dificultat_partida(){
+        return CtrlPartida.get_dificultat();
+    }
+
+    public Partida get_partida_actual(){
+        return CtrlPartida.get_partida_actual();
+    }
 }
