@@ -628,7 +628,12 @@ public class Driver {
             id = in.nextLine();
             while (id.length() == 0) id = in.nextLine();
         }
-        domini.jugar_partides_antigues(idd);
+        try {
+            domini.jugar_partides_antigues(idd);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+
+        }
     }
 
     private void veure_partides_antigues(){
