@@ -18,12 +18,14 @@ import main.domain.classes.enumerations.dificultats;
 public class Controlador_Partida {
     private HashMap<Integer, Partida> hashPartida;
     private Partida partida_actual;
+    private List<List<Integer>> solution_maquina;
 
     /**
      * Creadora de la classe controlador Partida
      */
     public Controlador_Partida (){
         this.partida_actual = null;
+        solution_maquina = null;
         this.hashPartida = new HashMap<Integer, Partida>();
     }
 
@@ -120,6 +122,14 @@ public class Controlador_Partida {
         }
     }
 
+    public void set_solucio_partida_actual(List<List<Integer>> sol) {
+        this.solution_maquina = sol;
+    }
+
+    public List<List<Integer>> get_solucio_partida_actual() {
+        return this.solution_maquina;
+    }
+
     /**
      * @return si s'ha excedit el temps limit que té la partida
      */
@@ -203,9 +213,4 @@ public class Controlador_Partida {
     public Partida get_partida_actual(){
         return partida_actual;
     }
-
-    public void carregar_partida(int id){
-        this.partida_actual = hashPartida.get(i);
-    }
-
 }
