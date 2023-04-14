@@ -294,7 +294,6 @@ public class Partida {
         Ronda ronda = new Ronda(this.indentificador, ultima_ronda_jugada+1);
         ++ultima_ronda_jugada;
         this.llista_rondes.add(ronda);
-        System.out.println("Ronda num: " + ultima_ronda_jugada + "\n");
     }
 
     /**
@@ -303,7 +302,6 @@ public class Partida {
      */
     public boolean ronda_te_intentada_correcte() {
         Ronda ultima_ronda = llista_rondes.get(ultima_ronda_jugada);
-        System.out.println("\ncomprop" + ultima_ronda.check_sequencia_encertada());
         return ultima_ronda.check_sequencia_encertada();
     }
 }

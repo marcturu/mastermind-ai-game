@@ -46,6 +46,8 @@ public class Controlador_Domini {
         this.hashUsers = new HashMap<String, User>();
         this.hashRecord = new HashMap<String, Record>();
         this.hashRanking = new HashMap<String,Ranking>();
+
+        inicialitza_UserMaquina_fiveguess();
     }
 
     public static Controlador_Domini get_CtrlDomini() {
@@ -61,7 +63,6 @@ public class Controlador_Domini {
     //Pre: Es rep un nom d'usuari d'usuari i un password
     //Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
     public void inicialitzaUserPersona(String nom, String password) { //quan es treballi amb log in es passarà també la contrasenya.
-        System.out.println("Hola");
         Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, Usuari);
     }
@@ -87,9 +88,9 @@ public class Controlador_Domini {
 
     //Pre: Es rep un nom d'usuari.
     //Post: Es crea el usuari (maquina five-guess) amb els paràmetres entrats i els altres que li falten i s'afageix al map.
-    public void inicialitza_UserMaquina_fiveguess(String nom) { //quan es treballi amb log in es passarà també la contrasenya.
-        Usuari2 = new User_maquina(hashUsers.size() + 1, nom, Type_user.user_maquina, false);
-        hashUsers.putIfAbsent(nom, Usuari2);
+    public void inicialitza_UserMaquina_fiveguess() { //quan es treballi amb log in es passarà també la contrasenya.
+        User Maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
+        hashUsers.putIfAbsent("Five-Guess", Maq);
     }
 
     /**
@@ -256,9 +257,10 @@ public class Controlador_Domini {
 
 
     public void inicialitza_partida_nova(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
-        if (Usuari.get_num_partides_actuals() == 10 || Usuari2.get_num_partides_actuals() == 10)
+        if (Usuari.get_num_partides_actuals() == 10)
             throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
         else {
+            Usuari2 = hashUsers.get("Five-Guess");
             Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
             afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
             ++ids_partides;
@@ -456,7 +458,7 @@ public class Controlador_Domini {
     public void guardar_partida_a_mitges(){
         int id_par = CtrlPartida.get_id_partida_actual();
         Usuari.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
-        Usuari2.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
+        //Usuari2.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
 
     }
 }

@@ -168,9 +168,7 @@ public class Controlador_Partida {
     public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
 
         partida_actual.crea_nova_ronda();
-        System.out.println("set_int");
         partida_actual.set_seq_int_a_ronda_actual(seq_int);
-        System.out.println("set_ver");
         partida_actual.set_seq_ver_a_ronda_actual(seq_ver);
         boolean res = partida_actual.ronda_te_intentada_correcte();
 
@@ -204,6 +202,10 @@ public class Controlador_Partida {
 
     public Partida get_partida_actual(){
         return partida_actual;
+    }
+
+    public void carregar_partida(int id){
+        this.partida_actual = hashPartida.get(i);
     }
 
 }
