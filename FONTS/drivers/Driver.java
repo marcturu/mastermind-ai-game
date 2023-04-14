@@ -628,7 +628,7 @@ public class Driver {
             id = in.nextLine();
             while (id.length() == 0) id = in.nextLine();
         }
-        Controlador_Domini.jugar_partides_antigues(idd);
+        domini.jugar_partides_antigues(idd);
     }
 
     private void veure_partides_antigues(){
