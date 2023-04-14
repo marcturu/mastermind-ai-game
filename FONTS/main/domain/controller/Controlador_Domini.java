@@ -429,8 +429,8 @@ public class Controlador_Domini {
         return Usuari.get_ids_partides_actives();
     }
 
-    public List<Integer> get_ids_partides_no_acabades_Usuari1() {
-        return Usuari.get_ids_partides_no_acabades();
+    public List<Integer> get_ids_partides_acabades_Usuari1() {
+        return Usuari.get_ids_partides_acabades();
     }
 
     public Partida get_partida(int id){

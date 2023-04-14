@@ -614,7 +614,7 @@ public class Driver {
         System.out.println("Sequencia Solucio: ");
         for (int i = 0; i < 4; ++i) System.out.print(part.get_solucio().get_array()[i].get_nom_color() + " ");
 
-        for (int i = part.get_ultima_ronda(); i > 0; --i){
+        for (int i = part.get_ultima_ronda(); i >= 0; --i){
             System.out.println("\nRonda: " + i);
             System.out.print("\nSequencia de Verficacio: " );
             for (int j = 0; j < 4; ++j) System.out.print(part.get_llista_rondes().get(i).get_seq_verificacio().get_array()[j].get_nom_color() + " ");
