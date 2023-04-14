@@ -19,7 +19,7 @@ public class Five_guess_algorithm implements Maquina{
 
     public List<List<Integer>> solve(List<Integer> solution) {
         List<List<Integer>> guesses = new ArrayList<>();
-        Integer[] colors = {1, 2, 3, 4, 5, 6, 8, 9}; // Aquí se define el número de colores
+        Integer[] colors = {1, 2, 3, 4, 5, 6, 8}; // Aquí se define el número de colores
 
         List<List<Integer>> possibleCodes = generateCodes(Arrays.asList(colors), solution.size());
 
