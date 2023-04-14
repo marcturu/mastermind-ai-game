@@ -704,18 +704,14 @@ public class Driver {
 
         Ranking rank  = domini.get_ranking_by_ranking_name(dif);
         List<Pair<Pair<Double, String>, LocalDate>> list_rank = rank.get_rank();
-        if (list_rank.size() > 0){
-            for (int i = 0; i < list_rank.size(); ++i){
+        System.out.println(list_rank.size());
+            for (int i = 0; i < list_rank.size(); ++i) {
                 System.out.println("Ranking de dificultat: " + dif);
                 System.out.println("Pos:                  Username:                 Date:");
-                System.out.println(list_rank.get(i).first().first() + "                  " + list_rank.get(i).first().second() + "                 " +  list_rank.get(i).second() );
+                System.out.println(list_rank.get(i).first().first() + "                  " + list_rank.get(i).first().second() + "                 " + list_rank.get(i).second());
             }
-        }
-        else{
-            System.out.println("No hi ha Ranking");
-        }
-
     }
+
 
     private void print_menu(){
         System.out.println("\n"+"(Introdueix: '1' o 'crear') - Crear Nova Partida");
