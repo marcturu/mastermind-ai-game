@@ -219,7 +219,7 @@ public class Driver {
         }
 
         while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada() && !acabar) {
-            System.out.println("Dessitges guardar la partida a mitges? \n Introdueix: true or false");
+            System.out.println("Voleu acabar la partida? \n Introdueix: true or false");
             acabar = in.nextBoolean();
             if (!acabar){
                 ++ronda_actual;
@@ -245,7 +245,7 @@ public class Driver {
                 if (ronda_actual == 10) domini.tractament_partida_acabada();
             }
             else {
-                domini.guardar_partida_a_mitges()
+                domini.tractament_partida_acabada();
             }
 
         }
