@@ -448,8 +448,11 @@ public class Controlador_Domini {
     }
 
     public boolean partida_acabada(){
-        System.out.println(CtrlPartida.get_partida_acabada());
         return CtrlPartida.get_partida_acabada();
+    }
+
+    public void tractament_partida_acabada(){
+        CtrlPartida.tractament_partida_acabada();
     }
 
 }

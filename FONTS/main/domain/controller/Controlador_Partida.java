@@ -42,7 +42,7 @@ public class Controlador_Partida {
      * Aquesta funció serveix per fer el tractament en cas que al codebreaker se li acabin les rondes o el temps. Avisa a partida_actual
      * perque aquesta avisi als usuaris del tractament pertinent
      */
-    private void tractament_partida_acabada() {
+    public void tractament_partida_acabada() {
         this.partida_actual.codemaker_guanya();
         //this.partida_actual = null; provaca fallades
     }
@@ -181,9 +181,9 @@ public class Controlador_Partida {
         if (temps_excedit_partida_actual()) {//comprovem que no se'ns hagi acabat el temps
             tractament_partida_acabada();
         }
-        if (get_ultima_ronda_partida_actual() + 1 == get_num_rondes_max_partida_actual()) {//se'ns han acabat les rondes
+      /*  if (get_ultima_ronda_partida_actual() + 1 == get_num_rondes_max_partida_actual()) {//se'ns han acabat les rondes
             partida_actual.crea_nova_ronda();
-        } //else tractament_partida_acabada();
+        } //else tractament_partida_acabada();*/
 
     }
 

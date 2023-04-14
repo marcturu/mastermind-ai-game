@@ -162,23 +162,46 @@ public class Driver {
     private void jugar_partida_pvp(dificultats dif) {
         int ronda_actual = domini.get_num_ronda_actual();
         boolean ajuda = domini.get_ajuda_partida();
+        boolean acabar = false;
         if (ronda_actual == -1) {
             codemaker_entra_solucio(dif);
         }
 
-        while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada()) {
-            ++ronda_actual;
-            Sequencia seq_int = codebreaker_entra_intentada(dif);
+        while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada() ) {
+            System.out.println("Dessitges guardar la partida a mitges? \n Introdueix: true or false");
+            acabar = in.nextBoolean();
+            if (!acabar){
+                ++ronda_actual;
+                System.out.println("Ronda Actual: " + ronda_actual);
+                if (ronda_actual >= 5 && !ajuda) {
+                    System.out.println("Demanar ajuda? \n Introdueix: true or false");
+                    ajuda = in.nextBoolean();
+                    if (ajuda){
+                        try {
+                            domini.set_ajuda();
+                            donar_ajuda();
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                }
 
-            Sequencia seq_ver = codemaker_entra_verificacio(seq_int.get_array());
+                Sequencia seq_int = codebreaker_entra_intentada(dif);
 
-            System.out.println("Peta Aqui?\n" + dif.get_num_max_rondes() + ronda_actual);//NO
-            try {
-                domini.jugar_ronda(seq_int, seq_ver);//PETA AQUIIIIIIII
-            }catch (Exception ex){
-                System.out.println(ex.getMessage());
+                Sequencia seq_ver = codemaker_entra_verificacio(seq_int.get_array());
+
+                System.out.println("Peta Aqui?\n" + dif.get_num_max_rondes() + ronda_actual);//NO
+                try {
+                    domini.jugar_ronda(seq_int, seq_ver);//PETA AQUIIIIIIII
+                }catch (Exception ex){
+                    System.out.println(ex.getMessage());
+                }
+                System.out.println("bucldin?\n" + domini.partida_acabada());
+                if (ronda_actual == 10) domini.tractament_partida_acabada();
             }
-            System.out.println("bucldin?\n" + domini.partida_acabada());
+            else {
+
+            }
 
         }
         if (domini.partida_acabada() && ronda_actual < dif.get_num_max_rondes()){
@@ -263,6 +286,15 @@ public class Driver {
             codemaker_entra_verificacio(array_intent);
         }
         return seq_ver;
+    }
+
+    private void donar_ajuda(){
+        System.out.println("Introdueix la posicio de la solucio vols saber?");
+        String input = in.nextLine();
+        while (input.length() == 0) input = in.nextLine();
+        int pos = Integer.parseInt(input);
+        Sequencia sol = domini.get_seq_solucio();
+        System.out.println("El color de la solucio en la posicio " + pos + " es " + sol.get_array()[pos].get_nom_color() + "\n");
     }
 
     private void print_colors(int num_colors){
@@ -357,6 +389,47 @@ public class Driver {
         }
     }
 
+    private boolean id_ok(List<Integer> ids, int id){
+        //int idd = Integer.parseInt(id);
+        for (int i = 0; i < ids.size(); ++i){
+            if (ids.get(i) == id) return true;
+        }
+        return false;
+    }
+
+    private void veure_partides_antigues(){
+        List<Integer> ids_partides_acabdes = domini.get_ids_partides_acabades_Usuari1();
+        System.out.println("IDs de les partides acabades:");
+        for (int i = 0; i < ids_partides_acabdes.size(); ++i){
+            System.out.println(ids_partides_acabdes.get(i));
+        }
+        System.out.println("Selecciona la partidas que vols veure:");
+        String id = in.nextLine();
+        while (id.length() == 0) id = in.nextLine();
+        int idd = Integer.parseInt(id);
+        while (!id_ok(ids_partides_acabdes,idd)){
+            id = in.nextLine();
+            while (id.length() == 0) id = in.nextLine();
+            idd = Integer.parseInt(id);
+        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        Partida part = domini.get_partida(idd);
+        System.out.println("\nPartida amb id: " + part.get_id());
+        System.out.println("Sequencia Solucio: ");
+        for (int i = 0; i < 4; ++i) System.out.print(part.get_solucio().get_array()[i].get_nom_color() + " ");
+
+        for (int i = part.get_ultima_ronda(); i > 0; --i){
+            System.out.println("\nRonda: " + i);
+            System.out.print("\nSequencia de Verficacio: " );
+            for (int j = 0; j < 4; ++j) System.out.print(part.get_llista_rondes().get(i).get_seq_verificacio().get_array()[j].get_nom_color() + " ");
+            System.out.print("\nSequencia de Intentada : ");
+            for (int k = 0; k < 4; ++k) System.out.print(part.get_llista_rondes().get(i).get_seq_intentada().get_array()[k].get_nom_color() + " ");
+            System.out.print("\n");
+        }
+
+    }
+
 
     private void print_menu(){
         System.out.println("\n"+"(Introdueix: '1' o 'crear') - Crear Nova Partida");
@@ -392,7 +465,7 @@ public class Driver {
                 }
                 case "3":
                 case "antigues":{
-                    //driver.veure_partides_antigues();
+                    driver.veure_partides_antigues();
                     break;
                 }
                 case "4":
@@ -433,13 +506,6 @@ public class Driver {
         }
     }
 
-    private boolean id_ok(List<Integer> ids, int id){
-        //int idd = Integer.parseInt(id);
-        for (int i = 0; i < ids.size(); ++i){
-            if (ids.get(i) == id) return true;
-        }
-        return false;
-    }
 
     private void jugar_partides_antigues(){
         List<Integer> ids_partida; // = domini.get_ids_partides_actives_Usuari1();
@@ -458,29 +524,7 @@ public class Driver {
         Controlador_Domini.jugar_partides_antigues(idd);
     }
 
-    private void veure_partides_antigues(){
-        //List<int> ids_partides_acabdes = domini.get_ids_partides_acabades_Usuari1
-        System.out.println("IDs de les partides acabades:");
-        for (int i = 0; i < ids_partida.size(); ++i){
-            System.out.println(ids_partida[i]);
-        }
-        System.out.println("Selecciona la partidas que vols veure:");
-        String id = in.nextLine();
-        while (id.length() == 0) id = in.nextLine();
-        int idd = Integer.parseInt(id);
-        while (!id_ok(ids_partida,idd)){
-            id = in.nextLine();
-            while (id.length() == 0) id = in.nextLine();
-        }
-        Partida part = domini.get_partida(idd);
-        System.out.println("Partida amb id: " + part.get_id());
-        for (int i = part.get_num_rondes_max(); i > 0; --i){
-            System.out.println("Ronda: " + i);
-            System.out.print("\n Sequencia de Verficacio: " + part.imprmeix_sequencia(type_seq.verificacio));
-            System.out.print("\n Sequencia de Intentada : " + part.imprmeix_sequencia(type_seq.intentada));
-        }
 
-    }
 
     private void veure_ranking(){
         System.out.println("Selecciona dificultat per visualitzar el ranking, introdueix: " +
