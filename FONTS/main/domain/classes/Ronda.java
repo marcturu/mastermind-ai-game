@@ -1,13 +1,12 @@
 package main.domain.classes;
 
-//import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.type_seq;
 import main.domain.classes.enumerations.colors;
 
-//import java.util.*;
-//import java.io.*;
-
-
+/**
+ * Classe Sequencia
+ * @author Jordi Baranda (jordi.baranda@estudiantat.upc.edu)
+ */
 public class Ronda  {
 
     private int id_partida;
@@ -15,38 +14,67 @@ public class Ronda  {
     private Sequencia sequencia_intentada;
     private Sequencia sequencia_verificacio;
 
+    /**
+     * Constructor de la classe Ronda
+     * @param int id_partida Identificador de la partida que s'esta jugant
+     * @param int num_ronda Identificador de la ronda que s'esta jugant
+     */
     public Ronda(int id_partida, int num_ronda){
         this.id_partida = id_partida;
         this.num_ronda = num_ronda;
         this.sequencia_verificacio = new Sequencia(type_seq.verificacio);
         this.sequencia_intentada = new Sequencia(type_seq.intentada);
     }
-
+    /**
+     * Funció que retorna la Sequencia Intentada
+     * @return Classe Sequencia
+     */
     public Sequencia get_seq_intentada() {
         return sequencia_intentada;
     }
 
+    /**
+     * Funció que retorna la Sequencia de Verificacio
+     * @return Classe Sequencia
+     */
     public Sequencia get_seq_verificacio() {
         return sequencia_verificacio;
     }
 
+    /**
+     * Funció que retorna el Identificador de la Partida
+     * @return Int id_partida
+     */
     public int get_id_partida() {
         return id_partida;
     }
 
+    /**
+     * Funció que retorna el Identificador de la Ronda
+     * @return Int num_ronda
+     */
     public int get_num_ronda() {
         return num_ronda;
     }
 
+    /**
+     * Funció que modifica la Sequencia Intentada de la classe
+     * @param Sequencia sequencia_intentada
+     */
     public void set_intentada(Sequencia sequencia_intentada) {
         this.sequencia_intentada = sequencia_intentada;
     }
 
-    public void set_verificacio(Sequencia sequencia_verificacio)
-    {
-        this.sequencia_verificacio = sequencia_verificacio;
-    }
+    /**
+     * Funció que modifica la Sequencia de Verificacio de la classe
+     * @param Sequencia sequencia_verificacio
+     */
+    public void set_verificacio(Sequencia sequencia_verificacio){ this.sequencia_verificacio = sequencia_verificacio; }
 
+    /**
+     * Funció que retorna un boolea que ens informa si la sequencia de verificacio es tot negre, i per tan s'ha encertat la solucio
+     * @return boolean True si s'ha la Sequencia de Verificacio es tot Negre
+     */
     public boolean check_sequencia_encertada(){
         colors[] array = sequencia_verificacio.get_array();
         int n = 0;
