@@ -167,7 +167,7 @@ public class Driver {
         }
 
         while (ronda_actual <= dif.get_num_max_rondes() && !domini.partida_acabada()) {
-
+            ++ronda_actual;
             Sequencia seq_int = codebreaker_entra_intentada(dif);
 
             Sequencia seq_ver = codemaker_entra_verificacio(seq_int.get_array());
