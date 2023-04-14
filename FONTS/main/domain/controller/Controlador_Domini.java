@@ -250,6 +250,10 @@ public class Controlador_Domini {
         return CtrlPartida.get_jugador1_es_codemaker_partida_actual();
     }
 
+    public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
+        return Usuari2.get_solve_maquina(solucio);
+    }
+
 
     public void inicialitza_partida_nova(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
         if (Usuari.get_num_partides_actuals() == 10 || Usuari2.get_num_partides_actuals() == 10)

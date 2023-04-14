@@ -131,14 +131,6 @@ public class User {
         return llista;
     }
 
-    public List<Integer> get_ids_partides_no_acabades() {
-        ArrayList<Integer> llista = new ArrayList<Integer>();
-        for (int i = 0; i < llista_partides_no_acabades.size(); i++) {
-            llista.add((llista_partides_acabades.get(i)).get_id());
-        }
-        return llista;
-    }
-
     public Vector<Double> get_estadistiques() {
         return null;
     }
@@ -177,13 +169,8 @@ public class User {
         return 0.0;
     }
 
-    public void actualitza_partida_actual(int id,Partida par){
-        for (int i = 0; i < get_num_partides_actuals(); i++) {
-            if ((llista_partides_no_acabades.get(i)).get_id() == id){
-                llista_partides_no_acabades.remove(i);
-                llista_partides_no_acabades.add(par);
-            }
-        }
+    public List<List<Integer>> get_solve_maquina(List<Integer> sol) {
+        return null;
     }
 
     /*
