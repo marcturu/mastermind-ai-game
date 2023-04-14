@@ -721,12 +721,16 @@ public class Driver {
 
     private void veure_stats(){
         String name = domini.get_nom_user1();
-        User user = get_user_by_username(name);
+        User user = domini.get_user_by_username(name);
         System.out.println("Estadistiques del Usuari: " + name + " amb id: " + user.get_id());
-        System.out.println("Rondas totals jugades: " user.get_rondes_totals());
-        System.out.println("" user.get_partides_totals());
-        System.out.println("" user.);
-        System.out.println("" user.);
+        System.out.println("Partides total jugades: " + user.get_partides_totals());
+        System.out.println("Partides total guanyades: " + user.get_partides_guanyades());
+        System.out.println("Partides total acabades: " + user.get_num_partides_acabades());
+        System.out.println("Partides total actuals: " +  user.get_num_partides_actuals());
+        System.out.println("Rondas totals jugades: " + user.get_rondes_totals());
+        System.out.println("Puntuacio dificultat Facil: " + user.get_puntuacioF());
+        System.out.println("Puntuacio dificultat Normal: " + user.get_puntuacioN());
+        System.out.println("Puntuacio dificultat Dificil: " + user.get_puntuacioD());
 
     }
 
