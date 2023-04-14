@@ -49,6 +49,9 @@ public class Controlador_Domini {
 
         inicialitza_UserMaquina_fiveguess();
         inicialitza_rankings();
+        creacioRecord("ratio");
+        creacioRecord("time");
+
     }
 
     public static Controlador_Domini get_CtrlDomini() {
@@ -391,10 +394,8 @@ public class Controlador_Domini {
     }
 
     public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
+        CtrlPartida.jugar_ronda(seq_int, seq_ver);
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
-        else {
-            CtrlPartida.jugar_ronda(seq_int, seq_ver);
-        }
     }
 
     public void actualitza_ranking() {
@@ -467,6 +468,7 @@ public class Controlador_Domini {
 
     public void tractament_partida_acabada(){
         CtrlPartida.tractament_partida_acabada();
+        actualitza_ranking();
     }
 
     public void guardar_partida_a_mitges(){
@@ -483,5 +485,10 @@ public class Controlador_Domini {
 
     public Partida get_partida_actual(){
         return CtrlPartida.get_partida_actual();
+    }
+
+    public String get_nom_user1(){
+        return Usuari.get_nom();
+
     }
 }

@@ -704,14 +704,31 @@ public class Driver {
 
         Ranking rank  = domini.get_ranking_by_ranking_name(dif);
         List<Pair<Pair<Double, String>, LocalDate>> list_rank = rank.get_rank();
-        System.out.println(list_rank.size());
+
+        if (list_rank.size() > 0){
+            System.out.println("Ranking de dificultat: " + dif);
+            System.out.println("Ratio:                  Username:                 Date:");
             for (int i = 0; i < list_rank.size(); ++i) {
-                System.out.println("Ranking de dificultat: " + dif);
-                System.out.println("Pos:                  Username:                 Date:");
-                System.out.println(list_rank.get(i).first().first() + "                  " + list_rank.get(i).first().second() + "                 " + list_rank.get(i).second());
+                System.out.println(list_rank.get(i).first().first() + "                    " + list_rank.get(i).first().second() + "                " + list_rank.get(i).second());
             }
+        }
+        else System.out.println("No hi ha Ranking");
+    }
+    public void veure_record(){
+
+
     }
 
+    private void veure_stats(){
+        String name = domini.get_nom_user1();
+        User user = get_user_by_username(name);
+        System.out.println("Estadistiques del Usuari: " + name + " amb id: " + user.get_id());
+        System.out.println("Rondas totals jugades: " user.get_rondes_totals());
+        System.out.println("" user.get_partides_totals());
+        System.out.println("" user.);
+        System.out.println("" user.);
+
+    }
 
     private void print_menu(){
         System.out.println("\n"+"(Introdueix: '1' o 'crear') - Crear Nova Partida");
@@ -759,10 +776,12 @@ public class Driver {
                 }
                 case "5":
                 case "record":{
+                    driver.veure_record();
                     break;
                 }
                 case "6":
                 case "stats":{
+                    driver.veure_stats();
                     break;
                 }
             }
