@@ -286,5 +286,8 @@ public class User {
             }
         }
     }
+    public boolean validate_password(String password) {
+        return false;
+    }
 
 }

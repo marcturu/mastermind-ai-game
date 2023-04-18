@@ -28,13 +28,18 @@ public class Driver {
                 switch (input) {
                     case "1":
                     case "login": {
-                        System.out.println("Introdueix Username");
-                        String username = in.nextLine();
-                        while (username.length() == 0) username = in.nextLine();
-                        System.out.println("Introdueix Contrasenya");
-                        String password = in.nextLine();
-                        while (password.length() == 0) username = in.nextLine();
-                        System.out.println("Usuari No Existeix");
+                        try {
+                            System.out.println("Introdueix Username");
+                            String username = in.nextLine();
+                            while (username.length() == 0) username = in.nextLine();
+                            System.out.println("Introdueix Contrasenya");
+                            String password = in.nextLine();
+                            while (password.length() == 0) username = in.nextLine();
+                            //System.out.println("Usuari No Existeix");
+                        }
+                        catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
                         break;
                     }
                     case "2":
@@ -55,13 +60,20 @@ public class Driver {
                 switch (input) {
                     case "1":
                     case "login": {
-                        System.out.println("Introdueix Username2");
-                        String username = in.nextLine();
-                        while (username.length() == 0) username = in.nextLine();
-                        System.out.println("Introdueix Contrasenya");
-                        String password = in.nextLine();
-                        while (password.length() == 0) username = in.nextLine();
-                        System.out.println("Usuari No Existeix");
+                        try {
+                            System.out.println("Introdueix Username2");
+                            String username = in.nextLine();
+                            while (username.length() == 0) username = in.nextLine();
+                            System.out.println("Introdueix Contrasenya");
+                            String password = in.nextLine();
+                            while (password.length() == 0) username = in.nextLine();
+                            //System.out.println("Usuari No Existeix");
+                            domini.loginUsuari2(username, password);
+                            ok = true;
+                        }
+                        catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
                         break;
                     }
                     case "2":

@@ -40,7 +40,6 @@ public class Controlador_Domini {
     public Controlador_Domini() {
         this.Usuari = null;
         this.Usuari2 = null;
-        //this.UsuariProves = null;
         this.Record = null;
         this.CtrlPartida = new Controlador_Partida();
         this.hashUsers = new HashMap<String, User>();
@@ -75,13 +74,11 @@ public class Controlador_Domini {
     //Pre: Es rep un nom d'usuari d'usuari i un password
     //Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
     public void inicialitzaUserPersona2(String nom, String password) throws Exception { //quan es treballi amb log in es passarà també la contrasenya.
-            if (!hashUsers.containsKey(nom)) {
-                Usuari2 = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
-                hashUsers.putIfAbsent(nom, Usuari2);
+            if (hashUsers.containsKey(nom)) {
+                throw new Exception("Error: Usuario2 ya registrado");
             }
-            else {
-                throw new Exception("Error: Usuario2 con mismo nombre que Usuario1");
-            }
+            Usuari2 = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
+            hashUsers.putIfAbsent(nom, Usuari2);
     }
 
     //Pre: Es rep un nom d'usuari.
@@ -96,6 +93,39 @@ public class Controlador_Domini {
     public void inicialitza_UserMaquina_fiveguess() { //quan es treballi amb log in es passarà també la contrasenya.
         User Maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
         hashUsers.putIfAbsent("Five-Guess", Maq);
+    }
+
+    public void loginUsuari1(String nom, String password) throws Exception {
+        if (!hashUsers.containsKey(nom)) {
+            throw new Exception("Error: L'Usuari1 no existeix");
+        }
+        else if (hashUsers.get(nom).get_tipus_user() == Type_user.user_maquina) {
+            throw new Exception("Error: La màquina no té password");
+        }
+        else if (hashUsers.get(nom).validate_password(password) == false) {
+            throw new Exception("Error: Password erroni");
+        }
+        else {
+            Usuari = hashUsers.get(nom);
+        }
+    }
+
+    public void loginUsuari2(String nom, String password) throws Exception {
+        if (!hashUsers.containsKey(nom)) {
+            throw new Exception("Error: L'Usuari2 no existeix");
+        }
+        else if (hashUsers.get(nom).get_tipus_user() == Type_user.user_maquina) {
+            throw new Exception("Error: La màquina no té password");
+        }
+        else if (hashUsers.get(nom).validate_password(password) == false) {
+            throw new Exception("Error: Password erroni");
+        }
+        else if (Usuari.get_nom() == nom) {
+            throw new Exception("Error: L'Usuari2 no pot ser l'Usuari1");
+        }
+        else {
+            Usuari2 = hashUsers.get(nom);
+        }
     }
 
     /**
