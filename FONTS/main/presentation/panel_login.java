@@ -5,6 +5,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import main.presentation.controller.Controlador_Presentacio;
 
 public class panel_login extends JPanel{
@@ -33,11 +36,45 @@ public class panel_login extends JPanel{
         add(b_enrere);
     }
 
+    private boolean input_entrat() {
+        if(password.getText().equals("") || username.getText().equals("")) {
+            System.out.println("Has d'entrar un username i una password\n");
+            return false;
+        }
+        return true;
+    }
+
+    private void actionPerformed_botoConfirmar(ActionEvent e) {
+        if(input_entrat()) {
+            try{
+            ctrlPresentacio.crida_a_login_domini(username.getText(), password.getText());
+            ctrlPresentacio.canvia_a_menu_principal();
+            }catch(Exception ex) {
+                System.out.println("L'usuari no existeix, registrat o comprova que hagis entrat bé les credencials");
+            }
+        }
+    }
+
     public panel_login(Controlador_Presentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
         set_up_ui();
 
-        //falta afegir action listeners
+        b_confirmar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text = ((JButton) e.getSource()).getText();
+                System.out.println("Has apretat: " + text);
+                actionPerformed_botoConfirmar(e);
+            }
+        });
+
+        b_enrere.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text = ((JButton) e.getSource()).getText();
+                System.out.println("Has apretat: " + text);
+                ctrlPresentacio.canvia_a_inici();
+            }
+
+        });
     }
 
 }
