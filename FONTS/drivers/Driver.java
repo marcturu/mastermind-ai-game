@@ -279,7 +279,7 @@ public class Driver {
         boolean jug_1_cm = domini.get_jugador1_es_codemaker();
         boolean acabar = false;
         boolean pause = false;
-        if(ronda_actual == -1) {
+        if(ronda_actual == 0) {
             if (jug_1_cm){
                 codemaker_entra_solucio(dif);
             }else {
@@ -382,24 +382,8 @@ public class Driver {
         return solucio;
     }
 
-    private Sequencia genera_sequencia_solucio_random(dificultats dif) {
-        Sequencia solucio = new Sequencia(type_seq.solucio);
-        colors[] arr_sol = new colors[4];
-        for(int i = 0; i < 4; ++i) {
-            int random_color_id = (new Random()).nextInt(dif.get_num_colors()-2) + 1;// NULL, BLANC, NEGRE no es poden fer servir
-            arr_sol[i] = colors.get_color_by_id(random_color_id);
-        }
-        try {
-            solucio.set_array(arr_sol, dif.get_num_colors());
-        }catch(Exception e) {
-            System.out.println(e.getMessage());
-
-        }
-        domini.set_seq_solucio(solucio);
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
-        return solucio;
+    private void genera_sequencia_solucio_random(dificultats dif) {
+        domini.genera_solucio_partida(dif);
     }
 
     private Sequencia codebreaker_entra_intentada(dificultats dif ) {

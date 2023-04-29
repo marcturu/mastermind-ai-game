@@ -19,8 +19,11 @@ import org.junit.Before;
 import main.domain.classes.Partida;
 import main.domain.classes.Ronda;
 import main.domain.classes.User;
+import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.colors;
 import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.enumerations.type_seq;
 
 public class TestPartida {
     private Partida partida;
@@ -129,5 +132,45 @@ public class TestPartida {
         assertEquals("Llista rondes es nova", partida.get_llista_rondes(), new ArrayList<Ronda>());
     }
 
+    /**
+     * Testeja el getter de la sequencia solucio
+     */
+    @Test
+    public void testGetSolucio() {
+        Sequencia sol = new Sequencia(type_seq.solucio);
+        colors[] arr = {colors.BLAU, colors.BLAU, colors.BLAU, colors.BLAU};
+        try {
+            sol.set_array(arr, 6);
+        }catch(Exception e) {}
+        partida.set_sequencia_solucio(sol);
+        assertEquals("mateixa sequencia solució de la partida", sol, partida.get_solucio());
+    }
+
+    /**
+     * Testeja els setters de les sequencies intentades i verificades
+     */
+    @Test
+    public void testSetSequenciaIntVerARondaActual() {
+        Sequencia intentada = new Sequencia(type_seq.intentada), verificacio = new Sequencia(type_seq.verificacio);
+        colors[] array_intent = {colors.BLAU, colors.BLAU, colors.BLAU, colors.BLAU}, 
+        array_verificacio = {colors.NEGRE, colors.NEGRE, colors.NEGRE, colors.NEGRE};
+        try {
+        intentada.set_array(array_intent, 6);
+        verificacio.set_array(array_verificacio,6);
+        }catch(Exception e){}
+
+        assertEquals("Mateixa sequencia intentada", intentada, partida.get_seq_int_de_ultima_ronda());
+        assertEquals("Mateixa sequencia verificació", verificacio, partida.get_seq_ver_de_ultima_ronda());
+    }
+
+    /**
+     * Testeja la creacio d'una nova ronda
+     */
+    @Test
+    public void test_crea_nova_ronda() {
+        partida.crea_nova_ronda();
+        assertEquals(partida.get_ultima_ronda(), 1);
+        assertEquals(partida.get_llista_rondes().size(), 2);
+    }
 }
 

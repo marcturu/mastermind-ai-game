@@ -2,10 +2,11 @@ package main.domain.classes;
 
 //import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.enumerations.*;
 // import main.domain.classes.exceptions.MyException;
 //import main.domain.classes.enumerations.Type_user;
 //import main.domain.classes.enumerations.colors;
-import main.domain.classes.types.Pair;
+//import main.domain.classes.types.Pair;
 import java.util.*;
 import java.time.*;
 
@@ -37,7 +38,7 @@ public class Partida {
     public Partida(int id, User cm, User cb, dificultats dif, boolean jugador1_es_codemaker) {
         this.indentificador = id;
 
-        this.ultima_ronda_jugada = -1;
+        this.ultima_ronda_jugada = 0;
         this.jugador1_es_codemaker = jugador1_es_codemaker;
         this.ajuda = false;
         this.dificultat = dif;
@@ -216,45 +217,49 @@ public class Partida {
             this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
         }
     }
-
+    
     /**
      * Funció que retorna la puntuacio del usuaris (facil)
      * @return la puntuacio del usuaris
      */
+    /* 
     public Pair<Double,Double> get_puntuacionsF_users() {
         Pair<Double,Double> Pair = new Pair<>(jugador1.get_puntuacioF(), jugador2.get_puntuacioF());
         return Pair;
-    }
-
+    }*/
+    
     /**
      * Funció que retorna la puntuacio del usuaris (normal)
      * @return la puntuacio del usuaris
      */
+    /*
     public Pair<Double,Double> get_puntuacionsN_users() {
         Pair<Double,Double> Pair = new Pair<>(jugador1.get_puntuacioN(), jugador2.get_puntuacioN());
         return Pair;
-    }
+    }*/
 
     /**
      * Funció que retorna la puntuacio del usuaris (dificil)
      * @return la puntuacio del usuaris
      */
+    /*
     public Pair<Double,Double> get_puntuacioD_users() {
         Pair<Double,Double> Pair = new Pair<>(jugador1.get_puntuacioD(), jugador2.get_puntuacioD());
         return Pair;
-    }
+    }*/
 
     /**
      * Funció que retorna la puntuacio del usuaris (PvsP)
      * @return la puntuacio del usuaris
      */
+    /*
     public Pair<Double,Double> get_puntuacioPvsP_users() throws Exception{
 
         Pair<Double,Double> Pair = new Pair<>(jugador1.get_puntuacioPvsP(), jugador2.get_puntuacioPvsP());
         return Pair;
 
-    }
-
+    }*/
+    
     /**
      * Funció que crea una nova sequencia intentada a la ronda actual
      * @param  sequencia intentada
@@ -270,7 +275,23 @@ public class Partida {
     public void set_seq_ver_a_ronda_actual(Sequencia seq_ver) {
         llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver);
     }
+    
+    /**
+     * Consultora de la ultima sequencia de verificacio
+     * @return la ultima sequencia de verificacio que s'ha entrat
+     */
+    public Sequencia get_seq_ver_de_ultima_ronda() {
+        return llista_rondes.get(ultima_ronda_jugada).get_seq_verificacio();
+    }
 
+    /**
+     * Consultora de la ultima sequencia intentada
+     * @return la ultima sequencia que s'ha intentat
+     */
+    public Sequencia get_seq_int_de_ultima_ronda() {
+        return llista_rondes.get(ultima_ronda_jugada).get_seq_intentada();
+    }
+    
     /**
      * Funció per a facilitar els tests de la classe Ranking
      * @param ronda
@@ -297,8 +318,28 @@ public class Partida {
     }
 
     /**
+     * Funcio que genera una sequencia solucio random
+     * @param dif
+     */
+
+    public void genera_sequencia_solucio_random(dificultats dif) {
+        Sequencia solucio = new Sequencia(type_seq.solucio);
+        colors[] arr_sol = new colors[4];
+        for(int i = 0; i < 4; ++i) {
+            int random_color_id = (new Random()).nextInt(dif.get_num_colors()-2) + 1;// NULL, BLANC, NEGRE no es poden fer servir
+            arr_sol[i] = colors.get_color_by_id(random_color_id);
+        }
+        try {
+            solucio.set_array(arr_sol, dif.get_num_colors());
+        }catch(Exception e) {
+            genera_sequencia_solucio_random(dif);
+        }
+        this.sequencia_solucio = solucio;
+    }
+
+    /**
      * Funció que retorna si la ronda actual ha estat intentada correctament
-     * @return booleà que indica si la ronda actual ha estat intentada correctament
+     * @return boolea que indica si la ronda actual ha estat intentada correctament
      */
     public boolean ronda_te_intentada_correcte() {
         Ronda ultima_ronda = llista_rondes.get(ultima_ronda_jugada);

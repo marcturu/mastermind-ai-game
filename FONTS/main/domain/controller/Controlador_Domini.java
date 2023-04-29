@@ -374,8 +374,12 @@ public class Controlador_Domini {
         CtrlPartida.set_ajuda();
     }
 
-    public void set_seq_solucio(Sequencia solucio) {
-        CtrlPartida.set_seq_solucio(solucio);
+    public void set_seq_solucio(Sequencia sol) {
+        CtrlPartida.set_seq_solucio_entrada_per_user(sol);
+    }
+
+    public void genera_solucio_partida(dificultats dif) {
+        CtrlPartida.genera_solucio_partida(dif);
     }
 
     public User get_codemaker_partida_actual() {
@@ -421,7 +425,7 @@ public class Controlador_Domini {
         hashRanking.put("facil", new Ranking_facil());
         hashRanking.put("normal", new Ranking_normal());
         hashRanking.put("dificl", new Ranking_dificil());
-        hashRanking.put("PvsP", new Ranking_pvp());
+        hashRanking.put("pvp", new Ranking_pvp());
     }
 
     public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {

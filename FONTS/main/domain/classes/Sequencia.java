@@ -5,6 +5,7 @@ import java.util.List;
 
 import main.domain.classes.enumerations.type_seq;
 import main.domain.classes.enumerations.colors;
+import main.domain.classes.types.Pair;
 
 /**
  * Classe Sequencia
@@ -88,6 +89,32 @@ public class Sequencia {
     }
 
     /**
+     * Funcio que retorna la verificacio d'una sequencia
+     * @param solucio
+     * @return espigues blanques i negres que ha fet la sequencia
+     */
+    public Pair<Integer,Integer> getResult(Sequencia solucio) {
+        Integer blanques = 0, negres = 0;
+        Pair<Integer,Integer> result = new Pair<>(blanques, negres);
+        
+        for(int i = 0; i < 4; ++i) {
+            if(solucio.get_array()[i] == array[i]) ++negres;
+            else {
+                boolean done = false;
+                for(int j = 0; j < 4 && !done; ++j) {
+                    if(array[i] == solucio.get_array()[j]) {
+                        ++blanques;
+                        done = true;
+                    }
+                }
+            }
+        }
+        result.set_first(blanques);
+        result.set_second(negres);
+        return result;
+    }
+
+    /**
      * Funcio privada que fa les verificacions del array de verifcacion i comprobar que es pot assignar
      * @param colors[] array Sequencia de verificacio que volem assignar
      * @param colors[] solucio Sequencia de Solucio per a poder fer les comprobacions
@@ -118,11 +145,11 @@ public class Sequencia {
                         ++blanc_calc;
                         done = true;
                     }
-                }  
+                }
             }
         }
 
-        return blanc_ver == blanc_calc && negre_ver == negre_calc;
+        return ((blanc_ver == blanc_calc) && (negre_ver == negre_calc));
     }
 
     /**

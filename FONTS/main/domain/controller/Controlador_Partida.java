@@ -190,15 +190,19 @@ public class Controlador_Partida {
      * @return el List<Integer> que pertany a l'intent que toca per la ronda que es
      */
     public List<Integer> get_guess_maquina() {
-        return solution_maquina.get(partida_actual.get_ultima_ronda()+1);
+        return solution_maquina.get(partida_actual.get_ultima_ronda());
+    }
+
+    public void set_seq_solucio_entrada_per_user(Sequencia sol) {
+        this.partida_actual.set_sequencia_solucio(sol);
     }
 
     /**
-     * Es guarda la sequencia solucio dins de Partida
+     * Es genera una sequencia solucio random i es guarda dins de Partida
      * @param seq_sol
      */
-    public void set_seq_solucio(Sequencia seq_sol) {
-        this.partida_actual.set_sequencia_solucio(seq_sol);
+    public void genera_solucio_partida(dificultats dif) {
+        this.partida_actual.genera_sequencia_solucio_random(dif);
     }
 
     /**
