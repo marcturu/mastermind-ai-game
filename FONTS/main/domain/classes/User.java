@@ -218,14 +218,9 @@ public class User {
      */
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
 
-        int punts_base = 50;
-        int win_bonus = 1;
-        int punts_penalitzacio_rondes = partida_acabada.get_ultima_ronda();
-        if (guanyat) {
-            partides_guanyades++;
-            win_bonus = 5;
-        }
-        if (dificultat != "PvsP") set_puntuacio(punts_base, win_bonus, punts_penalitzacio_rondes, dificultat);
+        double punts = partida_acabada.get_puntuacio();
+
+        if (dificultat != "PvsP") set_puntuacio(punts, dificultat);
 
         //Crida a ranking (F, N, D, PvsP) per actualitzar-lo
 
@@ -235,29 +230,34 @@ public class User {
     }
 
     /**
+     * Volem afegir una partida a la llista de partides acabades (només important per a user_persona)
+     * Es defineix aqui tambe per si el jugador que la crida es un user_maquina
+     * @param p
+     */
+    public void afegeix_partida_acabada(Partida p) {}
+
+    /**
      * Funció que serveix per modificar les puntuacions fàcils, normals i difícils de l'usuari en qúestió segons els paràmetres entrats
-     * @param punts_base Punts dels quals aprteix l'usuari al finalitzar una partida
-     * @param win_bonus Punts de bonfificació extra si ha guanyat la partida
-     * @param punts_penalitzacio_rondes Punts de penalització segons les rondes jugades a la partida
+     * @param punts els punts que retorna la partida
      * @param dificultat Tipus de dificultat de la partida jugada
      */
-    public void set_puntuacio(int punts_base, int win_bonus, int punts_penalitzacio_rondes, String dificultat) {
+    public void set_puntuacio(Double punts, String dificultat) {
         switch (dificultat) {
             case "1":
             case "facil": {
-                this.puntuacioF += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
+                if(punts > this.puntuacioF) this.puntuacioF += punts;
                 if (this.puntuacioF < 0) this.puntuacioF = 0;
                 break;
             }
             case "2":
             case "normal": {
-                this.puntuacioN += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
+                if(punts > this.puntuacioN) this.puntuacioN += punts;
                 if (this.puntuacioN < 0) this.puntuacioN = 0;
                 break;
             }
             case "3":
             case "dificil": {
-                this.puntuacioD += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
+                if(punts > this.puntuacioD) this.puntuacioD += punts;
                 if (this.puntuacioD < 0) this.puntuacioD = 0;
                 break;
             }
@@ -275,10 +275,10 @@ public class User {
 
     /**
      * Funció que serveix per afegir una partida passada per paràmetre a la llista de partides no acabades de l'usuari
-     * @param id Id que identifica la aprtida actual a actualitzar
+     * @param id Id que identifica la partida actual a actualitzar
      * @param par Objecte partida a afegir a la llista de partides no acabades
      */
-    public void actualitza_partida_actual(int id,Partida par) {
+    public void actualitza_partida_actual(int id, Partida par) {
         for (int i = 0; i < get_num_partides_actuals(); i++) {
             if ((llista_partides_no_acabades.get(i)).get_id() == id) {
                 llista_partides_no_acabades.remove(i);
@@ -286,6 +286,7 @@ public class User {
             }
         }
     }
+
     public boolean validate_password(String password) {
         return false;
     }

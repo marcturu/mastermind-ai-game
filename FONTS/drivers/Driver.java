@@ -252,13 +252,13 @@ public class Driver {
                     }
                 }
                 Sequencia seq_int = codebreaker_entra_intentada(dif);
-                Sequencia seq_ver = codemaker_entra_verificacio(seq_int.get_array());
+                Sequencia seq_ver = codemaker_entra_verificacio(seq_int);
                 try {
                     domini.jugar_ronda(seq_int, seq_ver);
                 }catch (Exception ex){
                     System.out.println(ex.getMessage());
                 }
-                if (ronda_actual == 10) domini.tractament_partida_acabada();
+                if (ronda_actual == dif.get_num_max_rondes()) domini.tractament_partida_acabada();
             }
             else {
                 domini.tractament_partida_acabada();
@@ -328,7 +328,7 @@ public class Driver {
                 Sequencia seq_ver = new Sequencia(type_seq.verificacio);
                 if(jug_1_cm) {
                     seq_int = maquina_entra_intentada(dif);
-                    seq_ver = codemaker_entra_verificacio(seq_int.get_array());
+                    seq_ver = codemaker_entra_verificacio(seq_int);
                 }else {
                     seq_int = codebreaker_entra_intentada(dif);
                     seq_ver = maquina_entra_verificacio(seq_int);
@@ -422,7 +422,7 @@ public class Driver {
         return seq_int;
     }
 
-    private Sequencia codemaker_entra_verificacio(colors[] array_intent) {
+    private Sequencia codemaker_entra_verificacio(Sequencia seq_int) {
         System.out.println("CodeMaker Introdueix la Sequencia Verificacio");
         Sequencia seq_ver = new Sequencia(type_seq.verificacio);
         colors[] arr_ver = new colors[4];
@@ -439,10 +439,10 @@ public class Driver {
             }
         }
         try {
-            seq_ver.set_array_verificacio(arr_ver, domini.get_seq_solucio().get_array(), array_intent);
+            seq_ver.set_array_verificacio(arr_ver, domini.get_seq_solucio(), seq_int);
         } catch(Exception e) {
             System.out.println(e.getMessage());
-            codemaker_entra_verificacio(array_intent);
+            codemaker_entra_verificacio(seq_int);
         }
 
         System.out.println("Sequencia verificacio: {" + arr_ver[0] + "," + arr_ver[1] + "," + arr_ver[2] + "," + arr_ver[3] + "}\n");

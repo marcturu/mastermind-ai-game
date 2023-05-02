@@ -5,7 +5,7 @@ import main.domain.classes.enumerations.Type_user;
 
 public class User_persona extends User {
     private String password;
-    private double puntuacioPvsP;
+    private double puntuaciopvp;
 
     /**
      * Constructor de la classe user_persona (amb password)
@@ -19,7 +19,7 @@ public class User_persona extends User {
         super(id, nom, tipus_user);
         
         this.password = password;
-        this.puntuacioPvsP = 0.0;
+        this.puntuaciopvp = 0.0;
     }
 
     /**
@@ -32,11 +32,11 @@ public class User_persona extends User {
         //super(id, nom, tipus_user, num_rondes_totals, num_partides_totals, puntuacioF, puntuacioN, puntuacioD, partides_guanyades, llista_partides_no_acabades, llista_partides_acabades);
         super(id, nom, tipus_user);
         this.password = null;
-        this.puntuacioPvsP = 0.0;
+        this.puntuaciopvp = 0.0;
     }
 
     /**
-     * Funció que retorna la constrassenya de tipus PvsP de l'usuari_persona
+     * Funció que retorna la constrassenya de tipus pvp de l'usuari_persona
      * @return password de l'usuari_persona
      */
     public String get_password() {
@@ -44,11 +44,11 @@ public class User_persona extends User {
     }
 
     /**
-     * Funció que retorna la puntuació de tipus PvsP de l'usuari_persona
-     * @return puntuacioPvsP de l'usuari
+     * Funció que retorna la puntuació de tipus pvp de l'usuari_persona
+     * @return puntuaciopvp de l'usuari
      */
-    public double get_puntuacioPvsP() {
-        return this.puntuacioPvsP;
+    public double get_puntuaciopvp() {
+        return this.puntuaciopvp;
     }
 
     /**
@@ -60,17 +60,17 @@ public class User_persona extends User {
         vstats.add(super.get_puntuacioF());
         vstats.add(super.get_puntuacioN());
         vstats.add(super.get_puntuacioD());
-        vstats.add(get_puntuacioPvsP());
+        vstats.add(get_puntuaciopvp());
         vstats.add((double)super.get_num_partides_actuals());
         vstats.add((double)super.get_num_partides_acabades());
         vstats.add((double)super.get_partides_totals());
         vstats.add((double)super.get_partides_guanyades());
-        vstats.add((double)super.get_rondes_totals());
+        vstats.add((double)super.get_rondes_totals()/super.get_partides_totals());
         return vstats;
     }
 
     /**
-     * Funció que serveix per realitzar modificacions quan una partida ha acabat: actualitzar la puntuació de l'usuari_persona si la dificultata és PvsP
+     * Funció que serveix per realitzar modificacions quan una partida ha acabat: actualitzar la puntuació de l'usuari_persona si la dificultata és pvp
      * @param password Contrassenya nova a canviar
      */
     public void set_password(String password) {
@@ -87,34 +87,36 @@ public class User_persona extends User {
     }
 
     /**
-     * Funció que serveix per modificar la puntuació PvsP de l'usuari_persona en qúestió segons els paràmetres entrats
+     * Funció que serveix per modificar la puntuació pvp de l'usuari_persona en qúestió segons els paràmetres entrats
      * @param punts_base Punts dels quals aprteix l'usuari al finalitzar una partida
      * @param win_bonus Punts de bonfificació extra si ha guanyat la partida
      * @param punts_penalitzacio_rondes Punts de penalització segons les rondes jugades a la partida
      */
-    public void set_puntuacio_PvsP(int punts_base, int win_bonus, int punts_penalitzacio_rondes) {
-        this.puntuacioPvsP += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
-        if (this.puntuacioPvsP < 0) this.puntuacioPvsP = 0;
+    public void set_puntuacio_pvp(int punts_base, int win_bonus, int punts_penalitzacio_rondes) {
+        this.puntuaciopvp += (punts_base * win_bonus) - (punts_penalitzacio_rondes * 5);
+        if (this.puntuaciopvp < 0) this.puntuaciopvp = 0;
     }
 
     /**
-     * Funció que serveix per realitzar modificacions quan una partida ha acabat: actualitzar la puntuació de l'usuari_persona si la dificultata és PvsP
+     * Funció que serveix per realitzar modificacions quan una partida ha acabat: actualitzar la puntuació de l'usuari_persona si la dificultata és pvp
      * @param partida_acabada Objecte Partida que ha finalitzat
      * @param guanyat Booleà que indica si l'usuari ha guanyat la partida acabada
      * @param dificultat Tipus de dificultat de la partida acabada
      */
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
         super.set_partida_acabada(partida_acabada, guanyat, dificultat);
-        int punts_base = 50;
-        int win_bonus = 1;
-        int punts_penalitzacio_rondes = partida_acabada.get_ultima_ronda();
-        if (guanyat) {
-            partides_guanyades++;
-            win_bonus = 5;
-        }
-        if (dificultat == "PvsP") set_puntuacio_PvsP(punts_base, win_bonus, punts_penalitzacio_rondes);
+        double punts = partida_acabada.get_puntuacio();
+        if (dificultat == "pvp") this.puntuaciopvp = punts;
 
     }
+
+    /**
+     * Afegim una partida a la llista de partides acabades
+     * @param p partida que volem afegir a la llista de partides acabades
+     */
+    public void afegeix_partida_acabada(Partida p) {
+        this.llista_partides_acabades.add(p);
+    } 
 
     //Funcions de la superclasse
     public int get_id() {

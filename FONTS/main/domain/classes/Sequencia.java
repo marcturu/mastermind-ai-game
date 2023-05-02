@@ -73,6 +73,16 @@ public class Sequencia {
         array[i] = col;
     }
 
+    private Pair<Integer, Integer> get_negres_blanques(colors[] verificacio_entrada) {
+        int blanques = 0, negres = 0;
+        for(int i = 0; i < 4; ++i) {
+            if(verificacio_entrada[i] == colors.NEGRE) ++negres;
+            else if(verificacio_entrada[i] == colors.BLANC) ++blanques;
+        }
+
+        return new Pair<>(blanques, negres);
+    }
+
 
     /**
      * Funció que serveix per modificar el array de la Sequencia de Verificacio, fa comprobacions de que sigui correcta i en cas contrari salta una Excepcio
@@ -80,11 +90,13 @@ public class Sequencia {
      * @param colors[] solucio Sequencia de Solucio per a poder fer les comprobacions
      * @param colors[] intentada Sequencia Intendada per poder fer comprobacions
      */
-    public void set_array_verificacio(colors[] array, colors[] solucio, colors[] intentada) throws Exception{
+    public void set_array_verificacio(colors[] verificacio, Sequencia solucio, Sequencia intentada) throws Exception{
         if (array.length != 4) throw new Exception("El tamany de la sequencia no es 4");
-        if (!valida_sequencia(array,solucio,intentada)) throw new Exception("Sequencia de Verficacio incorrecte");
+        Pair<Integer, Integer> pair_correcte = intentada.get_verificacio(solucio.get_array());
+        Pair<Integer, Integer> pair_entrat = get_negres_blanques(verificacio);
+        if ((pair_correcte.first() != pair_entrat.first()) || (pair_correcte.second() != pair_entrat.second())) throw new Exception("Sequencia de Verficacio incorrecte");
         else{
-            this.array = array;
+            this.array = verificacio;
         }
     }
 
@@ -93,16 +105,16 @@ public class Sequencia {
      * @param solucio
      * @return espigues blanques i negres que ha fet la sequencia
      */
-    public Pair<Integer,Integer> getResult(Sequencia solucio) {
+    public Pair<Integer,Integer> get_verificacio(colors[] arr_solucio) {
         Integer blanques = 0, negres = 0;
         Pair<Integer,Integer> result = new Pair<>(blanques, negres);
         
         for(int i = 0; i < 4; ++i) {
-            if(solucio.get_array()[i] == array[i]) ++negres;
+            if(arr_solucio[i] == array[i]) ++negres;
             else {
                 boolean done = false;
                 for(int j = 0; j < 4 && !done; ++j) {
-                    if(array[i] == solucio.get_array()[j]) {
+                    if(array[i] == arr_solucio[j]) {
                         ++blanques;
                         done = true;
                     }
@@ -112,44 +124,6 @@ public class Sequencia {
         result.set_first(blanques);
         result.set_second(negres);
         return result;
-    }
-
-    /**
-     * Funcio privada que fa les verificacions del array de verifcacion i comprobar que es pot assignar
-     * @param colors[] array Sequencia de verificacio que volem assignar
-     * @param colors[] solucio Sequencia de Solucio per a poder fer les comprobacions
-     * @param colors[] intentada Sequencia Intendada per poder fer comprobacions
-     * @return si la sequencia de verificacio és correcte
-     */
-    private boolean valida_sequencia(colors[] sequencia_verificacio, colors[] solucio, colors[] sequencia_intentada) {
-        int res_ver = 0;
-        int blanc_ver = 0, blanc_calc = 0; //espigues de color encertat
-        int negre_ver = 0, negre_calc = 0; //espigues de color i posicio encertades
-
-        for (int i = 0; i < sequencia_verificacio.length; ++i) {
-           if (sequencia_verificacio[i] == colors.BLANC) ++blanc_ver;
-           else if (sequencia_verificacio[i] == colors.NEGRE) ++negre_ver;
-           else if (sequencia_verificacio[i] == colors.NULL) ++res_ver;
-        }
-
-        if ((res_ver + negre_ver + blanc_ver) != 4) return false;
-
-        for (int i = 0; i < 4; ++i){
-            if (sequencia_intentada[i] == solucio[i]) {
-                ++negre_calc;
-            }
-            else {
-                boolean done = false;
-                for (int j = 0; j < 4 && !done; ++j){
-                    if (sequencia_intentada[i] == solucio[j]){
-                        ++blanc_calc;
-                        done = true;
-                    }
-                }
-            }
-        }
-
-        return ((blanc_ver == blanc_calc) && (negre_ver == negre_calc));
     }
 
     /**

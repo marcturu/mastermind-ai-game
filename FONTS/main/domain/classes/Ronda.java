@@ -69,7 +69,9 @@ public class Ronda  {
      * Funció que modifica la Sequencia de Verificacio de la classe
      * @param Sequencia sequencia_verificacio
      */
-    public void set_verificacio(Sequencia sequencia_verificacio){ this.sequencia_verificacio = sequencia_verificacio; }
+    public void set_verificacio(Sequencia sequencia_verificacio){ 
+        this.sequencia_verificacio = sequencia_verificacio; 
+    }
 
     /**
      * Funció que retorna un boolea que ens informa si la sequencia de verificacio es tot negre, i per tan s'ha encertat la solucio

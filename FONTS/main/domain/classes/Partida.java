@@ -194,12 +194,10 @@ public class Partida {
     public void codebreaker_guanya(){
         this.partida_acabada = true;
         if(jugador1_es_codemaker) {
-            this.jugador1.set_partida_acabada(this, false, dificultat.get_dificultat());
             this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
         }
         else {
             this.jugador1.set_partida_acabada(this, true, dificultat.get_dificultat());
-            this.jugador2.set_partida_acabada(this, false, dificultat.get_dificultat());
         }
     }
 
@@ -209,12 +207,12 @@ public class Partida {
     public void codemaker_guanya() {
         this.partida_acabada = true;
         if(jugador1_es_codemaker) {
-            this.jugador1.set_partida_acabada(this, true, dificultat.get_dificultat());
+            this.jugador1.afegeix_partida_acabada(this);
             this.jugador2.set_partida_acabada(this, false, dificultat.get_dificultat());
         }
         else {
             this.jugador1.set_partida_acabada(this, false, dificultat.get_dificultat());
-            this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
+            this.jugador2.afegeix_partida_acabada(this);
         }
     }
     
@@ -344,5 +342,15 @@ public class Partida {
     public boolean ronda_te_intentada_correcte() {
         Ronda ultima_ronda = llista_rondes.get(ultima_ronda_jugada);
         return ultima_ronda.check_sequencia_encertada();
+    }
+
+    /**
+     * Funcio per a calcular els punts d'una partida
+     * @return
+     */
+    public Double get_puntuacio() {
+        double punts_aconseguits = (partida_acabada? 50.0:0.0) + ((num_rondes_max - ultima_ronda_jugada)*2.0) - (ajuda ? 10.0:0.0);
+        double punts_max = 50.0 + (num_rondes_max - ultima_ronda_jugada)*2.0;
+        return punts_aconseguits/punts_max;
     }
 }
