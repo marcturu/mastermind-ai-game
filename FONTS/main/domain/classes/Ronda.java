@@ -22,8 +22,8 @@ public class Ronda  {
     public Ronda(int id_partida, int num_ronda){
         this.id_partida = id_partida;
         this.num_ronda = num_ronda;
-        this.sequencia_verificacio = new Sequencia(type_seq.verificacio);
-        this.sequencia_intentada = new Sequencia(type_seq.intentada);
+        this.sequencia_verificacio = new Sequencia();
+        this.sequencia_intentada = new Sequencia();
     }
     /**
      * Funció que retorna la Sequencia Intentada

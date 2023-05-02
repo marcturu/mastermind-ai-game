@@ -321,7 +321,7 @@ public class Partida {
      */
 
     public void genera_sequencia_solucio_random(dificultats dif) {
-        Sequencia solucio = new Sequencia(type_seq.solucio);
+        Sequencia solucio = new Sequencia_intentada();
         colors[] arr_sol = new colors[4];
         for(int i = 0; i < 4; ++i) {
             int random_color_id = (new Random()).nextInt(dif.get_num_colors()-2) + 1;// NULL, BLANC, NEGRE no es poden fer servir
