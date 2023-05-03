@@ -18,9 +18,6 @@ public class Partida {
     private boolean jugador1_es_codemaker;
     private boolean ajuda;
     private dificultats dificultat;
-    private int num_colors;
-    private int temps_max;
-    private int num_rondes_max;
     private boolean partida_acabada;
     private Instant temps_inici;
     private LinkedList<Ronda> llista_rondes;
@@ -42,9 +39,6 @@ public class Partida {
         this.jugador1_es_codemaker = jugador1_es_codemaker;
         this.ajuda = false;
         this.dificultat = dif;
-        this.num_colors = dif.get_num_colors(); // INCORRECTO DEBERIA VENIR DE CONSTANTE
-        this.temps_max = dif.get_temps_max();
-        this.num_rondes_max = dif.get_num_max_rondes();
         this.partida_acabada = false;
         this.temps_inici = Instant.now();
         this.llista_rondes = new LinkedList<Ronda>();
@@ -130,7 +124,7 @@ public class Partida {
      */
     public boolean temps_excedit(){
         int temps_usat = (int) this.get_temps_usat().toSeconds();
-        if(temps_usat > temps_max) return true;
+        if(temps_usat > dificultat.get_temps_max()) return true;
         else return false;
     }
 
@@ -149,7 +143,7 @@ public class Partida {
      * @return el numero de colors de la partida
      */
     public int get_num_colors() {
-        return num_colors;
+        return dificultat.get_num_colors();
     }
 
     /**
@@ -157,7 +151,7 @@ public class Partida {
      * @return nombre de rondes máximes de la partida
      */
     public int get_num_rondes_max() {
-        return num_rondes_max;
+        return dificultat.get_num_max_rondes();
     }
 
     /**
@@ -349,8 +343,8 @@ public class Partida {
      * @return
      */
     public Double get_puntuacio() {
-        double punts_aconseguits = (partida_acabada? 50.0:0.0) + ((num_rondes_max - ultima_ronda_jugada)*2.0) - (ajuda ? 10.0:0.0);
-        double punts_max = 50.0 + (num_rondes_max - ultima_ronda_jugada)*2.0;
+        double punts_aconseguits = (partida_acabada? 50.0:0.0) + ((dificultat.get_num_max_rondes() - ultima_ronda_jugada)*2.0) - (ajuda ? 10.0:0.0);
+        double punts_max = 50.0 + (dificultat.get_num_max_rondes() - ultima_ronda_jugada)*2.0;
         return punts_aconseguits/punts_max;
     }
 }

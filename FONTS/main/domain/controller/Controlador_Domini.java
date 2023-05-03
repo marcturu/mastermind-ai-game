@@ -6,10 +6,6 @@ import java.util.Vector;
 
 import main.domain.classes.Partida;
 import main.domain.classes.Ranking;
-import main.domain.classes.Ranking_dificil;
-import main.domain.classes.Ranking_facil;
-import main.domain.classes.Ranking_normal;
-import main.domain.classes.Ranking_pvp;
 import main.domain.classes.Record;
 import main.domain.classes.Ronda;
 import main.domain.classes.Sequencia;
@@ -46,7 +42,8 @@ public class Controlador_Domini {
         this.hashRecord = new HashMap<String, Record>();
         this.hashRanking = new HashMap<String,Ranking>();
 
-        inicialitza_UserMaquina_fiveguess();
+        get_CtrlDomini();
+        registra_UserMaquina_fiveguess();
         inicialitza_rankings();
         inicialitza_nou_record("record_facil");
         inicialitza_nou_record("record_normal");
@@ -63,17 +60,27 @@ public class Controlador_Domini {
         return CtrlPartida;
     }
 
-
-    //Pre: Es rep un nom d'usuari d'usuari i un password
-    //Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
-    public void inicialitzaUserPersona(String nom, String password) { //quan es treballi amb log in es passarà també la contrasenya.
+    /**
+     * Pre: Es rep un nom d'usuari d'usuari i un password
+     * Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
+     * @param nom
+     * @param password
+     */
+    
+    public void inicialitzaUserPersona(String nom, String password) {
         Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, Usuari);
     }
 
-    //Pre: Es rep un nom d'usuari d'usuari i un password
-    //Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
-    public void inicialitzaUserPersona2(String nom, String password) throws Exception { //quan es treballi amb log in es passarà també la contrasenya.
+    /**
+     * Pre: Es rep un nom d'usuari d'usuari i un password
+     * Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
+    
+     * @param nom
+     * @param password
+     * @throws Exception
+     */
+    public void inicialitzaUserPersona2(String nom, String password) throws Exception {
             if (hashUsers.containsKey(nom)) {
                 throw new Exception("Error: Usuario2 ya registrado");
             }
@@ -81,26 +88,35 @@ public class Controlador_Domini {
             hashUsers.putIfAbsent(nom, Usuari2);
     }
 
-    //Pre: Es rep un nom d'usuari.
-    //Post: Es crea el usuari (maquina genetic) amb els paràmetres entrats i els altres que li falten i s'afageix al map.
-    public void inicialitza_UserMaquina_genetic(String nom) { //quan es treballi amb log in es passarà també la contrasenya.
-        Usuari2 = new User_maquina(hashUsers.size() + 1, nom, Type_user.user_maquina, true);
-        hashUsers.putIfAbsent(nom, Usuari2);
+    /**
+     * Pre: No existeix la maquina amb nom "Genetic"
+     * Post: Es crea el usuari (maquina genetic) amb els paràmetres que li falten i s'afageix al map.
+     */
+    public void registra_UserMaquina_genetic() {
+        User Maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
+        hashUsers.putIfAbsent("Genetic", Maq);
     }
 
-    //Pre: Es rep un nom d'usuari.
-    //Post: Es crea el usuari (maquina five-guess) amb els paràmetres entrats i els altres que li falten i s'afageix al map.
-    public void inicialitza_UserMaquina_fiveguess() { //quan es treballi amb log in es passarà també la contrasenya.
+    /**
+     * Funció per a registrar l'usuari Five-Guess, que fa servir l'algorisme de five-guess com a codebreaker.
+     */
+    public void registra_UserMaquina_fiveguess() {
         User Maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
         hashUsers.putIfAbsent("Five-Guess", Maq);
     }
 
+    /**
+     * Funcio per a fer el login de l'usuari que inicia la sessio.
+     * @param nom
+     * @param password
+     * @throws Exception
+     */
     public void loginUsuari1(String nom, String password) throws Exception {
         if (!hashUsers.containsKey(nom)) {
             throw new Exception("Error: L'Usuari1 no existeix");
         }
         else if (hashUsers.get(nom).get_tipus_user() == Type_user.user_maquina) {
-            throw new Exception("Error: La màquina no té password");
+            throw new Exception("Error: La màquina no fa login");
         }
         else if (hashUsers.get(nom).validate_password(password) == false) {
             throw new Exception("Error: Password erroni");
@@ -110,17 +126,23 @@ public class Controlador_Domini {
         }
     }
 
+    /**
+     * Funcio per a fer e login del segon usuari en cas que es vulgui jugar pvp.
+     * @param nom
+     * @param password
+     * @throws Exception
+     */
     public void loginUsuari2(String nom, String password) throws Exception {
         if (!hashUsers.containsKey(nom)) {
             throw new Exception("Error: L'Usuari2 no existeix");
         }
         else if (hashUsers.get(nom).get_tipus_user() == Type_user.user_maquina) {
-            throw new Exception("Error: La màquina no té password");
+            throw new Exception("Error: La màquina no es pot \"loguejar\"");
         }
         else if (hashUsers.get(nom).validate_password(password) == false) {
             throw new Exception("Error: Password erroni");
         }
-        else if (Usuari.get_nom() == nom) {
+        else if (Usuari.get_nom().equals(nom)) {
             throw new Exception("Error: L'Usuari2 no pot ser l'Usuari1");
         }
         else {
@@ -129,8 +151,8 @@ public class Controlador_Domini {
     }
 
     /**
+     * Comprova si l'usuari1 és de tipus maquina. Si no ho és, 
      * @throws User1NoPotSerMaquina
-     *Comprova si l'usuari1 és de tipus muina. Si ho és, llença l'excepció
      */
     public void set_jugador1(String nom_user) throws Exception {
         if ((hashUsers.get(nom_user)).get_tipus_user() == Type_user.user_maquina) {
@@ -139,32 +161,52 @@ public class Controlador_Domini {
         //else if (validate_password_Usuari1_by_user_name(nom_user)) Usuari = hashUsers.get(nom_user);
     }
 
+    /**
+     * Funcio per a posar el usuari amb nom = nom_usuari com a jugador2.
+     * @param nom_user
+     */
     public void set_jugador2(String nom_user)  {
         //if (get_tipus_user_by_nom_user(nom_user) == Type_user.user_persona && !validate_password_Usuari2_by_user_name(nom_user)) throw new Exception ("Usuari2 no té el mateix password");
         Usuari2 = hashUsers.get(nom_user);
     }
 
+    /**
+     * Funcio per a crear nous records.
+     * @param nom_record
+     */
     public void creacioRecord(String nom_record) {
         this.Record = new Record(nom_record);
-    }
-
-    public String get_nom_record() {
-        return this.Record.get_nom_record();
-    }
-
-    public String get_nom_usuari_del_record() {
-        return this.Record.get_nom_usuari();
-    }
-
-    public double get_punts() {
-        return this.Record.get_punts();
+        hashRecord.put(nom_record, Record);
     }
 
     /**
-     * @throws java.lang.IllegalArgumentException
+     * Funcio per a saber quin es el nom de l'usuari que ha batut el record
+     * @param nom_record nom del record que es vol consultar.
+     * @return nom de l'usuari que ha batut el record.
      */
-    public boolean es_record(int punts, String nom_usuari) throws IllegalArgumentException {
-        return this.Record.check_if_record(punts, nom_usuari);
+    public String get_nom_usuari_del_record(String nom_record) {
+        return hashRecord.get(nom_record).get_nom_usuari();
+    }
+
+    /**
+     * Funcio per a saber quin es el valor amb el que s'ha batut el record amb nom_record
+     * @param nom_record nom del record que es vol consultar.
+     * @return valor del record
+     */
+    public double get_punts(String nom_record) {
+        return hashRecord.get(nom_record).get_punts();
+    }
+
+    /**
+     * Funcio per a comprobar si amb "punts" es bat el record, i en cas que es bati canviar el username i el valor del record
+     * @param punts punts que s'han fet
+     * @param nom_usuari nom de l'usuari que ha fet els punts
+     * @param nom_record nom del record que es preten batre
+     * @return si s'ha batut el record o no.
+     * @throws IllegalArgumentException
+     */
+    public boolean es_record(int punts, String nom_usuari, String nom_record) throws IllegalArgumentException {
+        return hashRecord.get(nom_record).check_if_record(punts, nom_usuari);
     }
 
     public int get_id_Usuari1() {
@@ -422,10 +464,10 @@ public class Controlador_Domini {
     }
 
     public void inicialitza_rankings() {
-        hashRanking.put("facil", new Ranking_facil());
-        hashRanking.put("normal", new Ranking_normal());
-        hashRanking.put("dificl", new Ranking_dificil());
-        hashRanking.put("pvp", new Ranking_pvp());
+        hashRanking.put("facil", new Ranking());
+        hashRanking.put("normal", new Ranking());
+        hashRanking.put("dificl", new Ranking());
+        hashRanking.put("pvp", new Ranking());
     }
 
     public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
