@@ -1,17 +1,17 @@
 package main.domain.classes.enumerations;
 
 public enum dificultats {
-    FACIL("facil",1,4,600,14),
-    NORMAL("normal",2,6,600,10),
-    DIFICIL("dificil",3,8,600,6);
+    FACIL("facil",1,4,900L,14),
+    NORMAL("normal",2,6,720L,10),
+    DIFICIL("dificil",3,8,600L,6);
 
     private String dificultat;
     private int num_dificultat;
     private int num_colors;
-    private int temps_max;
+    private Long temps_max;
     private int num_max_rondes;
 
-    private dificultats(String difcultat, int num_dificultat, int num_colors, int temps_max, int num_max_rondes){
+    private dificultats(String difcultat, int num_dificultat, int num_colors, Long temps_max, int num_max_rondes){
         this.dificultat = difcultat;
         this.num_dificultat = num_dificultat;
         this.num_colors = num_colors;
@@ -23,6 +23,13 @@ public enum dificultats {
         return dificultat;
     }
 
+    public static dificultats from_string_to_dif(String nom_dif) {
+        for(dificultats dif:dificultats.values()) {
+            if(nom_dif.equals(dif.get_dificultat())) return dif;
+        }
+        return dificultats.FACIL; //no se si hauria de ser aixi
+    }
+
     public int get_num_dificultat(){
         return num_dificultat;
     }
@@ -31,7 +38,7 @@ public enum dificultats {
         return num_colors;
     }
 
-    public int get_temps_max(){
+    public Long get_temps_max(){
         return temps_max;
     }
 

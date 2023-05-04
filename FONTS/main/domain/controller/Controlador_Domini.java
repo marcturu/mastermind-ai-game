@@ -7,6 +7,7 @@ import java.util.Vector;
 import main.domain.classes.Partida;
 import main.domain.classes.Ranking;
 import main.domain.classes.Record;
+import main.domain.classes.RecordInteger;
 import main.domain.classes.Ronda;
 import main.domain.classes.Sequencia;
 import main.domain.classes.User;
@@ -14,6 +15,7 @@ import main.domain.classes.User_maquina;
 import main.domain.classes.User_persona;
 import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.types.Pair;
 
 /**
  * Classe del Controlador de Domin
@@ -27,7 +29,7 @@ public class Controlador_Domini {
     private Record Record;
     private Controlador_Partida CtrlPartida;
     private HashMap<String, User> hashUsers;
-    private HashMap<String, Record> hashRecord;
+    private HashMap<Pair<String,String>, Record> hashRecord;
     private HashMap<String, Ranking> hashRanking;
     private static Controlador_Domini singletonObject;
 
@@ -39,15 +41,16 @@ public class Controlador_Domini {
         this.Record = null;
         this.CtrlPartida = new Controlador_Partida();
         this.hashUsers = new HashMap<String, User>();
-        this.hashRecord = new HashMap<String, Record>();
+        this.hashRecord = new HashMap<Pair<String,String>, Record>();
         this.hashRanking = new HashMap<String,Ranking>();
 
         get_CtrlDomini();
         registra_UserMaquina_fiveguess();
         inicialitza_rankings();
-        inicialitza_nou_record("record_facil");
-        inicialitza_nou_record("record_normal");
-        inicialitza_nou_record("record_dificl");
+
+        //inicialitzem els records per a totes les modalitats(facil, normal, dificil, pvp)
+        crea_records();
+
 
     }
 
@@ -171,42 +174,23 @@ public class Controlador_Domini {
     }
 
     /**
-     * Funcio per a crear nous records.
-     * @param nom_record
-     */
-    public void creacioRecord(String nom_record) {
-        this.Record = new Record(nom_record);
-        hashRecord.put(nom_record, Record);
-    }
-
-    /**
      * Funcio per a saber quin es el nom de l'usuari que ha batut el record
      * @param nom_record nom del record que es vol consultar.
+     * @param modalitat (facil, normal, dificil)
      * @return nom de l'usuari que ha batut el record.
      */
-    public String get_nom_usuari_del_record(String nom_record) {
-        return hashRecord.get(nom_record).get_nom_usuari();
+    public String get_nom_usuari_del_record(String nom_record, String modalitat) {
+        return hashRecord.get(new Pair<>(nom_record, modalitat)).get_nom_usuari();
     }
 
     /**
      * Funcio per a saber quin es el valor amb el que s'ha batut el record amb nom_record
      * @param nom_record nom del record que es vol consultar.
+     * @param modalitat (facil, normal, dificil)
      * @return valor del record
      */
-    public double get_punts(String nom_record) {
-        return hashRecord.get(nom_record).get_punts();
-    }
-
-    /**
-     * Funcio per a comprobar si amb "punts" es bat el record, i en cas que es bati canviar el username i el valor del record
-     * @param punts punts que s'han fet
-     * @param nom_usuari nom de l'usuari que ha fet els punts
-     * @param nom_record nom del record que es preten batre
-     * @return si s'ha batut el record o no.
-     * @throws IllegalArgumentException
-     */
-    public boolean es_record(int punts, String nom_usuari, String nom_record) throws IllegalArgumentException {
-        return hashRecord.get(nom_record).check_if_record(punts, nom_usuari);
+    public Object get_punts(String nom_record, String modalitat) {
+        return hashRecord.get(new Pair<>(nom_record, modalitat)).get_valor();
     }
 
     public int get_id_Usuari1() {
@@ -440,27 +424,90 @@ public class Controlador_Domini {
         return hashUsers.get(username);
     }
 
-    public Record get_record_by_nom_record(String nom_record) {
-        return hashRecord.get(nom_record);
+    /**
+     * Consultora d'un record segons el seu nom i la seva modalitat
+     * @param nom_record nom del record que volem
+     * @param modalitat (facil, normal, dificil)
+     * @return
+     */
+    public Record get_record_by_nom_record(String nom_record, String modalitat) {
+        return hashRecord.get(new Pair<>(nom_record, modalitat));
+    }
+    /**
+     * consultora dels punts d'un record amb una modalitat concreta
+     * @param nom_record nom del record a consultar
+     * @param modalitat (facil, normal, dificil)
+     * @return retorna un Object amb els punts/streak/segons
+     */
+    public Object get_punts_record_by_nom_record(String nom_record, String modalitat) {
+        return hashRecord.get(new Pair<>(nom_record, modalitat)).get_valor();
     }
 
-    public int get_punts_record_by_nom_record(String nom_record) {
-        Record = hashRecord.get(nom_record);
-        return Record.get_punts();
-    }
-
-    public String get_nom_usuari_by_nom_record(String nom_record) {
-        Record = hashRecord.get(nom_record);
-        return Record.get_nom_usuari();
+    public String get_nom_usuari_by_nom_record(String nom_record, String modalitat) {
+        return hashRecord.get(new Pair<>(nom_record, modalitat)).get_nom_usuari();
     }
 
     public Ranking get_ranking_by_ranking_name(String ranking_name) {
         return hashRanking.get(ranking_name);
     }
 
-    public void inicialitza_nou_record(String nom_record) {
-        Record = new Record(nom_record);
-        hashRecord.putIfAbsent(nom_record, Record);
+
+    private void crea_records_punts() {
+        String nom_record = "record_punts";
+        String modalitat = "facil";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+
+        modalitat = "normal";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+
+        modalitat = "dificil";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+    }
+
+    private void crea_records_streak() {
+        String nom_record = "record_streak";
+        String modalitat = "facil";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+
+        modalitat = "normal";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+
+        modalitat = "dificil";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+    }    
+
+    private void crea_records_temps() {
+        String nom_record = "record_temps";
+        String modalitat = "facil";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+
+        modalitat = "normal";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+
+        modalitat = "dificil";
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+    }    
+
+    /**
+     * inicialitza el record amb nom = "nom_record" per a cada modalitat(facil, normal, dificil, pvp)
+     * @param nom_record nom del record que es vol crear
+     */
+    private void crea_records() {
+        //Creem els records de punts
+        crea_records_punts();
+        //creem els records de ratxes
+        crea_records_streak();
+        //creem els records de temps
+        crea_records_temps();
     }
 
     public void inicialitza_rankings() {
@@ -473,6 +520,27 @@ public class Controlador_Domini {
     public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
         CtrlPartida.jugar_ronda(seq_int, seq_ver);
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
+    }
+
+    /**
+     * Funcio per veure si la partida bat algun record
+     */
+    private void comprova_records() {
+        String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
+
+        for(Record r:hashRecord.values()) {
+            if(dif == r.get_modalitat_record()) {
+                if(r.get_nom_record().equals("record_punts")) {
+                    r.actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+                }
+                else if(r.get_nom_record().equals("record_streak")) {
+                    r.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+                }
+                else if(r.get_nom_record().equals("record_temps")) {
+                    r.actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom());;
+                }
+            }
+        }
     }
 
     public void actualitza_ranking() {
@@ -512,19 +580,9 @@ public class Controlador_Domini {
                 (hashRanking.get("pvp")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
         }
-        dificultats dif = get_dificultat_partida();
-        if(dif == dificultats.FACIL){
-            hashRecord.get("record_facil").check_if_record((int)punts_u,Usuari.get_nom());
-            hashRecord.get("record_facil").check_if_record((int)punts_u2,Usuari2.get_nom());
-        }
-        else if(dif == dificultats.FACIL){
-            hashRecord.get("record_normal").check_if_record((int)punts_u,Usuari.get_nom());
-            hashRecord.get("record_normal").check_if_record((int)punts_u2,Usuari2.get_nom());
-        }
-        else if(dif == dificultats.FACIL){
-            hashRecord.get("record_dificl").check_if_record((int)punts_u,Usuari.get_nom());
-            hashRecord.get("record_dificl").check_if_record((int)punts_u2,Usuari2.get_nom());
-        }
+
+        comprova_records();
+        
     }
 
     public void jugar_partides_antigues(int id_partida_activa) throws Exception{

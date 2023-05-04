@@ -20,6 +20,7 @@ public class Partida {
     private dificultats dificultat;
     private boolean partida_acabada;
     private Instant temps_inici;
+    private Instant temps_final_partida;
     private LinkedList<Ronda> llista_rondes;
     private Sequencia sequencia_solucio;
 
@@ -114,8 +115,16 @@ public class Partida {
         return dificultat;
     }
 
+    /**
+     * getter del boolea per saber si el jugador1 es el codemaker
+     * @return si el jugador1 es codemaker o no.
+     */
     public boolean get_jugador1_es_codemaker() {
         return jugador1_es_codemaker;
+    }
+
+    public Long get_temps_partida() {
+        return Duration.between(temps_inici, temps_final_partida).toSeconds();
     }
 
     /**
@@ -124,7 +133,10 @@ public class Partida {
      */
     public boolean temps_excedit(){
         int temps_usat = (int) this.get_temps_usat().toSeconds();
-        if(temps_usat > dificultat.get_temps_max()) return true;
+        if(temps_usat > dificultat.get_temps_max()) {
+            temps_final_partida = Instant.now();
+            return true;
+        }
         else return false;
     }
 
@@ -187,6 +199,7 @@ public class Partida {
      */
     public void codebreaker_guanya(){
         this.partida_acabada = true;
+        temps_final_partida = Instant.now();
         if(jugador1_es_codemaker) {
             this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
         }
@@ -200,6 +213,7 @@ public class Partida {
      */
     public void codemaker_guanya() {
         this.partida_acabada = true;
+        temps_final_partida = Instant.now();
         if(jugador1_es_codemaker) {
             this.jugador1.afegeix_partida_acabada(this);
             this.jugador2.set_partida_acabada(this, false, dificultat.get_dificultat());

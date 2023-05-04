@@ -6,6 +6,7 @@ import main.domain.classes.enumerations.Type_user;
 public class User_persona extends User {
     private String password;
     private double puntuaciopvp;
+    private int streak;
 
     /**
      * Constructor de la classe user_persona (amb password)
@@ -20,6 +21,7 @@ public class User_persona extends User {
         
         this.password = password;
         this.puntuaciopvp = 0.0;
+        this.streak = 0;
     }
 
     /**
@@ -49,6 +51,15 @@ public class User_persona extends User {
      */
     public double get_puntuaciopvp() {
         return this.puntuaciopvp;
+    }
+
+
+    /**
+     * getter de la "ratxa" d'un usuari
+     * @return el número de partides seguides que ha guanyat un usuari
+     */
+    public int get_streak() {
+        return this.streak;
     }
 
     /**

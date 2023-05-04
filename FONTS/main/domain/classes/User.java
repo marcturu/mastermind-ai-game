@@ -57,6 +57,14 @@ public class User {
     }
 
     /**
+     * getter de la ratxa (redefinida a User_persona)
+     * @return res
+     */
+    public int get_streak() {
+        return 0;
+    }
+
+    /**
      * Funció que retorna el tipus de l'suari
      * @return El tipus d'usuari de l'usuari
      */
