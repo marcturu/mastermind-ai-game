@@ -197,6 +197,20 @@ public class User_persona extends User {
     }
 
     /**
+     * Funció que serveix per incrementar en 1 unitat el streak (ratxa) de l'usuari quan ha guanyat
+     */
+    public void incrementar_streak() {
+        this.streak++;
+    }
+
+    /**
+     * Funció que serveix per reiniciar el streak (ratxa) de l'usuari quan ha perdut
+     */
+    public void reiniciar_streak() {
+        this.streak = 0;
+    }
+
+    /**
      * Funció que serveix per afegir una partida passada per paràmetre a la llista de partides no acabades de l'usuari
      * @param partida_nova Partida a afegir a la llista de partides no acabades de l'usuari
      */

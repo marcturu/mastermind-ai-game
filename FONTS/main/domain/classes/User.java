@@ -90,7 +90,12 @@ public class User {
         if (partida_acabada.jugador2.get_tipus_user() == Type_user.user_persona) set_puntuacio_pvp(punts); //Això vol dir que la partida és pvp
         else set_puntuacio(punts, dificultat);
 
-        if (guanyat) incrementar_partides_guanyades();
+        if (guanyat) {
+            incrementar_partides_guanyades();
+            incrementar_streak();
+        }
+        else reiniciar_streak();
+
         afegeix_partida_acabada(partida_acabada);
         elimina_partida_no_acabada(partida_acabada);
     }
@@ -264,6 +269,18 @@ public class User {
      * Funció que serveix per incrementar en 1 unitat les partides guanyades per part de l'usuari (redefinida a User_persona)
      */
     public void incrementar_partides_guanyades() {
+    }
+
+    /**
+     * Funció que serveix per incrementar en 1 unitat el streak (ratxa) de l'usuari quan ha guanyat (redefinida a User_persona)
+     */
+    public void incrementar_streak() {
+    }
+
+    /**
+     * Funció que serveix per reiniciar el streak (ratxa) de l'usuari quan ha perdut (redefinida a User_persona)
+     */
+    public void reiniciar_streak() {
     }
 
     /**
