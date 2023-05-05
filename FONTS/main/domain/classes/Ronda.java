@@ -11,8 +11,8 @@ public class Ronda  {
 
     private int id_partida;
     private int num_ronda;
-    private Sequencia sequencia_intentada;
-    private Sequencia sequencia_verificacio;
+    private Sequencia_intentada sequencia_intentada;
+    private Sequencia_verificacio sequencia_verificacio;
 
     /**
      * Constructor de la classe Ronda
@@ -22,14 +22,14 @@ public class Ronda  {
     public Ronda(int id_partida, int num_ronda){
         this.id_partida = id_partida;
         this.num_ronda = num_ronda;
-        this.sequencia_verificacio = new Sequencia();
-        this.sequencia_intentada = new Sequencia();
+        this.sequencia_verificacio = new Sequencia_verificacio();
+        this.sequencia_intentada = new Sequencia_intentada();
     }
     /**
      * Funció que retorna la Sequencia Intentada
      * @return Classe Sequencia
      */
-    public Sequencia get_seq_intentada() {
+    public Sequencia_intentada get_seq_intentada() {
         return sequencia_intentada;
     }
 
@@ -37,7 +37,7 @@ public class Ronda  {
      * Funció que retorna la Sequencia de Verificacio
      * @return Classe Sequencia
      */
-    public Sequencia get_seq_verificacio() {
+    public Sequencia_verificacio get_seq_verificacio() {
         return sequencia_verificacio;
     }
 
@@ -61,7 +61,7 @@ public class Ronda  {
      * Funció que modifica la Sequencia Intentada de la classe
      * @param Sequencia sequencia_intentada
      */
-    public void set_intentada(Sequencia sequencia_intentada) {
+    public void set_intentada(Sequencia_intentada sequencia_intentada) {
         this.sequencia_intentada = sequencia_intentada;
     }
 
@@ -69,7 +69,7 @@ public class Ronda  {
      * Funció que modifica la Sequencia de Verificacio de la classe
      * @param Sequencia sequencia_verificacio
      */
-    public void set_verificacio(Sequencia sequencia_verificacio){ 
+    public void set_verificacio(Sequencia_verificacio sequencia_verificacio){
         this.sequencia_verificacio = sequencia_verificacio; 
     }
 

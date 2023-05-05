@@ -18,7 +18,6 @@ public class Sequencia_intentada extends Sequencia {
      * @param int num_colors Nombre maxim de colors que es pot fer servir
      */
     public void set_array(colors[] array, int num_colors) throws Exception{
-        colors[] array = get_array();
         int size = array.length;
         if (size != 4) throw new Exception("El tamany de la sequencia no es 4");
         else {
