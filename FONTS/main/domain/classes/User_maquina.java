@@ -41,7 +41,8 @@ public class User_maquina extends User {
         return algorisme.solve(solucio);
     }
 
-    //Funcions de la superclasse
+    /* --- FUNCIONS DE LA SUPERCLASSE --- */
+
     public int get_id() {
         return super.get_id();
     }
@@ -52,14 +53,6 @@ public class User_maquina extends User {
 
     public Type_user get_tipus_user() {
         return super.get_tipus_user();
-    }
-
-    public int get_rondes_totals() {
-        return super.get_rondes_totals();
-    }
-
-    public int get_partides_totals() {
-        return super.get_partides_totals();
     }
 
     public double get_puntuacioF() {
@@ -74,50 +67,19 @@ public class User_maquina extends User {
         return super.get_puntuacioD();
     }
 
-    public double get_puntuacioPvsP() throws Exception {
-        throw new Exception("El user maquina no té punts PvsP");
-    }
-
-    public int get_partides_guanyades() {
-        return super.get_partides_guanyades();
-    }
-
-    public int get_num_partides_acabades() {
-        return super.get_num_partides_acabades();
-    }
-
-    public int get_num_partides_actuals() {
-        return super.get_num_partides_actuals();
-    }
-
-    public List<Integer> get_ids_partides_actives() {
-        return super.get_ids_partides_actives();
-    }
-
-    public List<Integer> get_ids_partides_acabades() {
-        return super.get_ids_partides_acabades();
-    }
-
-    public Partida get_partida_acabada(int id_partida) throws Exception{
-        return super.get_partida_acabada(id_partida);
-    }
-
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
         super.set_partida_acabada(partida_acabada, guanyat, dificultat);
     }
 
-    public void incrementar_rondes_totals() {
-        super.incrementar_rondes_totals();
+    public void set_puntuacio(Double punts, String dificultat) {
+        super.set_puntuacio(punts, dificultat);
     }
 
-    public void incrementar_partides_totals() {
-        super.incrementar_partides_totals();
-    }
+    /* --- Excepcions de funcions exclusives d'User_persona ---  */
 
-    public void afegir_partida_nova(Partida partida_nova) {
-        super.afegir_partida_nova(partida_nova);
+    public double get_puntuaciopvp() throws Exception {
+        throw new Exception("El user maquina no té punts pvp");
     }
-
 
 
 }
