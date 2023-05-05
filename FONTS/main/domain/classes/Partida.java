@@ -1,6 +1,5 @@
 package main.domain.classes;
 
-//import main.domain.classes.Sequencia;
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.enumerations.*;
 // import main.domain.classes.exceptions.MyException;
@@ -22,7 +21,7 @@ public class Partida {
     private Instant temps_inici;
     private Instant temps_final_partida;
     private LinkedList<Ronda> llista_rondes;
-    private Sequencia sequencia_solucio;
+    private Sequencia_intentada sequencia_solucio;
 
 
     /**
@@ -190,7 +189,7 @@ public class Partida {
         return llista_rondes;
     }
 
-    public Sequencia get_solucio() {
+    public Sequencia_intentada get_solucio() {
         return this.sequencia_solucio;
     }
 
@@ -270,7 +269,7 @@ public class Partida {
      * Funció que crea una nova sequencia intentada a la ronda actual
      * @param  sequencia intentada
      */
-    public void set_seq_int_a_ronda_actual(Sequencia seq_int) {
+    public void set_seq_int_a_ronda_actual(Sequencia_intentada seq_int) {
         llista_rondes.get(ultima_ronda_jugada).set_intentada(seq_int);
     }
 
@@ -278,7 +277,7 @@ public class Partida {
      * Funció que crea una nova sequencia verificada a la ronda actual
      * @param  sequencia verificada
      */
-    public void set_seq_ver_a_ronda_actual(Sequencia seq_ver) {
+    public void set_seq_ver_a_ronda_actual(Sequencia_verificacio seq_ver) {
         llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver);
     }
     
@@ -286,7 +285,7 @@ public class Partida {
      * Consultora de la ultima sequencia de verificacio
      * @return la ultima sequencia de verificacio que s'ha entrat
      */
-    public Sequencia get_seq_ver_de_ultima_ronda() {
+    public Sequencia_verificacio get_seq_ver_de_ultima_ronda() {
         return llista_rondes.get(ultima_ronda_jugada).get_seq_verificacio();
     }
 
@@ -294,7 +293,7 @@ public class Partida {
      * Consultora de la ultima sequencia intentada
      * @return la ultima sequencia que s'ha intentat
      */
-    public Sequencia get_seq_int_de_ultima_ronda() {
+    public Sequencia_intentada get_seq_int_de_ultima_ronda() {
         return llista_rondes.get(ultima_ronda_jugada).get_seq_intentada();
     }
     
@@ -310,7 +309,7 @@ public class Partida {
      * Funció que seteja la sequencia solucio de la partida
      * @param solucio
      */
-    public void set_sequencia_solucio(Sequencia solucio){
+    public void set_sequencia_solucio(Sequencia_intentada solucio){
         this.sequencia_solucio = solucio;
     }
 
@@ -329,7 +328,7 @@ public class Partida {
      */
 
     public void genera_sequencia_solucio_random(dificultats dif) {
-        Sequencia solucio = new Sequencia_intentada();
+        Sequencia_intentada solucio = new Sequencia_intentada();
         colors[] arr_sol = new colors[4];
         for(int i = 0; i < 4; ++i) {
             int random_color_id = (new Random()).nextInt(dif.get_num_colors()-2) + 1;// NULL, BLANC, NEGRE no es poden fer servir

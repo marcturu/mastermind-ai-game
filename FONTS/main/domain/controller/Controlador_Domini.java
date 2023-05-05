@@ -10,6 +10,8 @@ import main.domain.classes.Record;
 import main.domain.classes.RecordInteger;
 import main.domain.classes.Ronda;
 import main.domain.classes.Sequencia;
+import main.domain.classes.Sequencia_intentada;
+import main.domain.classes.Sequencia_verificacio;
 import main.domain.classes.User;
 import main.domain.classes.User_maquina;
 import main.domain.classes.User_persona;
@@ -304,7 +306,7 @@ public class Controlador_Domini {
         return Usuari.get_estadistiques();
     }
 
-    public Sequencia get_seq_solucio() {
+    public Sequencia_intentada get_seq_solucio() {
         return CtrlPartida.get_seq_solucio_partida_actual();
     }
 
@@ -400,7 +402,7 @@ public class Controlador_Domini {
         CtrlPartida.set_ajuda();
     }
 
-    public void set_seq_solucio(Sequencia sol) {
+    public void set_seq_solucio(Sequencia_intentada sol) {
         CtrlPartida.set_seq_solucio_entrada_per_user(sol);
     }
 
@@ -517,7 +519,7 @@ public class Controlador_Domini {
         hashRanking.put("pvp", new Ranking());
     }
 
-    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
+    public void jugar_ronda(Sequencia_intentada seq_int, Sequencia_verificacio seq_ver) {
         CtrlPartida.jugar_ronda(seq_int, seq_ver);
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
     }

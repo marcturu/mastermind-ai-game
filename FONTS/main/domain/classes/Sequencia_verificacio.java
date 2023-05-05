@@ -18,9 +18,9 @@ public class Sequencia_verificacio extends Sequencia {
      * @param colors[] solucio Sequencia de Solucio per a poder fer les comprobacions
      * @param colors[] intentada Sequencia Intendada per poder fer comprobacions
      */
-    public void set_array_verificacio(colors[] verificacio, Sequencia solucio, Sequencia intentada) throws Exception{
+    public void set_array_verificacio(colors[] verificacio, colors[] solucio, colors[]  intentada) throws Exception{
         if (array.length != 4) throw new Exception("El tamany de la sequencia no es 4");
-        Pair<Integer, Integer> pair_correcte = intentada.get_verificacio(solucio.get_array());
+        Pair<Integer, Integer> pair_correcte = get_verificacio(solucio,intentada);
         Pair<Integer, Integer> pair_entrat = get_negres_blanques(verificacio);
         if ((pair_correcte.first() != pair_entrat.first()) || (pair_correcte.second() != pair_entrat.second())) throw new Exception("Sequencia de Verficacio incorrecte");
         else{
@@ -33,7 +33,7 @@ public class Sequencia_verificacio extends Sequencia {
      * @param solucio
      * @return espigues blanques i negres que ha fet la sequencia
      */
-    public Pair<Integer,Integer> get_verificacio(colors[] arr_solucio) {
+    public Pair<Integer,Integer> get_verificacio(colors[] arr_solucio, colors[] array) {
         Integer blanques = 0, negres = 0;
         Pair<Integer,Integer> result = new Pair<>(blanques, negres);
 

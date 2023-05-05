@@ -251,8 +251,8 @@ public class Driver {
                         }
                     }
                 }
-                Sequencia seq_int = codebreaker_entra_intentada(dif);
-                Sequencia seq_ver = codemaker_entra_verificacio(seq_int);
+                Sequencia_intentada seq_int = codebreaker_entra_intentada(dif);
+                Sequencia_verificacio seq_ver = codemaker_entra_verificacio(seq_int);
                 try {
                     domini.jugar_ronda(seq_int, seq_ver);
                 }catch (Exception ex){
@@ -324,8 +324,8 @@ public class Driver {
                         }
                     }
                 }
-                Sequencia seq_int = new Sequencia(type_seq.intentada);
-                Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+                Sequencia_intentada seq_int = new Sequencia_intentada();
+                Sequencia_verificacio seq_ver = new Sequencia_verificacio();
                 if(jug_1_cm) {
                     seq_int = maquina_entra_intentada(dif);
                     seq_ver = codemaker_entra_verificacio(seq_int);
@@ -354,10 +354,10 @@ public class Driver {
         }else if (acabar)System.out.println("CodeMaker Guanya la Partida\n");
     }
 
-    private Sequencia codemaker_entra_solucio(dificultats dif){
+    private Sequencia_intentada codemaker_entra_solucio(dificultats dif){
         System.out.println("\n" + "CodeMaker Introdueix la solucio (De mida 4)");
         print_colors(dif.get_num_colors());
-        Sequencia solucio = new Sequencia(type_seq.solucio);
+        Sequencia_intentada solucio = new Sequencia_intentada();
         colors[] arr_sol = new colors[4];
         for (int i = 0; i < 4; ++i) {
             try {
@@ -386,8 +386,8 @@ public class Driver {
         domini.genera_solucio_partida(dif);
     }
 
-    private Sequencia codebreaker_entra_intentada(dificultats dif ) {
-        Sequencia seq_int = new Sequencia(type_seq.intentada);
+    private Sequencia_intentada codebreaker_entra_intentada(dificultats dif ) {
+        Sequencia_intentada seq_int = new Sequencia_intentada();
             
             colors[] arr_int = new colors[4];
             
@@ -413,18 +413,18 @@ public class Driver {
         return seq_int;
     }
 
-    private Sequencia maquina_entra_intentada(dificultats dif) {
+    private Sequencia_intentada maquina_entra_intentada(dificultats dif) {
 
         List<Integer> list_int= domini.get_seguent_guess_maquina();
-        Sequencia seq_int = de_list_a_seq(list_int, dif);
+        Sequencia_intentada seq_int = de_list_a_seq(list_int, dif);
 
         System.out.println("Sequencia intentada per la maquina: {" + seq_int.get_array()[0].get_nom_color() + "," + seq_int.get_array()[1].get_nom_color() + "," + seq_int.get_array()[2].get_nom_color() + "," + seq_int.get_array()[3].get_nom_color() + "}\n");
         return seq_int;
     }
 
-    private Sequencia codemaker_entra_verificacio(Sequencia seq_int) {
+    private Sequencia_verificacio codemaker_entra_verificacio(Sequencia seq_int) {
         System.out.println("CodeMaker Introdueix la Sequencia Verificacio");
-        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+        Sequencia_verificacio seq_ver = new Sequencia_verificacio();
         colors[] arr_ver = new colors[4];
 
         print_colors(0);
@@ -439,7 +439,7 @@ public class Driver {
             }
         }
         try {
-            seq_ver.set_array_verificacio(arr_ver, domini.get_seq_solucio(), seq_int);
+            seq_ver.set_array_verificacio(arr_ver, domini.get_seq_solucio.get_array(), seq_int.get_array());
         } catch(Exception e) {
             System.out.println(e.getMessage());
             codemaker_entra_verificacio(seq_int);
@@ -449,9 +449,9 @@ public class Driver {
         return seq_ver;
     }
 
-    private Sequencia maquina_entra_verificacio(Sequencia seq_int) {
-        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
-        Sequencia seq_sol = domini.get_seq_solucio();
+    private Sequencia_verificacio maquina_entra_verificacio(Sequencia_intentada seq_int) {
+        Sequencia_verificacio seq_ver = new Sequencia_verificacio();
+        Sequencia_intentada seq_sol = domini.get_seq_solucio();
 
         Pair<Integer, Integer> resultat= negres_blanques(seq_int, seq_sol);
 
@@ -461,12 +461,12 @@ public class Driver {
         return seq_ver;
     }
 
-    private Sequencia de_list_a_seq(List<Integer> llista, dificultats dif) {
+    private Sequencia_intentada de_list_a_seq(List<Integer> llista, dificultats dif) {
         colors[] aux = new colors[4];
         for(int i = 0; i < 4; ++i) {
             aux[i] = colors.get_color_by_id(llista.get(i));
         }
-        Sequencia ret = new Sequencia(type_seq.intentada);
+        Sequencia ret = new Sequencia_intentada();
         try{
         ret.set_array(aux, dif.get_num_colors());
         }catch(Exception e) {
@@ -477,7 +477,7 @@ public class Driver {
         return ret;
     }
 
-    private Pair<Integer, Integer> negres_blanques(Sequencia seq_int, Sequencia seq_sol) {
+    private Pair<Integer, Integer> negres_blanques(Sequencia_intentada seq_int,Sequencia_intentada seq_sol) {
         int negres = 0;
         int blanques = 0;
         Pair<Integer, Integer> res = new Pair<>(negres, blanques);
@@ -502,8 +502,8 @@ public class Driver {
         return res;
     }
 
-    private Sequencia crea_seq_ver_random(Integer negres, Integer blanques) {
-        Sequencia seq_ver = new Sequencia(type_seq.verificacio);
+    private Sequencia_verificacio crea_seq_ver_random(Integer negres, Integer blanques) {
+        Sequencia_verificacio seq_ver = new Sequencia_verificacio();
         while(negres > 0) {
             int i = (new Random()).nextInt(4);
             if(seq_ver.get_array()[i] == colors.NULL) {
@@ -533,7 +533,7 @@ public class Driver {
         String input = in.nextLine();
         while (input.length() == 0) input = in.nextLine();
         int pos = Integer.parseInt(input);
-        Sequencia sol = domini.get_seq_solucio();
+        Sequencia_intentada sol = domini.get_seq_solucio();
         System.out.println("El color de la solucio en la posicio " + pos + " es " + sol.get_array()[pos].get_nom_color() + "\n");
     }
 

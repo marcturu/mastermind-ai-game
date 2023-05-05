@@ -7,6 +7,8 @@ import java.util.List;
 import main.domain.classes.Partida;
 import main.domain.classes.Ronda;
 import main.domain.classes.Sequencia;
+import main.domain.classes.Sequencia_intentada;
+import main.domain.classes.Sequencia_verificacio;
 import main.domain.classes.User;
 import main.domain.classes.enumerations.dificultats;
 
@@ -182,7 +184,7 @@ public class Controlador_Partida {
     /**
      * @return la sequencia que es solucio de la partida que s'esta jugant
      */
-    public Sequencia get_seq_solucio_partida_actual() {
+    public Sequencia_intentada get_seq_solucio_partida_actual() {
         return this.partida_actual.get_solucio();
     }
 
@@ -193,7 +195,7 @@ public class Controlador_Partida {
         return solution_maquina.get(partida_actual.get_ultima_ronda());
     }
 
-    public void set_seq_solucio_entrada_per_user(Sequencia sol) {
+    public void set_seq_solucio_entrada_per_user(Sequencia_intentada sol) {
         this.partida_actual.set_sequencia_solucio(sol);
     }
 
@@ -210,7 +212,7 @@ public class Controlador_Partida {
      * @param seq_ver sequencia que ha entrat el codemaker
      * Funcionalitat que gestiona una ronda. Se li passen dos sequencies que son valides i correctes i es fa el tractament d'aquestes.
      */
-    public void jugar_ronda(Sequencia seq_int, Sequencia seq_ver) {
+    public void jugar_ronda(Sequencia_intentada seq_int, Sequencia_verificacio seq_ver) {
 
         partida_actual.crea_nova_ronda();
         partida_actual.set_seq_int_a_ronda_actual(seq_int);
