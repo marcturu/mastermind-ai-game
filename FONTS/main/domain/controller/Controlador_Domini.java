@@ -571,38 +571,30 @@ public class Controlador_Domini {
     public void actualitza_ranking() {
         System.out.println("\n\n\nranking\n\n\n");
         double punts_u = 0.0;
-        double punts_u2 = 0.0;
-        String nom_u = Usuari.get_nom();
-        String nom_u2 = Usuari2.get_nom();
+        User aux = CtrlPartida.get_codebreaker_partida_actual();
+        String nom_u = aux.get_nom();
+        
         switch ((CtrlPartida.get_dificultat()).get_dificultat()) {
             case "facil":
-                punts_u = this.Usuari.get_puntuacioF();
-                punts_u2 = this.Usuari2.get_puntuacioF();
+                punts_u = aux.get_puntuacioF();
                 (hashRanking.get("facil")).nova_partida_ranking(punts_u, nom_u);
-                (hashRanking.get("facil")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
             case "normal":
-                punts_u = this.Usuari.get_puntuacioN();
-                punts_u2 = this.Usuari2.get_puntuacioN();
+                punts_u = aux.get_puntuacioN();
                 (hashRanking.get("normal")).nova_partida_ranking(punts_u, nom_u);
-                (hashRanking.get("normal")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
             case "dificil":
-                punts_u = this.Usuari.get_puntuacioD();
-                punts_u2 = this.Usuari2.get_puntuacioD();
+                punts_u = aux.get_puntuacioD();
                 (hashRanking.get("dificil")).nova_partida_ranking(punts_u, nom_u);
-                (hashRanking.get("dificil")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
             default:
                 try {
-                    punts_u = this.Usuari.get_puntuaciopvp();
-                    punts_u2 = this.Usuari2.get_puntuaciopvp();
+                    punts_u = aux.get_puntuaciopvp();
                 }
                 catch (Exception ex){
                     //System.out.println(ex.getMessage());
                 }
                 (hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
-                (hashRanking.get("pvp")).nova_partida_ranking(punts_u2, nom_u2);
                 break;
         }
 
