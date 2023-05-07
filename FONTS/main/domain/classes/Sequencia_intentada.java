@@ -1,10 +1,6 @@
 package main.domain.classes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import main.domain.classes.enumerations.colors;
-import main.domain.classes.types.Pair;
 
 public class Sequencia_intentada extends Sequencia {
 

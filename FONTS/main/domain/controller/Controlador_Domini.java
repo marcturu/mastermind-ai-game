@@ -9,7 +9,6 @@ import main.domain.classes.Ranking;
 import main.domain.classes.Record;
 import main.domain.classes.RecordInteger;
 import main.domain.classes.Ronda;
-import main.domain.classes.Sequencia;
 import main.domain.classes.Sequencia_intentada;
 import main.domain.classes.Sequencia_verificacio;
 import main.domain.classes.User;
@@ -33,6 +32,7 @@ public class Controlador_Domini {
     private HashMap<String, User> hashUsers;
     private HashMap<Pair<String,String>, Record> hashRecord;
     private HashMap<String, Ranking> hashRanking;
+    private HashMap<Integer, Partida> hashPartida; 
     private static Controlador_Domini singletonObject;
 
     private int ids_partides = 1;
@@ -322,22 +322,28 @@ public class Controlador_Domini {
         return CtrlPartida.get_guess_maquina();
     }
 
-    public List<List<Integer>> get_solucio_partida_actual() {
-        return CtrlPartida.get_solucio_partida_actual();
-    }
-
     public void set_solucio_partida_actual(List<List<Integer>> sol) {
         CtrlPartida.set_solucio_partida_actual(sol);
     }
 
+    private void start_partida_nova(int id, User User1, User User2, dificultats dif, boolean jugador1_es_codemaker) {
+        Partida partida_nova = new Partida(id, User1, User2, dif, jugador1_es_codemaker); 
+        hashPartida.put(id, partida_nova);
+        CtrlPartida.set_partida_actual(partida_nova);
+    }
 
+    /**
+     * Funcio per començar una nova partida
+     * @param dif dificultat de la nova partida
+     * @param jugador1_es_codemaker indica is el jugador1 es codemaker
+     * @throws Exception
+     */
     public void inicialitza_partida_nova(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
         if (Usuari.get_num_partides_actuals() == 10)
             throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
         else {
-            Usuari2 = hashUsers.get("Five-Guess");
-            Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
-            afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
+            start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
+            afegir_partida_nova_users(Usuari, CtrlPartida.get_partida_actual());
             ++ids_partides;
         }
     }
@@ -348,15 +354,14 @@ public class Controlador_Domini {
         else if(Usuari2.get_num_partides_actuals() == 10)
             throw new Exception("Masses partides actives User2");
         else {
-            Partida partida_nova = CtrlPartida.start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
-            afegir_partida_nova_users(Usuari, Usuari2, partida_nova);
+            start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
+            afegir_partida_nova_users(Usuari, CtrlPartida.get_partida_actual());
             ++ids_partides;
         }
     }
 
-    public void afegir_partida_nova_users(User Usuari, User Usuari2, Partida partida_nova) throws Exception{
+    private void afegir_partida_nova_users(User Usuari, Partida partida_nova) throws Exception{
         Usuari.afegir_partida_nova(partida_nova);
-        Usuari2.afegir_partida_nova(partida_nova);
     }
 
     /*
@@ -519,8 +524,26 @@ public class Controlador_Domini {
         hashRanking.put("pvp", new Ranking());
     }
 
+    /**
+     * Funcio per a jugar una ronda. Les dos sequencies son valides, ja que s'ha comprobat previament
+     * @param seq_int sequencia que s'ha intentat
+     * @param seq_ver sequencia amb la que s'ha verificat l'anterior
+     */
     public void jugar_ronda(Sequencia_intentada seq_int, Sequencia_verificacio seq_ver) {
-        CtrlPartida.jugar_ronda(seq_int, seq_ver);
+        //CtrlPartida.jugar_ronda(seq_int, seq_ver);
+        CtrlPartida.crea_nova_ronda();
+        CtrlPartida.set_sequencia_intentada(seq_int);
+        CtrlPartida.set_sequencia_verificacio(seq_ver);
+        boolean partida_acabada = CtrlPartida.comprova_resultat();
+        if(partida_acabada) {
+            CtrlPartida.tractament_victoria();
+            hashPartida.replace(CtrlPartida.get_partida_actual().get_id(), CtrlPartida.get_partida_actual());
+        }
+
+        if(CtrlPartida.temps_excedit_partida_actual()){
+            CtrlPartida.tractament_partida_acabada();
+        }
+
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
     }
 
@@ -572,8 +595,8 @@ public class Controlador_Domini {
                 break;
             default:
                 try {
-                    punts_u = this.Usuari.get_puntuacioPvsP();
-                    punts_u2 = this.Usuari2.get_puntuacioPvsP();
+                    punts_u = this.Usuari.get_puntuaciopvp();
+                    punts_u2 = this.Usuari2.get_puntuaciopvp();
                 }
                 catch (Exception ex){
                     //System.out.println(ex.getMessage());
@@ -587,9 +610,18 @@ public class Controlador_Domini {
         
     }
 
+    /**
+     * Funcio per a carregar la partida amb id = "id_partida_activa"
+     * @param id_partida_activa id de la partida a carregar
+     * @throws Exception en cas que no existeixi la partida amb aquest id
+     */
     public void jugar_partides_antigues(int id_partida_activa) throws Exception{
         //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
-        CtrlPartida.carregar_partida(id_partida_activa);
+        Partida partida_actual = hashPartida.get(id_partida_activa);
+        if(partida_actual == null) {
+            throw new Exception("La partida que vols carregar no existeix");
+        }
+        CtrlPartida.set_partida_actual(hashPartida.get(id_partida_activa));
     }
 
     public List<Integer> get_ids_partides_actives_Usuari1() {
@@ -601,15 +633,7 @@ public class Controlador_Domini {
     }
 
     public Partida get_partida(int id){
-        try {
-            return Usuari.get_partida_acabada(id);
-        }
-        catch (Exception ex) {
-            //System.out.println(ex.getMessage());
-        }
-        //No em deixava fer la funció sense return d'algo
-        Partida partida_no_valida = new Partida(-1, Usuari, Usuari2, dificultats.FACIL, true);
-        return partida_no_valida;
+        return hashPartida.get(id);
     }
 
     public boolean partida_acabada(){
@@ -621,12 +645,12 @@ public class Controlador_Domini {
         actualitza_ranking();
     }
 
+    /**
+     * Funcio per a guardar una partida a mitges. Es sobreescriu la partida que estava mapejada a el id "id_par"
+     */
     public void guardar_partida_a_mitges(){
         int id_par = CtrlPartida.get_id_partida_actual();
-        Usuari.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
-        CtrlPartida.pausar_partida();
-        //Usuari2.actualitza_partida_actual(id_par,CtrlPartida.get_partida_actual());
-
+        hashPartida.replace(id_par, get_partida_actual());
     }
 
     public dificultats get_dificultat_partida(){

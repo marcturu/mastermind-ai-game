@@ -249,6 +249,8 @@ public class User_persona extends User {
         if (this.puntuaciopvp < 0) this.puntuaciopvp = 0;
     }
 
+    
+
 
     /* --- FUNCIONS DE LA SUPERCLASSE --- */
 

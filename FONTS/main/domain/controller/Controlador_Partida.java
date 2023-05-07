@@ -1,7 +1,6 @@
 package main.domain.controller;
 
 //import java.time.*;
-import java.util.HashMap;
 import java.util.List;
 
 import main.domain.classes.Partida;
@@ -17,7 +16,6 @@ import main.domain.classes.enumerations.dificultats;
  */
 
 public class Controlador_Partida {
-    private HashMap<Integer, Partida> hashPartida;
     private Partida partida_actual;
    
 
@@ -26,7 +24,6 @@ public class Controlador_Partida {
      */
     public Controlador_Partida (){
         this.partida_actual = null;
-        this.hashPartida = new HashMap<Integer, Partida>();
     }
 
 
@@ -34,9 +31,8 @@ public class Controlador_Partida {
      * Aquesta funció serveix per fer el tractament en cas que el codebreaker encerti la sequencia. Avisa a partida_actual
      * perque aquesta avisi als usuaris del tractament pertinent
      */
-    private void tractament_victoria() {
+    public void tractament_victoria() {
         this.partida_actual.codebreaker_guanya();
-        hashPartida.replace(partida_actual.get_id(), partida_actual);
        // this.partida_actual = null; provoca fallades
 
     }
@@ -47,36 +43,15 @@ public class Controlador_Partida {
      */
     public void tractament_partida_acabada() {
         this.partida_actual.codemaker_guanya();
-        hashPartida.replace(partida_actual.get_id(), partida_actual);
         //this.partida_actual = null; provaca fallades
     }
 
     /**
-     * @param id
-     * @param codemaker
-     * @param codebreaker
-     * @param dif
-     * @param jugador1_es_codemaker
-     * Crea una partida nova amb els parametres entrats. Aquests parametres han d'estar conprovats abans de cridar a la funció.
+     * Setter de la partida que es comença a jugar
+     * @param partida_nova
      */
-    public Partida start_partida_nova(int id, User codemaker, User codebreaker, dificultats dif, boolean jugador1_es_codemaker){
-        this.partida_actual = new Partida(id, codemaker, codebreaker, dif, jugador1_es_codemaker);//ha de incrementar el numero de partides de l'usuari
-        hashPartida.put(id, partida_actual);
-        return partida_actual;
-    }
-
-    /**
-     * @pre Previament s'ha guardat la partida o actualitzat el seu valor dins de la llista.
-     * S'assumeix que no hi ha cap partida jugant-se quan es carrega una nova
-     * @post Es passa a jugar la partida que s'ha carregat
-     * @param id_partida_nova
-     * @throws MyException
-     */
-    public void carregar_partida(int id_partida_nova) throws Exception{
-        partida_actual = hashPartida.get(id_partida_nova);
-        if(partida_actual == null) {
-            throw new Exception("La partida que vols carregar no existeix");
-        }
+    public void set_partida_actual(Partida partida_nova) {
+        this.partida_actual = partida_nova;
     }
 
     /**
@@ -137,8 +112,8 @@ public class Controlador_Partida {
     /**
      * @return el guess de la maquina a la ronda "num_ronda".
      */
-    public List<Integer> get_guess_ronda(int num_ronda) {
-        return partida_actual.get_guess_ronda(num_ronda);
+    public List<Integer> get_guess_maquina() {
+        return partida_actual.get_next_guess_maquina();
     }
 
     /**
@@ -197,28 +172,34 @@ public class Controlador_Partida {
     }
 
     /**
-     * @param seq_int sequencia que ha entrar el codebreaker
-     * @param seq_ver sequencia que ha entrat el codemaker
-     * Funcionalitat que gestiona una ronda. Se li passen dos sequencies que son valides i correctes i es fa el tractament d'aquestes.
+     * Funcio per a que es crei una nova ronda
      */
-    public void jugar_ronda(Sequencia_intentada seq_int, Sequencia_verificacio seq_ver) {
-
+    public void crea_nova_ronda() {
         partida_actual.crea_nova_ronda();
+    }
+
+    /**
+     * Setter de la sequencia intentada a la ultima ronda jugada
+     * @param seq_int sequencia que s'intenta
+     */
+    public void set_sequencia_intentada(Sequencia_intentada seq_int) {
         partida_actual.set_seq_int_a_ronda_actual(seq_int);
+    }
+
+    /**
+     * Setter de la sequencia de verificacio a la ultima ronda jugada
+     * @param seq_ver sequencia que verifica la sequencia intentada
+     */
+    public void set_sequencia_verificacio(Sequencia_verificacio seq_ver) {
         partida_actual.set_seq_ver_a_ronda_actual(seq_ver);
-        boolean res = partida_actual.ronda_te_intentada_correcte();
+    }
 
-        if (res) tractament_victoria();
-
-        //partida_actual.get_temps_usat(); //actualitzar el valor de temps_usat
-
-        if (temps_excedit_partida_actual()) {//comprovem que no se'ns hagi acabat el temps
-            tractament_partida_acabada();
-        }
-      /*  if (get_ultima_ronda_partida_actual() + 1 == get_num_rondes_max_partida_actual()) {//se'ns han acabat les rondes
-            partida_actual.crea_nova_ronda();
-        } //else tractament_partida_acabada();*/
-
+    /**
+     * Consultora de si en l'ultima ronda s'ha encertat la sequencia.
+     * @return si s'ha encertat la sequencia
+     */
+    public boolean comprova_resultat() {
+        return partida_actual.ronda_te_intentada_correcte();
     }
 
     /**
@@ -242,12 +223,4 @@ public class Controlador_Partida {
     public Partida get_partida_actual(){
         return partida_actual;
     }
-
-    /**
-     * funcio per pausar la partida i guardar-la on toca
-     */
-    public void pausar_partida(){
-        hashPartida.replace(partida_actual.get_id(), partida_actual);
-    }
-
 }

@@ -213,6 +213,7 @@ public class Partida {
     public void codebreaker_guanya(){
         this.partida_acabada = true;
         temps_final_partida = Instant.now();
+        this.jugador1.afegeix_partida_acabada(this);
         if(jugador1_es_codemaker) {
             this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
         }
@@ -227,13 +228,12 @@ public class Partida {
     public void codemaker_guanya() {
         this.partida_acabada = true;
         temps_final_partida = Instant.now();
-        if(jugador1_es_codemaker) {
-            this.jugador1.afegeix_partida_acabada(this);
+        this.jugador1.afegeix_partida_acabada(this);
+        if(jugador1_es_codemaker) {  
             this.jugador2.set_partida_acabada(this, false, dificultat.get_dificultat());
         }
         else {
             this.jugador1.set_partida_acabada(this, false, dificultat.get_dificultat());
-            this.jugador2.afegeix_partida_acabada(this);
         }
     }
     
@@ -328,17 +328,16 @@ public class Partida {
     }
 
     /**
-     * getter del guess que havia fet la maquina per a la ronda "num_ronda".
-     * @param num_ronda numero de la ronda que volem saber el guess de la maquina
-     * @return retorna la sequencia de la ronda "num_ronda"
+     * getter del guess de la ultima ronda jugada
+     * @return retorna l'intent de la maquina de la ultima ronda
      */
-    public List<Integer> get_guess_ronda(int num_ronda) {
-        return this.solucio_maquina.get(num_ronda);
+    public List<Integer> get_next_guess_maquina() {
+        return this.solucio_maquina.get(ultima_ronda_jugada);
     }
 
     /**
      * Funció que seteja la sequencia solucio de la partida
-     * @param solucio
+     * @param solucio llista de intents fins arribar a la solucio que fa la maquina
      */
     public void set_sequencia_solucio(Sequencia_intentada solucio){
         this.sequencia_solucio = solucio;
