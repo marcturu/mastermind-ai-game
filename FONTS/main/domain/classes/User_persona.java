@@ -10,8 +10,8 @@ public class User_persona extends User {
     private int num_rondes_totals;
     private int num_partides_totals;
     private int num_partides_guanyades;
-    protected ArrayList<int> llista_partides_no_acabades;
-    protected ArrayList<int> llista_partides_acabades;
+    protected ArrayList<Integer> llista_partides_no_acabades;
+    protected ArrayList<Integer> llista_partides_acabades;
 
     /**
      * Constructor de la classe user_persona (amb password)
@@ -30,8 +30,8 @@ public class User_persona extends User {
         this.num_rondes_totals = 0;
         this.num_partides_totals = 0;
         this.num_partides_guanyades = 0;
-        this.llista_partides_no_acabades = new ArrayList<Partida>();
-        this.llista_partides_acabades = new ArrayList<Partida>();
+        this.llista_partides_no_acabades = new ArrayList<Integer>();
+        this.llista_partides_acabades = new ArrayList<Integer>();
     }
 
     /**
@@ -50,8 +50,8 @@ public class User_persona extends User {
         this.num_rondes_totals = 0;
         this.num_partides_totals = 0;
         this.num_partides_guanyades = 0;
-        this.llista_partides_no_acabades = new ArrayList<Partida>();
-        this.llista_partides_acabades = new ArrayList<Partida>();
+        this.llista_partides_no_acabades = new ArrayList<Integer>();
+        this.llista_partides_acabades = new ArrayList<Integer>();
     }
 
     /**
@@ -146,10 +146,10 @@ public class User_persona extends User {
         vstats.add(get_puntuaciopvp());
         vstats.add((double)super.get_num_partides_actuals());
         vstats.add((double)super.get_num_partides_acabades());
-        vstats.add((double).get_partides_totals());
-        vstats.add((double).get_partides_guanyades());
-        vstats.add((double).get_streak());
-        vstats.add((double).get_rondes_totals()/.get_partides_totals());
+        vstats.add((double) get_partides_totals());
+        vstats.add((double) get_partides_guanyades());
+        vstats.add((double) get_streak());
+        vstats.add((double) (get_rondes_totals()/get_partides_totals()));
 
         return vstats;
     }

@@ -1,6 +1,5 @@
 package main.domain.classes;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -87,7 +86,7 @@ public class User {
 
         double punts = partida_acabada.get_puntuacio();
 
-        if (partida_acabada.jugador2.get_tipus_user() == Type_user.user_persona) set_puntuacio_pvp(punts); //Això vol dir que la partida és pvp
+        if (partida_acabada.es_partida_pvp()) set_puntuacio_pvp(punts);
         else set_puntuacio(punts, dificultat);
 
         if (guanyat) {
@@ -231,6 +230,15 @@ public class User {
      */
     public double get_puntuaciopvp() throws Exception{
         return 0.0;
+    }
+
+    /**
+     * Funcio per a que l'algorisme retorni la 
+     * @param solucio
+     * @return
+     */
+    public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
+        return null;
     }
 
     /**
