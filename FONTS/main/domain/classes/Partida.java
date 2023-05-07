@@ -3,7 +3,7 @@ package main.domain.classes;
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.enumerations.*;
 // import main.domain.classes.exceptions.MyException;
-//import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.Type_user;
 //import main.domain.classes.enumerations.colors;
 //import main.domain.classes.types.Pair;
 import java.util.*;
@@ -22,6 +22,7 @@ public class Partida {
     private Instant temps_final_partida;
     private LinkedList<Ronda> llista_rondes;
     private Sequencia_intentada sequencia_solucio;
+    private List<List<Integer>> solucio_maquina; //solucio que ha donat una maquina.
 
 
     /**
@@ -42,6 +43,7 @@ public class Partida {
         this.partida_acabada = false;
         this.temps_inici = Instant.now();
         this.llista_rondes = new LinkedList<Ronda>();
+        this.solucio_maquina = new ArrayList<>();
 
         if (jugador1_es_codemaker) {
             this.jugador1 = cm;
@@ -122,6 +124,18 @@ public class Partida {
         return jugador1_es_codemaker;
     }
 
+    /**
+     * Consultora per a saber si la partida es pvp
+     * @return si la partida es pvp
+     */
+    public boolean es_partida_pvp() {
+        return (jugador2.get_tipus_user()==Type_user.user_persona);
+    }
+
+    /**
+     * Funcio per a consultar el temps de la partida en segons.
+     * @return el temps que ha durat la partida
+     */
     public Long get_temps_partida() {
         return Duration.between(temps_inici, temps_final_partida).toSeconds();
     }
@@ -303,6 +317,23 @@ public class Partida {
      */
     public void set_ultima_ronda(int ronda) {
         this.ultima_ronda_jugada = ronda;
+    }
+
+    /**
+     * setter de la matriu amb les solucions que dona l'algorisme
+     * @param sol solucio que ha creat l'algorisme
+     */
+    public void set_solucio_maquina(List<List<Integer>> sol) {
+        this.solucio_maquina = sol;
+    }
+
+    /**
+     * getter del guess que havia fet la maquina per a la ronda "num_ronda".
+     * @param num_ronda numero de la ronda que volem saber el guess de la maquina
+     * @return retorna la sequencia de la ronda "num_ronda"
+     */
+    public List<Integer> get_guess_ronda(int num_ronda) {
+        return this.solucio_maquina.get(num_ronda);
     }
 
     /**

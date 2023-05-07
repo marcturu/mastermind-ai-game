@@ -6,7 +6,6 @@ import java.util.List;
 
 import main.domain.classes.Partida;
 import main.domain.classes.Ronda;
-import main.domain.classes.Sequencia;
 import main.domain.classes.Sequencia_intentada;
 import main.domain.classes.Sequencia_verificacio;
 import main.domain.classes.User;
@@ -20,14 +19,13 @@ import main.domain.classes.enumerations.dificultats;
 public class Controlador_Partida {
     private HashMap<Integer, Partida> hashPartida;
     private Partida partida_actual;
-    private List<List<Integer>> solution_maquina;
+   
 
     /**
      * Creadora de la classe controlador Partida
      */
     public Controlador_Partida (){
         this.partida_actual = null;
-        solution_maquina = null;
         this.hashPartida = new HashMap<Integer, Partida>();
     }
 
@@ -39,7 +37,6 @@ public class Controlador_Partida {
     private void tractament_victoria() {
         this.partida_actual.codebreaker_guanya();
         hashPartida.replace(partida_actual.get_id(), partida_actual);
-        solution_maquina = null;
        // this.partida_actual = null; provoca fallades
 
     }
@@ -51,7 +48,6 @@ public class Controlador_Partida {
     public void tractament_partida_acabada() {
         this.partida_actual.codemaker_guanya();
         hashPartida.replace(partida_actual.get_id(), partida_actual);
-        solution_maquina = null;
         //this.partida_actual = null; provaca fallades
     }
 
@@ -135,14 +131,14 @@ public class Controlador_Partida {
      * @param sol
      */
     public void set_solucio_partida_actual(List<List<Integer>> sol) {
-        this.solution_maquina = sol;
+        partida_actual.set_solucio_maquina(sol);
     }
 
     /**
-     * @return la matriu que retorna la maquina amb l'algorisme pertinent
+     * @return el guess de la maquina a la ronda "num_ronda".
      */
-    public List<List<Integer>> get_solucio_partida_actual() {
-        return this.solution_maquina;
+    public List<Integer> get_guess_ronda(int num_ronda) {
+        return partida_actual.get_guess_ronda(num_ronda);
     }
 
     /**
@@ -186,13 +182,6 @@ public class Controlador_Partida {
      */
     public Sequencia_intentada get_seq_solucio_partida_actual() {
         return this.partida_actual.get_solucio();
-    }
-
-    /**
-     * @return el List<Integer> que pertany a l'intent que toca per la ronda que es
-     */
-    public List<Integer> get_guess_maquina() {
-        return solution_maquina.get(partida_actual.get_ultima_ronda());
     }
 
     public void set_seq_solucio_entrada_per_user(Sequencia_intentada sol) {
@@ -259,7 +248,6 @@ public class Controlador_Partida {
      */
     public void pausar_partida(){
         hashPartida.replace(partida_actual.get_id(), partida_actual);
-        solution_maquina = null;
     }
 
 }
