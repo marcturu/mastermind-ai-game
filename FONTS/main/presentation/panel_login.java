@@ -10,6 +10,11 @@ import java.awt.event.ActionListener;
 
 import main.presentation.controller.Controlador_Presentacio;
 
+/**
+ * Classe que conté el panell del menú principal 
+ * @author Ferran Solanes (ferran.solanes@estudiantat.upc.edu)
+*/
+
 public class panel_login extends JPanel{
     private Controlador_Presentacio ctrlPresentacio;
     private final JLabel txt_username = new JLabel("Entra nom usuari:");
@@ -19,6 +24,9 @@ public class panel_login extends JPanel{
     private final JButton b_confirmar = new JButton("CONFIRMAR");
     private final JButton b_enrere = new JButton("Back");
 
+    /**
+     * funcio per inicialitzar la UI del panell
+     */
     private void set_up_ui() {
         txt_username.setBounds(50, 90, 200, 50);
         username.setBounds(250, 90, 200, 50);
@@ -36,6 +44,11 @@ public class panel_login extends JPanel{
         add(b_enrere);
     }
 
+    
+    /**
+     * funcio per a comprobar que s'han entrat els camps necessaris
+     * @return true si s'han entrat els camps necessaris, false altrament
+     */
     private boolean input_entrat() {
         if(password.getText().equals("") || username.getText().equals("")) {
             System.out.println("Has d'entrar un username i una password\n");
@@ -44,6 +57,10 @@ public class panel_login extends JPanel{
         return true;
     }
 
+    /**
+     * accio que es realitza quan es prem el boto de confirmar
+     * @param e accio de l'event
+     */
     private void actionPerformed_botoConfirmar(ActionEvent e) {
         if(input_entrat()) {
             try{
@@ -55,10 +72,10 @@ public class panel_login extends JPanel{
         }
     }
 
-    public panel_login(Controlador_Presentacio ctrlPresentacio) {
-        this.ctrlPresentacio = ctrlPresentacio;
-        set_up_ui();
-
+    /**
+     * funcio per inicialitzar els listeners del panell
+     */
+    private void set_up_listeners() {
         b_confirmar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String text = ((JButton) e.getSource()).getText();
@@ -77,4 +94,20 @@ public class panel_login extends JPanel{
         });
     }
 
+    /**
+     * creadora del panell de login
+     * @param ctrlPresentacio controlador de presentacio
+     */
+    public panel_login(Controlador_Presentacio ctrlPresentacio) {
+        this.ctrlPresentacio = ctrlPresentacio;
+        set_up_ui();
+        set_up_listeners();
+    }
+
+    /**
+     * funcio per a fer visible el panell
+     */
+    public void fes_visible() {
+        setVisible(true);
+    }
 }

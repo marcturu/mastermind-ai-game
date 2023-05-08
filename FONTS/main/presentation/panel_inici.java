@@ -9,6 +9,11 @@ import main.presentation.controller.Controlador_Presentacio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe que conté el panell del menú principal
+ * @author Ferran Solanes (ferran.solanes@estudiantat.upc.edu)
+ */
+
 public class panel_inici extends JPanel{
     private Controlador_Presentacio CtrlPresentacio;
     private JButton b_login = new JButton("LOGIN");
@@ -16,14 +21,11 @@ public class panel_inici extends JPanel{
     private JLabel titol_panel = new JLabel("MASTER MIND. PROP", 0);
     private JButton b_sortir = new JButton("SORTIR");
 
-
-    public void fes_visible() {
-        setVisible(true);
-    }
-
-    public panel_inici(Controlador_Presentacio CtrlPresentacio) {
-        this.CtrlPresentacio = CtrlPresentacio;
-        setBounds(500, 300, 500, 300);
+    
+    /**
+     * Funcio per a inicialitzar la UI del panell
+     */
+    private void set_up_ui() {
         titol_panel.setBounds(10, 5, 120, 30);
         add(titol_panel);
 
@@ -36,33 +38,46 @@ public class panel_inici extends JPanel{
 
         b_sortir.setBounds(20, 250, 150, 20);
         add(b_sortir);
+    }
 
-
-        ActionListener login = new ActionListener() {
-            @Override
+    /**
+     * Funcio per a inicialitzar els listeners del panell
+     */
+    private void set_up_listeners() {
+        b_login.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Has apretat: " + ((JButton)e.getSource()).getText() + "\n");
                 CtrlPresentacio.canvia_a_login();
             }
-        };
+        });
 
-        ActionListener register = new ActionListener() {
-            @Override
+        b_register.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Has apretat: " + ((JButton)e.getSource()).getText() + "\n");
                 CtrlPresentacio.canvia_a_register();
             }
-        };
-        
-        ActionListener sortir = new ActionListener() {
-            @Override
+        });
+
+        b_sortir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
-        };        
+        });
+    }
 
-        b_login.addActionListener(login);
-        b_register.addActionListener(register);
-        b_sortir.addActionListener(sortir);      
+    /**
+     * Funcio creadora del panell
+     * @param CtrlPresentacio
+     */
+    public panel_inici(Controlador_Presentacio CtrlPresentacio) {
+        this.CtrlPresentacio = CtrlPresentacio;
+        setBounds(500, 300, 500, 300);
+        set_up_ui();
+        set_up_listeners();    
+    }
+
+    /**
+     * Funció que fa visible el panell
+     */
+    public void fes_visible() {
+        setVisible(true);
     }
 }
