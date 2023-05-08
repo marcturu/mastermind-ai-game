@@ -7,6 +7,15 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
 
 CLASS_RECORD = ./main/domain/classes/Record.java
 
+CLASS_RECORD_INTEGER = ./main/domain/classes/Record.java \
+						./main/domain/classes/RecordInteger.java
+
+CLASS_RECORD_DOUBLE = ./main/domain/classes/Record.java \
+						./main/domain/classes/RecordDouble.java
+
+CLASS_RECORD_LONG = ./main/domain/classes/Record.java \
+						./main/domain/classes/RecordLong.java
+
 CLASS_RANKING = ./main/domain/classes/Ranking.java \
 				./main/domain/classes/types/Pair.java
 
@@ -74,6 +83,9 @@ CLASS_OUTPUT = ../EXE/out/
 JUNIT_JARS = ../lib/junit-4.12.jar:../lib/hamcrest-core-1.3.jar
 
 JUNIT_TESTS_RECORD = ./test/TestRecord.java
+JUNIT_TESTS_RECORD_INTEGER = ./test/TestRecordInteger.java
+JUNIT_TESTS_RECORD_DOUBLE = ./test/TestRecordDouble.java
+JUNIT_TESTS_RECORD_LONG = ./test/TestRecordLong.java
 JUNIT_TESTS_PARTIDA = ./test/TestPartida.java
 JUNIT_TESTS_RANKING = ./test/TestRanking.java
 JUNIT_TESTS_RONDA = ./test/TestRonda.java
@@ -102,6 +114,22 @@ TestRecord:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD)
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_RECORD) $(JUNIT_TESTS_RECORD)
 	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecord
+
+TestRecordInteger:
+	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD_INTEGER)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_RECORD_INTEGER) $(JUNIT_TESTS_RECORD_INTEGER)
+	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecordInteger
+
+TestRecordDouble:
+	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD_DOUBLE)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_RECORD_DOUBLE) $(JUNIT_TESTS_RECORD_DOUBLE)
+	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecordDouble
+
+TestRecordLong:
+	javac -d $(CLASS_OUTPUT) $(CLASS_RECORD_LONG)
+	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_RECORD_LONG) $(JUNIT_TESTS_RECORD_LONG)
+	java -cp $(JUNIT_JARS):$(CLASS_OUTPUT) org.junit.runner.JUnitCore test.TestRecordLong
+
 
 TestRanking:
 	javac -d $(CLASS_OUTPUT) $(CLASS_RANKING)
