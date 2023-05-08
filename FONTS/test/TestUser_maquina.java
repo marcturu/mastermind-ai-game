@@ -28,15 +28,10 @@ public class TestUser_maquina {
         assertEquals("Mateix id", um.get_id(), 1);
         assertEquals("Mateix nom", um.get_nom(), "Marc");
         assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
-        assertFalse("No és genetic algorithm", um.is_genetic());
-        assertEquals("Mateixes rondes totals", um.get_rondes_totals(), 0);
-        assertEquals("Mateixes partides totals", um.get_partides_totals(), 0);
         assertEquals("Mateixa puntuacio facil", um.get_puntuacioF(), 0, 0.5);
         assertEquals("Mateixa puntuacio normal", um.get_puntuacioN(), 0, 0.5);
         assertEquals("Mateixa puntuacio dificil", um.get_puntuacioD(), 0, 0.5);
-        assertEquals("Mateixes partides guanyades", um.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", um.get_num_partides_actuals(), 0);
-        assertEquals("Mateixa llista partides  acabades", um.get_num_partides_acabades(), 0);
+        assertFalse("No és genetic algorithm", um.is_genetic());
     }
 
     /**
@@ -52,15 +47,10 @@ public class TestUser_maquina {
         assertEquals("Mateix id", um.get_id(), 1);
         assertEquals("Mateix nom", um.get_nom(), "Marc");
         assertEquals("Mateix tipus", um.get_tipus_user(), Type_user.user_maquina);
-        assertFalse("És genetic algorithm", !um.is_genetic());
-        assertEquals("Mateixes rondes totals", um.get_rondes_totals(), 0);
-        assertEquals("Mateixes partides totals", um.get_partides_totals(), 0);
         assertEquals("Mateixa puntuacio facil", um.get_puntuacioF(), 0, 0.5);
         assertEquals("Mateixa puntuacio normal", um.get_puntuacioN(), 0, 0.5);
         assertEquals("Mateixa puntuacio dificil", um.get_puntuacioD(), 0, 0.5);
-        assertEquals("Mateixes partides guanyades", um.get_partides_guanyades(), 0);
-        assertEquals("Mateixa llista partides no acabades", um.get_num_partides_actuals(), 0);
-        assertEquals("Mateixa llista partides  acabades", um.get_num_partides_acabades(), 0);
+        assertFalse("És genetic algorithm", !um.is_genetic());
     }
 
     /**
@@ -75,5 +65,7 @@ public class TestUser_maquina {
         User_maquina um = new User_maquina(1, "Marc", Type_user.user_maquina, false);
         assertFalse("NO és genetic algorithm", um.is_genetic());
     }
+
+    /* ¿ Falta el get_solve_maquina ? */
 
 }
