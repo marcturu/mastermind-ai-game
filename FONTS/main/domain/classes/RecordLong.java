@@ -12,7 +12,7 @@ public class RecordLong extends Record{
      */
     public RecordLong(String nom_record, String modalitat) {
         super(nom_record, modalitat);    
-        temps_record = (Long)dificultats.from_string_to_dif(modalitat).get_temps_max();
+        temps_record = (Long)(dificultats.from_string_to_dif(modalitat).get_temps_max());
     }
     
     /**
