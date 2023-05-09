@@ -137,15 +137,15 @@ public class TestUser {
     @Test
     public void test_set_puntuacio() {
         User u = new User(1, "Marc", Type_user.user_persona);
-        u.set_puntuacio(50, "facil");
+        u.set_puntuacio(50.0, "facil");
         assertEquals(u.get_puntuacioF(), 50.0, 0.5);
-        u.set_puntuacio(50, "normal");
+        u.set_puntuacio(50.0, "normal");
         assertEquals(u.get_puntuacioN(), 50.0, 0.5);
-        u.set_puntuacio(50, "dificil");
+        u.set_puntuacio(50.0, "dificil");
         assertEquals(u.get_puntuacioD(), 50.0, 0.5);
         //Si és negatiu, és 0:
         User u2 = new User(2, "Ferran", Type_user.user_persona);
-        u2.set_puntuacio(-50, "dificil");
+        u2.set_puntuacio(-50.0, "dificil");
         assertEquals(u2.get_puntuacioD(), 0.0, 0.5);
     }
 

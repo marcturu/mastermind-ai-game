@@ -213,9 +213,9 @@ public class TestUser_persona {
         u1.set_partida_acabada(partida_nova2, true, dificultats.FACIL.get_dificultat());
         Partida partida_nova3 = new Partida(3, u1, u2, dificultats.FACIL, true);
         u1.set_partida_acabada(partida_nova3, true, dificultats.FACIL.get_dificultat());
-        List<Integer> list = new ArrayList<>();
-        list.add(1); list.add(2); list.add(3);
-        assertEquals("Mateixos ids partides acabades", u1.get_ids_partides_acabades(), list);
+        // List<Integer> list = new ArrayList<>(); list.add(1); list.add(2); list.add(3);
+        List<Integer> intList = Arrays.asList(1, 2, 3);
+        assertEquals("Mateixos ids partides acabades", u1.get_ids_partides_acabades(), intList);
     }
 
     /**
@@ -236,9 +236,9 @@ public class TestUser_persona {
         u1.afegir_partida_nova(partida_nova2);
         Partida partida_nova3 = new Partida(3, u1, u2, dificultats.FACIL, true);
         u1.afegir_partida_nova(partida_nova3);
-        List<Integer> list = new ArrayList<>();
-        list.add(1); list.add(2); list.add(3);
-        assertEquals("Mateixos ids partides no acabades", u1.get_ids_partides_actives(), list);
+        //List<Integer> list = new ArrayList<>(); list.add(1); list.add(2); list.add(3);
+        List<Integer> intList = Arrays.asList(1, 2, 3);
+        assertEquals("Mateixos ids partides no acabades", u1.get_ids_partides_actives(), intList);
     }
 
     /**
