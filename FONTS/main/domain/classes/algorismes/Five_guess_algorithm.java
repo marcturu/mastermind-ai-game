@@ -4,22 +4,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Five_guess_algorithm implements Maquina{
+//import main.domain.classes.Sequencia;
+//import main.domain.classes.Sequencia_verificacio;
+//import main.domain.classes.enumerations.colors;
+
+public class Five_guess_algorithm{
+
+    private static int codeLength = 4;
 
 //    public static void main(String[] args) {
-//        List<Integer> solution = Arrays.asList(6, 3, 1, 9); // Aquí se define la solución
+//        List<Integer> solution = Arrays.asList(1, 3, 5, 1); // Aquí se define la solución
 //        printList(solution);
 //        System.out.println("this is the solution, lets see how we got there:");
 //
-//        List<List<Integer>> guesses = solve(solution);
+//        List<List<Integer>> guesses = solve_t(solution);
 //        for (List<Integer> guess : guesses) {
 //            System.out.println(guess.toString());
 //        }
 //    }
 
-    public List<List<Integer>> solve(List<Integer> solution) {
+    public static List<List<Integer>> solve_t(List<Integer> solution) {
         List<List<Integer>> guesses = new ArrayList<>();
-        Integer[] colors = {1, 2, 3, 4, 5, 6, 8}; // Aquí se define el número de colores
+        Integer[] colors = {1, 2, 3, 4, 5, 6}; // Aquí se define el número de colores
 
         List<List<Integer>> possibleCodes = generateCodes(Arrays.asList(colors), solution.size());
 
@@ -32,7 +38,7 @@ public class Five_guess_algorithm implements Maquina{
         while (!guess.equals(solution)) {
             possibleCodes = filterCodes(possibleCodes, guess, result);
 
-            guess = minimax(possibleCodes);
+            guess = getBestGuess(possibleCodes);
 
             result = getResult(guess, solution);
             guesses.add(guess);
@@ -92,6 +98,32 @@ public class Five_guess_algorithm implements Maquina{
         return result;
     }
 
+//    private static List<Integer> getResultActualitzat(List<Integer> guess, List<Integer> solution) {
+//
+//        Sequencia_verificacio sequencia = new Sequencia_verificacio();
+//
+//        colors[] guess_transformed = new colors[guess.size()];
+//
+//        for(int i = 0; i < guess.size(); ++i) {
+//            guess_transformed[i] = colors.get_color_by_id(guess.get(i));
+//        }
+//
+//        colors[] solution_transformed = new colors[guess.size()];
+//
+//        for(int i = 0; i < guess.size(); ++i) {
+//            solution_transformed[i] = colors.get_color_by_id(guess.get(i));
+//        }
+//
+//        Pair<Integer,Integer> result_pair = sequencia.get_verificacio(guess_transformed, solution_transformed);
+//
+//        List<Integer> result = new ArrayList<>();
+//
+//        result.add(result_pair[0]);
+//        result.add(result_pair[1]);
+//
+//        return result;
+//    }
+
     /**
      * Función que filtra de todos los codigos posibles los que tienen el mismo resultado que la intentada
      *
@@ -117,32 +149,68 @@ public class Five_guess_algorithm implements Maquina{
      * @param una lista de posibles soluciones
      * @return la mejor solucion posible dada una lista de posibles soluciones
      */
-    private static List<Integer> minimax(List<List<Integer>> possibleCodes) {
+    public static List<Integer> getBestGuess(List<List<Integer>> possibleCodes) {
+        int minMax = Integer.MAX_VALUE;
         List<Integer> bestGuess = null;
-        int minmax = Integer.MAX_VALUE;
 
-        for (List<Integer> guess : possibleCodes) {
-            int[] score = new int[5];
-
-            for (List<Integer> code : possibleCodes) {
-                score[getResult(guess, code).get(0)]++;
+        for (List<Integer> code : possibleCodes) {
+            // Calcula el nombre maxim de posiblitats que queden despres d'aquesta intentada
+            int maxRemaining = Integer.MIN_VALUE;
+            for (int i = 0; i < possibleCodes.size(); i++) {
+                List<Integer> possibleCode = possibleCodes.get(i);
+                int[] score = getScore(code, possibleCode);
+                if (!Arrays.equals(score, new int[] { codeLength, 0 })) {
+                    int remaining = 0;
+                    for (List<Integer> nextPossibleCode : possibleCodes) {
+                        if (!Arrays.equals(score, getScore(code, nextPossibleCode))) {
+                            remaining++;
+                        }
+                    }
+                    maxRemaining = Math.max(maxRemaining, remaining);
+                }
             }
-
-            int maxScore = Arrays.stream(score).max().getAsInt();
-
-            if (maxScore < minmax) {
-                minmax = maxScore;
-                bestGuess = guess;
+            // Esculleix la quess que te menys posibilitats que queden maximes
+            if (maxRemaining < minMax) {
+                minMax = maxRemaining;
+                bestGuess = code;
             }
         }
 
         return bestGuess;
     }
 
-    public static void printList(List<Integer> list) {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.print(list.get(i) + " ");
+    /**
+     * Función que devuelve el resultado (blancas y negras) de una posible solucion
+     *
+     * @param colors intento y solucion
+     * @return lista el resultado (blancas y negras) de una posible solucion
+     */
+    private static int[] getScore(List<Integer> guess, List<Integer> secretCode) {
+        int[] score = new int[2];
+        boolean[] usedSecret = new boolean[codeLength];
+        boolean[] usedGuess = new boolean[codeLength];
+        // Matches exactes
+        for (int i = 0; i < codeLength; i++) {
+            if (guess.get(i).equals(secretCode.get(i))) {
+                score[0]++;
+                usedSecret[i] = true;
+                usedGuess[i] = true;
+            }
         }
-        System.out.println();
+        // Matches parcials
+        for (int i = 0; i < codeLength; i++) {
+            if (!usedGuess[i]) {
+                for (int j = 0; j < codeLength; j++) {
+                    if (!usedSecret[j] && guess.get(i).equals(secretCode.get(j))) {
+                        score[1]++;
+                        usedSecret[j] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return score;
     }
+
+
 }
