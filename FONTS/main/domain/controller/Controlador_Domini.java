@@ -68,18 +68,6 @@ public class Controlador_Domini {
     /**
      * Pre: Es rep un nom d'usuari d'usuari i un password
      * Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
-     * @param nom
-     * @param password
-     */
-    
-    public void inicialitzaUserPersona(String nom, String password) {
-        Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
-        hashUsers.putIfAbsent(nom, Usuari);
-    }
-
-    /**
-     * Pre: Es rep un nom d'usuari d'usuari i un password
-     * Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
     
      * @param nom
      * @param password
@@ -108,6 +96,16 @@ public class Controlador_Domini {
     public void registra_UserMaquina_fiveguess() {
         User Maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
         hashUsers.putIfAbsent("Five-Guess", Maq);
+    }
+
+    /**
+     * Funcio per a registrar un usuari amb nom = nom_usuari i password = password
+     * @param nom_usuari nom de l'usuari
+     * @param password password de l'usuari
+     */
+    public void register(String nom_usuari, String password) {
+        Usuari = new User_persona(hashUsers.size() + 1, nom_usuari, Type_user.user_persona, password);
+        hashUsers.putIfAbsent(nom_usuari, Usuari);
     }
 
     /**

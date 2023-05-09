@@ -6,7 +6,9 @@ import main.domain.classes.enumerations.Type_user;
 public class User_persona extends User {
     private String password;
     private double puntuaciopvp;
-    private int streak;
+    private int streakF;
+    private int streakN;
+    private int streakD;
     private int num_rondes_totals;
     private int num_partides_totals;
     private int num_partides_guanyades;
@@ -26,7 +28,9 @@ public class User_persona extends User {
         
         this.password = password;
         this.puntuaciopvp = 0.0;
-        this.streak = 0;
+        this.streakF = 0;
+        this.streakN = 0;
+        this.streakD = 0;
         this.num_rondes_totals = 0;
         this.num_partides_totals = 0;
         this.num_partides_guanyades = 0;
@@ -46,7 +50,9 @@ public class User_persona extends User {
 
         this.password = null;
         this.puntuaciopvp = 0.0;
-        this.streak = 0;
+        this.streakF = 0;
+        this.streakN = 0;
+        this.streakD = 0;
         this.num_rondes_totals = 0;
         this.num_partides_totals = 0;
         this.num_partides_guanyades = 0;
@@ -63,11 +69,27 @@ public class User_persona extends User {
     }
 
     /**
-     * getter de la "ratxa" d'un usuari
-     * @return el número de partides seguides que ha guanyat un usuari
+     * getter de la "ratxaF" d'un usuari
+     * @return el número de partides seguides que ha guanyat un usuari en partides de dificultat fàcil
      */
-    public int get_streak() {
-        return this.streak;
+    public int get_streakF() {
+        return this.streakF;
+    }
+
+    /**
+     * getter de la "ratxaN" d'un usuari
+     * @return el número de partides seguides que ha guanyat un usuari en partides de dificultat normal
+     */
+    public int get_streakN() {
+        return this.streakN;
+    }
+
+    /**
+     * getter de la "ratxaD" d'un usuari
+     * @return el número de partides seguides que ha guanyat un usuari en partides de dificultat difícil
+     */
+    public int get_streakD() {
+        return this.streakD;
     }
 
     /**
@@ -199,15 +221,47 @@ public class User_persona extends User {
     /**
      * Funció que serveix per incrementar en 1 unitat el streak (ratxa) de l'usuari quan ha guanyat
      */
-    public void incrementar_streak() {
-        this.streak++;
+    public void incrementar_streak(String dificultat) {
+            switch (dificultat) {
+                case "1":
+                case "facil": {
+                    this.streakF++;
+                    break;
+                }
+                case "2":
+                case "normal": {
+                    this.streakN++;
+                    break;
+                }
+                case "3":
+                case "dificil": {
+                    this.streakD++;
+                    break;
+                }
+            }
     }
 
     /**
      * Funció que serveix per reiniciar el streak (ratxa) de l'usuari quan ha perdut
      */
-    public void reiniciar_streak() {
-        this.streak = 0;
+    public void reiniciar_streak(String dificultat) {
+        switch (dificultat) {
+            case "1":
+            case "facil": {
+                this.streakF = 0;
+                break;
+            }
+            case "2":
+            case "normal": {
+                this.streakN = 0;
+                break;
+            }
+            case "3":
+            case "dificil": {
+                this.streakD = 0;
+                break;
+            }
+        }
     }
 
     /**
