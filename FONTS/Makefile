@@ -48,7 +48,8 @@ CLASS_RONDA = ./main/domain/classes/Sequencia.java \
               	./main/domain/classes/enumerations/colors.java \
 				./main/domain/classes/Ronda.java \
                 ./main/domain/classes/Sequencia_intentada.java \
-                ./main/domain/classes/Sequencia_verificacio.java
+                ./main/domain/classes/Sequencia_verificacio.java \
+                ./main/domain/classes/types/Pair.java
 
 CLASS_USER = ./main/domain/classes/Partida.java \
 			./main/domain/classes/User.java \
