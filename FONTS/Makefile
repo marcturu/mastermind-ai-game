@@ -29,8 +29,11 @@ CLASS_PARTIDA = ./main/domain/classes/Partida.java \
 				./main/domain/classes/types/Pair.java
 
 CLASS_SEQUENCIA = ./main/domain/classes/Sequencia.java \
+				  ./main/domain/classes/Sequencia_verificacio.java \
+				  ./main/domain/classes/Sequencia_intentada.java \
 				  ./main/domain/classes/enumerations/colors.java \
-				  ./main/domain/classes/enumerations/type_seq.java
+				  ./main/domain/classes/types/Pair.java
+
 
 CLASS_RONDA = ./main/domain/classes/Sequencia.java \
               	./main/domain/classes/enumerations/colors.java \

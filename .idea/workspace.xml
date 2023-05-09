@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5cc8ead5-cd7c-433c-9b28-aa71f13f7774" name="Changes" comment="error test" />
+    <list default="true" id="5cc8ead5-cd7c-433c-9b28-aa71f13f7774" name="Changes" comment="error test">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FONTS/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/FONTS/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FONTS/main/domain/classes/Sequencia_verificacio.java" beforeDir="false" afterPath="$PROJECT_DIR$/FONTS/main/domain/classes/Sequencia_verificacio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FONTS/test/TestSequencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/FONTS/test/TestSequencia.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,6 +83,7 @@
       <workItem from="1681417146971" duration="18939000" />
       <workItem from="1681471542595" duration="6432000" />
       <workItem from="1681487662579" duration="27659000" />
+      <workItem from="1683628483812" duration="1271000" />
     </task>
     <task id="LOCAL-00014" summary="modificacio colors, sequencia i creacio testos">
       <created>1680121461440</created>
