@@ -58,21 +58,6 @@ public class panel_login extends JPanel{
     }
 
     /**
-     * accio que es realitza quan es prem el boto de confirmar
-     * @param e accio de l'event
-     */
-    private void actionPerformed_botoConfirmar(ActionEvent e) {
-        if(input_entrat()) {
-            try{
-            ctrlPresentacio.crida_a_login_domini(username.getText(), password.getText());
-            ctrlPresentacio.canvia_a_menu_principal();
-            }catch(Exception ex) {
-                System.out.println("L'usuari no existeix, registrat o comprova que hagis entrat bé les credencials");
-            }
-        }
-    }
-
-    /**
      * funcio per inicialitzar els listeners del panell
      */
     private void set_up_listeners() {
@@ -80,7 +65,14 @@ public class panel_login extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 String text = ((JButton) e.getSource()).getText();
                 System.out.println("Has apretat: " + text);
-                actionPerformed_botoConfirmar(e);
+                if(input_entrat()) {
+                    try{
+                    ctrlPresentacio.crida_a_login_domini(username.getText(), password.getText());
+                    ctrlPresentacio.canvia_a_menu_principal();
+                    }catch(Exception ex) {
+                        System.out.println("L'usuari no existeix, registrat o comprova que hagis entrat bé les credencials");
+                    }
+                }
             }
         });
 
@@ -102,12 +94,5 @@ public class panel_login extends JPanel{
         this.ctrlPresentacio = ctrlPresentacio;
         set_up_ui();
         set_up_listeners();
-    }
-
-    /**
-     * funcio per a fer visible el panell
-     */
-    public void fes_visible() {
-        setVisible(true);
     }
 }
