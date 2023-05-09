@@ -31,22 +31,18 @@ public class Sequencia_verificacio extends Sequencia {
      * @return espigues blanques i negres que ha fet la sequencia
      */
     public Pair<Integer,Integer> get_verificacio(colors[] arr_solucio, colors[] array) {
-        colors[] aux = array;
         Integer blanques = 0, negres = 0;
         Pair<Integer,Integer> result = new Pair<>(blanques, negres);
 
         for(int i = 0; i < 4; ++i) {
-            if (arr_solucio[i] == aux[i]) {
-                ++negres;
-                aux[i] = colors.NULL;
-            }
-        }
-
-        for (int i = 0; i < 4; ++i){
-            for(int j = 0; j < 4; ++j) {
-                if(arr_solucio[i] == aux[j]) {
-                    ++blanques;
-                    aux[j] = colors.NULL;
+            if(arr_solucio[i] == array[i]) ++negres;
+            else {
+                boolean done = false;
+                for(int j = 0; j < 4 && !done; ++j) {
+                    if(array[i] == arr_solucio[j]) {
+                        ++blanques;
+                        done = true;
+                    }
                 }
             }
         }
