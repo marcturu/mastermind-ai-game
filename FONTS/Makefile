@@ -120,7 +120,7 @@ all:
 driver:
 	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT) ./drivers/Driver.java
 	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
-	java -jar $(JAR_OUTPUT)Driver_algorisme.jar
+	java -jar $(JAR_OUTPUT)Driver.jar
 
 driver_algorisme:
 	javac -d $(CLASS_OUTPUT) $(CLASS_DRIVER_ALGO) ./drivers/driver_algorisme.java
