@@ -7,6 +7,8 @@ import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.dificultats;
 
 import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
