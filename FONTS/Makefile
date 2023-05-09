@@ -61,7 +61,6 @@ CLASS_USER = ./main/domain/classes/Partida.java \
             ./main/domain/classes/Ronda.java \
             ./main/domain/classes/Sequencia.java \
             ./main/domain/classes/types/Pair.java \
-            ./main/domain/classes/enumerations/type_seq.java \
 			./main/domain/classes/algorismes/Five_guess_algorithm.java \
 			./main/domain/classes/algorismes/Maquina.java \
             ./main/domain/classes/Sequencia_intentada.java \
