@@ -91,9 +91,9 @@ public class User {
 
         if (guanyat) {
             incrementar_partides_guanyades();
-            incrementar_streak();
+            incrementar_streak(dificultat);
         }
-        else reiniciar_streak();
+        else reiniciar_streak(dificultat);
 
         afegeix_partida_acabada(partida_acabada);
         elimina_partida_no_acabada(partida_acabada);
@@ -282,13 +282,13 @@ public class User {
     /**
      * Funció que serveix per incrementar en 1 unitat el streak (ratxa) de l'usuari quan ha guanyat (redefinida a User_persona)
      */
-    public void incrementar_streak() {
+    public void incrementar_streak(String dificultat) {
     }
 
     /**
      * Funció que serveix per reiniciar el streak (ratxa) de l'usuari quan ha perdut (redefinida a User_persona)
      */
-    public void reiniciar_streak() {
+    public void reiniciar_streak(String dificultat) {
     }
 
     /**

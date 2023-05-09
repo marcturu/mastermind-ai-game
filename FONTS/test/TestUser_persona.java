@@ -37,7 +37,9 @@ public class TestUser_persona {
         assertEquals("Mateixa puntuacioD", up.get_puntuacioD(), 0.0, 0.5);
         assertEquals("Mateix password", up.validate_password("password123"), true);
         assertEquals("Mateixa puntuacioPvsP", up.get_puntuaciopvp(), 0.0, 0.5);
-        assertEquals("Mateix streak", up.get_streak(), 0);
+        assertEquals("Mateix streakF", up.get_streakF(), 0);
+        assertEquals("Mateix streakN", up.get_streakN(), 0);
+        assertEquals("Mateix streakD", up.get_streakD(), 0);
         assertEquals("Mateixes rondes totals", up.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", up.get_partides_totals(), 0);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
@@ -63,7 +65,9 @@ public class TestUser_persona {
         assertEquals("Mateixa puntuacioN", up.get_puntuacioN(), 0.0, 0.5);
         assertEquals("Mateixa puntuacioD", up.get_puntuacioD(), 0.0, 0.5);
         assertEquals("Mateixa puntuacioPvsP", up.get_puntuaciopvp(), 0.0, 0.5);
-        assertEquals("Mateix streak", up.get_streak(), 0);
+        assertEquals("Mateix streakF", up.get_streakF(), 0);
+        assertEquals("Mateix streakN", up.get_streakN(), 0);
+        assertEquals("Mateix streakD", up.get_streakD(), 0);
         assertEquals("Mateixes rondes totals", up.get_rondes_totals(), 0);
         assertEquals("Mateixes partides totals", up.get_partides_totals(), 0);
         assertEquals("Mateixes partides guanyades", up.get_partides_guanyades(), 0);
@@ -84,15 +88,39 @@ public class TestUser_persona {
     }
 
     /**
-     *Objecte de la prova: Test de la funció get_streak
+     *Objecte de la prova: Test de la funció get_streakF
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
-     * Operativa: Creem un nou User amb els paràmetres indicats. Després verifiquem que el streak inicialitzat amb la creadora és el que correspon.
+     * Operativa: Creem un nou User amb els paràmetres indicats. Després verifiquem que el streakF inicialitzat amb la creadora és el que correspon.
      */
     @Test
-    public void test_get_streak() {
+    public void test_get_streakF() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
-        assertEquals(0.0, up.get_streak(), 1.0);
+        assertEquals(0.0, up.get_streakF(), 1.0);
+    }
+
+    /**
+     *Objecte de la prova: Test de la funció get_streakN
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
+     * Operativa: Creem un nou User amb els paràmetres indicats. Després verifiquem que el streakN inicialitzat amb la creadora és el que correspon.
+     */
+    @Test
+    public void test_get_streakN() {
+        User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
+        assertEquals(0.0, up.get_streakN(), 1.0);
+    }
+
+    /**
+     *Objecte de la prova: Test de la funció get_streakD
+     * Fitxers de dades necessaris: Dades introduïdes manualment.
+     * Valors estudiats: Estrategia de caixa blanca. Conceixem els parametres que té la classe User_persona
+     * Operativa: Creem un nou User amb els paràmetres indicats. Després verifiquem que el streakD inicialitzat amb la creadora és el que correspon.
+     */
+    @Test
+    public void test_get_streakD() {
+        User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
+        assertEquals(0.0, up.get_streakD(), 1.0);
     }
 
     /**
@@ -323,30 +351,34 @@ public class TestUser_persona {
      * Objecte de la prova: Test de la funció incrementar_streak.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
-     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor streak és l'esperat (1) després d'augmentar-lo en 1a unitat.
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor streak és l'esperat (1) després d'augmentar-lo en 1a unitat en totes les seves respectives dificultats.
      */
     @Test
     public void test_incrementar_streak() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
-        up.incrementar_streak();
-        assertEquals("Mateix streak després d'incrementar-lo", up.get_streak(), 1);
+        up.incrementar_streak("facil");
+        assertEquals("Mateix streak després d'incrementar-lo", up.get_streakF(), 1);
+        up.incrementar_streak("normal");
+        assertEquals("Mateix streak després d'incrementar-lo", up.get_streakN(), 1);
+        up.incrementar_streak("dificil");
+        assertEquals("Mateix streak després d'incrementar-lo", up.get_streakD(), 1);
     }
 
     /**
      * Objecte de la prova: Test de la funció reiniciar_streak.
      * Fitxers de dades necessaris: Dades introduïdes manualment.
      * Valors estudiats: Estrategia caixa gris. Sabem l'estructura de la classe, però no quin sera el comportament de la funció.
-     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor streak és l'esperat (0) després d'augmentar-lo en dues unitats i reiniciar-lo, posteriorment.
+     * Operativa: Creem un nou user amb paràmetres, comprovem que el contingut del valor streak streakF (en aquest cas) és l'esperat (0) després d'augmentar-lo en dues unitats i reiniciar-lo, posteriorment.
      */
     @Test
     public void test_reiniciar_streak() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
-        up.incrementar_streak();
-        assertEquals("Mateix streak després d'incrementar-lo", up.get_streak(), 1);
-        up.incrementar_streak();
-        assertEquals("Mateix streak després d'incrementar-lo", up.get_streak(), 2);
-        up.reiniciar_streak();
-        assertEquals("Mateix streak després de reiniciar-lo", up.get_streak(), 0);
+        up.incrementar_streak("facil");
+        assertEquals("Mateix streak després d'incrementar-lo", up.get_streakF(), 1);
+        up.incrementar_streak("facil");
+        assertEquals("Mateix streak després d'incrementar-lo", up.get_streakF(), 2);
+        up.reiniciar_streak("facil");
+        assertEquals("Mateix streak després de reiniciar-lo", up.get_streakF(), 0);
     }
 
     /**
