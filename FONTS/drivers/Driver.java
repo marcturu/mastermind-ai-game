@@ -1,15 +1,8 @@
 package drivers;
 
-import java.util.ArrayList;
-import main.domain.classes.*;
-import main.domain.classes.types.*;
-import main.domain.classes.enumerations.*;
 import main.domain.controller.Controlador_Domini;
 
-import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
-import java.time.*;
 
 public class Driver {
     private Scanner in = null;
@@ -66,7 +59,7 @@ public class Driver {
                             String password = in.nextLine();
                             while (password.length() == 0) username = in.nextLine();
                             //System.out.println("Usuari No Existeix");
-                            domini.loginUsuari2(username, password);
+                            //domini.loginUsuari2(username, password);
                             ok = true;
                         } catch (Exception ex) {
                             System.out.println(ex.getMessage());
