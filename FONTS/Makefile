@@ -119,13 +119,13 @@ all:
 
 driver:
 	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT) ./drivers/Driver.java
-	jar cmvf drivers/driver_algorisme.mf.mf $(JAR_OUTPUT)Driver_algorisme.jar -C $(CLASS_OUTPUT) .
+	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
 	java -jar $(JAR_OUTPUT)Driver_algorisme.jar
 
 driver_algorisme:
 	javac -d $(CLASS_OUTPUT) $(CLASS_DRIVER_ALGO) ./drivers/driver_algorisme.java
-	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
-	java -jar $(JAR_OUTPUT)Driver.jar
+	jar cmvf drivers/driver_algorisme.mf $(JAR_OUTPUT)driver_algorisme.jar -C $(CLASS_OUTPUT) .
+	java -jar $(JAR_OUTPUT)driver_algorisme.jar
 
 executa_driver:
 		java -jar $(JAR_OUTPUT)Driver.jar
