@@ -33,7 +33,7 @@ public class Controlador_Domini {
     private HashMap<Pair<String,String>, Record> hashRecord;
     private HashMap<String, Ranking> hashRanking;
     private HashMap<Integer, Partida> hashPartida; 
-    private static Controlador_Domini singletonObject;
+    //private static Controlador_Domini singletonObject;
 
     private int ids_partides = 1;
 
@@ -46,7 +46,7 @@ public class Controlador_Domini {
         this.hashRecord = new HashMap<Pair<String,String>, Record>();
         this.hashRanking = new HashMap<String,Ranking>();
 
-        get_CtrlDomini();
+        //get_CtrlDomini();
         registra_UserMaquina_fiveguess();
         inicialitza_rankings();
 
@@ -55,7 +55,7 @@ public class Controlador_Domini {
 
 
     }
-
+/*
     public static Controlador_Domini get_CtrlDomini() {
         if (singletonObject == null) singletonObject = new Controlador_Domini();
         return singletonObject;
@@ -63,7 +63,7 @@ public class Controlador_Domini {
 
     public Controlador_Partida get_Ctrl_Partida() {
         return CtrlPartida;
-    }
+    }*/
 
     /**
      * Pre: Es rep un nom d'usuari d'usuari i un password

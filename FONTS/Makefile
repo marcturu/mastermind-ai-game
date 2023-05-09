@@ -2,7 +2,9 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/classes/enumerations/*.java \
                ./main/domain/classes/types/*.java \
                ./main/domain/controller/*.java \
-               ./main/domain/classes/algorismes/*.java
+               ./main/domain/classes/algorismes/*.java \
+               ./main/persistence/*.java
+
 
 CLASS_DRIVER_ALGO = ./main/domain/classes/algorismes/Five_guess_algorithm.java \
 					./main/domain/classes/algorismes/Genetic_algorithm.java \
@@ -98,6 +100,7 @@ CLASS_USER_PERSONA = ./main/domain/classes/User_persona.java \
 CLASS_OUTPUT = ../EXE/out/
 
 JUNIT_JARS = ../lib/junit-4.12.jar:../lib/hamcrest-core-1.3.jar
+GSON_JARS = ../lib/gson-2.8.5.jar
 
 JUNIT_TESTS_RECORD = ./test/TestRecord.java
 JUNIT_TESTS_RECORD_INTEGER = ./test/TestRecordInteger.java
@@ -118,7 +121,7 @@ all:
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
 driver:
-	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT) ./drivers/Driver.java
+	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT) ./drivers/Driver.java
 	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
 	java -jar $(JAR_OUTPUT)Driver.jar
 
