@@ -4,6 +4,14 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/controller/*.java \
                ./main/domain/classes/algorismes/*.java
 
+CLASS_DRIVER_ALGO = ./main/domain/classes/algorismes/Five_guess_algorithm.java \
+					./main/domain/classes/algorismes/Genetic_algorithm.java \
+					./main/domain/classes/algorismes/Maquina.java \
+					./main/domain/classes/enumerations/colors.java \
+					./main/domain/classes/Sequencia.java \
+					./main/domain/classes/Sequencia_intentada.java \
+					./main/domain/classes/Sequencia_verificacio.java
+
 
 CLASS_RECORD = ./main/domain/classes/Record.java
 
@@ -105,6 +113,11 @@ all:
 
 driver:
 	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT) ./drivers/Driver.java
+	jar cmvf drivers/driver_algorisme.mf.mf $(JAR_OUTPUT)Driver_algorisme.jar -C $(CLASS_OUTPUT) .
+	java -jar $(JAR_OUTPUT)Driver_algorisme.jar
+
+driver_algorisme:
+	javac -d $(CLASS_OUTPUT) $(CLASS_DRIVER_ALGO) ./drivers/driver_algorisme.java
 	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
 	java -jar $(JAR_OUTPUT)Driver.jar
 
