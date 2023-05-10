@@ -18,6 +18,8 @@ import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.types.Pair;
 
+import main.persistence.*;
+
 /**
  * Classe del Controlador de Domin
  * @author Marc Turu (marc.turu@estudiantat.upc.edu)
@@ -32,7 +34,8 @@ public class Controlador_Domini {
     private HashMap<String, User> hashUsers;
     private HashMap<Pair<String,String>, Record> hashRecord;
     private HashMap<String, Ranking> hashRanking;
-    private HashMap<Integer, Partida> hashPartida; 
+    private HashMap<Integer, Partida> hashPartida;
+    private ctrl_user ctrl_user;
     //private static Controlador_Domini singletonObject;
 
     private int ids_partides = 1;
@@ -45,6 +48,7 @@ public class Controlador_Domini {
         this.hashUsers = new HashMap<String, User>();
         this.hashRecord = new HashMap<Pair<String,String>, Record>();
         this.hashRanking = new HashMap<String,Ranking>();
+        this.ctrl_user = new ctrl_user();
 
         //get_CtrlDomini();
         registra_UserMaquina_fiveguess();
@@ -64,6 +68,12 @@ public class Controlador_Domini {
     public Controlador_Partida get_Ctrl_Partida() {
         return CtrlPartida;
     }*/
+
+    public void inicialitzaUserPersona(String nom, String password){
+        Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
+        hashUsers.putIfAbsent(nom, Usuari);
+        ctrl_user.save_list_users(hashUsers);
+    }
 
     /**
      * Pre: Es rep un nom d'usuari d'usuari i un password

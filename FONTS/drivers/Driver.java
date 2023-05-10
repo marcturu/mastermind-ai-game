@@ -43,7 +43,7 @@ public class Driver {
                         System.out.println("Introdueix la teva Nova Contrasenya");
                         String password = in.nextLine();
                         while (password.length() == 0) password = in.nextLine();
-                        //domini.inicialitzaUserPersona(username, password);
+                        domini.inicialitzaUserPersona(username, password);
                         break;
                     }
                 }
@@ -75,7 +75,7 @@ public class Driver {
                             System.out.println("Introdueix la teva Nova Contrasenya");
                             String password = in.nextLine();
                             while (password.length() == 0) password = in.nextLine();
-                            //domini.inicialitzaUserPersona2(username, password);
+                            domini.inicialitzaUserPersona2(username, password);
                             ok = true;
                         } catch (Exception ex) {
                             System.out.println(ex.getMessage());
