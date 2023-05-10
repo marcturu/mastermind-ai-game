@@ -122,7 +122,7 @@ all:
 
 driver:
 	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT) ./drivers/Driver.java
-	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
+	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) . $(GSON_JARS)
 	java -jar $(JAR_OUTPUT)Driver.jar
 
 driver_algorisme:
