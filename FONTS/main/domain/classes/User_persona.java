@@ -15,7 +15,6 @@ public class User_persona extends User {
     protected ArrayList<Integer> llista_partides_no_acabades;
     protected ArrayList<Integer> llista_partides_acabades;
 
-    /EXE/dades/2/acabades/1.JSON
     /**
      * Constructor de la classe user_persona (amb password)
      * @param id Identificador de l'usuari_persona

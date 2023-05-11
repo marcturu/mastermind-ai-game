@@ -31,10 +31,11 @@ public class Controlador_Domini {
     //private User UsuariProves;
     private Record Record;
     private Controlador_Partida CtrlPartida;
-    private HashMap<String, User> hashUsers;
+    private HashMap<String, Integer> hashUsers;
     private HashMap<Pair<String,String>, Record> hashRecord;
     private HashMap<String, Ranking> hashRanking;
     private HashMap<Integer, Partida> hashPartida;
+    private ctrl_list_user ctrl_list_user;
     private ctrl_user ctrl_user;
     //private static Controlador_Domini singletonObject;
 
@@ -45,9 +46,10 @@ public class Controlador_Domini {
         this.Usuari2 = null;
         this.Record = null;
         this.CtrlPartida = new Controlador_Partida();
-        this.hashUsers = new HashMap<String, User>();
+        this.hashUsers = new HashMap<String, Integer>();
         this.hashRecord = new HashMap<Pair<String,String>, Record>();
         this.hashRanking = new HashMap<String,Ranking>();
+        this.ctrl_list_user = new ctrl_list_user();
         this.ctrl_user = new ctrl_user();
 
         //get_CtrlDomini();
@@ -71,8 +73,9 @@ public class Controlador_Domini {
 
     public void inicialitzaUserPersona(String nom, String password){
         Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
-        hashUsers.putIfAbsent(nom, Usuari);
-        ctrl_user.save_list_users(hashUsers);
+        hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
+        ctrl_list_user.save_list_users(hashUsers);
+        ctrl_user.save_users(Usuari);
     }
 
     /**
@@ -88,7 +91,7 @@ public class Controlador_Domini {
                 throw new Exception("Error: Usuario2 ya registrado");
             }
             Usuari2 = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
-            hashUsers.putIfAbsent(nom, Usuari2);
+            hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
     }
 
     /**
@@ -97,7 +100,7 @@ public class Controlador_Domini {
      */
     public void registra_UserMaquina_genetic() {
         User Maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
-        hashUsers.putIfAbsent("Genetic", Maq);
+        hashUsers.putIfAbsent("Genetic", hashUsers.size() + 1);
     }
 
     /**
@@ -105,7 +108,7 @@ public class Controlador_Domini {
      */
     public void registra_UserMaquina_fiveguess() {
         User Maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
-        hashUsers.putIfAbsent("Five-Guess", Maq);
+        hashUsers.putIfAbsent("Five-Guess", hashUsers.size() + 1);
     }
 
     /**
@@ -113,10 +116,10 @@ public class Controlador_Domini {
      * @param nom_usuari nom de l'usuari
      * @param password password de l'usuari
      */
-    public void register(String nom_usuari, String password) {
+   /* public void register(String nom_usuari, String password) {
         Usuari = new User_persona(hashUsers.size() + 1, nom_usuari, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom_usuari, Usuari);
-    }
+    }*/
 
     /**
      * Funcio per a fer el login de l'usuari que inicia la sessio.
@@ -124,7 +127,7 @@ public class Controlador_Domini {
      * @param password
      * @throws Exception
      */
-    public void loginUsuari1(String nom, String password) throws Exception {
+    /*public void loginUsuari1(String nom, String password) throws Exception {
         if (!hashUsers.containsKey(nom)) {
             throw new Exception("Error: L'Usuari1 no existeix");
         }
@@ -137,7 +140,7 @@ public class Controlador_Domini {
         else {
             Usuari = hashUsers.get(nom);
         }
-    }
+    }*/
 
     /**
      * Funcio per a fer e login del segon usuari en cas que es vulgui jugar pvp.
@@ -145,7 +148,7 @@ public class Controlador_Domini {
      * @param password
      * @throws Exception
      */
-    public void loginUsuari2(String nom, String password) throws Exception {
+    /*public void loginUsuari2(String nom, String password) throws Exception {
         if (!hashUsers.containsKey(nom)) {
             throw new Exception("Error: L'Usuari2 no existeix");
         }
@@ -161,13 +164,13 @@ public class Controlador_Domini {
         else {
             Usuari2 = hashUsers.get(nom);
         }
-    }
+    }*/
 
     /**
      * Comprova si l'usuari1 és de tipus maquina. Si no ho és, 
      * @throws User1NoPotSerMaquina
      */
-    public void set_jugador1(String nom_user) throws Exception {
+   /* public void set_jugador1(String nom_user) throws Exception {
         if ((hashUsers.get(nom_user)).get_tipus_user() == Type_user.user_maquina) {
             throw new Exception ("L'usuari1 no pot ser de tipus màquina");
         }
@@ -178,10 +181,10 @@ public class Controlador_Domini {
      * Funcio per a posar el usuari amb nom = nom_usuari com a jugador2.
      * @param nom_user
      */
-    public void set_jugador2(String nom_user)  {
+   /* public void set_jugador2(String nom_user)  {
         //if (get_tipus_user_by_nom_user(nom_user) == Type_user.user_persona && !validate_password_Usuari2_by_user_name(nom_user)) throw new Exception ("Usuari2 no té el mateix password");
         Usuari2 = hashUsers.get(nom_user);
-    }
+    }*/
 
     /**
      * Funcio per a saber quin es el nom de l'usuari que ha batut el record
@@ -223,11 +226,11 @@ public class Controlador_Domini {
         return this.Usuari2.get_tipus_user();
     }
 
-    public Type_user get_tipus_user_by_nom_user(String nom_user) {
+    /*public Type_user get_tipus_user_by_nom_user(String nom_user) {
         //UsuariProves = get_user_by_username(nom_user);
 
         return hashUsers.get(nom_user).get_tipus_user();
-    }
+    }*/
 
     /*
     public boolean get_password_Usuari1() {
@@ -245,19 +248,19 @@ public class Controlador_Domini {
     } */
 
 
-    public int get_rondes_totals_by_nom_user(String nom_user) {
+    /*public int get_rondes_totals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_rondes_totals();
-    }
+    }*/
 
-    public void incrementar_rondes_totals_Usuari1() {
+    /*public void incrementar_rondes_totals_Usuari1() {
         this.Usuari.incrementar_rondes_totals();
-    }
+    }*/
 
-    public int get_partides_totals_by_nom_user(String nom_user) {
+    /*public int get_partides_totals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_partides_totals();
-    }
+    }*/
 
     public void incrementar_partides_totals_Usuari1() {
         this.Usuari.incrementar_partides_totals();
@@ -268,21 +271,21 @@ public class Controlador_Domini {
     }
 
 
-    public double get_puntuacioF_Usuari(String nom_user) {
+    /*public double get_puntuacioF_Usuari(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_puntuacioF();
-    }
+    }*/
 
-    public double get_puntuacioN_by_nom_user(String nom_user) {
+   /* public double get_puntuacioN_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_puntuacioN();
-    }
+    }*/
 
-    public double get_puntuacioD_by_nom_user(String nom_user) {
+   /* public double get_puntuacioD_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_puntuacioD();
     }
-
+*/
     /**
      * @throws MaquinaNoTePuntsPvsP
      *Demana els punts PvsP del Usuari2, es llença MaquinaNoTePuntsPvsP si l'Uusari2 és de tipus user_maquina
@@ -294,7 +297,7 @@ public class Controlador_Domini {
         Usuari.set_puntuacio();
     } */
 
-    public int get_partides_guanyades_by_nom_user(String nom_user) {
+  /*  public int get_partides_guanyades_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_partides_guanyades();
     }
@@ -312,7 +315,7 @@ public class Controlador_Domini {
     public Vector<Double> get_estadistiques_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_estadistiques();
-    }
+    }*/
 
     public Sequencia_intentada get_seq_solucio() {
         return CtrlPartida.get_seq_solucio_partida_actual();
@@ -435,9 +438,9 @@ public class Controlador_Domini {
         return CtrlPartida.get_ultima_ronda_partida_actual();
     }
 
-    public User get_user_by_username(String username) {
-        return hashUsers.get(username);
-    }
+    //public User get_user_by_username(String username) {
+     //   return hashUsers.get(username);
+   // }
 
     /**
      * Consultora d'un record segons el seu nom i la seva modalitat
