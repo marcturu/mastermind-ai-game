@@ -171,7 +171,8 @@ public class User_persona extends User {
         vstats.add((double) get_partides_totals());
         vstats.add((double) get_partides_guanyades());
         vstats.add((double) get_streak());
-        vstats.add((double) (get_rondes_totals()/get_partides_totals()));
+        if (get_partides_totals() != 0) vstats.add((double) (get_rondes_totals()/get_partides_totals()));
+        else vstats.add(-1.0); //Vol dir que no ha jugat cap partida i, conseqüentment, cap ronda
 
         return vstats;
     }
@@ -289,7 +290,7 @@ public class User_persona extends User {
      */
     public void elimina_partida_no_acabada(Partida p){
         int idp = p.get_id();
-        this.llista_partides_no_acabades.remove(idp);
+        this.llista_partides_no_acabades.remove(Integer.valueOf(idp));
     }
 
     /**
