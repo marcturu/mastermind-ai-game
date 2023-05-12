@@ -59,7 +59,7 @@ public class Driver {
                             String password = in.nextLine();
                             while (password.length() == 0) username = in.nextLine();
                             //System.out.println("Usuari No Existeix");
-                            domini.loginUsuari2(username, password);
+                           // domini.loginUsuari2(username, password);
                             ok = true;
                         } catch (Exception ex) {
                             System.out.println(ex.getMessage());
@@ -99,7 +99,9 @@ public class Driver {
         driver.print_login();
         driver.in = new Scanner(System.in);
         String input = driver.in.nextLine();
-        driver.login(input, 1);
-        driver.in.close();
+        while (true){
+            driver.login(input, 1);
+        }
+        //driver.in.close();
     }
 }

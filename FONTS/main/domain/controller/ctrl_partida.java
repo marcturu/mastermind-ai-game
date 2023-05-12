@@ -10,24 +10,23 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-import main.domain.classes.User;
-import main.domain.classes.User_maquina;
-import main.domain.classes.User_persona;
-public class ctrl_user {
+import main.domain.classes.Partida;
 
-    public void save_users(User user){
+public class ctrl_partida {
+
+    public void save_partida(Partida partida){
         Gson gson = new Gson();
 
         try {
-            String dir = "../EXE/dades/users/";
+            String dir = "../EXE/dades/partides/";
             File directori = new File(dir);
             if (!directori.exists()) directori.mkdir();
 
-            String archivo = "../EXE/dades/users/" + Integer.toString(user.get_id()) + ".json";
+            String archivo = "../EXE/dades/partides/" + Integer.toString(partida.get_id()) + ".json";
             FileWriter writer = new FileWriter(archivo);
 
             // Escribimos el objeto en el archivo
-            gson.toJson(user, writer);
+            gson.toJson(partida, writer);
 
             writer.close();
         } catch (IOException e) {
@@ -35,9 +34,9 @@ public class ctrl_user {
         }
     }
 
-    public User carrega_user(int id){
+    public Partida carrega_partida(int id){
         Gson gson = new Gson();
-        String archivo = "../EXE/dades/users/" + Integer.toString(id) + ".json";
+        String archivo = "../EXE/dades/partides/" + Integer.toString(id) + ".json";
 
         String contenido = "";
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
@@ -49,9 +48,9 @@ public class ctrl_user {
             ex.printStackTrace();
         }
 
-        if (!contenido.isEmpty()){;
-            User user = gson.fromJson(contenido,User.class);
-            return user;
+        if (!contenido.isEmpty()){
+            Partida partida = gson.fromJson(contenido,Partida.class);
+            return partida;
         }
         else return null;
 
