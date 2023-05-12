@@ -2,7 +2,17 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/classes/enumerations/*.java \
                ./main/domain/classes/types/*.java \
                ./main/domain/controller/*.java \
-               ./main/domain/classes/algorismes/*.java
+               ./main/domain/classes/algorismes/*.java \
+               ./main/persistence/*.java
+
+
+CLASS_DRIVER_ALGO = ./main/domain/classes/algorismes/Five_guess_algorithm.java \
+					./main/domain/classes/algorismes/Genetic_algorithm.java \
+					./main/domain/classes/algorismes/Maquina.java \
+					./main/domain/classes/enumerations/colors.java \
+					./main/domain/classes/Sequencia.java \
+					./main/domain/classes/Sequencia_intentada.java \
+					./main/domain/classes/Sequencia_verificacio.java
 
 
 CLASS_RECORD = ./main/domain/classes/Record.java
@@ -24,8 +34,9 @@ CLASS_PARTIDA = ./main/domain/classes/Partida.java \
 				./main/domain/classes/enumerations/*.java \
 				./main/domain/classes/Ronda.java \
 				./main/domain/classes/Sequencia.java \
+				./main/domain/classes/Sequencia_intentada.java \
+                ./main/domain/classes/Sequencia_verificacio.java \
 				./main/domain/classes/User.java \
-				./main/domain/classes/enumerations/type_seq.java \
 				./main/domain/classes/types/Pair.java
 
 CLASS_SEQUENCIA = ./main/domain/classes/Sequencia.java \
@@ -37,8 +48,10 @@ CLASS_SEQUENCIA = ./main/domain/classes/Sequencia.java \
 
 CLASS_RONDA = ./main/domain/classes/Sequencia.java \
               	./main/domain/classes/enumerations/colors.java \
-              	./main/domain/classes/enumerations/type_seq.java \
-				./main/domain/classes/Ronda.java
+				./main/domain/classes/Ronda.java \
+                ./main/domain/classes/Sequencia_intentada.java \
+                ./main/domain/classes/Sequencia_verificacio.java \
+                ./main/domain/classes/types/Pair.java
 
 CLASS_USER = ./main/domain/classes/Partida.java \
 			./main/domain/classes/User.java \
@@ -51,9 +64,10 @@ CLASS_USER = ./main/domain/classes/Partida.java \
             ./main/domain/classes/Ronda.java \
             ./main/domain/classes/Sequencia.java \
             ./main/domain/classes/types/Pair.java \
-            ./main/domain/classes/enumerations/type_seq.java \
 			./main/domain/classes/algorismes/Five_guess_algorithm.java \
-			./main/domain/classes/algorismes/Maquina.java
+			./main/domain/classes/algorismes/Maquina.java \
+            ./main/domain/classes/Sequencia_intentada.java \
+            ./main/domain/classes/Sequencia_verificacio.java
 
 
 CLASS_USER_MAQUINA = ./main/domain/classes/User_maquina.java \
@@ -64,10 +78,11 @@ CLASS_USER_MAQUINA = ./main/domain/classes/User_maquina.java \
 					./main/domain/classes/types/Pair.java \
 					./main/domain/classes/enumerations/dificultats.java \
 					./main/domain/classes/enumerations/colors.java \
-					./main/domain/classes/enumerations/type_seq.java \
 					./main/domain/classes/enumerations/Type_user.java \
 					./main/domain/classes/algorismes/Maquina.java \
-					./main/domain/classes/algorismes/Five_guess_algorithm.java
+					./main/domain/classes/algorismes/Five_guess_algorithm.java\
+                    ./main/domain/classes/Sequencia_intentada.java \
+                    ./main/domain/classes/Sequencia_verificacio.java
 
 CLASS_USER_PERSONA = ./main/domain/classes/User_persona.java \
 					./main/domain/classes/User.java \
@@ -77,13 +92,15 @@ CLASS_USER_PERSONA = ./main/domain/classes/User_persona.java \
 					./main/domain/classes/types/Pair.java \
 					./main/domain/classes/enumerations/dificultats.java \
 					./main/domain/classes/enumerations/colors.java \
-					./main/domain/classes/enumerations/type_seq.java \
-					./main/domain/classes/enumerations/Type_user.java 
+					./main/domain/classes/enumerations/Type_user.java \
+                    ./main/domain/classes/Sequencia_intentada.java \
+                    ./main/domain/classes/Sequencia_verificacio.java
 
 
 CLASS_OUTPUT = ../EXE/out/
 
 JUNIT_JARS = ../lib/junit-4.12.jar:../lib/hamcrest-core-1.3.jar
+GSON_JARS = ../lib/gson-2.8.5.jar
 
 JUNIT_TESTS_RECORD = ./test/TestRecord.java
 JUNIT_TESTS_RECORD_INTEGER = ./test/TestRecordInteger.java
@@ -104,9 +121,14 @@ all:
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
 driver:
-	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT) ./drivers/Driver.java
-	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) .
+	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT) ./drivers/Driver.java
+	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) . $(GSON_JARS)
 	java -jar $(JAR_OUTPUT)Driver.jar
+
+driver_algorisme:
+	javac -d $(CLASS_OUTPUT) $(CLASS_DRIVER_ALGO) ./drivers/driver_algorisme.java
+	jar cmvf drivers/driver_algorisme.mf $(JAR_OUTPUT)driver_algorisme.jar -C $(CLASS_OUTPUT) .
+	java -jar $(JAR_OUTPUT)driver_algorisme.jar
 
 executa_driver:
 		java -jar $(JAR_OUTPUT)Driver.jar
