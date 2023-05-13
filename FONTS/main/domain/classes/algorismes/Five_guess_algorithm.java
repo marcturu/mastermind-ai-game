@@ -8,9 +8,9 @@ import java.util.List;
 //import main.domain.classes.Sequencia_verificacio;
 //import main.domain.classes.enumerations.colors;
 
-public class Five_guess_algorithm{
+public class Five_guess_algorithm implements Maquina{
 
-    private static int codeLength = 4;
+    private int codeLength = 4;
 
 //    public static void main(String[] args) {
 //        List<Integer> solution = Arrays.asList(1, 3, 5, 1); // Aquí se define la solución
@@ -23,7 +23,7 @@ public class Five_guess_algorithm{
 //        }
 //    }
 
-    public static List<List<Integer>> solve_t(List<Integer> solution) {
+    public List<List<Integer>> solve(List<Integer> solution) {
         List<List<Integer>> guesses = new ArrayList<>();
         Integer[] colors = {1, 2, 3, 4, 5, 6}; // Aquí se define el número de colores
 
@@ -53,7 +53,7 @@ public class Five_guess_algorithm{
      * @param colors Lista de colores, largada de la solución
      * @return Lista de códigos posibles
      */
-    public static List<List<Integer>> generateCodes(List<Integer> colors, int solutionLength) {
+    public List<List<Integer>> generateCodes(List<Integer> colors, int solutionLength) {
         int numColors = colors.size();
         int numCodes = (int) Math.pow(numColors, solutionLength);
         List<List<Integer>> allCodes = new ArrayList<>();
@@ -79,7 +79,7 @@ public class Five_guess_algorithm{
      * @param colors intento y solucion
      * @return lista el resultado (blancas y negras) de una posible solucion
      */
-    private static List<Integer> getResult(List<Integer> guess, List<Integer> solution) {
+    private List<Integer> getResult(List<Integer> guess, List<Integer> solution) {
         List<Integer> result = new ArrayList<>();
         int correct = 0;
         int misplaced = 0;
@@ -130,7 +130,7 @@ public class Five_guess_algorithm{
      * @param colors Lista de posibles codigos, sequencia intentada y resultado de la intentada
      * @return Lista de codigos posibles y filtrados
      */
-    private static List<List<Integer>> filterCodes(List<List<Integer>> possibleCodes, List<Integer> guess, List<Integer> result) {
+    private List<List<Integer>> filterCodes(List<List<Integer>> possibleCodes, List<Integer> guess, List<Integer> result) {
         List<List<Integer>> filteredCodes = new ArrayList<>();
 
         for (List<Integer> code : possibleCodes) {
@@ -149,7 +149,7 @@ public class Five_guess_algorithm{
      * @param una lista de posibles soluciones
      * @return la mejor solucion posible dada una lista de posibles soluciones
      */
-    public static List<Integer> getBestGuess(List<List<Integer>> possibleCodes) {
+    public List<Integer> getBestGuess(List<List<Integer>> possibleCodes) {
         int minMax = Integer.MAX_VALUE;
         List<Integer> bestGuess = null;
 
@@ -185,7 +185,7 @@ public class Five_guess_algorithm{
      * @param colors intento y solucion
      * @return lista el resultado (blancas y negras) de una posible solucion
      */
-    private static int[] getScore(List<Integer> guess, List<Integer> secretCode) {
+    private int[] getScore(List<Integer> guess, List<Integer> secretCode) {
         int[] score = new int[2];
         boolean[] usedSecret = new boolean[codeLength];
         boolean[] usedGuess = new boolean[codeLength];
