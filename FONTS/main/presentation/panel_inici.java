@@ -73,11 +73,4 @@ public class panel_inici extends JPanel{
         set_up_ui();
         set_up_listeners();    
     }
-
-    /**
-     * Funció que fa visible el panell
-     */
-    public void fes_visible() {
-        setVisible(true);
-    }
 }

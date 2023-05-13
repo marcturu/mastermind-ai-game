@@ -27,10 +27,11 @@ public class Sequencia_verificacio extends Sequencia {
 
     /**
      * Funcio que retorna la verificacio d'una sequencia
-     * @param solucio
+     * @param arr_solucio array de colors que conte la solucio
+     * @param array array de colors que conte la sequencia que volem verificar
      * @return espigues blanques i negres que ha fet la sequencia
      */
-    public Pair<Integer,Integer> get_verificacio(colors[] arr_solucio, colors[] array) {
+    public static Pair<Integer,Integer> get_verificacio(colors[] arr_solucio, colors[] array) {
         colors[] aux = array;
         Integer blanques = 0, negres = 0;
         Pair<Integer,Integer> result = new Pair<>(blanques, negres);

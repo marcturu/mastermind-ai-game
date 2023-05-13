@@ -137,5 +137,36 @@ public class Controlador_Presentacio {
     public List<Pair<Integer, String>> carrega_partides_no_acabades() {
         ctrlDomini.carrega_partides_no_acabades();
     }
+
+    /**
+     * Funcio que crida al controlador de domini per rebre el numero de partides de l'usuari
+     * @return numero de partides de l'usuari
+     */
+    public Integer get_total_games() {
+        return ctrlDomini.get_total_games();
+    }
     
+    /**
+     * Funcio que crida al controlador de domini per rebre el numero de partides guanyades de l'usuari
+     * @return numero de partides guanyades de l'usuari
+     */
+    public Integer get_total_wins() {
+        return ctrlDomini.get_total_wins();
+    }
+
+    /**
+     * Funcio que crida al controlador de domini per rebre el winrate de l'usuari
+     * @return winrate de l'usuari
+     */
+    public Double get_winrate() {
+        return ctrlDomini.get_winrate();
+    }
+
+    /**
+     * Funcio que crida al controlador de domini per rebre el temps mig per partida de l'usuari
+     * @return temps mig per partida de l'usuari
+     */
+    public Long get_avg_time() {
+        return ctrlDomini.get_avg_time();
+    }
 }

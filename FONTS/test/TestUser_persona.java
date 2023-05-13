@@ -264,11 +264,12 @@ public class TestUser_persona {
     @Test
     public void test_get_estadistiques() {
         User_persona up = new User_persona(1, "Marc", Type_user.user_persona);
-        //Vector<Double> stats_prova = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+        //Vector<Double> stats_prova = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0};
         Vector<Double> stats_prova = new Vector<Double>();
-        for(int i = 0; i < 10; ++i) {
+        for(int i = 0; i < 9; ++i) {
             stats_prova.add(0.0);
         }
+        stats_prova.add(-1.0); //-1.0 al últim element vol dir que no ha jugar cap partida
         assertEquals("Mateixes estadístiques", stats_prova, up.get_estadistiques());
     }
 
