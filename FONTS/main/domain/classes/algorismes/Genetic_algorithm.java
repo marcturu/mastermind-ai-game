@@ -10,12 +10,12 @@ import main.domain.classes.enumerations.dificultats;
 
 public class Genetic_algorithm implements Maquina{
 
-    private static final int POPULATION_SIZE = 150;
+    private static final int POPULATION_SIZE = 50;
     private static final double MUTATION_RATE = 0.05;
     private static final double PERMUTATION_RATE = 0.08;
-    private static final int MAX_GENERATIONS = 400; //maxim de generacions que es faran, ns si hauria de ser el num_rondes de la partida
+    private static final int MAX_GENERATIONS = 10; //maxim de generacions que es faran, ns si hauria de ser el num_rondes de la partida
     private static final int TARGET_FITNESS = 40; //cas de tindre 4 negres
-    private static final double ELITISM_RATE = 0.2; //percentatge de la poblacio que es mantindra
+    private static final double ELITISM_RATE = 0.4; //percentatge de la poblacio que es mantindra
 
     private dificultats dificultat;
 
@@ -25,12 +25,17 @@ public class Genetic_algorithm implements Maquina{
     private List<Cromosoma> initPoblacio(List<Integer> sol) {
         List<Cromosoma> population = new ArrayList<Cromosoma>();
         int[] aux = new int[4];
+        int[] aux_sol = new int[4];
+        for(int i = 0; i < 4; ++i) {
+            aux_sol[i] = sol.get(i);
+        }
+
         for(int i = 0; i < POPULATION_SIZE; ++i) {
             for(int j = 0; j < 4; ++j) {
-                aux[j] = (int)Math.random()*dificultat.get_num_colors();
+                aux[j] = (int)(Math.random()*dificultat.get_num_colors());
                 if(aux[j] < 1) aux[j] = 1;//el 0 es null i no es pot fer servir per a generar les combinacions
             }
-            population.add(new Cromosoma(aux, dificultat));
+            population.add(new Cromosoma(aux_sol, dificultat));
         }
         return population;
     }
@@ -41,7 +46,7 @@ public class Genetic_algorithm implements Maquina{
      * @return
      */
     private Cromosoma tria_pare(List<Cromosoma> poblacio) {
-        int index = (int)(Math.random() * (POPULATION_SIZE * ELITISM_RATE)); // agafem cromosoma random en el top 20%
+        int index = (int)(Math.random() * (POPULATION_SIZE * ELITISM_RATE)); // agafem cromosoma random en un percentatge de la poblacio
         Collections.sort(poblacio, Collections.reverseOrder());
         return poblacio.get(index);
     }
@@ -51,7 +56,8 @@ public class Genetic_algorithm implements Maquina{
         List<List<Integer>> sol = new ArrayList<>();
         int[] guess = {1, 1, 2, 3}; //primer guess, normalment aquest es el que dona millor resultat
         Cromosoma best_guess = new Cromosoma(guess, dificultat);
-        if(best_guess.get_fitness() == 40) { //en cas d'encertar a la primera
+        sol.add(Arrays.asList(1, 1, 2, 3));
+        if(best_guess.get_fitness() == TARGET_FITNESS) { //en cas d'encertar a la primera
             sol.add(Arrays.asList(1, 1, 2, 3));
             return sol;
         }
@@ -72,7 +78,9 @@ public class Genetic_algorithm implements Maquina{
             Collections.sort(poblacio, Collections.reverseOrder()); //el que tingui major fitness anira a la posicio 0
             sol.add(poblacio.get(0).get_codi_list());
 
-            if(poblacio.get(0).get_fitness() == TARGET_FITNESS) return sol;
+            if(poblacio.get(0).get_fitness() == TARGET_FITNESS) {
+                return sol;
+            }
         }
 
         return sol;

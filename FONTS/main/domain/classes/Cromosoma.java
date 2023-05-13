@@ -14,9 +14,9 @@ import main.domain.classes.types.Pair;
  */
 
 public class Cromosoma implements Comparable<Cromosoma>{
-    private int[] codi;
-    private int[] solucio;
-    private int fitness; //"punts" del codi
+    private int[] codi = new int[4];
+    private int[] solucio = new int[4];
+    private int fitness = 0; //"punts" del codi
 
     /**
      * Constructora de la classe Cromosoma
@@ -27,10 +27,12 @@ public class Cromosoma implements Comparable<Cromosoma>{
             codi[i] = (int)(Math.random() * dificultat.get_num_colors());
             if(codi[i] < 1) codi[i] = 1; //el 0 es null, no es pot posar
         }
-        fitness = evaluateFitness();
+        
         for(int i = 0; i < 4; ++i) {
             solucio[i] = (int)codi_sol[i];
         }
+        
+        fitness = evaluateFitness();
     }
     
     /**
@@ -85,14 +87,21 @@ public class Cromosoma implements Comparable<Cromosoma>{
      * @param mutation_rate double que representa la probabilitat de mutacio
      */
     public void muta(double mutation_rate, dificultats dificultat) {
-        for(int i = 0; i < 4; ++i) {
+        boolean mutat = false;
+        for(int i = 0; i < 4 && !mutat; ++i) {
             if(Math.random() < mutation_rate) {
                 codi[i] = (int)(Math.random() * dificultat.get_num_colors());
                 if(codi[i] < 1) codi[i] = 1; //el 0 es null, no es pot posar
+                mutat = true;
             }
         }
+        fitness = evaluateFitness();
     }
 
+    /**
+     * Funcio per a fer la permutacio d'un cromosoma
+     * @param permutation_rate double que representa la probabilitat de permuta
+     */
     public void permuta(double permutation_rate) {
         if(Math.random() < permutation_rate) {
             int index1 = (int)(Math.random() * 3); //valor entre 0 i 3 (size = 4)
@@ -103,6 +112,8 @@ public class Cromosoma implements Comparable<Cromosoma>{
             codi[index1] = codi[index2];
             codi[index2] = aux;
         }
+
+        fitness = evaluateFitness();
     }
 
     /**
@@ -116,7 +127,7 @@ public class Cromosoma implements Comparable<Cromosoma>{
 
         Pair<Integer, Integer> result = Sequencia_verificacio.get_verificacio(arr_sol, arr_guess);
 
-        return result.first() * 10 + result.second();
+        return result.first() + 10 * result.second();
     }
 
     /**
