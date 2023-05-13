@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import main.domain.classes.Cromosoma;
+import main.domain.classes.enumerations.dificultats;
 
 public class Genetic_algorithm implements Maquina{
 
@@ -16,6 +17,8 @@ public class Genetic_algorithm implements Maquina{
     private static final int TARGET_FITNESS = 40; //cas de tindre 4 negres
     private static final double ELITISM_RATE = 0.2; //percentatge de la poblacio que es mantindra
 
+    private dificultats dificultat;
+
     /**
      * Funcio per inicialitzar la poblacio de la generacio
      */
@@ -24,9 +27,10 @@ public class Genetic_algorithm implements Maquina{
         int[] aux = new int[4];
         for(int i = 0; i < POPULATION_SIZE; ++i) {
             for(int j = 0; j < 4; ++j) {
-                aux[j] = sol.get(j);
+                aux[j] = (int)Math.random()*dificultat.get_num_colors();
+                if(aux[j] < 1) aux[j] = 1;//el 0 es null i no es pot fer servir per a generar les combinacions
             }
-            population.add(new Cromosoma(aux));
+            population.add(new Cromosoma(aux, dificultat));
         }
         return population;
     }
@@ -46,7 +50,7 @@ public class Genetic_algorithm implements Maquina{
         int generacio = 1;
         List<List<Integer>> sol = new ArrayList<>();
         int[] guess = {1, 1, 2, 3}; //primer guess, normalment aquest es el que dona millor resultat
-        Cromosoma best_guess = new Cromosoma(guess);
+        Cromosoma best_guess = new Cromosoma(guess, dificultat);
         if(best_guess.get_fitness() == 40) { //en cas d'encertar a la primera
             sol.add(Arrays.asList(1, 1, 2, 3));
             return sol;
@@ -58,8 +62,8 @@ public class Genetic_algorithm implements Maquina{
             for(int i = 0; i < POPULATION_SIZE; ++i) {
                 Cromosoma pare1 = tria_pare(poblacio);
                 Cromosoma pare2 = tria_pare(poblacio);
-                Cromosoma fill = pare1.crossover(pare2);
-                fill.muta(MUTATION_RATE);
+                Cromosoma fill = pare1.crossover(pare2, dificultat);
+                fill.muta(MUTATION_RATE, dificultat);
                 fill.permuta(PERMUTATION_RATE);
                 new_poblacio.add(fill);
             }
@@ -74,4 +78,7 @@ public class Genetic_algorithm implements Maquina{
         return sol;
     }
 
+    public Genetic_algorithm(dificultats dif) {
+        dificultat = dif;
+    }
 }

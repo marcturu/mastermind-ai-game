@@ -21,10 +21,10 @@ public class Cromosoma implements Comparable<Cromosoma>{
     /**
      * Constructora de la classe Cromosoma
      */
-    public Cromosoma(int[] codi_sol) {
+    public Cromosoma(int[] codi_sol, dificultats dificultat) {
         codi = new int[4];
         for(int i = 0; i < 4; ++i) {
-            codi[i] = (int)(Math.random() * dificultats.NORMAL.get_num_colors() + 1);
+            codi[i] = (int)(Math.random() * dificultat.get_num_colors());
             if(codi[i] < 1) codi[i] = 1; //el 0 es null, no es pot posar
         }
         fitness = evaluateFitness();
@@ -70,8 +70,8 @@ public class Cromosoma implements Comparable<Cromosoma>{
      * @param cromosoma2 cromosoma amb el que farem l'encreuament
      * @return retorna un cromosoma fill dels dos cromosomes
      */
-    public Cromosoma crossover(Cromosoma cromosoma2) {
-        Cromosoma fill = new Cromosoma(solucio);
+    public Cromosoma crossover(Cromosoma cromosoma2, dificultats dificultat) {
+        Cromosoma fill = new Cromosoma(solucio, dificultat);
         for(int i = 0; i < 4; ++i) {
             if(Math.random() > 0.5) fill.codi[i] = codi[i];
             else fill.codi[i] = cromosoma2.codi[i];
@@ -84,10 +84,10 @@ public class Cromosoma implements Comparable<Cromosoma>{
      * Funcio per a fer la mutacio d'un cromosoma
      * @param mutation_rate double que representa la probabilitat de mutacio
      */
-    public void muta(double mutation_rate) {
+    public void muta(double mutation_rate, dificultats dificultat) {
         for(int i = 0; i < 4; ++i) {
             if(Math.random() < mutation_rate) {
-                codi[i] = (int)(Math.random() * dificultats.NORMAL.get_num_colors() + 1);
+                codi[i] = (int)(Math.random() * dificultat.get_num_colors());
                 if(codi[i] < 1) codi[i] = 1; //el 0 es null, no es pot posar
             }
         }
@@ -97,6 +97,8 @@ public class Cromosoma implements Comparable<Cromosoma>{
         if(Math.random() < permutation_rate) {
             int index1 = (int)(Math.random() * 3); //valor entre 0 i 3 (size = 4)
             int index2 = (int)(Math.random() * 3);
+            while(index1 == index2) index2 = (int)(Math.random() * 3); //valor entre 0 i 3 (size = 4)
+
             int aux = codi[index1];
             codi[index1] = codi[index2];
             codi[index2] = aux;
