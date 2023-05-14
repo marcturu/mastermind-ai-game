@@ -18,7 +18,7 @@ public class ctrl_ranking {
     public void save_ranking(Ranking ranking) {
     }
 
-    public Ranking carrega_record(Dificultats dificultat) {
+    public Ranking carrega_ranking(Dificultats dificultat) {
     }
 
 }
