@@ -127,8 +127,9 @@ driver:
 
 driver_algorisme:
 	javac -d $(CLASS_OUTPUT) $(CLASS_DRIVER_ALGO) ./drivers/driver_algorisme.java
-	jar cmvf drivers/driver_algorisme.mf $(JAR_OUTPUT)driver_algorisme.jar -C $(CLASS_OUTPUT) .
-	java -jar $(JAR_OUTPUT)driver_algorisme.jar
+	jar cmvf drivers/driver_algorisme.mf $(JAR_OUTPUT)Driver_algo.jar -C $(CLASS_OUTPUT) .
+	java -jar $(JAR_OUTPUT)Driver_algo.jar
+
 
 executa_driver:
 		java -jar $(JAR_OUTPUT)Driver.jar

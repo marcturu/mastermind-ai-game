@@ -34,7 +34,7 @@ public class Sequencia_verificacio extends Sequencia {
     public static Pair<Integer,Integer> get_verificacio(colors[] arr_solucio, colors[] array) {
         colors[] aux = array;
         Integer blanques = 0, negres = 0;
-        Pair<Integer,Integer> result = new Pair<>(blanques, negres);
+        
 
         for(int i = 0; i < 4; ++i) {
             if (arr_solucio[i] == aux[i]) {
@@ -51,9 +51,7 @@ public class Sequencia_verificacio extends Sequencia {
                 }
             }
         }
-        result.set_first(blanques);
-        result.set_second(negres);
-        return result;
+        return new Pair<>(blanques, negres);
     }
 
     private Pair<Integer, Integer> get_negres_blanques(colors[] verificacio_entrada) {
