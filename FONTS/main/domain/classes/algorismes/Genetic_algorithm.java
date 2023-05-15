@@ -41,7 +41,7 @@ public class Genetic_algorithm implements Maquina{
      * @return
      */
     private Cromosoma tria_pare(List<Cromosoma> poblacio) {
-        int index = (int)(Math.random() * (POPULATION_SIZE * ELITISM_RATE)); // agafem cromosoma random en un percentatge de la poblacio
+        int index = (int)(Math.random() * (poblacio.size() * ELITISM_RATE)); // agafem cromosoma random en un percentatge de la poblacio
         Collections.sort(poblacio, Collections.reverseOrder());
         return poblacio.get(index);
     }
@@ -50,10 +50,10 @@ public class Genetic_algorithm implements Maquina{
         int generacio = 1;
         List<List<Integer>> sol = new ArrayList<>();
         int[] guess = {1, 1, 2, 3}; //primer guess, normalment aquest es el que dona millor resultat
-        Cromosoma best_guess = new Cromosoma(guess, dificultat);
+        Cromosoma last_guess = new Cromosoma(guess, dificultat);
         sol.add(Arrays.asList(1, 1, 2, 3));
-        if(best_guess.get_fitness() == TARGET_FITNESS) { //en cas d'encertar a la primera
-            sol.add(Arrays.asList(1, 1, 2, 3));
+        if(last_guess.get_fitness() == TARGET_FITNESS) { //en cas d'encertar a la primera
+            sol.add(last_guess.get_codi_list());
             return sol;
         }
         List<Cromosoma> poblacio = initPoblacio(l);
@@ -66,14 +66,18 @@ public class Genetic_algorithm implements Maquina{
                 Cromosoma fill = pare1.crossover(pare2, dificultat);
                 fill.muta(MUTATION_RATE, dificultat);
                 fill.permuta(PERMUTATION_RATE);
-                new_poblacio.add(fill);
+                if(fill.get_fitness() >= last_guess.get_fitness()) {
+                    new_poblacio.add(fill);
+                }
             }
 
             poblacio = new_poblacio;
             Collections.sort(poblacio, Collections.reverseOrder()); //el que tingui major fitness anira a la posicio 0
-            sol.add(poblacio.get(0).get_codi_list());
+            last_guess = poblacio.get(0);
+            sol.add(last_guess.get_codi_list());
 
-            if(poblacio.get(0).get_fitness() == TARGET_FITNESS) {
+            //comprovem si hem encertat
+            if(last_guess.get_fitness() == TARGET_FITNESS) {
                 return sol;
             }
         }

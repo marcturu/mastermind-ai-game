@@ -87,6 +87,18 @@ public class driver_algorisme {
         return input;
     }
 
+    private int pregunta_num_proves() {
+        System.out.println("Quantes proves vols fer?");
+
+        int input = in.nextInt();
+
+        while(input < 1){
+            System.out.println("Introdueix un numero valid");
+            input = in.nextInt();
+        }
+
+        return input;
+    }
 
     //adaptar a les dificultats quan estiguin implementades
     private void test_five_guess(colors[] solucio, int dificultat) {
@@ -141,7 +153,7 @@ public class driver_algorisme {
     }
     
 
-    private void test_genetic(colors[] solucio, int dificultat) {
+    private void test_genetic(colors[] solucio, int dificultat, int num_proves) {
 
         dificultats dif;
         switch(dificultat) {
@@ -168,7 +180,7 @@ public class driver_algorisme {
             colors.add(i+1);
         }
 
-        List<List<Integer>> allCodes = generateRandomCodes(colors, 4);
+        List<List<Integer>> allCodes = generateRandomCodes(colors, 4, num_proves);
         System.out.println("Solucions generades");
 
         for (List<Integer> new_solution : allCodes) {
@@ -201,6 +213,7 @@ public class driver_algorisme {
 
         int dificultat = driver.pregunta_dificultat();
 
+        int num_proves = driver.pregunta_num_proves();
 
         switch(algorisme) {
             case 1: {
@@ -208,7 +221,7 @@ public class driver_algorisme {
                 break;
             }
             case 2: {
-                driver.test_genetic(solucio, dificultat);
+                driver.test_genetic(solucio, dificultat, num_proves);
                 break;
             }
         }
@@ -234,11 +247,11 @@ public class driver_algorisme {
         return allCodes;
     }
 
-    private static List<List<Integer>> generateRandomCodes(List<Integer> colors, int solutionLength) {
+    private static List<List<Integer>> generateRandomCodes(List<Integer> colors, int solutionLength, int num_proves) {
         
         List<List<Integer>> allCodes = new ArrayList<>();
         //generem codis aleatoris que seran la solució
-        for(int i = 0; i < 1; ++i) {
+        for(int i = 0; i < num_proves; ++i) {
             List<Integer> code = new ArrayList<>();
             for(int j = 0; j < solutionLength; ++j) {
                 code.add((int)(Math.random() * colors.size()));
