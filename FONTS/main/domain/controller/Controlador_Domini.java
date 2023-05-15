@@ -2,7 +2,7 @@ package main.domain.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
+//import java.util.Vector;
 
 import main.domain.classes.Partida;
 import main.domain.classes.Ranking;
@@ -54,6 +54,7 @@ public class Controlador_Domini {
 
         //get_CtrlDomini();
         registra_UserMaquina_fiveguess();
+        registra_UserMaquina_genetic();
         inicialitza_rankings();
 
         //inicialitzem els records per a totes les modalitats(facil, normal, dificil, pvp)
@@ -99,7 +100,7 @@ public class Controlador_Domini {
      * Post: Es crea el usuari (maquina genetic) amb els paràmetres que li falten i s'afageix al map.
      */
     public void registra_UserMaquina_genetic() {
-        User Maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
+        new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
         hashUsers.putIfAbsent("Genetic", hashUsers.size() + 1);
     }
 
@@ -107,7 +108,7 @@ public class Controlador_Domini {
      * Funció per a registrar l'usuari Five-Guess, que fa servir l'algorisme de five-guess com a codebreaker.
      */
     public void registra_UserMaquina_fiveguess() {
-        User Maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
+        new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
         hashUsers.putIfAbsent("Five-Guess", hashUsers.size() + 1);
     }
 
@@ -528,6 +529,9 @@ public class Controlador_Domini {
         crea_records_temps();
     }
 
+    /**
+     * Funcio per a inicialitzar els rankings
+     */
     public void inicialitza_rankings() {
         hashRanking.put("facil", new Ranking());
         hashRanking.put("normal", new Ranking());

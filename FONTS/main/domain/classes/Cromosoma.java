@@ -28,9 +28,8 @@ public class Cromosoma implements Comparable<Cromosoma>{
             if(codi[i] < 1) codi[i] = 1; //el 0 es null, no es pot posar
         }
         
-        for(int i = 0; i < 4; ++i) {
-            solucio[i] = (int)codi_sol[i];
-        }
+        solucio = codi_sol;
+        
         
         fitness = evaluateFitness();
     }
@@ -51,6 +50,10 @@ public class Cromosoma implements Comparable<Cromosoma>{
         return codi;
     }
 
+    /**
+     * Funcio que retorna el codi del cromosoma en forma de llista
+     * @return llista amb el codi del cromosoma
+     */
     public List<Integer> get_codi_list() {
         List<Integer> l = new ArrayList<>();
         for(int i = 0; i < 4; ++i) {

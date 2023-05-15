@@ -11,9 +11,9 @@ import main.domain.classes.enumerations.dificultats;
 public class Genetic_algorithm implements Maquina{
 
     private static final int POPULATION_SIZE = 50;
-    private static final double MUTATION_RATE = 0.05;
-    private static final double PERMUTATION_RATE = 0.08;
-    private static final int MAX_GENERATIONS = 10; //maxim de generacions que es faran, ns si hauria de ser el num_rondes de la partida
+    private static final double MUTATION_RATE = 0.03;
+    private static final double PERMUTATION_RATE = 0.03;
+    private static final int MAX_GENERATIONS = 100; //maxim de generacions que es faran, ns si hauria de ser el num_rondes de la partida
     private static final int TARGET_FITNESS = 40; //cas de tindre 4 negres
     private static final double ELITISM_RATE = 0.4; //percentatge de la poblacio que es mantindra
 
@@ -24,17 +24,12 @@ public class Genetic_algorithm implements Maquina{
      */
     private List<Cromosoma> initPoblacio(List<Integer> sol) {
         List<Cromosoma> population = new ArrayList<Cromosoma>();
-        int[] aux = new int[4];
         int[] aux_sol = new int[4];
         for(int i = 0; i < 4; ++i) {
             aux_sol[i] = sol.get(i);
         }
 
         for(int i = 0; i < POPULATION_SIZE; ++i) {
-            for(int j = 0; j < 4; ++j) {
-                aux[j] = (int)(Math.random()*dificultat.get_num_colors());
-                if(aux[j] < 1) aux[j] = 1;//el 0 es null i no es pot fer servir per a generar les combinacions
-            }
             population.add(new Cromosoma(aux_sol, dificultat));
         }
         return population;
