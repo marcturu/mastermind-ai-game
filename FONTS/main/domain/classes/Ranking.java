@@ -13,14 +13,15 @@ import main.domain.classes.types.Pair;
 
 public class Ranking {
     protected LinkedList<Pair<Pair<Double, String>, LocalDate>> rank; //Double: ratio, String: username, LocalDate: data de finalització partida
-
+    private String dificultat;
 
 
     /**
      * Creadora de la classe ranking
      */
-    public Ranking() {
+    public Ranking(String dificultat) {
         rank = new LinkedList<Pair<Pair<Double, String>, LocalDate>>();
+        this.dificultat = dificultat;
     }
 
 
@@ -49,6 +50,10 @@ public class Ranking {
             }
         }
         rank.add(new Pair<>(new Pair<>(punts_usuari, username_jugador), LocalDate.now()));
-
     }
+
+    public String get_rank_difficultat() {
+        return this.dificultat;
+    }
+
 }

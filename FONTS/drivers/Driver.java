@@ -28,10 +28,11 @@ public class Driver {
                             System.out.println("Introdueix Contrasenya");
                             String password = in.nextLine();
                             while (password.length() == 0) username = in.nextLine();
-                            //System.out.println("Usuari No Existeix");
+                            domini.loginUsuari1(username,password);
                         } catch (Exception ex) {
                             System.out.println(ex.getMessage());
                         }
+                        ok = true;
                         break;
                     }
                     case "2":
@@ -44,6 +45,7 @@ public class Driver {
                         String password = in.nextLine();
                         while (password.length() == 0) password = in.nextLine();
                         domini.inicialitzaUserPersona(username, password);
+                        ok = true;
                         break;
                     }
                 }
@@ -99,9 +101,8 @@ public class Driver {
         driver.print_login();
         driver.in = new Scanner(System.in);
         String input = driver.in.nextLine();
-        while (true){
-            driver.login(input, 1);
-        }
+        driver.login(input, 1);
+
         //driver.in.close();
     }
 }

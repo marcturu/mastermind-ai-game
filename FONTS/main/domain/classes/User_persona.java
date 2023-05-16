@@ -178,15 +178,6 @@ public class User_persona extends User {
     }
 
     /**
-     * Funció que serveix per veure si la contrassenya entrada per paràmetre és la mateixa que la de l'usuari_persona
-     * @param password Contrassenya que volem validar
-     * @return Booleà que indica si la constrassenya entrada per paràmetre és la mateixa que la de l'usuari_persona
-     */
-    public boolean validate_password(String password) {
-        return this.password == password;
-    }
-
-    /**
      * Funció que serveix per realitzar modificacions quan una partida ha acabat: actualitzar la puntuació de l'usuari_persona si la dificultata és pvp
      * @param password Contrassenya nova a canviar
      */

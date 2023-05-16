@@ -30,11 +30,11 @@ public class Controlador_Domini {
     private User Usuari2;
     //private User UsuariProves;
     private Record Record;
-    private Controlador_Partida CtrlPartida;
     private HashMap<String, Integer> hashUsers;
     private HashMap<Pair<String,String>, Record> hashRecord;
     private HashMap<String, Ranking> hashRanking;
     private HashMap<Integer, Partida> hashPartida;
+    private Controlador_Partida CtrlPartida;
     private ctrl_list_user ctrl_list_user;
     private ctrl_user ctrl_user;
     //private static Controlador_Domini singletonObject;
@@ -42,19 +42,20 @@ public class Controlador_Domini {
     private int ids_partides = 1;
 
     public Controlador_Domini() {
-        this.Usuari = null;
-        this.Usuari2 = null;
-        this.Record = null;
+        //crides a altres controladors
         this.CtrlPartida = new Controlador_Partida();
-        this.hashUsers = new HashMap<String, Integer>();
-        this.hashRecord = new HashMap<Pair<String,String>, Record>();
-        this.hashRanking = new HashMap<String,Ranking>();
         this.ctrl_list_user = new ctrl_list_user();
         this.ctrl_user = new ctrl_user();
 
+        this.Usuari = null;
+        this.Usuari2 = null;
+        this.Record = null;
+        this.hashUsers = ctrl_list_user.carrega_list_user();
+        this.hashRecord = new HashMap<Pair<String,String>, Record>();
+        this.hashRanking = new HashMap<String,Ranking>();
+
+
         //get_CtrlDomini();
-        registra_UserMaquina_fiveguess();
-        registra_UserMaquina_genetic();
         inicialitza_rankings();
 
         //inicialitzem els records per a totes les modalitats(facil, normal, dificil, pvp)
@@ -72,7 +73,12 @@ public class Controlador_Domini {
         return CtrlPartida;
     }*/
 
+
     public void inicialitzaUserPersona(String nom, String password){
+        if (!hashUsers.containsKey("Genetic") || !hashUsers.containsKey("Five-Gues")){
+            registra_UserMaquina_genetic();
+            registra_UserMaquina_fiveguess();
+        }
         Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
         ctrl_list_user.save_list_users(hashUsers);
@@ -82,17 +88,18 @@ public class Controlador_Domini {
     /**
      * Pre: Es rep un nom d'usuari d'usuari i un password
      * Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
-    
+
      * @param nom
      * @param password
      * @throws Exception
      */
     public void inicialitzaUserPersona2(String nom, String password) throws Exception {
-            if (hashUsers.containsKey(nom)) {
-                throw new Exception("Error: Usuario2 ya registrado");
-            }
-            Usuari2 = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
-            hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
+        if (hashUsers.containsKey(nom)) {
+            throw new Exception("Error: Usuario2 ya registrado");
+        }
+        Usuari2 = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
+        ctrl_user.save_users(Usuari2);
+        hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
     }
 
     /**
@@ -100,7 +107,8 @@ public class Controlador_Domini {
      * Post: Es crea el usuari (maquina genetic) amb els paràmetres que li falten i s'afageix al map.
      */
     public void registra_UserMaquina_genetic() {
-        new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
+        User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
+        ctrl_user.save_users(maq);
         hashUsers.putIfAbsent("Genetic", hashUsers.size() + 1);
     }
 
@@ -108,40 +116,31 @@ public class Controlador_Domini {
      * Funció per a registrar l'usuari Five-Guess, que fa servir l'algorisme de five-guess com a codebreaker.
      */
     public void registra_UserMaquina_fiveguess() {
-        new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
+        User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
+        ctrl_user.save_users(maq);
         hashUsers.putIfAbsent("Five-Guess", hashUsers.size() + 1);
     }
-
-    /**
-     * Funcio per a registrar un usuari amb nom = nom_usuari i password = password
-     * @param nom_usuari nom de l'usuari
-     * @param password password de l'usuari
-     */
-   /* public void register(String nom_usuari, String password) {
-        Usuari = new User_persona(hashUsers.size() + 1, nom_usuari, Type_user.user_persona, password);
-        hashUsers.putIfAbsent(nom_usuari, Usuari);
-    }*/
-
     /**
      * Funcio per a fer el login de l'usuari que inicia la sessio.
      * @param nom
-     * @param password
+     * @param passwordFileWriter writer = new FileWriter(archivo);
      * @throws Exception
      */
-    /*public void loginUsuari1(String nom, String password) throws Exception {
+    public void loginUsuari1(String nom, String password) throws Exception {
         if (!hashUsers.containsKey(nom)) {
             throw new Exception("Error: L'Usuari1 no existeix");
         }
-        else if (hashUsers.get(nom).get_tipus_user() == Type_user.user_maquina) {
+        User user = ctrl_user.carrega_user(hashUsers.get(nom));
+        if (user.get_tipus_user() == Type_user.user_maquina) {
             throw new Exception("Error: La màquina no fa login");
         }
-        else if (hashUsers.get(nom).validate_password(password) == false) {
+        else if (user.get_password() == password) {
             throw new Exception("Error: Password erroni");
         }
         else {
-            Usuari = hashUsers.get(nom);
+            Usuari = user;
         }
-    }*/
+    }
 
     /**
      * Funcio per a fer e login del segon usuari en cas que es vulgui jugar pvp.
@@ -533,10 +532,10 @@ public class Controlador_Domini {
      * Funcio per a inicialitzar els rankings
      */
     public void inicialitza_rankings() {
-        hashRanking.put("facil", new Ranking());
-        hashRanking.put("normal", new Ranking());
-        hashRanking.put("dificl", new Ranking());
-        hashRanking.put("pvp", new Ranking());
+        hashRanking.put("facil", new Ranking("facil"));
+        hashRanking.put("normal", new Ranking("normal"));
+        hashRanking.put("dificl", new Ranking("dificl"));
+        hashRanking.put("pvp", new Ranking("pvp"));
     }
 
     /**
