@@ -185,12 +185,12 @@ public class driver_algorisme {
 
         for (List<Integer> new_solution : allCodes) {
             
-            System.out.println("Solució: " + new_solution.toString());
             List<List<Integer>> solutions_generated = genetic.solve(new_solution);
-
+            
             for(int i = 0; i < solutions_generated.size(); ++i) {
                 System.out.println("Generació " + (i+1) + ": " + solutions_generated.get(i).toString());
             }
+            System.out.println("Solució: " + new_solution.toString());
         }
     }
     
