@@ -148,23 +148,24 @@ public class Controlador_Domini {
      * @param password
      * @throws Exception
      */
-    /*public void loginUsuari2(String nom, String password) throws Exception {
+    public void loginUsuari2(String nom, String password) throws Exception {
         if (!hashUsers.containsKey(nom)) {
             throw new Exception("Error: L'Usuari2 no existeix");
         }
-        else if (hashUsers.get(nom).get_tipus_user() == Type_user.user_maquina) {
+        User user = ctrl_user.carrega_user(hashUsers.get(nom));
+        if (hashUsers.get(nom).get_tipus_user() == Type_user.user_maquina) {
             throw new Exception("Error: La màquina no es pot \"loguejar\"");
         }
-        else if (hashUsers.get(nom).validate_password(password) == false) {
+        else if (user.get_password() == password) {
             throw new Exception("Error: Password erroni");
         }
         else if (Usuari.get_nom().equals(nom)) {
             throw new Exception("Error: L'Usuari2 no pot ser l'Usuari1");
         }
         else {
-            Usuari2 = hashUsers.get(nom);
+            Usuari2 = user;
         }
-    }*/
+    }
 
     /**
      * Comprova si l'usuari1 és de tipus maquina. Si no ho és, 
@@ -248,19 +249,19 @@ public class Controlador_Domini {
     } */
 
 
-    /*public int get_rondes_totals_by_nom_user(String nom_user) {
+    public int get_rondes_totals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_rondes_totals();
-    }*/
+    }
 
-    /*public void incrementar_rondes_totals_Usuari1() {
+    public void incrementar_rondes_totals_Usuari1() {
         this.Usuari.incrementar_rondes_totals();
-    }*/
+    }
 
-    /*public int get_partides_totals_by_nom_user(String nom_user) {
+    public int get_partides_totals_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_partides_totals();
-    }*/
+    }
 
     public void incrementar_partides_totals_Usuari1() {
         this.Usuari.incrementar_partides_totals();
