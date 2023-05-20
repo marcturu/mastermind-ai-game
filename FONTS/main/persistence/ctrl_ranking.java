@@ -3,6 +3,8 @@ package main.persistence;
 import com.google.gson.Gson;
 import java.io.FileWriter;
 import java.io.File;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,12 +21,10 @@ public class ctrl_ranking {
         Gson gson = new Gson();
 
         try {
-            String dir = "../EXE/dades/rankings/";
-            File directori = new File(dir);
-            if (!directori.exists()) directori.mkdir();
-
             String archivo = "../EXE/dades/rankings/" + ranking.get_rank_difficultat() + ".json";
-            FileWriter writer = new FileWriter(archivo);
+            File file = new File(archivo);
+            file.getParentFile().mkdirs(); // Crea la estructura de carpetas necesaria
+            FileWriter writer = new FileWriter(file);
 
             // Escribimos el objeto en el archivo
             gson.toJson(ranking, writer);
@@ -38,27 +38,28 @@ public class ctrl_ranking {
 
     public Ranking carrega_ranking(String dificultat) {
         Gson gson = new Gson();
-        String archivo = "../EXE/dades/rankings/" + dificultat ".json";
+        String archivo = "../EXE/dades/rankings/" + dificultat + ".json";
 
-        String contenido = "";
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null){
-                contenido += linea;
+        if (Files.exists(Paths.get(archivo))){
+
+            String contenido = "";
+            try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+                String linea;
+                while ((linea = br.readLine()) != null){
+                    contenido += linea;
+                }
+            } catch (Exception ex){
+                ex.printStackTrace();
             }
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
 
-        if (!contenido.isEmpty()){;
-            Ranking ranking = gson.fromJson(contenido,Ranking.class);
-            return ranking;
+            if (!contenido.isEmpty()){;
+                Ranking ranking = gson.fromJson(contenido,Ranking.class);
+                return ranking;
+            }
+
         }
-        else return null;
+        return null;
 
     }
 
 }
-
-}
-

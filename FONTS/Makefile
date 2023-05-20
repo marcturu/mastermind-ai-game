@@ -117,7 +117,7 @@ JUNIT_TESTS_USER_PERSONA = ./test/TestUser_persona.java
 JAR_OUTPUT =	../EXE/
 
 all:
-	javac -d $(CLASS_OUTPUT) $(CLASS_INPUT)
+	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT)
 	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
 driver:

@@ -3,6 +3,7 @@ package main.domain.classes.algorismes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import main.domain.classes.enumerations.dificultats;
 
 //import main.domain.classes.Sequencia;
 //import main.domain.classes.Sequencia_verificacio;
@@ -11,6 +12,8 @@ import java.util.List;
 public class Five_guess_algorithm implements Maquina{
 
     private int codeLength = 4;
+    private dificultats dificultat;
+
 
 //    public static void main(String[] args) {
 //        List<Integer> solution = Arrays.asList(1, 3, 5, 1); // Aquí se define la solución
@@ -23,9 +26,20 @@ public class Five_guess_algorithm implements Maquina{
 //        }
 //    }
 
+    /**
+     * Creadora de la clase Five_guess_algorithm
+     *
+     * @param dificultat Dificultad de la partida
+     */
+    public Five_guess_algorithm(dificultats dif) {
+        dificultat = dif;
+    }
+
     public List<List<Integer>> solve(List<Integer> solution) {
         List<List<Integer>> guesses = new ArrayList<>();
-        Integer[] colors = {1, 2, 3, 4, 5, 6}; // Aquí se define el número de colores
+
+
+        Integer[] colors = get_colors();
 
         List<List<Integer>> possibleCodes = generateCodes(Arrays.asList(colors), solution.size());
 
@@ -210,6 +224,22 @@ public class Five_guess_algorithm implements Maquina{
             }
         }
         return score;
+    }
+
+    /**
+     * Devuelve una lista de colores
+     *
+     * @param numero colores que se quieren
+     * @return lista el resultado (blancas y negras) de una posible solucion
+     */
+    private Integer[] get_colors(){
+        int num_colors = this.dificultat.get_num_colors();
+
+        Integer[] colors = new Integer[num_colors];
+        for(int i = 0; i < num_colors; ++i){
+            colors[i] = i+1;
+        }
+        return colors;
     }
 
 
