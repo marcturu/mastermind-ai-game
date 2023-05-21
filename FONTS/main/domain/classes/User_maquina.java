@@ -2,6 +2,7 @@ package main.domain.classes;
 
 import main.domain.classes.algorismes.*;
 import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.dificultats;
 import java.util.List;
 
 public class User_maquina extends User {
@@ -20,7 +21,7 @@ public class User_maquina extends User {
         super(id, nom, tipus_user);
         this.genetic_algorithm = algorithm;
         if(!algorithm) {
-            algorisme = new Five_guess_algorithm();
+            algorisme = new Five_guess_algorithm(dificultats.NORMAL);
         }
     }
 

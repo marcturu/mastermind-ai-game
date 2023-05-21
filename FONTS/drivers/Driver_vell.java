@@ -107,7 +107,6 @@ public class Driver {
         while (tipus_partida.length() == 0) tipus_partida = in.nextLine();
         switch (tipus_partida){
             case "1":{
-                
                 String dif_partida = pregunta_dificultat();
                 boolean rol = pregunta_rol();
 

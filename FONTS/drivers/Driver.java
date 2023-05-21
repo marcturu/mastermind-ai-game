@@ -93,6 +93,122 @@ public class Driver {
         }
     }
 
+    private void personalitza_partida(){
+        System.out.println("Creació Nova Partida");
+        System.out.println("Introdueix: \n" + "1 - Jugar contra la maquina\n" + "2 - Jugador vs Jugador");
+        String tipus_partida = in.nextLine();
+        while (tipus_partida.length() == 0) tipus_partida = in.nextLine();
+        switch (tipus_partida){
+            case "1":{
+                String dif_partida = pregunta_dificultat();
+                boolean rol = pregunta_rol();
+
+                System.out.println("dificultat i rol ben entrats\n");
+                switch (dif_partida){
+                    case "1":{
+                        try {
+                            System.out.println("nova partida vs maquina iniciada\n");
+                            domini.inicialitza_partida_nova(dificultats.FACIL,rol);
+                            jugar_partida_maquina();
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+
+                        }
+                        break;
+                    }
+                    case "2":{
+                        try {
+                            System.out.println("nova partida vs maquina iniciada\n");
+                            domini.inicialitza_partida_nova(dificultats.NORMAL,rol);
+                            System.out.println("Entrem a jugar partida\n");
+                            jugar_partida_maquina();
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                        break;
+                    }
+                    case "3":{
+                        try {
+                            System.out.println("nova partida vs maquina iniciada\n");
+                            domini.inicialitza_partida_nova(dificultats.DIFICIL,rol);
+                            jugar_partida_maquina();
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+            case "2":{
+                System.out.print("Introdueix User2");
+                print_login();
+                String input = in.nextLine();
+                login(input,2);
+                boolean rol = pregunta_rol();
+                String dif_partida = pregunta_dificultat();
+                switch (dif_partida){
+                    case "1":{
+                        try {
+                            domini.inicialitza_partida_nova_pvp(dificultats.FACIL,rol);
+                            jugar_partida_pvp();
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+
+                        }
+                        break;
+                    }
+                    case "2":{
+                        try {
+                            domini.inicialitza_partida_nova_pvp(dificultats.NORMAL,rol);
+                            System.out.println("Partida inicialitzada\n");
+
+                            jugar_partida_pvp();
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                        break;
+                    }
+                    case "3":{
+                        try {
+                            domini.inicialitza_partida_nova_pvp(dificultats.DIFICIL,rol);
+                            jugar_partida_pvp();
+                        }catch (Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    private boolean pregunta_rol() {
+        System.out.println("Introdueix: \n" + "1 - Ser CodeMaker " + "0 - Ser CodeBreaker\n");
+
+        String Rol_partida = in.nextLine();
+        if ((Rol_partida.equals("True") || Rol_partida.equals("1")) || (Rol_partida.equals("False") || Rol_partida.equals("0")) ){
+            switch(Rol_partida) {
+                case "True":
+                case "1":
+                    return true;
+                case "False":
+                case "0":
+                    return false;
+            }
+        }
+        return pregunta_rol();
+    }
+
+    private String pregunta_dificultat() {
+        System.out.println("Selecciona Dificultat: \n" + "1 - Dificultat Facil\n" + "2 - Dificultat Normal\n" + "3 - Dificultat Dificil");
+        String dif_partida = in.nextLine();
+        if (dif_partida.equals("1") || dif_partida.equals("2") || dif_partida.equals("3")) return dif_partida;
+        return pregunta_dificultat();
+
+    }
+
     private void print_menu(){
         System.out.println("\n"+"(Introdueix: '1' o 'crear') - Crear Nova Partida");
         System.out.println("(Introdueix: '2' o 'jugar') - Jugar Partides NO Acabades");

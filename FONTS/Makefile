@@ -118,7 +118,7 @@ JAR_OUTPUT =	../EXE/
 
 all:
 	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT)
-	javac -cp $(JUNIT_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
+	javac -cp $(JUNIT_JARS) -cp $(GSON_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
 driver:
 	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT) ./drivers/Driver.java
