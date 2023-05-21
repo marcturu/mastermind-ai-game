@@ -74,10 +74,10 @@ public class Controlador_Domini {
     }*/
 
 
-    public void inicialitzaUserPersona(String nom, String password){
+    public void inicialitzaUserPersona(String nom, String password, dificultats dificultat){
         if (!hashUsers.containsKey("Genetic") || !hashUsers.containsKey("Five-Gues")){
-            registra_UserMaquina_genetic();
-            registra_UserMaquina_fiveguess();
+            registra_UserMaquina_genetic(dificultat);
+            registra_UserMaquina_fiveguess(dificultat);
         }
         Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
@@ -106,8 +106,8 @@ public class Controlador_Domini {
      * Pre: No existeix la maquina amb nom "Genetic"
      * Post: Es crea el usuari (maquina genetic) amb els paràmetres que li falten i s'afageix al map.
      */
-    public void registra_UserMaquina_genetic() {
-        User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
+    public void registra_UserMaquina_genetic(dificultats dificultat) {
+        User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true, dificultat);
         ctrl_user.save_users(maq);
         hashUsers.putIfAbsent("Genetic", hashUsers.size() + 1);
     }
@@ -115,8 +115,8 @@ public class Controlador_Domini {
     /**
      * Funció per a registrar l'usuari Five-Guess, que fa servir l'algorisme de five-guess com a codebreaker.
      */
-    public void registra_UserMaquina_fiveguess() {
-        User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
+    public void registra_UserMaquina_fiveguess(dificultats dificultat) {
+        User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false, dificultat);
         ctrl_user.save_users(maq);
         hashUsers.putIfAbsent("Five-Guess", hashUsers.size() + 1);
     }
@@ -153,7 +153,7 @@ public class Controlador_Domini {
             throw new Exception("Error: L'Usuari2 no existeix");
         }
         User user = ctrl_user.carrega_user(hashUsers.get(nom));
-        if (hashUsers.get(nom).get_tipus_user() == Type_user.user_maquina) {
+        if (hashUsers.get(nom) == hashUsers.get("Genetic") || hashUsers.get(nom) == hashUsers.get("Five-Guess")) {
             throw new Exception("Error: La màquina no es pot \"loguejar\"");
         }
         else if (user.get_password() == password) {

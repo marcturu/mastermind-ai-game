@@ -2,6 +2,7 @@ package main.domain.classes;
 
 import main.domain.classes.algorismes.*;
 import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.enumerations.dificultats;
 import java.util.List;
 
 public class User_maquina extends User {
@@ -15,12 +16,14 @@ public class User_maquina extends User {
      * @param tipus_user Tipus d'usuari que és
      * @paarms algorithm Tipus d'algoritme que és (true = genetic; false = five_guess)
      */
-    public User_maquina(int id, String nom, Type_user tipus_user, boolean algorithm) {
+    public User_maquina(int id, String nom, Type_user tipus_user, boolean algorithm, dificultats dificultat) {
         //super(id, nom, tipus_user, num_rondes_totals, num_partides_totals, puntuacio, partides_guanyades, llista_partides_no_acabades, llista_partides_acabades);
         super(id, nom, tipus_user);
         this.genetic_algorithm = algorithm;
         if(!algorithm) {
-            algorisme = new Five_guess_algorithm();
+            algorisme = new Five_guess_algorithm(dificultat);
+        }else {
+            algorisme = new Genetic_algorithm(dificultat);
         }
     }
 
