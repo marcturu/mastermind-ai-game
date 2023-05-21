@@ -21,8 +21,9 @@ public class Cromosoma {
      */
     public Cromosoma(dificultats dificultat) {  
         for(int i = 0; i < 4; ++i) {
-            int num_random = (int)(Math.random() * dificultat.get_num_colors());
+            int num_random = (int)(Math.random() * (dificultat.get_num_colors() + 1));//el +1 es perque Math.random() pertany a [0.0,1.0)
             if(num_random < 1) num_random = 1;
+
             if(codi.size() < 4) codi.add(num_random);
             else codi.set(i, num_random);
         }

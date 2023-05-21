@@ -20,7 +20,8 @@ public class Genetic_algorithm implements Maquina{
     private static final double CROSSOVER_RATE = 0.5;
     private static final double MUTATION_RATE = 0.03;
     private static final double PERMUTATION_RATE = 0.03;
-    private static final int MAX_GENERATIONS = 500; //maxim de generacions que es faran, ns si hauria de ser el num_rondes de la partida
+    private static final int MAX_GENERATIONS = 1000;
+    private static final int MAX_ELEGIBLE_POOL = 500;
 
     private dificultats dificultat;
 
@@ -42,7 +43,7 @@ public class Genetic_algorithm implements Maquina{
      * Funcio per inicialitzar la poblacio de la generacio
      * No hi hauran cromosomes repetits
      */
-    private List<Cromosoma> initPoblacio() {
+    private List<Cromosoma> init_poblacio() {
         List<Cromosoma> population = new ArrayList<Cromosoma>();
         for(int i = 0; i < POPULATION_SIZE; ++i) {
             Cromosoma c = new Cromosoma(dificultat);
@@ -71,7 +72,7 @@ public class Genetic_algorithm implements Maquina{
         for(Cromosoma prev: cromosomes_previs) {
             Pair<Integer, Integer> p = c.get_result(prev.get_codi());
             Pair<Integer, Integer> p2 = prev.get_result(codi_solucio);
-            fitness += constantA +(Math.abs(p.first() - p2.first()) + Math.abs(p.second() - p2.second()));
+            fitness += constantA * (Math.abs(p.first() - p2.first()) + Math.abs(p.second() - p2.second()));
         }
         fitness += constantB * 4 * (cromosomes_previs.size() - 1);
 
@@ -123,7 +124,7 @@ public class Genetic_algorithm implements Maquina{
      */
     private List<Cromosoma> genera_nova_poblacio(List<Integer> codi_solucio, List<Cromosoma> codis_previs) {
         //creem nova poblacio random
-        List<Cromosoma> new_poblacio = initPoblacio();
+        List<Cromosoma> new_poblacio = init_poblacio();
         Cromosoma pare = null;
         Cromosoma mare = null;
         Cromosoma fill = null;
@@ -226,14 +227,13 @@ public class Genetic_algorithm implements Maquina{
         Cromosoma last_guess = new Cromosoma(dificultat);
         last_guess.set_codi(guess);
         solucions.add(last_guess);
-        List<Cromosoma> poblacio = initPoblacio();
+        List<Cromosoma> poblacio = init_poblacio();
         int iter = 1;
         while (last_guess.get_result(solution).second() != 4) {  
             List<Cromosoma> elegibles = new ArrayList<>();
             int h = 1;
-            while(h <= MAX_GENERATIONS && elegibles.size() <= POPULATION_SIZE) {
+            while(h <= MAX_GENERATIONS && elegibles.size() <= MAX_ELEGIBLE_POOL) {
                 poblacio = genera_nova_poblacio(solution, solucions);
-
                 for(int i = 0; i < POPULATION_SIZE; ++i){
                     int diferencia_negres = 0;
                     int diferencia_blanques = 0;
@@ -288,9 +288,6 @@ public class Genetic_algorithm implements Maquina{
             solucions.add(last_guess);
             ++iter;
         }
-        System.out.println("Codi trobat en " + iter + " iteracions!");
-        System.out.println("last_guess: " + last_guess.get_codi().toString());
-        System.out.println("solucio: " + solution.toString());
         passa_de_cromosoma_a_solucio(solucions, sol);
         return sol;
     }

@@ -81,7 +81,7 @@ public class driver_algorisme {
 
         Integer[] colores = get_colors(num_colors);
 
-        List<List<Integer>> allCodes = generateRandomCodes(Arrays.asList(colores), 4, num_proves);
+        List<List<Integer>> allCodes = generateRandomCodes(Arrays.asList(colores), 4, num_proves, dif);
 
         System.out.println("Codis random generats");
 
@@ -128,6 +128,7 @@ public class driver_algorisme {
                 dif = dificultats.NORMAL;
                 break;
         }
+        System.out.println("Generem els algorismes");
         Genetic_algorithm genetic = new Genetic_algorithm(dif);
 
         System.out.println("Algorisme genetic generat");
@@ -136,7 +137,7 @@ public class driver_algorisme {
 
         Integer[] colors = get_colors(num_colors);
 
-        List<List<Integer>> allCodes = generateRandomCodes(Arrays.asList(colors), 4, num_proves);
+        List<List<Integer>> allCodes = generateRandomCodes(Arrays.asList(colors), 4, num_proves, dif);
         System.out.println("Solucions generades");
 
         for (List<Integer> new_solution : allCodes) {
@@ -144,8 +145,8 @@ public class driver_algorisme {
             System.out.println("Solució: " + new_solution.toString());
             List<List<Integer>> solutions_generated = genetic.solve(new_solution);
 
-            for(int i = 0; i < solutions_generated.size(); ++i) {
-                System.out.println("Generació " + (i+1) + ": " + solutions_generated.get(i).toString());
+            for(List<Integer> solution : solutions_generated) {
+                System.out.println(solution.toString());
             }
         }
     }
@@ -173,6 +174,7 @@ public class driver_algorisme {
                 dif = dificultats.NORMAL;
                 break;
         }
+        System.out.println("Generem els algorismes");
         Genetic_algorithm genetic = new Genetic_algorithm(dif);
 
         System.out.println("Algorisme genetic generat");
@@ -185,7 +187,7 @@ public class driver_algorisme {
 
         Integer[] colors = get_colors(num_colors);
 
-        List<List<Integer>> allCodes = generateRandomCodes(Arrays.asList(colors), 4, num_proves);
+        List<List<Integer>> allCodes = generateRandomCodes(Arrays.asList(colors), 4, num_proves, dif);
         System.out.println("Solucions generades");
 
         for (List<Integer> new_solution : allCodes) {
@@ -252,14 +254,14 @@ public class driver_algorisme {
     }
 
 
-    private static List<List<Integer>> generateRandomCodes(List<Integer> colors, int solutionLength, int num_proves) {
+    private static List<List<Integer>> generateRandomCodes(List<Integer> colors, int solutionLength, int num_proves, dificultats dificultat) {
         
         List<List<Integer>> allCodes = new ArrayList<>();
         //generem codis aleatoris que seran la solució
         for(int i = 0; i < num_proves; ++i) {
             List<Integer> code = new ArrayList<>();
             for(int j = 0; j < solutionLength; ++j) {
-                code.add((int)(Math.random() * colors.size()));
+                code.add((int)(Math.random() * dificultat.get_num_colors()));
                 if(code.get(j) < 1) code.set(j, 1);
             }
             allCodes.add(code);
