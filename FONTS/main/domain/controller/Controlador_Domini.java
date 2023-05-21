@@ -75,10 +75,10 @@ public class Controlador_Domini {
     }*/
 
 
-    public void inicialitzaUserPersona(String nom, String password, dificultats dificultat){
+    public void inicialitzaUserPersona(String nom, String password){
         if (!hashUsers.containsKey("Genetic") || !hashUsers.containsKey("Five-Gues")){
-            registra_UserMaquina_genetic(dificultat);
-            registra_UserMaquina_fiveguess(dificultat);
+            registra_UserMaquina_genetic();
+            registra_UserMaquina_fiveguess();
         }
         Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
@@ -107,8 +107,8 @@ public class Controlador_Domini {
      * Pre: No existeix la maquina amb nom "Genetic"
      * Post: Es crea el usuari (maquina genetic) amb els paràmetres que li falten i s'afageix al map.
      */
-    public void registra_UserMaquina_genetic(dificultats dificultat) {
-        User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true, dificultat);
+    public void registra_UserMaquina_genetic() {
+        User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
         ctrl_user.save_users(maq);
         hashUsers.putIfAbsent("Genetic", hashUsers.size() + 1);
     }
@@ -116,8 +116,8 @@ public class Controlador_Domini {
     /**
      * Funció per a registrar l'usuari Five-Guess, que fa servir l'algorisme de five-guess com a codebreaker.
      */
-    public void registra_UserMaquina_fiveguess(dificultats dificultat) {
-        User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false, dificultat);
+    public void registra_UserMaquina_fiveguess() {
+        User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
         ctrl_user.save_users(maq);
         hashUsers.putIfAbsent("Five-Guess", hashUsers.size() + 1);
     }
@@ -547,7 +547,7 @@ public class Controlador_Domini {
         }
     }
 
-    public void jugar_ronda_verificacio(Sequencia_verificacio seq_ver){
+    public void jugar_ronda_intentada(Sequencia_verificacio seq_ver){
         CtrlPartida.set_sequencia_verificacio(seq_ver);
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
