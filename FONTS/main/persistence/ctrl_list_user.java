@@ -14,6 +14,10 @@ import java.util.HashMap;
 
 public class ctrl_list_user {
 
+    /**
+     * Funció que serveix per a guardar una llista d'usuaris a l'ubicació ../EXE/dades/ amb el .json identificat per list_user
+     * @param hashUser Llista d'usuaris passada a tarvés d'un HashMap<String,Integer>
+     */
     public void save_list_users(HashMap<String,Integer> hashUser){
         Gson gson = new Gson();
 
@@ -32,6 +36,10 @@ public class ctrl_list_user {
         }
     }
 
+    /**
+     * Funció que permet carregar la llista d'usuaris de l'ubicació ../EXE/dades/ amb el .json identificat per list_user
+     * @return userHashMap HashMap de la llista d'usuaris
+     */
     public HashMap<String,Integer> carrega_list_user(){
         Gson gson = new Gson();
         String archivo = "../EXE/dades/list_user.json";

@@ -38,6 +38,8 @@ public class Controlador_Domini {
     private ctrl_list_user ctrl_list_user;
     private ctrl_user ctrl_user;
     private ctrl_partida ctrl_pers_partida;
+    private ctrl_record ctrl_record;
+    private ctrl_ranking ctrl_ranking;
     //private static Controlador_Domini singletonObject;
 
     private int ids_partides = 1;
@@ -48,6 +50,8 @@ public class Controlador_Domini {
         this.ctrl_list_user = new ctrl_list_user();
         this.ctrl_user = new ctrl_user();
         this.ctrl_pers_partida = new ctrl_partida();
+        this.ctrl_record = new ctrl_record();
+        this.ctrl_ranking = new ctrl_ranking();
         this.Usuari = null;
         this.Usuari2 = null;
         this.Record = null;

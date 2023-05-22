@@ -17,6 +17,10 @@ import main.domain.classes.User_maquina;
 import main.domain.classes.User_persona;
 public class ctrl_user {
 
+    /**
+     * Funció que serveix per a guardar un objecte User a l'ubicació ../EXE/dades/users/ amb el .json identificat per l'id d'aquell User
+     * @param user Usuari a guardar
+     */
     public void save_users(User user){
         Gson gson = new Gson();
         try {
@@ -34,6 +38,11 @@ public class ctrl_user {
         }
     }
 
+    /**
+     * Funció que permet carregar un determinat User de l'ubicació ../EXE/dades/users/ amb el .json identificat per l'id d'aquell User
+     * @param id Id que identifica l'usuari
+     * @return user User identificat per l'id
+     */
     public User carrega_user(int id){
         Gson gson = new Gson();
         String archivo = "../EXE/dades/users/" + Integer.toString(id) + ".json";

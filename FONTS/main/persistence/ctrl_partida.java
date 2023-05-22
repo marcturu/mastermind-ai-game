@@ -16,6 +16,10 @@ import main.domain.classes.Partida;
 
 public class ctrl_partida {
 
+    /**
+     * Funció que serveix per a guardar un objecte Partida a l'ubicació ../EXE/dades/partides/ amb el .json identificat per l'id d'aquella Partida
+     * @param partida Partida a guardar
+     */
     public void save_partida(Partida partida){
         Gson gson = new Gson();
 
@@ -34,6 +38,11 @@ public class ctrl_partida {
         }
     }
 
+    /**
+     * Funció que permet carregar una determinada Partida de l'ubicació ../EXE/dades/partides/ amb el .json identificat per l'id d'aquella Partida
+     * @param id Id que identifica la partida
+     * @return partida Partida identificada per l'id
+     */
     public Partida carrega_partida(int id){
         Gson gson = new Gson();
         String archivo = "../EXE/dades/partides/" + Integer.toString(id) + ".json";

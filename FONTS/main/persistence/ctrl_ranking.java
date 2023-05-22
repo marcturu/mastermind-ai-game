@@ -17,6 +17,10 @@ import main.domain.classes.enumerations.dificultats;
 
 public class ctrl_ranking {
 
+    /**
+     * Funció que serveix per a guardar un objecte Ranking a l'ubicació ../EXE/dades/rankings/ amb el .json identificat per la dificultat d'aquell Ranking
+     * @param ranking Ranking a guardar
+     */
     public void save_ranking(Ranking ranking) {
         Gson gson = new Gson();
 
@@ -36,6 +40,11 @@ public class ctrl_ranking {
 
     }
 
+    /**
+     * Funció que permet carregar un determinat Ranking de l'ubicació ../EXE/dades/ranking/ amb el .json identificat per la dificultat d'aquell Ranking
+     * @param dificultat Dificultat que identifica el ranking
+     * @return ranking Ranking identificat per la dificultat
+     */
     public Ranking carrega_ranking(String dificultat) {
         Gson gson = new Gson();
         String archivo = "../EXE/dades/rankings/" + dificultat + ".json";
