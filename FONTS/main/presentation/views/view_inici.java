@@ -20,13 +20,19 @@ public class view_inici extends JFrame{
     private final panel_user user;
     private final panel_estadistiques_user estadistiques_user;
     private final panel_historial_user historial_user;
-    private final panel_config_partida config_partida;
+    private final panel_config_partida_rol config_partida_rol;
+    private final panel_config_partida_oponent config_partida_oponent;
+    private final panel_config_partida_oponent_maquina config_partida_oponent_maquina;
+    private final panel_config_partida_dificultat config_partida_dificultat;
     private final panel_carregar_partida carregar_partida;
     private final panel_partida partida;
     private final panel_dificultats_ranking dificultats_ranking;
     
     private final JButton b_enrere = new JButton("Salir");
 
+    /**
+     * Funcio per fer la configuracio de la view
+     */
     private void init_config() {
 
         //init de pestanya
@@ -39,7 +45,10 @@ public class view_inici extends JFrame{
         
         
     }
-    
+    /**
+     * Creadora de la view principal on s'aniran posant els diferents panels
+     * @param ctrlPresentacio controlador de presentacio
+     */
     public view_inici(Controlador_Presentacio ctrlPresentacio) {
         //init de parametres
         this.ctrlPresentacio = ctrlPresentacio;
@@ -52,7 +61,10 @@ public class view_inici extends JFrame{
         user = new panel_user(ctrlPresentacio);
         estadistiques_user = new panel_estadistiques_user(ctrlPresentacio);
         historial_user = new panel_historial_user(ctrlPresentacio);
-        config_partida = new panel_config_partida(ctrlPresentacio);
+        config_partida_rol = new panel_config_partida_rol(ctrlPresentacio);
+        config_partida_oponent = new panel_config_partida_oponent(ctrlPresentacio);
+        config_partida_oponent_maquina = new panel_config_partida_oponent_maquina(ctrlPresentacio);
+        config_partida_dificultat = new panel_config_partida_dificultat(ctrlPresentacio);
         carregar_partida = new panel_carregar_partida(ctrlPresentacio);
         partida = new panel_partida(ctrlPresentacio);
         dificultats_ranking = new panel_dificultats_ranking(ctrlPresentacio);
@@ -66,80 +78,144 @@ public class view_inici extends JFrame{
 
     } 
 
+    /**
+     * Funcio per canviar al panell d'inici
+     */
     public void canvia_a_inici() {
         this.setContentPane(inici);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell de login
+     */
     public void canvia_a_login() {
         this.setContentPane(login);
         this.invalidate();
         this.validate();
     }
 
-    
-
+    /**
+     * Funcio per canviar al panell de register
+     */
     public void canvia_a_register() {
         this.setContentPane(register);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell de menu principal
+     */
     public void canvia_a_menu_principal() {
         this.setContentPane(menu_principal);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell de record
+     */
     public void canvia_a_record() {
         this.setContentPane(record);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell de ranking
+     */
     public void canvia_a_ranking() {
         this.setContentPane(ranking);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell de user
+     */
     public void canvia_a_user() {
         this.setContentPane(user);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell per a jugar una partida
+     */
     public void canvia_a_partida() {
         this.setContentPane(partida);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * FUncio per canviar al panell de seleccio de dificultats del ranking
+     */
     public void canvia_a_dificultats_ranking() {
         this.setContentPane(dificultats_ranking);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell d'estadistiques de l'usuari
+     */
     public void canvia_a_estadistiques_user() {
         this.setContentPane(estadistiques_user);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell que mostra l'historial de l'usuari
+     */
     public void canvia_a_historial_user() {
         this.setContentPane(historial_user);
         this.invalidate();
         this.validate();
     }
 
-    public void canvia_a_config_partida() {
-        this.setContentPane(config_partida);
+    /**
+     * Funcio per canviar al panell per decidir quin rol te l'usuari principal
+     */
+    public void canvia_a_config_partida_rol() {
+        this.setContentPane(config_partida_rol);
         this.invalidate();
         this.validate();
     }
 
+    /**
+     * Funcio per canviar al panell per decidir l'oponent de l'usuari principal
+     */
+    public void canvia_a_config_partida_oponent() {
+        this.setContentPane(config_partida_oponent);
+        this.invalidate();
+        this.validate();
+    }
+
+    /**
+     * Funcio per canviar al panell per decidir la maquina contra la que es juga
+     * A aquest panell només s'hi accedeix si es juga com a codemkaer contra una maquina
+     */
+    public void canvia_a_config_partida_oponent_maquina() {
+        this.setContentPane(config_partida_oponent_maquina);
+        this.invalidate();
+        this.validate();
+    }
+
+    /**
+     * Funcio per canviar al panell per decidir la dificultat de la partida
+     */
+    public void canvia_a_config_partida_dificultat() {
+        this.setContentPane(config_partida_dificultat);
+        this.invalidate();
+        this.validate();
+    }
+    /**
+     * Funcio per canviar al panell per mostrar les partides a carregar
+     */
     public void canvia_a_carregar_partida() {
         this.setContentPane(carregar_partida);
         this.invalidate();
