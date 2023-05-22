@@ -62,6 +62,9 @@ public class Controlador_Domini {
         //inicialitzem els records per a totes les modalitats(facil, normal, dificil, pvp)
         crea_records();
 
+        //registrem els dos usuaris maquina
+        registra_maquines();
+
 
     }
 /*
@@ -75,11 +78,12 @@ public class Controlador_Domini {
     }*/
 
 
+    /**
+     * Funcio per a registrar a un user_persona
+     * @param nom nom de l'usuari
+     * @param password password de l'usuari
+     */
     public void inicialitzaUserPersona(String nom, String password){
-        if (!hashUsers.containsKey("Genetic") || !hashUsers.containsKey("Five-Gues")){
-            registra_UserMaquina_genetic();
-            registra_UserMaquina_fiveguess();
-        }
         Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
         ctrl_list_user.save_list_users(hashUsers);
@@ -90,9 +94,9 @@ public class Controlador_Domini {
      * Pre: Es rep un nom d'usuari d'usuari i un password
      * Post: Es crea el usuari amb els paràmetres entrats i els altres que li falten i s'afageix al map.
 
-     * @param nom
-     * @param password
-     * @throws Exception
+     * @param nom nom de l'usuari
+     * @param password password de l'usuari
+     * @throws Exception si ja existeix un usuari amb el mateix nom
      */
     public void inicialitzaUserPersona2(String nom, String password) throws Exception {
         if (hashUsers.containsKey(nom)) {
@@ -104,22 +108,36 @@ public class Controlador_Domini {
     }
 
     /**
+     * Funcio per a registrar els dos usuaris que farà servir la maquina, amb els algorismes five-guess i genetic
+     */
+    private void registra_maquines() {
+        registra_UserMaquina_genetic();
+        registra_UserMaquina_fiveguess();
+    }
+
+    /**
      * Pre: No existeix la maquina amb nom "Genetic"
      * Post: Es crea el usuari (maquina genetic) amb els paràmetres que li falten i s'afageix al map.
      */
     public void registra_UserMaquina_genetic() {
-        User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
-        ctrl_user.save_users(maq);
-        hashUsers.putIfAbsent("Genetic", hashUsers.size() + 1);
+        Integer id = hashUsers.get("Genetic");
+        if(id == null) {
+            User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
+            ctrl_user.save_users(maq);
+            hashUsers.putIfAbsent("Genetic", hashUsers.size() + 1);
+        }
     }
 
     /**
      * Funció per a registrar l'usuari Five-Guess, que fa servir l'algorisme de five-guess com a codebreaker.
      */
     public void registra_UserMaquina_fiveguess() {
-        User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
-        ctrl_user.save_users(maq);
-        hashUsers.putIfAbsent("Five-Guess", hashUsers.size() + 1);
+        Integer id = hashUsers.get("Five-Guess");
+        if(id == null) {
+            User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
+            ctrl_user.save_users(maq);
+            hashUsers.putIfAbsent("Five-Guess", hashUsers.size() + 1);
+        }
     }
     /**
      * Funcio per a fer el login de l'usuari que inicia la sessio.
@@ -208,22 +226,42 @@ public class Controlador_Domini {
         return hashRecord.get(new Pair<>(nom_record, modalitat)).get_valor();
     }
 
+    /**
+     * Consultora de l'id de l'usuari amb sessió activa
+     * @return id de l'usuari amb sessió activa
+     */
     public int get_id_Usuari1() {
         return this.Usuari.get_id();
     }
 
+    /**
+     * Consultora del nom de l'usuari amb sessió activa
+     * @return nom de l'usuari amb sessió activa
+     */
     public String get_nom_Usuari() {
         return this.Usuari.get_nom();
     }
 
+    /**
+     * Modificadora del nom de l'usuari amb sessió activa
+     * @param nom
+     */
     public void set_nom_Usuari(String nom) {
         this.Usuari.set_nom(nom);
     }
 
+    /**
+     * Consultora del tipus d'usuari de l'usuari amb sessió activa
+     * @return tipus d'usuari de l'usuari amb sessió activa
+     */
     public Type_user get_tipus_user_Usuari1() {
         return this.Usuari.get_tipus_user();
     }
 
+    /**
+     * Cosultora del tipus d'usuari del contrincant
+     * @return tipus d'usuari contrincant
+     */
     public Type_user get_tipus_user_Usuari2() {
         return this.Usuari2.get_tipus_user();
     }
@@ -255,6 +293,9 @@ public class Controlador_Domini {
         return Usuari.get_rondes_totals();
     }*/
 
+    /**
+     * Funcio per a incrementar les rondes totals jugades per l'usuari amb sessió activa
+     */
     public void incrementar_rondes_totals_Usuari1() {
         this.Usuari.incrementar_rondes_totals();
     }
@@ -264,13 +305,16 @@ public class Controlador_Domini {
         return Usuari.get_partides_totals();
     }*/
 
+    /**
+     * Funcio per a incrementar les partides totals jugades per l'usuari amb sessió activa
+     */
     public void incrementar_partides_totals_Usuari1() {
         this.Usuari.incrementar_partides_totals();
     }
 
-    public void incrementar_partides_totals_Usuari2() {
+    /*public void incrementar_partides_totals_Usuari2() {
         this.Usuari2.incrementar_partides_totals();
-    }
+    }*/
 
 
     /*public double get_puntuacioF_Usuari(String nom_user) {
@@ -319,28 +363,58 @@ public class Controlador_Domini {
         return Usuari.get_estadistiques();
     }*/
 
+    /**
+     * Funcio per a consultar la sequencia solucio d'una partida
+     * @return sequencia solucio de la partida actual
+     */
     public Sequencia_intentada get_seq_solucio() {
         return CtrlPartida.get_seq_solucio_partida_actual();
     }
 
+    /**
+     * Consultora de si l'usuari principal es codemaker
+     * @return true si l'usuari principal es codemaker, false altrament
+     */
     public boolean get_jugador1_es_codemaker() {
         return CtrlPartida.get_jugador1_es_codemaker_partida_actual();
     }
 
+    /**
+     * Funcio per a rebre la solucio que dona l'algorisme
+     * @param solucio solucio de la partida
+     * @return llista d'intents fins arribar a la solució
+     */
     public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
         return Usuari2.get_solve_maquina(solucio);
     }
 
+    /**
+     * Funcio per a rebre el seguent guess de l'algorisme
+     * @return seguent guess de l'algorisme
+     */
     public List<Integer> get_seguent_guess_maquina() {
         return CtrlPartida.get_guess_maquina();
     }
 
+    /**
+     * Funcio per a posar la solucio rebuda per la maquina dins de la partida actual
+     * @param sol solucio donada per l'algorisme
+     */
     public void set_solucio_partida_actual(List<List<Integer>> sol) {
         CtrlPartida.set_solucio_partida_actual(sol);
     }
 
+    /**
+     * Funcio per a començar una nova partida entre User1 i User2, amb dificultat dif i el rol de cada jugador
+     * @param id id de la partida
+     * @param User1 Usuari amb la sessio activa(ha de ser user_persona)
+     * @param User2 Usuari amb el que es vol jugar
+     * @param dif dificultat de la partida
+     * @param jugador1_es_codemaker indica si el jugador1 es codemaker
+     */
     private void start_partida_nova(int id, User User1, User User2, dificultats dif, boolean jugador1_es_codemaker) {
-        Partida partida_nova = new Partida(id, User1, User2, dif, jugador1_es_codemaker);
+        Partida partida_nova = new Partida(id, User1, User2, dif, jugador1_es_codemaker); 
+        hashPartida.put(id, partida_nova);
         CtrlPartida.set_partida_actual(partida_nova);
     }
 
@@ -360,6 +434,12 @@ public class Controlador_Domini {
         }
     }
 
+    /**
+     * Funcio per a començar una nova partida pvp
+     * @param dif dificultat de la nova partida
+     * @param jugador1_es_codemaker indica is el jugador1 es codemaker
+     * @throws Exception si hi ha massa partides actives per part d'algun dels dos jugadors
+     */
     public void inicialitza_partida_nova_pvp(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
         if (Usuari.get_num_partides_actuals() == 10)
             throw new Exception("Masses partides actives User1");
@@ -372,6 +452,12 @@ public class Controlador_Domini {
         }
     }
 
+    /**
+     * Funcio per afegir partida_nova a l'usuari donat
+     * @param Usuari usuari al que se li vol afegir la partida
+     * @param partida_nova partida que es vol afegir
+     * @throws Exception si l'usuari ja te 10 partides actives
+     */
     private void afegir_partida_nova_users(User Usuari, Partida partida_nova) throws Exception{
         Usuari.afegir_partida_nova(partida_nova);
     }
@@ -383,58 +469,106 @@ public class Controlador_Domini {
         else this.Usuari.afegir_partida_nova(partida_nova);
     } */
 
+    /**
+     * Funcio per a eliminar un usuari de la llista d'usuaris
+     * @param usuari usuari que es vol eliminar
+     */
     public void elimina_Usuari_hashUsers(User usuari) {
         hashUsers.remove(usuari.get_nom(), usuari);
     }
 
+    /**
+     * Funcio per a veure la llista de rondes que s'han jugat en la partida actual
+     * @return llista de rondes de la partida actual
+     */
     public List<Ronda> get_llista_rondes() {
         return CtrlPartida.get_llista_rondes_partida_actual();
     }
 
+    /**
+     * Funcio per a saber el numero de colors de la partida actual
+     * @return numero de colors que es poden utilitzar en la partida actual
+     */
     public int get_num_colors() {
         return CtrlPartida.get_num_colors_partida_actual();
     }
 
+    /**
+     * Funcio per a saber el numero de rondes maxim de la partida actual
+     * @return numero de rondes de la partida actual
+     */
     public int get_num_rondes() {
         return CtrlPartida.get_num_rondes_max_partida_actual();
     }
 
+    /**
+     * Funcio per saber si s'ha superat el temps màxim de la partida o no
+     * @return true si s'ha superat el temps màxim de la partida, false altrament
+     */
     public boolean temps_excedit_partida_actual() {
         return CtrlPartida.temps_excedit_partida_actual();
     }
 
+    /**
+     * Funcio per a rebre el id de la partida actual
+     * @return id de la partida actual
+     */
     public int get_id_partida_actual() {
         return CtrlPartida.get_id_partida_actual();
     }
 
+    /**
+     * Funcio per saber si s'ha demanat ajuda a la partida actual
+     * @return si s'ha demanat ajuda a la partida actual
+     */
     public boolean get_ajuda_partida() {
         return CtrlPartida.get_ajuda_partida();
     }
 
     /**
-     * @throws AjudaJaDemanada
      * Demana ajuda al sistema, es llença AjudaJaDemanada si ja ha demanat ajuda previament
+     * @throws AjudaJaDemanada
      */
     public void set_ajuda() throws Exception{
         CtrlPartida.set_ajuda();
     }
 
+    /**
+     * Funcio per a posar la sequencia solucio a la partida actual
+     * @param sol solucio a posar a la partida actual
+     */
     public void set_seq_solucio(Sequencia_intentada sol) {
         CtrlPartida.set_seq_solucio_entrada_per_user(sol);
     }
 
+    /**
+     * Funcio per al cas que la solucio no la posem nosaltres, sino la maquina.
+     * @param dif dificultat de la partida
+     */
     public void genera_solucio_partida(dificultats dif) {
         CtrlPartida.genera_solucio_partida(dif);
     }
 
+    /**
+     * Funcio per a consultar qui es el codemaker de la partida actual
+     * @return codemaker de la partida actual
+     */
     public User get_codemaker_partida_actual() {
         return CtrlPartida.get_codemaker_partida_actual();
     }
 
+    /**
+     * Funcio per a consultar qui es el codebreaker de la partida actual
+     * @return codebreaker de la partida actual
+     */
     public User get_codebraker_partida_actual() {
         return CtrlPartida.get_codebreaker_partida_actual();
     }
 
+    /**
+     * Funcio per a consultar la ronda per la que es va en la partida actual
+     * @return ronda actual de la partida
+     */
     public int get_num_ronda_actual() {
         return CtrlPartida.get_ultima_ronda_partida_actual();
     }
@@ -462,15 +596,28 @@ public class Controlador_Domini {
         return hashRecord.get(new Pair<>(nom_record, modalitat)).get_valor();
     }
 
+    /**
+     * Funcio per a consultar el nom de l'usuari que ha batut el record amb nom_record i modalitat
+     * @param nom_record nom del record que es vol consultar
+     * @param modalitat (facil, normal, dificil)
+     * @return nom de l'usuari que ha batut el record
+     */
     public String get_nom_usuari_by_nom_record(String nom_record, String modalitat) {
         return hashRecord.get(new Pair<>(nom_record, modalitat)).get_nom_usuari();
     }
 
+    /**
+     * Funcio per obtindre un ranking segons el seu nom("facil", "normal", "dificil", "pvp")
+     * @param ranking_name nom del ranking que es vol consultar
+     * @return ranking amb nom = ranking_name
+     */
     public Ranking get_ranking_by_ranking_name(String ranking_name) {
         return hashRanking.get(ranking_name);
     }
 
-
+    /**
+     * Funcio per a crear els records de punts amb modalitats facil, normal i dificil
+     */
     private void crea_records_punts() {
         String nom_record = "record_punts";
         String modalitat = "facil";
@@ -486,6 +633,9 @@ public class Controlador_Domini {
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
     }
 
+    /**
+     * Funcio per a crear els records de ratxes amb modalitats facil, normal i dificil
+     */
     private void crea_records_streak() {
         String nom_record = "record_streak";
         String modalitat = "facil";
@@ -501,6 +651,9 @@ public class Controlador_Domini {
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
     }    
 
+    /**
+     * Funcio per a crear els records de temps amb modalitats facil, normal i dificil
+     */
     private void crea_records_temps() {
         String nom_record = "record_temps";
         String modalitat = "facil";
@@ -539,6 +692,10 @@ public class Controlador_Domini {
         hashRanking.put("pvp", new Ranking("pvp"));
     }
 
+    /**
+     * Funcio per a jugar una ronda amb la sequencia intentada seq_int
+     * @param seq_int sequencia intentada
+     */
     public void jugar_ronda_intentada(Sequencia_intentada seq_int){
         CtrlPartida.crea_nova_ronda();
         CtrlPartida.set_sequencia_intentada(seq_int);
@@ -547,7 +704,11 @@ public class Controlador_Domini {
         }
     }
 
-    public void jugar_ronda_intentada(Sequencia_verificacio seq_ver){
+    /**
+     * Funcio per a jugar una ronda amb la sequencia verificacio seq_ver
+     * @param seq_ver sequencia verificacio
+     */
+    public void jugar_ronda_verificacio(Sequencia_verificacio seq_ver){
         CtrlPartida.set_sequencia_verificacio(seq_ver);
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
@@ -583,6 +744,9 @@ public class Controlador_Domini {
         }
     }
 
+    /**
+     * Funcio per a actualitzar el ranking de la dificultat de la partida que s'ha fet
+     */
     public void actualitza_ranking() {
         System.out.println("\n\n\nranking\n\n\n");
         double punts_u = 0.0;
@@ -612,9 +776,7 @@ public class Controlador_Domini {
                 (hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
                 break;
         }
-
-        comprova_records();
-        
+        comprova_records();       
     }
 
     /**
@@ -631,22 +793,42 @@ public class Controlador_Domini {
         CtrlPartida.set_partida_actual(partida_actual);
     }
 
+    /**
+     * Funcio per a consultar els ids de les partides actives de l'usuari
+     * @return llista d'ids de les partides actives de l'usuari
+     */
     public List<Integer> get_ids_partides_actives_Usuari1() {
         return Usuari.get_ids_partides_actives();
     }
 
+    /**
+     * Funcio per a consultar els ids de les partides acabades de l'usuari
+     * @return llista d'ids de les partides acabades de l'usuari
+     */
     public List<Integer> get_ids_partides_acabades_Usuari1() {
         return Usuari.get_ids_partides_acabades();
     }
 
+    /**
+     * Funcio per a consultar una partida donat el seu id
+     * @param id id de la partida que es vol consultar
+     * @return partida amb id = id
+     */
     public Partida get_partida(int id){
         return ctrl_pers_partida.carrega_partida((id));
     }
 
+    /**
+     * Funcio per a consultar si la partida actual ja està acabada o no
+     * @return true si la partida actual ja està acabada, false altrament
+     */
     public boolean partida_acabada(){
         return CtrlPartida.get_partida_acabada();
     }
 
+    /**
+     * Funcio per a tractar una partida acabada
+     */
     public void tractament_partida_acabada(){
         CtrlPartida.tractament_partida_acabada();
         ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
@@ -660,14 +842,26 @@ public class Controlador_Domini {
         ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
     }
 
+    /**
+     * Funcio per a consultar la dificultat de la partida actual
+     * @return dificultat de la partida actual
+     */
     public dificultats get_dificultat_partida(){
         return CtrlPartida.get_dificultat();
     }
 
+    /**
+     * Funcio per a obtenir la partida que s'esta jugant actualment
+     * @return partida actual
+     */
     public Partida get_partida_actual(){
         return CtrlPartida.get_partida_actual();
     }
 
+    /**
+     * Funcio per a consultar el nom de l'usuari principal
+     * @return nom de l'usuari principal
+     */
     public String get_nom_user1(){
         return Usuari.get_nom();
 
