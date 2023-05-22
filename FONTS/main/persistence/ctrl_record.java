@@ -19,6 +19,10 @@ import main.domain.classes.RecordLong;
 
 public class ctrl_record {
 
+    /**
+     * Funció que serveix per a guardar un objecte Record a l'ubicació ../EXE/dades/records/ amb el .json identificat pel nom i modalitat (dificultat) d'aquell Record
+     * @param record Record a guardar
+     */
     public void save_record(Record record) {
         Gson gson = new Gson();
 
@@ -38,6 +42,12 @@ public class ctrl_record {
 
     }
 
+    /**
+     * Funció que permet carregar un determinat Record de l'ubicació ../EXE/dades/records/ amb el .json identificat pel nom i dificultat d'aquell Record
+     * @param nom_record Nom que identifica al record (1/2)
+     * @param dif Dificultat que identifica al record (2/2)
+     * @return record Record identificat per nom_record+dif
+     */
     public Record carrega_record(int nom_record, String dif) {
         Gson gson = new Gson();
         String archivo = "../EXE/dades/records/" + nom_record + dif + ".json";
