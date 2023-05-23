@@ -31,9 +31,6 @@ public class Controlador_Domini {
     //private User UsuariProves;
     private Record Record;
     private HashMap<String, Integer> hashUsers;
-    private HashMap<Pair<String,String>, Record> hashRecord;
-    private HashMap<String, Ranking> hashRanking;
-    private HashMap<Integer, Partida> hashPartida;
     private Controlador_Partida CtrlPartida;
     private ctrl_list_user ctrl_list_user;
     private ctrl_user ctrl_user;
@@ -56,8 +53,6 @@ public class Controlador_Domini {
         this.Usuari2 = null;
         this.Record = null;
         this.hashUsers = ctrl_list_user.carrega_list_user();
-        this.hashRecord = new HashMap<Pair<String,String>, Record>();
-        this.hashRanking = new HashMap<String,Ranking>();
 
 
         //get_CtrlDomini();
@@ -68,19 +63,7 @@ public class Controlador_Domini {
 
         //registrem els dos usuaris maquina
         registra_maquines();
-
-
     }
-/*
-    public static Controlador_Domini get_CtrlDomini() {
-        if (singletonObject == null) singletonObject = new Controlador_Domini();
-        return singletonObject;
-    }
-
-    public Controlador_Partida get_Ctrl_Partida() {
-        return CtrlPartida;
-    }*/
-
 
     /**
      * Funcio per a registrar a un user_persona
@@ -191,26 +174,6 @@ public class Controlador_Domini {
     }
 
     /**
-     * Comprova si l'usuari1 és de tipus maquina. Si no ho és, 
-     * @throws User1NoPotSerMaquina
-     */
-   /* public void set_jugador1(String nom_user) throws Exception {
-        if ((hashUsers.get(nom_user)).get_tipus_user() == Type_user.user_maquina) {
-            throw new Exception ("L'usuari1 no pot ser de tipus màquina");
-        }
-        //else if (validate_password_Usuari1_by_user_name(nom_user)) Usuari = hashUsers.get(nom_user);
-    }
-
-    /**
-     * Funcio per a posar el usuari amb nom = nom_usuari com a jugador2.
-     * @param nom_user
-     */
-   /* public void set_jugador2(String nom_user)  {
-        //if (get_tipus_user_by_nom_user(nom_user) == Type_user.user_persona && !validate_password_Usuari2_by_user_name(nom_user)) throw new Exception ("Usuari2 no té el mateix password");
-        Usuari2 = hashUsers.get(nom_user);
-    }*/
-
-    /**
      * Funcio per a saber quin es el nom de l'usuari que ha batut el record
      * @param nom_record nom del record que es vol consultar.
      * @param modalitat (facil, normal, dificil)
@@ -270,16 +233,6 @@ public class Controlador_Domini {
         return this.Usuari2.get_tipus_user();
     }
 
-    /*public Type_user get_tipus_user_by_nom_user(String nom_user) {
-        //UsuariProves = get_user_by_username(nom_user);
-
-        return hashUsers.get(nom_user).get_tipus_user();
-    }*/
-
-    /*
-    public boolean get_password_Usuari1() {
-        return this.Usuari.get_password();
-    }
 
     public boolean validate_password_Usuari1_by_user_name(String user_name) {
         UsuariProves = hashUsers.get(user_name);
@@ -291,12 +244,6 @@ public class Controlador_Domini {
         return Usuari2.get_password() == UsuariProves.get_password();
     } */
 
-
-   /* public int get_rondes_totals_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_rondes_totals();
-    }*/
-
     /**
      * Funcio per a incrementar les rondes totals jugades per l'usuari amb sessió activa
      */
@@ -304,68 +251,12 @@ public class Controlador_Domini {
         this.Usuari.incrementar_rondes_totals();
     }
 
-   /* public int get_partides_totals_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_partides_totals();
-    }*/
-
     /**
      * Funcio per a incrementar les partides totals jugades per l'usuari amb sessió activa
      */
     public void incrementar_partides_totals_Usuari1() {
         this.Usuari.incrementar_partides_totals();
     }
-
-    /*public void incrementar_partides_totals_Usuari2() {
-        this.Usuari2.incrementar_partides_totals();
-    }*/
-
-
-    /*public double get_puntuacioF_Usuari(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_puntuacioF();
-    }*/
-
-   /* public double get_puntuacioN_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_puntuacioN();
-    }*/
-
-   /* public double get_puntuacioD_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_puntuacioD();
-    }
-*/
-    /**
-     * @throws MaquinaNoTePuntsPvsP
-     *Demana els punts PvsP del Usuari2, es llença MaquinaNoTePuntsPvsP si l'Uusari2 és de tipus user_maquina
-     */
-
-/*
-    public void set_puntuacio_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        Usuari.set_puntuacio();
-    } */
-
-  /*  public int get_partides_guanyades_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_partides_guanyades();
-    }
-
-    public int get_partides_acabades_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_num_partides_acabades();
-    }
-
-    public int get_partides_actuals_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_num_partides_actuals();
-    }
-
-    public Vector<Double> get_estadistiques_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_estadistiques();
-    }*/
 
     /**
      * Funcio per a consultar la sequencia solucio d'una partida
@@ -458,20 +349,14 @@ public class Controlador_Domini {
 
     /**
      * Funcio per afegir partida_nova a l'usuari donat
-     * @param Usuari usuari al que se li vol afegir la partida
      * @param partida_nova partida que es vol afegir
      * @throws Exception si l'usuari ja te 10 partides actives
      */
-    private void afegir_partida_nova_users(User Usuari, Partida partida_nova) throws Exception{
-        Usuari.afegir_partida_nova(partida_nova);
-    }
-
-    /*
-    public void afegir_partida_nova_Usuari(Partida partida_nova) throws Exception {
-        if (this.Usuari.get_partides_actuals_Usuari() == 10)
+    private void afegir_partida_nova_users(Partida partida_nova) throws Exception{
+        if (this.Usuari1.get_partides_actuals_Usuari() == 10)
             throw new Exception("Masses partides actives per part de l'usuari");
-        else this.Usuari.afegir_partida_nova(partida_nova);
-    } */
+        else this.Usuari1.afegir_partida_nova(partida_nova);
+    }
 
     /**
      * Funcio per a eliminar un usuari de la llista d'usuaris
@@ -577,10 +462,6 @@ public class Controlador_Domini {
     public int get_num_ronda_actual() {
         return CtrlPartida.get_ultima_ronda_partida_actual();
     }
-
-    //public User get_user_by_username(String username) {
-     //   return hashUsers.get(username);
-   // }
 
     /**
      * Consultora d'un record segons el seu nom i la seva modalitat
