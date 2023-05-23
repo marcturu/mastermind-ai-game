@@ -88,10 +88,10 @@ public class Controlador_Domini {
      * @param password password de l'usuari
      */
     public void inicialitzaUserPersona(String nom, String password){
-        Usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
+        Usuari usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
         ctrl_list_user.save_list_users(hashUsers);
-        ctrl_user.save_users(Usuari);
+        ctrl_user.save_users(usuari);
     }
 
     /**
@@ -483,8 +483,9 @@ public class Controlador_Domini {
      * Funcio per a eliminar un usuari de la llista d'usuaris
      * @param usuari usuari que es vol eliminar
      */
-    public void elimina_Usuari_hashUsers(User usuari) {
-        hashUsers.remove(usuari.get_nom(), usuari);
+    public void elimina_Usuari_hashUsers(String nom) {
+        int value = hashUsers.get(nom);
+        hashUsers.remove(nom, value);
     }
 
     /**
@@ -633,14 +634,18 @@ public class Controlador_Domini {
         String modalitat = "facil";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "normal";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
+
 
         modalitat = "dificil";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
     }
 
     /**
@@ -651,14 +656,17 @@ public class Controlador_Domini {
         String modalitat = "facil";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "normal";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "dificil";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
     }    
 
     /**
@@ -669,14 +677,17 @@ public class Controlador_Domini {
         String modalitat = "facil";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "normal";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "dificil";
         Record = new RecordInteger(nom_record, modalitat);
         hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
     }    
 
     /**
@@ -696,10 +707,21 @@ public class Controlador_Domini {
      * Funcio per a inicialitzar els rankings
      */
     public void inicialitza_rankings() {
-        hashRanking.put("facil", new Ranking("facil"));
-        hashRanking.put("normal", new Ranking("normal"));
-        hashRanking.put("dificl", new Ranking("dificl"));
-        hashRanking.put("pvp", new Ranking("pvp"));
+        Ranking = new Ranking("facil");
+        hashRanking.put("facil", Ranking);
+        ctrl_ranking.save(Ranking);
+
+        Ranking = new Ranking("normal");
+        hashRanking.put("normal", Ranking);
+        ctrl_ranking.save(Ranking);
+
+        Ranking = new Ranking("dificil");
+        hashRanking.put("dificl", Ranking);
+        ctrl_ranking.save(Ranking);
+
+        Ranking = new Ranking("pvp");
+        hashRanking.put("pvp", Ranking);
+        ctrl_ranking.save(Ranking);
     }
 
     /**
@@ -737,6 +759,9 @@ public class Controlador_Domini {
      * Funcio per veure si la partida bat algun record
      */
     private void comprova_records() {
+
+        //Falta adaptar-ho a persistència
+
         String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
 
         for(Record r:hashRecord.values()) {
@@ -766,15 +791,19 @@ public class Controlador_Domini {
         switch ((CtrlPartida.get_dificultat()).get_dificultat()) {
             case "facil":
                 punts_u = aux.get_puntuacioF();
-                (hashRanking.get("facil")).nova_partida_ranking(punts_u, nom_u);
+                //(hashRanking.get("facil")).nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.carrega_ranking("facil").nova_partida_ranking(punts_u, nom_u);
+                //S'ha de fer ctrl_ranking.save(ranking_carregat); ?
                 break;
             case "normal":
                 punts_u = aux.get_puntuacioN();
-                (hashRanking.get("normal")).nova_partida_ranking(punts_u, nom_u);
+                //(hashRanking.get("normal")).nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.carrega_ranking("normal").nova_partida_ranking(punts_u, nom_u);
                 break;
             case "dificil":
                 punts_u = aux.get_puntuacioD();
-                (hashRanking.get("dificil")).nova_partida_ranking(punts_u, nom_u);
+                //(hashRanking.get("dificil")).nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.carrega_ranking("dificil").nova_partida_ranking(punts_u, nom_u);
                 break;
             default:
                 try {
@@ -783,7 +812,8 @@ public class Controlador_Domini {
                 catch (Exception ex){
                     //System.out.println(ex.getMessage());
                 }
-                (hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
+                //(hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.carrega_ranking("pvp").nova_partida_ranking(punts_u, nom_u);
                 break;
         }
         comprova_records();       
