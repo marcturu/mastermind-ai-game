@@ -53,7 +53,7 @@ public class Controlador_Domini {
         this.Usuari = null;
         this.Usuari2 = null;
         this.Record = null;
-        this.Record = null;
+        this.Ranking = null;
         this.hashUsers = ctrl_list_user.carrega_list_user();
         this.hashRecord = new HashMap<Pair<String,String>, Record>();
         this.hashRanking = new HashMap<String,Ranking>();
@@ -710,11 +710,17 @@ public class Controlador_Domini {
 
         String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
 
-        ctrl_record.carrega_record("record_punts", dif).(actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+        Record = ctrl_record.carrega_record("record_punts", dif);
+        Record.(actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+        ctrl_record.save(Record);
 
-        ctrl_record.carrega_record("record_streak", dif).(actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+        Record = ctrl_record.carrega_record("record_streak", dif);
+        Record.(actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+        ctrl_record.save(Record);
 
-        ctrl_record.carrega_record("record_temps", dif).(actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+        Record = ctrl_record.carrega_record("record_temps", dif);
+        Record.(actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+        ctrl_record.save(Record);
 
     }
 
