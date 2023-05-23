@@ -626,20 +626,20 @@ public class Controlador_Domini {
     private void crea_records_punts() {
         String nom_record = "record_punts";
         String modalitat = "facil";
-        Record record1 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record1);
-        ctrl_record.save_record(record1);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "normal";
-        Record record2 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record2);
-        ctrl_record.save_record(record2);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
 
         modalitat = "dificil";
-        Record record3 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record3);
-        ctrl_record.save_record(record3);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
     }
 
     /**
@@ -648,19 +648,19 @@ public class Controlador_Domini {
     private void crea_records_streak() {
         String nom_record = "record_streak";
         String modalitat = "facil";
-        Record record1 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record1);
-        ctrl_record.save_record(record1);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "normal";
-        Record record2 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record2);
-        ctrl_record.save_record(record2);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "dificil";
-        Record record3 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record3);
-        ctrl_record.save_record(record3);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
     }    
 
     /**
@@ -669,19 +669,19 @@ public class Controlador_Domini {
     private void crea_records_temps() {
         String nom_record = "record_temps";
         String modalitat = "facil";
-        Record record1 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record1);
-        ctrl_record.save_record(record1);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "normal";
-        Record record2 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record2);
-        ctrl_record.save_record(record2);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
 
         modalitat = "dificil";
-        Record record3 = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), record3);
-        ctrl_record.save_record(record3);
+        Record = new RecordInteger(nom_record, modalitat);
+        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
+        ctrl_record.save_record(Record);
     }    
 
     /**
@@ -701,21 +701,21 @@ public class Controlador_Domini {
      * Funcio per a inicialitzar els rankings
      */
     public void inicialitza_rankings() {
-        Ranking ranking = new Ranking("facil");
-        hashRanking.put("facil", rankingf);
-        ctrl_ranking.save(rankingf);
+        Ranking = new Ranking("facil");
+        hashRanking.put("facil", Ranking);
+        ctrl_ranking.save(Ranking);
 
-        ranking = new Ranking("normal");
-        hashRanking.put("normal", rankingn);
-        ctrl_ranking.save(rankingn);
+        Ranking = new Ranking("normal");
+        hashRanking.put("normal", Ranking);
+        ctrl_ranking.save(Ranking);
 
-        rankingd = new Ranking("dificil");
-        hashRanking.put("dificl", rankingd);
-        ctrl_ranking.save(rankingd);
+        Ranking = new Ranking("dificil");
+        hashRanking.put("dificl", Ranking);
+        ctrl_ranking.save(Ranking);
 
-        rankingpvp = new Ranking("pvp");
-        hashRanking.put("pvp", rankingpvp);
-        ctrl_ranking.save(rankingpvp);
+        Ranking = new Ranking("pvp");
+        hashRanking.put("pvp", Ranking);
+        ctrl_ranking.save(Ranking);
     }
 
     /**
