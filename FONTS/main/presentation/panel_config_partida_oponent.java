@@ -1,6 +1,5 @@
 package main.presentation;
 
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,7 +48,7 @@ public class panel_config_partida_oponent extends JPanel{
         b_maquina.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                ctrlPresentacio.configura_user2_maquina();//marquem que l'usuari2 es una maquina
+                ctrlPresentacio.user2_es_maquina();//marquem que l'usuari2 es una maquina
 
                 boolean jugador1_es_codemaker = ctrlPresentacio.jugador1_es_codemaker();
                 if(jugador1_es_codemaker) {

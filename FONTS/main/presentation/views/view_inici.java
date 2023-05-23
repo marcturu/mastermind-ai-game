@@ -220,8 +220,5 @@ public class view_inici extends JFrame{
         this.setContentPane(carregar_partida);
         this.invalidate();
         this.validate();
-
-        List<Pair<Integer, String>> partides_possibles = ctrlPresentacio.carrega_partides_no_acabades();
-        display_partides(partides_possibles);
     }
 }

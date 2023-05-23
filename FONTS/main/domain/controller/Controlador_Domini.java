@@ -304,10 +304,13 @@ public class Controlador_Domini {
         this.Usuari.incrementar_rondes_totals();
     }
 
-   /* public int get_partides_totals_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
+    /**
+     * Funcio per a consultar quantes partides ha fet l'usuari principal en total
+     * @return numero de partides de l'usuari principal
+     */
+    public int get_partides_totals() {
         return Usuari.get_partides_totals();
-    }*/
+    }
 
     /**
      * Funcio per a incrementar les partides totals jugades per l'usuari amb sessió activa
@@ -347,11 +350,14 @@ public class Controlador_Domini {
         Usuari.set_puntuacio();
     } */
 
-  /*  public int get_partides_guanyades_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
+    /**
+     * Funcio que retorna el numero de partides guanyades de l'usuari
+     * @return numero de partides guanyades de l'usuari
+     */
+    public int get_partides_guanyades() {
         return Usuari.get_partides_guanyades();
     }
-
+    /*
     public int get_partides_acabades_by_nom_user(String nom_user) {
         Usuari = get_user_by_username(nom_user);
         return Usuari.get_num_partides_acabades();
