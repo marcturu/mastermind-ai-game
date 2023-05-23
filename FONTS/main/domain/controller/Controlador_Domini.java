@@ -30,6 +30,7 @@ public class Controlador_Domini {
     private User Usuari2;
     //private User UsuariProves;
     private Record Record;
+    private Ranking Ranking
     private HashMap<String, Integer> hashUsers;
     private Controlador_Partida CtrlPartida;
     private ctrl_list_user ctrl_list_user;
@@ -51,6 +52,7 @@ public class Controlador_Domini {
         this.ctrl_ranking = new ctrl_ranking();
         this.Usuari = null;
         this.Usuari2 = null;
+        this.Record = null;
         this.Record = null;
         this.hashUsers = ctrl_list_user.carrega_list_user();
         this.hashRecord = new HashMap<Pair<String,String>, Record>();
@@ -706,23 +708,14 @@ public class Controlador_Domini {
      */
     private void comprova_records() {
 
-        //Falta adaptar-ho a persistència
-
         String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
 
-        for(Record r:hashRecord.values()) {
-            if(dif == r.get_modalitat_record()) {
-                if(r.get_nom_record().equals("record_punts")) {
-                    r.actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
-                }
-                else if(r.get_nom_record().equals("record_streak")) {
-                    r.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
-                }
-                else if(r.get_nom_record().equals("record_temps")) {
-                    r.actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom());;
-                }
-            }
-        }
+        ctrl_record.carrega_record("record_punts", dif).(actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+
+        ctrl_record.carrega_record("record_streak", dif).(actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+
+        ctrl_record.carrega_record("record_temps", dif).(actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
+
     }
 
     /**
@@ -737,19 +730,21 @@ public class Controlador_Domini {
         switch ((CtrlPartida.get_dificultat()).get_dificultat()) {
             case "facil":
                 punts_u = aux.get_puntuacioF();
-                //(hashRanking.get("facil")).nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.carrega_ranking("facil").nova_partida_ranking(punts_u, nom_u);
-                //S'ha de fer ctrl_ranking.save(ranking_carregat); ?
+                Ranking = ctrl_ranking.carrega_ranking("facil");
+                Ranking.nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.save(Ranking);
                 break;
             case "normal":
                 punts_u = aux.get_puntuacioN();
-                //(hashRanking.get("normal")).nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.carrega_ranking("normal").nova_partida_ranking(punts_u, nom_u);
+                Ranking = ctrl_ranking.carrega_ranking("normal");
+                Ranking.nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.save(Ranking);
                 break;
             case "dificil":
                 punts_u = aux.get_puntuacioD();
-                //(hashRanking.get("dificil")).nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.carrega_ranking("dificil").nova_partida_ranking(punts_u, nom_u);
+                Ranking = ctrl_ranking.carrega_ranking("dificil");
+                Ranking.nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.save(Ranking);
                 break;
             default:
                 try {
@@ -758,8 +753,9 @@ public class Controlador_Domini {
                 catch (Exception ex){
                     //System.out.println(ex.getMessage());
                 }
-                //(hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.carrega_ranking("pvp").nova_partida_ranking(punts_u, nom_u);
+                Ranking = ctrl_ranking.carrega_ranking("pvp");
+                Ranking.nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.save(Ranking);
                 break;
         }
         comprova_records();       
