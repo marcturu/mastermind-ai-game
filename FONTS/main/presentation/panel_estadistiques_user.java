@@ -17,7 +17,6 @@ public class panel_estadistiques_user extends JPanel{
     private JLabel l_total_games = new JLabel("Partides jugades: " + ctrlPresentacio.get_total_games());
     private JLabel l_total_wins = new JLabel("Partides guanyades: " + ctrlPresentacio.get_total_wins());
     private JLabel l_winrate = new JLabel("Winrate: " + ctrlPresentacio.get_winrate() + "%");
-    private JLabel l_avg_time = new JLabel("Temps mig per partida: " + ctrlPresentacio.get_avg_time() + " segons");
     private JButton b_enrere = new JButton("Enrere");
 
 
@@ -36,9 +35,6 @@ public class panel_estadistiques_user extends JPanel{
 
         l_winrate.setBounds(20, 110, 200, 20);
         add(l_winrate);
-
-        l_avg_time.setBounds(20, 140, 200, 20);
-        add(l_avg_time);
 
         b_enrere.setBounds(20, 250, 150, 20);
         add(b_enrere);

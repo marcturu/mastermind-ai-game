@@ -53,6 +53,8 @@ public class Controlador_Domini {
         this.Usuari2 = null;
         this.Record = null;
         this.hashUsers = ctrl_list_user.carrega_list_user();
+        this.hashRecord = new HashMap<Pair<String,String>, Record>();
+        this.hashRanking = new HashMap<String,Ranking>();
 
 
         //get_CtrlDomini();
@@ -63,7 +65,19 @@ public class Controlador_Domini {
 
         //registrem els dos usuaris maquina
         registra_maquines();
+
+
     }
+/*
+    public static Controlador_Domini get_CtrlDomini() {
+        if (singletonObject == null) singletonObject = new Controlador_Domini();
+        return singletonObject;
+    }
+
+    public Controlador_Partida get_Ctrl_Partida() {
+        return CtrlPartida;
+    }*/
+
 
     /**
      * Funcio per a registrar a un user_persona
@@ -251,12 +265,68 @@ public class Controlador_Domini {
         this.Usuari.incrementar_rondes_totals();
     }
 
+   /* public int get_partides_totals_by_nom_user(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        return Usuari.get_partides_totals();
+    }*/
+
     /**
      * Funcio per a incrementar les partides totals jugades per l'usuari amb sessió activa
      */
     public void incrementar_partides_totals_Usuari1() {
         this.Usuari.incrementar_partides_totals();
     }
+
+    /*public void incrementar_partides_totals_Usuari2() {
+        this.Usuari2.incrementar_partides_totals();
+    }*/
+
+
+    /*public double get_puntuacioF_Usuari(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        return Usuari.get_puntuacioF();
+    }*/
+
+   /* public double get_puntuacioN_by_nom_user(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        return Usuari.get_puntuacioN();
+    }*/
+
+   /* public double get_puntuacioD_by_nom_user(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        return Usuari.get_puntuacioD();
+    }
+*/
+    /**
+     * @throws MaquinaNoTePuntsPvsP
+     *Demana els punts PvsP del Usuari2, es llença MaquinaNoTePuntsPvsP si l'Uusari2 és de tipus user_maquina
+     */
+
+/*
+    public void set_puntuacio_by_nom_user(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        Usuari.set_puntuacio();
+    } */
+
+  /*  public int get_partides_guanyades_by_nom_user(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        return Usuari.get_partides_guanyades();
+    }
+
+    public int get_partides_acabades_by_nom_user(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        return Usuari.get_num_partides_acabades();
+    }
+
+    public int get_partides_actuals_by_nom_user(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        return Usuari.get_num_partides_actuals();
+    }
+
+    public Vector<Double> get_estadistiques_by_nom_user(String nom_user) {
+        Usuari = get_user_by_username(nom_user);
+        return Usuari.get_estadistiques();
+    }*/
 
     /**
      * Funcio per a consultar la sequencia solucio d'una partida
@@ -349,6 +419,7 @@ public class Controlador_Domini {
 
     /**
      * Funcio per afegir partida_nova a l'usuari donat
+     * @param Usuari usuari al que se li vol afegir la partida
      * @param partida_nova partida que es vol afegir
      * @throws Exception si l'usuari ja te 10 partides actives
      */
