@@ -250,7 +250,7 @@ public class Genetic_algorithm implements Maquina{
                         diferencia_blanques += Math.abs(poblacio.get(i).get_result(solucions.get(j).get_codi()).first() - solucions.get(j).get_result(solution).first());
                     }      
 
-                    if(diferencia_negres == 0 || diferencia_blanques == 0){
+                    if(diferencia_negres == 0 && diferencia_blanques == 0){
 
                         boolean exists = false;
 
