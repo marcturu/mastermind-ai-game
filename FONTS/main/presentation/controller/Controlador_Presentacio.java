@@ -83,10 +83,31 @@ public class Controlador_Presentacio {
     }
 
     /**
-     * Funcio per a canviar el contentPane del frame a panel_config_partida
+     * Funcio per a canviar el contentPane del frame a panel_config_partida_rol
      */
-    public void canvia_a_config_partida() {
-        viewInicial.canvia_a_config_partida();
+    public void canvia_a_config_partida_rol() {
+        viewInicial.canvia_a_config_partida_rol();
+    }
+
+    /**
+     * Funcio per a canviar el contentPane del frame a panel_config_partida_oponent
+     */
+    public void canvia_a_config_partida_oponent() {
+        viewInicial.canvia_a_config_partida_oponent();
+    }
+
+    /**
+     * Funcio per a canviar el contentPane del frame a panel_config_partida_maquina
+     */
+    public void canvia_a_config_partida_oponent_maquina() {
+        viewInicial.canvia_a_config_partida_oponent_maquina();
+    }
+
+    /**
+     * Funcio per a canviar el contentPane del frame a panel_config_partida_dificultat
+     */
+    public void canvia_a_config_partida_dificultat() {
+        viewInicial.canvia_a_config_partida_dificultat();
     }
 
     /**
@@ -168,5 +189,31 @@ public class Controlador_Presentacio {
      */
     public Long get_avg_time() {
         return ctrlDomini.get_avg_time();
+    }
+
+    /**
+     * Funcio per indicar que l'usuari vol ser codemaker de la nova partida
+     */
+    public void jugador_vol_ser_cm() {
+        
+    }
+
+    /**
+     * Funcio per indicar que l'usuari vol ser codebreaker de la nova partida
+     */
+    public void jugador_vol_ser_cb() {
+        
+    }
+
+    /**
+     * Funcio per consultar si el jugador principal es codemaker
+     * @return cert si el jugador principal es codemaker, fals altrament
+     */
+    public boolean jugador1_es_codemaker() {
+        return ctrlDomini.get_jugador1_es_codemaker();
+    }
+
+    public void set_algorisme_partida(String nom_algorisme) {
+        ctrlDomini.set_algorisme_partida(nom_algorisme);
     }
 }
