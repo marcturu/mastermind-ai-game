@@ -26,31 +26,74 @@ public class Sequencia_verificacio extends Sequencia {
     }
 
     /**
+     * Funcio per calcular els pins negres donada una solucio i un intent
+     * @param arr_solucio array de colors que conte la solucio
+     * @param array_provat array de colors que conte la sequencia que volem verificar
+     * @return pins negres que ha fet la sequencia
+     */
+    private static int get_pins_negres(colors[] arr_solucio, colors[] array_provat) {
+        int negres = 0;
+        for(int i = 0; i < 4; ++i) {
+            if (arr_solucio[i] == array_provat[i]) ++negres;
+        }
+        return negres;
+    }
+
+    /**
+     * Funcio per calcular els pins blanques donada una solucio i un intent
+     * @param arr_solucio array de colors que conte la solucio
+     * @param array_provat array de colors que conte la sequencia que volem verificar
+     * @return pins blanques que ha fet la sequencia
+     */
+    private static int get_pins_blanques(colors[] arr_solucio, colors[] array_provat) {
+        int blanques = 0;
+        int contador_repeticions = 1;
+
+        for(int i = 0; i < 4; ++i) {
+            boolean comprova_repeticions = false;
+            
+            //mirem que no haguem comprovat ja aquest color
+            for(int j = 0; j < i; ++j) {
+                if(array_provat[i] == array_provat[j]) {
+                    comprova_repeticions = true;
+                }
+            }
+            if(comprova_repeticions) continue;
+
+            contador_repeticions = 1;
+
+            for(int j = i+1; j < 4; ++j) {
+                if(array_provat[i] == array_provat[j]) {
+                    ++contador_repeticions;
+                }
+            }
+
+            for(int j = 0; j < 4; ++j) {
+                if(contador_repeticions == 0) break;
+
+                if(i != j && array_provat[i] == arr_solucio[j]) {
+                    ++blanques;
+                    --contador_repeticions;
+                }
+
+                if(i == j && array_provat[i] == arr_solucio[j]) {
+                    --contador_repeticions;
+                }
+            }
+        }
+        return blanques;
+    }
+
+    /**
      * Funcio que retorna la verificacio d'una sequencia
      * @param arr_solucio array de colors que conte la solucio
      * @param array array de colors que conte la sequencia que volem verificar
      * @return espigues blanques i negres que ha fet la sequencia
      */
     public static Pair<Integer,Integer> get_verificacio(colors[] arr_solucio, colors[] array) {
-        colors[] aux = array;
-        Integer blanques = 0, negres = 0;
+        Integer negres = get_pins_negres(arr_solucio, array);
+        Integer blanques = get_pins_blanques(arr_solucio, array);
         
-
-        for(int i = 0; i < 4; ++i) {
-            if (arr_solucio[i] == aux[i]) {
-                ++negres;
-                aux[i] = colors.NULL;
-            }
-        }
-
-        for (int i = 0; i < 4; ++i){
-            for(int j = 0; j < 4; ++j) {
-                if(arr_solucio[i] == aux[j]) {
-                    ++blanques;
-                    aux[j] = colors.NULL;
-                }
-            }
-        }
         return new Pair<>(blanques, negres);
     }
 
