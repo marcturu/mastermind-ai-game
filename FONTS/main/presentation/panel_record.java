@@ -1,5 +1,5 @@
 package main.presentation;
 
-public class panel_record {
+public class panel_record extends JPanel{
     
 }
