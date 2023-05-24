@@ -29,7 +29,7 @@ public class Controlador_Domini {
     private User Usuari;
     private User Usuari2;
     private Record Record;
-    private Ranking Ranking
+    private Ranking Ranking;
     private HashMap<String, Integer> hashUsers;
     private Controlador_Partida CtrlPartida;
     private ctrl_list_user ctrl_list_user;
@@ -54,8 +54,6 @@ public class Controlador_Domini {
         this.Record = null;
         this.Ranking = null;
         this.hashUsers = ctrl_list_user.carrega_list_user();
-        this.hashRecord = new HashMap<Pair<String,String>, Record>();
-        this.hashRanking = new HashMap<String,Ranking>();
 
         inicialitza_rankings();
 
@@ -74,7 +72,7 @@ public class Controlador_Domini {
      * @param password password de l'usuari
      */
     public void inicialitzaUserPersona(String nom, String password){
-        Usuari usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
+        User usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
         ctrl_list_user.save_list_users(hashUsers);
         ctrl_user.save_users(usuari);
@@ -449,7 +447,6 @@ public class Controlador_Domini {
     public String get_nom_Usuari() {
         return this.Usuari.get_nom();
     }
-    S
     /**
      * Consultora del tipus d'usuari de l'usuari amb sessió activa
      * @return tipus d'usuari de l'usuari amb sessió activa
@@ -538,20 +535,16 @@ public class Controlador_Domini {
      */
     public void inicialitza_rankings() {
         Ranking = new Ranking("facil");
-        hashRanking.put("facil", Ranking);
-        ctrl_ranking.save(Ranking);
+        ctrl_ranking.save_ranking(Ranking);
 
         Ranking = new Ranking("normal");
-        hashRanking.put("normal", Ranking);
-        ctrl_ranking.save(Ranking);
+        ctrl_ranking.save_ranking(Ranking);
 
         Ranking = new Ranking("dificil");
-        hashRanking.put("dificl", Ranking);
-        ctrl_ranking.save(Ranking);
+        ctrl_ranking.save_ranking(Ranking);
 
         Ranking = new Ranking("pvp");
-        hashRanking.put("pvp", Ranking);
-        ctrl_ranking.save(Ranking);
+        ctrl_ranking.save_ranking(Ranking);
     }
 
     /**
@@ -568,19 +561,19 @@ public class Controlador_Domini {
                 punts_u = aux.get_puntuacioF();
                 Ranking = ctrl_ranking.carrega_ranking("facil");
                 Ranking.nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.save(Ranking);
+                ctrl_ranking.save_ranking(Ranking);
                 break;
             case "normal":
                 punts_u = aux.get_puntuacioN();
                 Ranking = ctrl_ranking.carrega_ranking("normal");
                 Ranking.nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.save(Ranking);
+                ctrl_ranking.save_ranking(Ranking);
                 break;
             case "dificil":
                 punts_u = aux.get_puntuacioD();
                 Ranking = ctrl_ranking.carrega_ranking("dificil");
                 Ranking.nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.save(Ranking);
+                ctrl_ranking.save_ranking(Ranking);
                 break;
             default:
                 try {
@@ -591,7 +584,7 @@ public class Controlador_Domini {
                 }
                 Ranking = ctrl_ranking.carrega_ranking("pvp");
                 Ranking.nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.save(Ranking);
+                ctrl_ranking.save_ranking(Ranking);
                 break;
         }
         comprova_records();
@@ -619,18 +612,15 @@ public class Controlador_Domini {
         String nom_record = "record_punts";
         String modalitat = "facil";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
 
         modalitat = "normal";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
 
 
         modalitat = "dificil";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
     }
 
@@ -641,17 +631,14 @@ public class Controlador_Domini {
         String nom_record = "record_streak";
         String modalitat = "facil";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
 
         modalitat = "normal";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
 
         modalitat = "dificil";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
     }
 
@@ -662,17 +649,14 @@ public class Controlador_Domini {
         String nom_record = "record_temps";
         String modalitat = "facil";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
 
         modalitat = "normal";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
 
         modalitat = "dificil";
         Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
         ctrl_record.save_record(Record);
     }
 
@@ -682,19 +666,19 @@ public class Controlador_Domini {
      */
     private void comprova_records() {
 
-        String dif = CtrlPartida.get_dificultat(); //agafem la dificultat de la partida que s'ha fet
+        String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
 
         Record = ctrl_record.carrega_record("record_punts", dif);
-        Record.(actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
-        ctrl_record.save(Record);
+        Record.actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+        ctrl_record.save_record(Record);
 
         Record = ctrl_record.carrega_record("record_streak", dif);
-        Record.(actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
-        ctrl_record.save(Record);
+        Record.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+        ctrl_record.save_record(Record);
 
         Record = ctrl_record.carrega_record("record_temps", dif);
-        Record.(actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom()));
-        ctrl_record.save(Record);
+        Record.actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+        ctrl_record.save_record(Record);
 
     }
 

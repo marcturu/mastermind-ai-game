@@ -24,7 +24,7 @@ public class ctrl_user {
     public void save_users(User user){
         Gson gson = new Gson();
         try {
-            String archivo = "../EXE/dades/users/" + Integer.toString(user.get_nom()) + ".json";
+            String archivo = "../EXE/dades/users/" + Integer.toString(user.get_id()) + ".json";
             File file = new File(archivo);
             file.getParentFile().mkdirs(); // Crea la estructura de carpetas necesaria
             FileWriter writer = new FileWriter(file);
