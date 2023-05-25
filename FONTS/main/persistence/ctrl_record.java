@@ -48,7 +48,7 @@ public class ctrl_record {
      * @param dif Dificultat que identifica al record (2/2)
      * @return record Record identificat per nom_record+dif
      */
-    public Record carrega_record(int nom_record, String dif) {
+    public Record carrega_record(String nom_record, String dif) {
         Gson gson = new Gson();
         String archivo = "../EXE/dades/records/" + nom_record + dif + ".json";
 
