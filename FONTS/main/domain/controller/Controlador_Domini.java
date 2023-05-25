@@ -28,12 +28,9 @@ import main.persistence.*;
 public class Controlador_Domini {
     private User Usuari;
     private User Usuari2;
-    //private User UsuariProves;
     private Record Record;
+    private Ranking Ranking;
     private HashMap<String, Integer> hashUsers;
-    private HashMap<Pair<String,String>, Record> hashRecord;
-    private HashMap<String, Ranking> hashRanking;
-    private HashMap<Integer, Partida> hashPartida;
     private Controlador_Partida CtrlPartida;
     private ctrl_list_user ctrl_list_user;
     private ctrl_user ctrl_user;
@@ -55,12 +52,9 @@ public class Controlador_Domini {
         this.Usuari = null;
         this.Usuari2 = null;
         this.Record = null;
+        this.Ranking = null;
         this.hashUsers = ctrl_list_user.carrega_list_user();
-        this.hashRecord = new HashMap<Pair<String,String>, Record>();
-        this.hashRanking = new HashMap<String,Ranking>();
 
-
-        //get_CtrlDomini();
         inicialitza_rankings();
 
         //inicialitzem els records per a totes les modalitats(facil, normal, dificil, pvp)
@@ -68,19 +62,9 @@ public class Controlador_Domini {
 
         //registrem els dos usuaris maquina
         registra_maquines();
-
-
-    }
-/*
-    public static Controlador_Domini get_CtrlDomini() {
-        if (singletonObject == null) singletonObject = new Controlador_Domini();
-        return singletonObject;
     }
 
-    public Controlador_Partida get_Ctrl_Partida() {
-        return CtrlPartida;
-    }*/
-
+    //LOGIN
 
     /**
      * Funcio per a registrar a un user_persona
@@ -88,7 +72,7 @@ public class Controlador_Domini {
      * @param password password de l'usuari
      */
     public void inicialitzaUserPersona(String nom, String password){
-        Usuari usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
+        User usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
         ctrl_list_user.save_list_users(hashUsers);
         ctrl_user.save_users(usuari);
@@ -123,7 +107,7 @@ public class Controlador_Domini {
      * Pre: No existeix la maquina amb nom "Genetic"
      * Post: Es crea el usuari (maquina genetic) amb els paràmetres que li falten i s'afageix al map.
      */
-    public void registra_UserMaquina_genetic() {
+    private void registra_UserMaquina_genetic() {
         Integer id = hashUsers.get("Genetic");
         if(id == null) {
             User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
@@ -135,7 +119,7 @@ public class Controlador_Domini {
     /**
      * Funció per a registrar l'usuari Five-Guess, que fa servir l'algorisme de five-guess com a codebreaker.
      */
-    public void registra_UserMaquina_fiveguess() {
+    private void registra_UserMaquina_fiveguess() {
         Integer id = hashUsers.get("Five-Guess");
         if(id == null) {
             User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
@@ -190,189 +174,54 @@ public class Controlador_Domini {
         }
     }
 
+    //JUGAR PARTIDA
+
     /**
-     * Comprova si l'usuari1 és de tipus maquina. Si no ho és, 
-     * @throws User1NoPotSerMaquina
+     * Funcio per a començar una nova partida entre User1 i User2, amb dificultat dif i el rol de cada jugador
+     * @param id id de la partida
+     * @param User1 Usuari amb la sessio activa(ha de ser user_persona)
+     * @param User2 Usuari amb el que es vol jugar
+     * @param dif dificultat de la partida
+     * @param jugador1_es_codemaker indica si el jugador1 es codemaker
      */
-   /* public void set_jugador1(String nom_user) throws Exception {
-        if ((hashUsers.get(nom_user)).get_tipus_user() == Type_user.user_maquina) {
-            throw new Exception ("L'usuari1 no pot ser de tipus màquina");
+    private void start_partida_nova(int id, dificultats dif, boolean jugador1_es_codemaker) {
+        Partida partida_nova = new Partida(id, Usuari, Usuari2, dif, jugador1_es_codemaker);
+        CtrlPartida.set_partida_actual(partida_nova);
+        Usuari.afegir_partida_nova(partida_nova);
+        ctrl_pers_partida.save_partida(partida_nova);
+    }
+
+    /**
+     * Funcio per començar una nova partida
+     * @param dif dificultat de la nova partida
+     * @param jugador1_es_codemaker indica is el jugador1 es codemaker
+     * @throws Exception
+     */
+    public void inicialitza_partida_nova(dificultats dif,boolean genetic, boolean jugador1_es_codemaker) throws Exception {
+        if (Usuari.get_num_partides_actuals() == 10)
+            throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
+        else {
+            if (genetic) Usuari2 = ctrl_user.carrega_user(hashUsers.get("Genetic"));
+            else Usuari2 = ctrl_user.carrega_user(hashUsers.get("Five-Guess"));
+            start_partida_nova(ids_partides, dif, jugador1_es_codemaker);
+            ++ids_partides;
         }
-        //else if (validate_password_Usuari1_by_user_name(nom_user)) Usuari = hashUsers.get(nom_user);
     }
 
     /**
-     * Funcio per a posar el usuari amb nom = nom_usuari com a jugador2.
-     * @param nom_user
+     * Funcio per a començar una nova partida pvp
+     * @param dif dificultat de la nova partida
+     * @param jugador1_es_codemaker indica is el jugador1 es codemaker
+     * @throws Exception si hi ha massa partides actives per part d'algun dels dos jugadors
      */
-   /* public void set_jugador2(String nom_user)  {
-        //if (get_tipus_user_by_nom_user(nom_user) == Type_user.user_persona && !validate_password_Usuari2_by_user_name(nom_user)) throw new Exception ("Usuari2 no té el mateix password");
-        Usuari2 = hashUsers.get(nom_user);
-    }*/
-
-    /**
-     * Funcio per a saber quin es el nom de l'usuari que ha batut el record
-     * @param nom_record nom del record que es vol consultar.
-     * @param modalitat (facil, normal, dificil)
-     * @return nom de l'usuari que ha batut el record.
-     */
-    public String get_nom_usuari_del_record(String nom_record, String modalitat) {
-        return hashRecord.get(new Pair<>(nom_record, modalitat)).get_nom_usuari();
+    public void inicialitza_partida_nova_pvp(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
+        if (Usuari.get_num_partides_actuals() == 10)
+            throw new Exception("Masses partides actives User1");
+        else {
+            start_partida_nova(ids_partides, dif, jugador1_es_codemaker);
+            ++ids_partides;
+        }
     }
-
-    /**
-     * Funcio per a saber quin es el valor amb el que s'ha batut el record amb nom_record
-     * @param nom_record nom del record que es vol consultar.
-     * @param modalitat (facil, normal, dificil)
-     * @return valor del record
-     */
-    public Object get_punts(String nom_record, String modalitat) {
-        return hashRecord.get(new Pair<>(nom_record, modalitat)).get_valor();
-    }
-
-    /**
-     * Consultora de l'id de l'usuari amb sessió activa
-     * @return id de l'usuari amb sessió activa
-     */
-    public int get_id_Usuari1() {
-        return this.Usuari.get_id();
-    }
-
-    /**
-     * Consultora del nom de l'usuari amb sessió activa
-     * @return nom de l'usuari amb sessió activa
-     */
-    public String get_nom_Usuari() {
-        return this.Usuari.get_nom();
-    }
-
-    /**
-     * Modificadora del nom de l'usuari amb sessió activa
-     * @param nom
-     */
-    public void set_nom_Usuari(String nom) {
-        this.Usuari.set_nom(nom);
-    }
-
-    /**
-     * Consultora del tipus d'usuari de l'usuari amb sessió activa
-     * @return tipus d'usuari de l'usuari amb sessió activa
-     */
-    public Type_user get_tipus_user_Usuari1() {
-        return this.Usuari.get_tipus_user();
-    }
-
-    /**
-     * Cosultora del tipus d'usuari del contrincant
-     * @return tipus d'usuari contrincant
-     */
-    public Type_user get_tipus_user_Usuari2() {
-        return this.Usuari2.get_tipus_user();
-    }
-
-    /*public Type_user get_tipus_user_by_nom_user(String nom_user) {
-        //UsuariProves = get_user_by_username(nom_user);
-
-        return hashUsers.get(nom_user).get_tipus_user();
-    }*/
-
-    /*
-    public boolean get_password_Usuari1() {
-        return this.Usuari.get_password();
-    }
-
-    public boolean validate_password_Usuari1_by_user_name(String user_name) {
-        UsuariProves = hashUsers.get(user_name);
-        return Usuari.get_password() == UsuariProves.get_password();
-    }
-
-    public boolean validate_password_Usuari2_by_user_name(String user_name) {
-        UsuariProves = hashUsers.get(user_name);
-        return Usuari2.get_password() == UsuariProves.get_password();
-    } */
-
-
-   /* public int get_rondes_totals_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_rondes_totals();
-    }*/
-
-    /**
-     * Funcio per a incrementar les rondes totals jugades per l'usuari amb sessió activa
-     */
-    public void incrementar_rondes_totals_Usuari1() {
-        this.Usuari.incrementar_rondes_totals();
-    }
-
-    /**
-     * Funcio per a consultar quantes partides ha fet l'usuari principal en total
-     * @return numero de partides de l'usuari principal
-     */
-    public int get_partides_totals() {
-        return Usuari.get_partides_totals();
-    }
-
-    /**
-     * Funcio per a incrementar les partides totals jugades per l'usuari amb sessió activa
-     */
-    public void incrementar_partides_totals_Usuari1() {
-        this.Usuari.incrementar_partides_totals();
-    }
-
-    /*public void incrementar_partides_totals_Usuari2() {
-        this.Usuari2.incrementar_partides_totals();
-    }*/
-
-
-    /*public double get_puntuacioF_Usuari(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_puntuacioF();
-    }*/
-
-   /* public double get_puntuacioN_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_puntuacioN();
-    }*/
-
-   /* public double get_puntuacioD_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_puntuacioD();
-    }
-*/
-    /**
-     * @throws MaquinaNoTePuntsPvsP
-     *Demana els punts PvsP del Usuari2, es llença MaquinaNoTePuntsPvsP si l'Uusari2 és de tipus user_maquina
-     */
-
-/*
-    public void set_puntuacio_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        Usuari.set_puntuacio();
-    } */
-
-    /**
-     * Funcio que retorna el numero de partides guanyades de l'usuari
-     * @return numero de partides guanyades de l'usuari
-     */
-    public int get_partides_guanyades() {
-        return Usuari.get_partides_guanyades();
-    }
-    /*
-    public int get_partides_acabades_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_num_partides_acabades();
-    }
-
-    public int get_partides_actuals_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_num_partides_actuals();
-    }
-
-    public Vector<Double> get_estadistiques_by_nom_user(String nom_user) {
-        Usuari = get_user_by_username(nom_user);
-        return Usuari.get_estadistiques();
-    }*/
-
     /**
      * Funcio per a consultar la sequencia solucio d'una partida
      * @return sequencia solucio de la partida actual
@@ -412,80 +261,6 @@ public class Controlador_Domini {
      */
     public void set_solucio_partida_actual(List<List<Integer>> sol) {
         CtrlPartida.set_solucio_partida_actual(sol);
-    }
-
-    /**
-     * Funcio per a començar una nova partida entre User1 i User2, amb dificultat dif i el rol de cada jugador
-     * @param id id de la partida
-     * @param User1 Usuari amb la sessio activa(ha de ser user_persona)
-     * @param User2 Usuari amb el que es vol jugar
-     * @param dif dificultat de la partida
-     * @param jugador1_es_codemaker indica si el jugador1 es codemaker
-     */
-    private void start_partida_nova(int id, User User1, User User2, dificultats dif, boolean jugador1_es_codemaker) {
-        Partida partida_nova = new Partida(id, User1, User2, dif, jugador1_es_codemaker); 
-        hashPartida.put(id, partida_nova);
-        CtrlPartida.set_partida_actual(partida_nova);
-    }
-
-    /**
-     * Funcio per començar una nova partida
-     * @param dif dificultat de la nova partida
-     * @param jugador1_es_codemaker indica is el jugador1 es codemaker
-     * @throws Exception
-     */
-    public void inicialitza_partida_nova(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
-        if (Usuari.get_num_partides_actuals() == 10)
-            throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
-        else {
-            start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
-            afegir_partida_nova_users(Usuari, CtrlPartida.get_partida_actual());
-            ++ids_partides;
-        }
-    }
-
-    /**
-     * Funcio per a començar una nova partida pvp
-     * @param dif dificultat de la nova partida
-     * @param jugador1_es_codemaker indica is el jugador1 es codemaker
-     * @throws Exception si hi ha massa partides actives per part d'algun dels dos jugadors
-     */
-    public void inicialitza_partida_nova_pvp(dificultats dif, boolean jugador1_es_codemaker) throws Exception {
-        if (Usuari.get_num_partides_actuals() == 10)
-            throw new Exception("Masses partides actives User1");
-        else if(Usuari2.get_num_partides_actuals() == 10)
-            throw new Exception("Masses partides actives User2");
-        else {
-            start_partida_nova(ids_partides, Usuari, Usuari2, dif, jugador1_es_codemaker);
-            afegir_partida_nova_users(Usuari, CtrlPartida.get_partida_actual());
-            ++ids_partides;
-        }
-    }
-
-    /**
-     * Funcio per afegir partida_nova a l'usuari donat
-     * @param Usuari usuari al que se li vol afegir la partida
-     * @param partida_nova partida que es vol afegir
-     * @throws Exception si l'usuari ja te 10 partides actives
-     */
-    private void afegir_partida_nova_users(User Usuari, Partida partida_nova) throws Exception{
-        Usuari.afegir_partida_nova(partida_nova);
-    }
-
-    /*
-    public void afegir_partida_nova_Usuari(Partida partida_nova) throws Exception {
-        if (this.Usuari.get_partides_actuals_Usuari() == 10)
-            throw new Exception("Masses partides actives per part de l'usuari");
-        else this.Usuari.afegir_partida_nova(partida_nova);
-    } */
-
-    /**
-     * Funcio per a eliminar un usuari de la llista d'usuaris
-     * @param usuari usuari que es vol eliminar
-     */
-    public void elimina_Usuari_hashUsers(String nom) {
-        int value = hashUsers.get(nom);
-        hashUsers.remove(nom, value);
     }
 
     /**
@@ -584,146 +359,6 @@ public class Controlador_Domini {
         return CtrlPartida.get_ultima_ronda_partida_actual();
     }
 
-    //public User get_user_by_username(String username) {
-     //   return hashUsers.get(username);
-   // }
-
-    /**
-     * Consultora d'un record segons el seu nom i la seva modalitat
-     * @param nom_record nom del record que volem
-     * @param modalitat (facil, normal, dificil)
-     * @return
-     */
-    public Record get_record_by_nom_record(String nom_record, String modalitat) {
-        return hashRecord.get(new Pair<>(nom_record, modalitat));
-    }
-    /**
-     * consultora dels punts d'un record amb una modalitat concreta
-     * @param nom_record nom del record a consultar
-     * @param modalitat (facil, normal, dificil)
-     * @return retorna un Object amb els punts/streak/segons
-     */
-    public Object get_punts_record_by_nom_record(String nom_record, String modalitat) {
-        return hashRecord.get(new Pair<>(nom_record, modalitat)).get_valor();
-    }
-
-    /**
-     * Funcio per a consultar el nom de l'usuari que ha batut el record amb nom_record i modalitat
-     * @param nom_record nom del record que es vol consultar
-     * @param modalitat (facil, normal, dificil)
-     * @return nom de l'usuari que ha batut el record
-     */
-    public String get_nom_usuari_by_nom_record(String nom_record, String modalitat) {
-        return hashRecord.get(new Pair<>(nom_record, modalitat)).get_nom_usuari();
-    }
-
-    /**
-     * Funcio per obtindre un ranking segons el seu nom("facil", "normal", "dificil", "pvp")
-     * @param ranking_name nom del ranking que es vol consultar
-     * @return ranking amb nom = ranking_name
-     */
-    public Ranking get_ranking_by_ranking_name(String ranking_name) {
-        return hashRanking.get(ranking_name);
-    }
-
-    /**
-     * Funcio per a crear els records de punts amb modalitats facil, normal i dificil
-     */
-    private void crea_records_punts() {
-        String nom_record = "record_punts";
-        String modalitat = "facil";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-
-        modalitat = "normal";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-
-
-        modalitat = "dificil";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-    }
-
-    /**
-     * Funcio per a crear els records de ratxes amb modalitats facil, normal i dificil
-     */
-    private void crea_records_streak() {
-        String nom_record = "record_streak";
-        String modalitat = "facil";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-
-        modalitat = "normal";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-
-        modalitat = "dificil";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-    }    
-
-    /**
-     * Funcio per a crear els records de temps amb modalitats facil, normal i dificil
-     */
-    private void crea_records_temps() {
-        String nom_record = "record_temps";
-        String modalitat = "facil";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-
-        modalitat = "normal";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-
-        modalitat = "dificil";
-        Record = new RecordInteger(nom_record, modalitat);
-        hashRecord.putIfAbsent(new Pair<>(nom_record, modalitat), Record);
-        ctrl_record.save_record(Record);
-    }    
-
-    /**
-     * inicialitza el record amb nom = "nom_record" per a cada modalitat(facil, normal, dificil, pvp)
-     * @param nom_record nom del record que es vol crear
-     */
-    private void crea_records() {
-        //Creem els records de punts
-        crea_records_punts();
-        //creem els records de ratxes
-        crea_records_streak();
-        //creem els records de temps
-        crea_records_temps();
-    }
-
-    /**
-     * Funcio per a inicialitzar els rankings
-     */
-    public void inicialitza_rankings() {
-        Ranking = new Ranking("facil");
-        hashRanking.put("facil", Ranking);
-        ctrl_ranking.save(Ranking);
-
-        Ranking = new Ranking("normal");
-        hashRanking.put("normal", Ranking);
-        ctrl_ranking.save(Ranking);
-
-        Ranking = new Ranking("dificil");
-        hashRanking.put("dificl", Ranking);
-        ctrl_ranking.save(Ranking);
-
-        Ranking = new Ranking("pvp");
-        hashRanking.put("pvp", Ranking);
-        ctrl_ranking.save(Ranking);
-    }
-
     /**
      * Funcio per a jugar una ronda amb la sequencia intentada seq_int
      * @param seq_int sequencia intentada
@@ -753,109 +388,6 @@ public class Controlador_Domini {
         }
 
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
-    }
-
-    /**
-     * Funcio per veure si la partida bat algun record
-     */
-    private void comprova_records() {
-
-        //Falta adaptar-ho a persistència
-
-        String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
-
-        for(Record r:hashRecord.values()) {
-            if(dif == r.get_modalitat_record()) {
-                if(r.get_nom_record().equals("record_punts")) {
-                    r.actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
-                }
-                else if(r.get_nom_record().equals("record_streak")) {
-                    r.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
-                }
-                else if(r.get_nom_record().equals("record_temps")) {
-                    r.actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom());;
-                }
-            }
-        }
-    }
-
-    /**
-     * Funcio per a actualitzar el ranking de la dificultat de la partida que s'ha fet
-     */
-    public void actualitza_ranking() {
-        System.out.println("\n\n\nranking\n\n\n");
-        double punts_u = 0.0;
-        User aux = CtrlPartida.get_codebreaker_partida_actual();
-        String nom_u = aux.get_nom();
-        
-        switch ((CtrlPartida.get_dificultat()).get_dificultat()) {
-            case "facil":
-                punts_u = aux.get_puntuacioF();
-                //(hashRanking.get("facil")).nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.carrega_ranking("facil").nova_partida_ranking(punts_u, nom_u);
-                //S'ha de fer ctrl_ranking.save(ranking_carregat); ?
-                break;
-            case "normal":
-                punts_u = aux.get_puntuacioN();
-                //(hashRanking.get("normal")).nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.carrega_ranking("normal").nova_partida_ranking(punts_u, nom_u);
-                break;
-            case "dificil":
-                punts_u = aux.get_puntuacioD();
-                //(hashRanking.get("dificil")).nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.carrega_ranking("dificil").nova_partida_ranking(punts_u, nom_u);
-                break;
-            default:
-                try {
-                    punts_u = aux.get_puntuaciopvp();
-                }
-                catch (Exception ex){
-                    //System.out.println(ex.getMessage());
-                }
-                //(hashRanking.get("pvp")).nova_partida_ranking(punts_u, nom_u);
-                ctrl_ranking.carrega_ranking("pvp").nova_partida_ranking(punts_u, nom_u);
-                break;
-        }
-        comprova_records();       
-    }
-
-    /**
-     * Funcio per a carregar la partida amb id = "id_partida_activa"
-     * @param id_partida_activa id de la partida a carregar
-     * @throws Exception en cas que no existeixi la partida amb aquest id
-     */
-    public void jugar_partides_antigues(int id_partida_activa) throws Exception{
-        //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
-        Partida partida_actual = ctrl_pers_partida.carrega_partida(id_partida_activa);
-        if(partida_actual == null) {
-            throw new Exception("La partida que vols carregar no existeix");
-        }
-        CtrlPartida.set_partida_actual(partida_actual);
-    }
-
-    /**
-     * Funcio per a consultar els ids de les partides actives de l'usuari
-     * @return llista d'ids de les partides actives de l'usuari
-     */
-    public List<Integer> get_ids_partides_actives_Usuari1() {
-        return Usuari.get_ids_partides_actives();
-    }
-
-    /**
-     * Funcio per a consultar els ids de les partides acabades de l'usuari
-     * @return llista d'ids de les partides acabades de l'usuari
-     */
-    public List<Integer> get_ids_partides_acabades_Usuari1() {
-        return Usuari.get_ids_partides_acabades();
-    }
-
-    /**
-     * Funcio per a consultar una partida donat el seu id
-     * @param id id de la partida que es vol consultar
-     * @return partida amb id = id
-     */
-    public Partida get_partida(int id){
-        return ctrl_pers_partida.carrega_partida((id));
     }
 
     /**
@@ -898,6 +430,53 @@ public class Controlador_Domini {
         return CtrlPartida.get_partida_actual();
     }
 
+    //USER
+
+    /**
+     * Consultora de l'id de l'usuari amb sessió activa
+     * @return id de l'usuari amb sessió activa
+     */
+    public int get_id_Usuari1() {
+        return this.Usuari.get_id();
+    }
+
+    /**
+     * Consultora del nom de l'usuari amb sessió activa
+     * @return nom de l'usuari amb sessió activa
+     */
+    public String get_nom_Usuari() {
+        return this.Usuari.get_nom();
+    }
+    /**
+     * Consultora del tipus d'usuari de l'usuari amb sessió activa
+     * @return tipus d'usuari de l'usuari amb sessió activa
+     */
+    public Type_user get_tipus_user_Usuari1() {
+        return this.Usuari.get_tipus_user();
+    }
+
+    /**
+     * Cosultora del tipus d'usuari del contrincant
+     * @return tipus d'usuari contrincant
+     */
+    public Type_user get_tipus_user_Usuari2() {
+        return this.Usuari2.get_tipus_user();
+    }
+
+    /**
+     * Funcio per a incrementar les rondes totals jugades per l'usuari amb sessió activa
+     */
+    public void incrementar_rondes_totals_Usuari1() {
+        this.Usuari.incrementar_rondes_totals();
+    }
+
+    /**
+     * Funcio per a incrementar les partides totals jugades per l'usuari amb sessió activa
+     */
+    public void incrementar_partides_totals_Usuari1() {
+        this.Usuari.incrementar_partides_totals();
+    }
+
     /**
      * Funcio per a consultar el nom de l'usuari principal
      * @return nom de l'usuari principal
@@ -905,5 +484,236 @@ public class Controlador_Domini {
     public String get_nom_user1(){
         return Usuari.get_nom();
 
+    }
+
+    //JUGAR PARTIDAS NO ACABADES
+
+    /**
+     * Funcio per a consultar els ids de les partides actives de l'usuari
+     * @return llista d'ids de les partides actives de l'usuari
+     */
+    public List<Integer> get_ids_partides_actives_Usuari1() {
+        return Usuari.get_ids_partides_actives();
+    }
+
+    /**
+     * Funcio per a carregar la partida amb id = "id_partida_activa"
+     * @param id_partida_activa id de la partida a carregar
+     * @throws Exception en cas que no existeixi la partida amb aquest id
+     */
+    public void jugar_partides_antigues(int id_partida_activa) throws Exception{
+        //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
+        Partida partida_actual = ctrl_pers_partida.carrega_partida(id_partida_activa);
+        if(partida_actual == null) {
+            throw new Exception("La partida que vols carregar no existeix");
+        }
+        CtrlPartida.set_partida_actual(partida_actual);
+    }
+
+    //VEURE PARTIDA ACABADA
+    /**
+     * Funcio per a consultar els ids de les partides acabades de l'usuari
+     * @return llista d'ids de les partides acabades de l'usuari
+     */
+    public List<Integer> get_ids_partides_acabades_Usuari1() {
+        return Usuari.get_ids_partides_acabades();
+    }
+
+    /**
+     * Funcio per a consultar una partida donat el seu id
+     * @param id id de la partida que es vol consultar
+     * @return partida amb id = id
+     */
+    public Partida get_partida(int id){
+        return ctrl_pers_partida.carrega_partida((id));
+    }
+
+    //RANKING
+
+    /**
+     * Funcio per a inicialitzar els rankings
+     */
+    public void inicialitza_rankings() {
+        Ranking = new Ranking("facil");
+        ctrl_ranking.save_ranking(Ranking);
+
+        Ranking = new Ranking("normal");
+        ctrl_ranking.save_ranking(Ranking);
+
+        Ranking = new Ranking("dificil");
+        ctrl_ranking.save_ranking(Ranking);
+
+        Ranking = new Ranking("pvp");
+        ctrl_ranking.save_ranking(Ranking);
+    }
+
+    /**
+     * Funcio per a actualitzar el ranking de la dificultat de la partida que s'ha fet
+     */
+    public void actualitza_ranking() {
+        System.out.println("\n\n\nranking\n\n\n");
+        double punts_u = 0.0;
+        User aux = CtrlPartida.get_codebreaker_partida_actual();
+        String nom_u = aux.get_nom();
+
+        switch ((CtrlPartida.get_dificultat()).get_dificultat()) {
+            case "facil":
+                punts_u = aux.get_puntuacioF();
+                Ranking = ctrl_ranking.carrega_ranking("facil");
+                Ranking.nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.save_ranking(Ranking);
+                break;
+            case "normal":
+                punts_u = aux.get_puntuacioN();
+                Ranking = ctrl_ranking.carrega_ranking("normal");
+                Ranking.nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.save_ranking(Ranking);
+                break;
+            case "dificil":
+                punts_u = aux.get_puntuacioD();
+                Ranking = ctrl_ranking.carrega_ranking("dificil");
+                Ranking.nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.save_ranking(Ranking);
+                break;
+            default:
+                try {
+                    punts_u = aux.get_puntuaciopvp();
+                }
+                catch (Exception ex){
+                    //System.out.println(ex.getMessage());
+                }
+                Ranking = ctrl_ranking.carrega_ranking("pvp");
+                Ranking.nova_partida_ranking(punts_u, nom_u);
+                ctrl_ranking.save_ranking(Ranking);
+                break;
+        }
+        comprova_records();
+    }
+
+    //RECORD
+
+    /**
+     * inicialitza el record amb nom = "nom_record" per a cada modalitat(facil, normal, dificil, pvp)
+     * @param nom_record nom del record que es vol crear
+     */
+    private void crea_records() {
+        //Creem els records de punts
+        crea_records_punts();
+        //creem els records de ratxes
+        crea_records_streak();
+        //creem els records de temps
+        crea_records_temps();
+    }
+
+    /**
+     * Funcio per a crear els records de punts amb modalitats facil, normal i dificil
+     */
+    private void crea_records_punts() {
+        String nom_record = "record_punts";
+        String modalitat = "facil";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+
+        modalitat = "normal";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+
+
+        modalitat = "dificil";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+    }
+
+    /**
+     * Funcio per a crear els records de ratxes amb modalitats facil, normal i dificil
+     */
+    private void crea_records_streak() {
+        String nom_record = "record_streak";
+        String modalitat = "facil";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+
+        modalitat = "normal";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+
+        modalitat = "dificil";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+    }
+
+    /**
+     * Funcio per a crear els records de temps amb modalitats facil, normal i dificil
+     */
+    private void crea_records_temps() {
+        String nom_record = "record_temps";
+        String modalitat = "facil";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+
+        modalitat = "normal";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+
+        modalitat = "dificil";
+        Record = new RecordInteger(nom_record, modalitat);
+        ctrl_record.save_record(Record);
+    }
+
+
+    /**
+     * Funcio per veure si la partida bat algun record
+     */
+    private void comprova_records() {
+
+        String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
+
+        Record = ctrl_record.carrega_record("record_punts", dif);
+        Record.actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+        ctrl_record.save_record(Record);
+
+        Record = ctrl_record.carrega_record("record_streak", dif);
+        Record.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+        ctrl_record.save_record(Record);
+
+        Record = ctrl_record.carrega_record("record_temps", dif);
+        Record.actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+        ctrl_record.save_record(Record);
+
+    }
+
+    /**
+     * Consultora d'un record segons el seu nom i la seva modalitat
+     * @param nom_record nom del record que volem
+     * @param modalitat (facil, normal, dificil)
+     * @return
+     */
+    public Record get_record_by_nom_record(String nom_record, String modalitat) {
+        return ctrl_record.carrega_record(nom_record,modalitat);
+    }
+    /**
+     * consultora dels punts d'un record amb una modalitat concreta
+     * @param nom_record nom del record a consultar
+     * @param modalitat (facil, normal, dificil)
+     * @return retorna un Object amb els punts/streak/segons
+     */
+    public Object get_punts_record_by_nom_record(String nom_record, String modalitat) {
+        return ctrl_record.carrega_record(nom_record,modalitat).get_valor();
+    }
+
+    /**
+     * Funcio per a consultar el nom de l'usuari que ha batut el record amb nom_record i modalitat
+     * @param nom_record nom del record que es vol consultar
+     * @param modalitat (facil, normal, dificil)
+     * @return nom de l'usuari que ha batut el record
+     */
+    public String get_nom_usuari_by_nom_record(String nom_record, String modalitat) {
+        return ctrl_record.carrega_record(nom_record,modalitat).get_nom_usuari();
+    }
+
+    //STATS
+
+    public User getUsuari() {
+        return Usuari;
     }
 }
