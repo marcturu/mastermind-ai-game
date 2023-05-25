@@ -63,20 +63,22 @@ public class Genetic_algorithm implements Maquina{
      * @param codi_solucio codi solucio de la partida
      * @return el fitness del cromosoma
      */
-    private int fitness(Cromosoma c, List<Cromosoma> cromosomes_previs, List<Integer> codi_solucio) {
+    private double fitness(Cromosoma c, List<Cromosoma> cromosomes_previs, List<Integer> codi_solucio) {
 
         int constantA = 1;
         int constantB = 2;
-        int fitness = 0;
+        double fitness = 0.0;
 
         for(Cromosoma prev: cromosomes_previs) {
             Pair<Integer, Integer> p = c.get_result(prev.get_codi());
             Pair<Integer, Integer> p2 = prev.get_result(codi_solucio);
-            fitness += constantA * (Math.abs(p.first() - p2.first()) + Math.abs(p.second() - p2.second()));
+            fitness += (double)(constantA * (Math.abs(p.first() - p2.first()) + Math.abs(p.second() - p2.second())));
         }
-        fitness += constantB * 4 * (cromosomes_previs.size() - 1);
+        fitness += (double)(constantB * 4 * (cromosomes_previs.size() - 1));
 
-        return fitness;
+        if(fitness == 0) return 1.1;
+
+        return 1.0/fitness;
     }
 
     /**
@@ -121,8 +123,12 @@ public class Genetic_algorithm implements Maquina{
     /**
      * Funcio per a generar la nova poblacio, fent servir el metode de la ruleta, segons descrit a:
      * https://lirias.kuleuven.be/bitstream/123456789/184247/2/Mastermind
+     * @param codi_solucio codi solucio de la partida
+     * @param codis_previs llista de cromosomes seleccionats previament
+     * @param poblacio_anterior poblacio de la generacio anterior
+     * @return la nova poblacio
      */
-    private List<Cromosoma> genera_nova_poblacio(List<Integer> codi_solucio, List<Cromosoma> codis_previs) {
+    private List<Cromosoma> genera_nova_poblacio(List<Integer> codi_solucio, List<Cromosoma> codis_previs, List<Cromosoma> poblacio_anterior) {
         //creem nova poblacio random
         List<Cromosoma> new_poblacio = init_poblacio();
         Cromosoma pare = null;
@@ -176,7 +182,7 @@ public class Genetic_algorithm implements Maquina{
             //triem mare amb la ruleta
             randomNum = Math.random();
             for(int j = 0; j < POPULATION_SIZE; ++j) {
-                if(randomNum < fitness_array[j]) {
+                if(randomNum <= fitness_array[j]) {
                     mare = new_poblacio.get(j);
                 }
             }
@@ -184,7 +190,7 @@ public class Genetic_algorithm implements Maquina{
             //triem pare amb la ruleta
             randomNum = Math.random();
             for(int j = 0; j < POPULATION_SIZE; ++j) {
-                if(randomNum < fitness_array[j]) {
+                if(randomNum <= fitness_array[j]) {
                     pare = new_poblacio.get(j);
                 }
             }
@@ -217,9 +223,7 @@ public class Genetic_algorithm implements Maquina{
      * @param l solucio de la partida
      * @return llista d'intents fins arribar a la solucio
      */
-    public List<List<Integer>> solve(List<Integer> solution) {
-        int A = 1;
-        
+    public List<List<Integer>> solve(List<Integer> solution) {   
         List<List<Integer>> sol = new ArrayList<>();
         List<Cromosoma> solucions = new ArrayList<>();
         
@@ -229,11 +233,15 @@ public class Genetic_algorithm implements Maquina{
         solucions.add(last_guess);
         List<Cromosoma> poblacio = init_poblacio();
         int iter = 1;
+        System.out.println("ITERACIO " + iter + ": " + last_guess.get_codi());
         while (last_guess.get_result(solution).second() != 4) {  
             List<Cromosoma> elegibles = new ArrayList<>();
             int h = 1;
-            while(h <= MAX_GENERATIONS && elegibles.size() <= MAX_ELEGIBLE_POOL) {
-                poblacio = genera_nova_poblacio(solution, solucions);
+            while(h < MAX_GENERATIONS && elegibles.size() < MAX_ELEGIBLE_POOL) {
+                List<Cromosoma> new_poblacio = new ArrayList<>();
+                if(h != 1) new_poblacio = genera_nova_poblacio(solution, solucions, poblacio);
+                else new_poblacio = poblacio;
+
                 for(int i = 0; i < POPULATION_SIZE; ++i){
                     int diferencia_negres = 0;
                     int diferencia_blanques = 0;
@@ -241,52 +249,57 @@ public class Genetic_algorithm implements Maquina{
                     ////////////////////////////////////////////////////
                     //triem quins cromosomes son elegibles com a guess//
                     ////////////////////////////////////////////////////
-                    for(int j = 1; j < solucions.size(); ++j){
-                        
-                        diferencia_negres += A * Math.abs(poblacio.get(i).get_result(solucions.get(j).get_codi()).second() - solucions.get(j).get_result(solution).second());
+                    for(int j = 0; j < solucions.size(); ++j){  
+                        diferencia_negres += Math.abs(new_poblacio.get(i).get_result(solucions.get(j).get_codi()).second() - solucions.get(j).get_result(solution).second());
                     }			
 
-                    for(int j = 1; j < solucions.size(); ++j){
-                        diferencia_blanques += Math.abs(poblacio.get(i).get_result(solucions.get(j).get_codi()).first() - solucions.get(j).get_result(solution).first());
+                    for(int j = 0; j < solucions.size(); ++j){
+                        diferencia_blanques += Math.abs(new_poblacio.get(i).get_result(solucions.get(j).get_codi()).first() - solucions.get(j).get_result(solution).first());
                     }      
 
                     if(diferencia_negres == 0 && diferencia_blanques == 0){
-
                         boolean exists = false;
-
                         for(Cromosoma c : elegibles){
-                            if(c.get_codi().equals(poblacio.get(i).get_codi())) exists = true;
+                            if(c.get_codi().equals(new_poblacio.get(i).get_codi())) exists = true;
                         }
-
-                        if(!exists) elegibles.add(poblacio.get(i));
+                        if(!exists) elegibles.add(new_poblacio.get(i));
                     }
                 }
                 h++;
+                poblacio = new_poblacio;
+                //System.out.println("Generacio " + h + " amb " + elegibles.size() + " elegibles");
             }
             if(elegibles.isEmpty()) {
                 System.out.println("LIADA!!!");
                 return null;
             }
 
-            ////////////////////////////////////////////
-            //triem el guess més semblant a la solucio//
-            ////////////////////////////////////////////
+            //////////////////////////////////////////////////////
+            //triem el guess més semblant a la resta d'elegibles//
+            //////////////////////////////////////////////////////
+            Pair<Integer, Integer> pins;
             last_guess = elegibles.get(0);
-            int max_similaritat = 0, similaritat = 0;
-
+            int min_similaritat = 0, similaritat = 0;
+            for(Cromosoma c2:elegibles) {
+                pins = last_guess.get_result(c2.get_codi());
+                min_similaritat +=  pins.first() + pins.second();
+            }
+            
             for(Cromosoma c: elegibles) {
+                similaritat = 0;
                 for(Cromosoma c2: elegibles) {
                     if(c == c2) continue;
-                    Pair<Integer, Integer> pins = c.get_result(c2.get_codi());
+                    pins = c.get_result(c2.get_codi());
                     similaritat +=  pins.first() + pins.second();
                 }
-                if(similaritat > max_similaritat) {
-                    max_similaritat = similaritat;
+                if(similaritat < min_similaritat) {
+                    min_similaritat = similaritat;
                     last_guess = c;
                 }
             }
             solucions.add(last_guess);
             ++iter;
+            System.out.println("ITERACIO " + iter + ": " + last_guess.get_codi() + " " + last_guess.get_result(solucions.get(iter-1).get_codi()));
         }
         passa_de_cromosoma_a_solucio(solucions, sol);
         return sol;

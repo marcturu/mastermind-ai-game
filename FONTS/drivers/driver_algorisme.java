@@ -12,7 +12,7 @@ import main.domain.classes.enumerations.dificultats;
 
 public class driver_algorisme {
 
-    private Scanner in = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args){
         driver_algorisme driver = new driver_algorisme();
@@ -282,43 +282,4 @@ public class driver_algorisme {
     private void print_colors(){
         System.out.println("colors: vermell, verd, blau, groc, magenta, cian, marro, gris\n");
     }
-
-    private colors crea_array_color(String input) throws Exception {
-        switch (input){
-            case "vermell":{
-                return colors.VERMELL;
-            }
-            case "verd":{
-                return colors.VERD;
-            }
-            case "blau":{
-                return colors.BLAU;
-            }
-            case "groc":{
-                return colors.GROC;
-            }
-            case "magenta":{
-                return colors.MAGENTA;
-            }
-            case "cian":{
-                return colors.CIAN;
-            }
-            case "marro":{
-                return colors.MARRO;
-            }
-            case "gris":{
-                return colors.GRIS;
-            }
-            case "blanc":{
-                return colors.BLANC;
-            }
-            case "negre":{
-                return colors.NEGRE;
-            }
-            default:{
-                throw new Exception("Color Incorrecte");
-            }
-        }
-    }
-
 }

@@ -210,6 +210,18 @@ public class Controlador_Presentacio {
         j1_cm = false;
     }
 
+    public void acreditar_User2() {
+        j2_user = true;
+        
+    }
+
+    /**
+     * Funcio per indicar que l'usuari vol que el seu oponent sigui una maquina
+     */
+    public void user2_es_maquina() {
+        j2_user = false;
+    }
+
     /**
      * Funcio per consultar si el jugador principal es codemaker
      * @return cert si el jugador principal es codemaker, fals altrament
