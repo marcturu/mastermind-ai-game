@@ -221,4 +221,20 @@ public class Controlador_Presentacio {
     public void set_algorisme_partida(String nom_algorisme) {
         ctrlDomini.set_algorisme_partida(nom_algorisme);
     }
+
+    public void assigna_dificultat_facil() {
+        ctrlDomini.assigna_dificultat(1);
+    }
+    public void assigna_dificultat_mitja() {
+        ctrlDomini.assigna_dificultat(2);
+    }
+    public void assigna_dificultat_dificil() {
+        ctrlDomini.assigna_dificultat(3);
+    }
+
+    private void assigna_dificultat(int n) {
+        if (n > 0 || n < 4){
+            this.dificultat = n;
+        }
+    }
 }
