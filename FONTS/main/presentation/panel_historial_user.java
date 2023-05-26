@@ -58,7 +58,6 @@ public class panel_historial_user extends JPanel{
 
     }
     
-    
     /**
      * Constructora de la classe panel_historial_user
      * @param ctrlPresentacio

@@ -15,6 +15,7 @@ public class Controlador_Presentacio {
     private boolean j2_user;
     private boolean j2_maquina_genetica;
     private int dificultat;
+    private boolean login_user2;
 
     /**
      * Constructora de la classe
@@ -28,6 +29,8 @@ public class Controlador_Presentacio {
         j2_user = false;
         j2_maquina_genetica = false;
         dificultat = 2;
+
+        login_user2 = false;
     }
 
     /**
@@ -149,7 +152,11 @@ public class Controlador_Presentacio {
      * @throws Exception Si l'usuari no existeix o la contrasenya es incorrecta
      */
     public void crida_a_login_domini(String username, String password) throws Exception{
-        ctrlDomini.loginUsuari1(username, password);
+        if(login_user2) ctrlDomini.loginUsuari2(username, password);
+        else {
+            ctrlDomini.loginUsuari1(username, password);
+            login_user2 = true;
+        }
     }
 
     /**
@@ -159,7 +166,11 @@ public class Controlador_Presentacio {
      * @throws Exception Si l'usuari ja existeix
      */
     public void crida_a_register_domini(String username, String password) throws Exception {
-        ctrlDomini.inicialitzaUserPersona(username, password);
+        if(login_user2) ctrlDomini.inicialitzaUserPersona2(username, password);
+        else {
+            ctrlDomini.inicialitzaUserPersona(username, password);
+            login_user2 = true;
+        }
     }
 
     /**

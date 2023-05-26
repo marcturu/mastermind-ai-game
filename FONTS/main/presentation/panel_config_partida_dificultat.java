@@ -1,5 +1,12 @@
 package main.presentation;
 
+import main.presentation.controller.Controlador_Presentacio;
+
+import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class panel_config_partida_dificultat extends JPanel{
     private Controlador_Presentacio ctrlPresentacio;
     private final JLabel l_dificultat = new JLabel("Selecciona el tipus de dificultat:");
