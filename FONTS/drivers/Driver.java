@@ -114,11 +114,12 @@ public class Driver {
                 boolean rol = pregunta_rol();
 
                 System.out.println("dificultat i rol ben entrats\n");
+                boolean algoritme_genetic = pregunta_genetic();
                 switch (dif_partida){
                     case "1":{
                         try {
                             System.out.println("nova partida vs maquina iniciada\n");
-                            domini.inicialitza_partida_nova(dificultats.FACIL,rol);
+                            domini.inicialitza_partida_nova(dificultats.FACIL, algoritme_genetic, rol);
                             jugar_partida_maquina();
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
@@ -129,7 +130,7 @@ public class Driver {
                     case "2":{
                         try {
                             System.out.println("nova partida vs maquina iniciada\n");
-                            domini.inicialitza_partida_nova(dificultats.NORMAL,rol);
+                            domini.inicialitza_partida_nova(dificultats.NORMAL, algoritme_genetic, rol);
                             System.out.println("Entrem a jugar partida\n");
                             jugar_partida_maquina();
                         }catch (Exception ex){
@@ -140,7 +141,7 @@ public class Driver {
                     case "3":{
                         try {
                             System.out.println("nova partida vs maquina iniciada\n");
-                            domini.inicialitza_partida_nova(dificultats.DIFICIL,rol);
+                            domini.inicialitza_partida_nova(dificultats.DIFICIL, algoritme_genetic, rol);
                             jugar_partida_maquina();
                         }catch (Exception ex){
                             System.out.println(ex.getMessage());
@@ -217,6 +218,14 @@ public class Driver {
         if (dif_partida.equals("1") || dif_partida.equals("2") || dif_partida.equals("3")) return dif_partida;
         return pregunta_dificultat();
     }
+
+    private boolean pregunta_genetic() {
+        System.out.println("Selecciona Algorisme de la maquina: \n" + "0- Algorisme Five-Guess\n" + "1- Algorisme Genetic\n");
+        Integer is_genetic = in.nextInt();
+        if(is_genetic == 0) return false;
+        else if(is_genetic == 1) return true;
+        else return pregunta_genetic();
+    }
     private void jugar_partida_pvp() {
         int ronda_actual = domini.get_num_ronda_actual();
         dificultats dif = domini.get_dificultat_partida();
@@ -253,7 +262,7 @@ public class Driver {
                 Sequencia_verificacio seq_ver = codemaker_entra_verificacio(seq_int);
                 try {
                     domini.jugar_ronda_intentada(seq_int);
-                    domini.jugar_ronda_intentada(seq_ver);
+                    domini.jugar_ronda_verificacio(seq_ver);
                 }catch (Exception ex){
                     System.out.println(ex.getMessage());
                 }
@@ -330,7 +339,7 @@ public class Driver {
                 }
                 try {
                     domini.jugar_ronda_intentada(seq_int);
-                    domini.jugar_ronda_intentada(seq_ver);
+                    domini.jugar_ronda_verificacio(seq_ver);
                 }catch (Exception ex){
                     System.out.println(ex.getMessage());
                 }
@@ -484,7 +493,7 @@ public class Driver {
         for(int i = 0; i < 4; ++i) {
             aux[i] = colors.get_color_by_id(llista.get(i));
         }
-        Sequencia ret = new Sequencia_intentada();
+        Sequencia_intentada ret = new Sequencia_intentada();
         try{
             ret.set_array(aux, dif.get_num_colors());
         }catch(Exception e) {
