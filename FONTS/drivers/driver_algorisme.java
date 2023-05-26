@@ -157,7 +157,8 @@ public class driver_algorisme {
         double total_points_5g = 0.0;
         double total_points_genetic = 0.0;
         double total_guesses = (double)num_proves;
-        double current_guesses = 0;
+        double current_guesses_fg = 0.0;
+        double current_guesses_genetic = 0.0;
 
         dificultats dif;
         switch(dificultat) {
@@ -195,11 +196,15 @@ public class driver_algorisme {
             List<List<Integer>> solutions_generated_genetic = genetic.solve(new_solution);
 
             total_points_5g += solutions_generated_5g.size();
-            total_points_genetic += solutions_generated_genetic.size();
-            current_guesses++;
+            current_guesses_fg++;
+            
+            if(solutions_generated_genetic != null) {
+                total_points_genetic += solutions_generated_genetic.size();
+                ++current_guesses_genetic;
+            }
 
-            System.out.println("CURRENT medium of points genetic : " + total_points_genetic/current_guesses);
-            System.out.println("CURRENT medium of points five guess : " + total_points_5g/current_guesses);
+            System.out.println("CURRENT medium of points genetic : " + total_points_genetic/current_guesses_genetic);
+            System.out.println("CURRENT medium of points five guess : " + total_points_5g/current_guesses_fg);
             System.out.println("----------------------- ");
         }
 

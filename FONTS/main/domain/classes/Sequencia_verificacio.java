@@ -70,12 +70,15 @@ public class Sequencia_verificacio extends Sequencia {
 
             for(int j = 0; j < 4; ++j) {
                 if(contador_repeticions == 0) break;
-
-                if(i != j && array_provat[i] == arr_solucio[j]) {
+                //cas de pin blanc i no es pin negre
+                if(i != j && array_provat[i] == arr_solucio[j] && array_provat[j] != arr_solucio[j]) {
                     ++blanques;
+                    --contador_repeticions;
+                }else if( i != j && array_provat[i] == arr_solucio[j] && array_provat[j] == arr_solucio[j]) {
                     --contador_repeticions;
                 }
 
+                //cas de pin negre
                 if(i == j && array_provat[i] == arr_solucio[j]) {
                     --contador_repeticions;
                 }
@@ -97,6 +100,11 @@ public class Sequencia_verificacio extends Sequencia {
         return new Pair<>(blanques, negres);
     }
 
+    /**
+     * Funcio que retorna el nombre de pins negres i blanques que hi ha en una sequencia
+     * @param verificacio_entrada array de colors que conte la sequencia que volem verificar
+     * @return espigues blanques i negres que ha fet la sequencia
+     */
     private Pair<Integer, Integer> get_negres_blanques(colors[] verificacio_entrada) {
         int blanques = 0, negres = 0;
         for(int i = 0; i < 4; ++i) {

@@ -152,10 +152,7 @@ public class Five_guess_algorithm implements Maquina{
         colors[] arr_sol = {colors.get_color_by_id(secretCode.get(0)), colors.get_color_by_id(secretCode.get(1)), colors.get_color_by_id(secretCode.get(2)), colors.get_color_by_id(secretCode.get(3))};
         colors[] arr_guess = {colors.get_color_by_id(guess.get(0)), colors.get_color_by_id(guess.get(1)), colors.get_color_by_id(guess.get(2)), colors.get_color_by_id(guess.get(3))};
 
-
-        Sequencia_verificacio sv = new Sequencia_verificacio();
-
-        Pair<Integer, Integer> sol = sv.get_verificacio(arr_sol, arr_guess);
+        Pair<Integer, Integer> sol = Sequencia_verificacio.get_verificacio(arr_sol, arr_guess);
 
         score[0] = sol.first();
         score[1] = sol.second();
