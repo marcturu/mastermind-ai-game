@@ -61,7 +61,7 @@ public class Five_guess_algorithm implements Maquina{
      * @param colors Lista de colores, largada de la solución
      * @return Lista de códigos posibles
      */
-    public List<List<Integer>> generateCodes(List<Integer> colors, int solutionLength) {
+    private List<List<Integer>> generateCodes(List<Integer> colors, int solutionLength) {
         int numColors = colors.size();
         int numCodes = (int) Math.pow(numColors, solutionLength);
         List<List<Integer>> allCodes = new ArrayList<>();
@@ -109,7 +109,7 @@ public class Five_guess_algorithm implements Maquina{
      * @param una lista de posibles soluciones
      * @return la mejor solucion posible dada una lista de posibles soluciones
      */
-    public List<Integer> getBestGuess(List<List<Integer>> possibleCodes) {
+    private List<Integer> getBestGuess(List<List<Integer>> possibleCodes) {
         Integer minMax = Integer.MAX_VALUE;
         List<Integer> bestGuess = null;
 
