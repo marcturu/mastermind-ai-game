@@ -3,7 +3,11 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/domain/classes/types/*.java \
                ./main/domain/controller/*.java \
                ./main/domain/classes/algorismes/*.java \
-               ./main/persistence/*.java
+               ./main/persistence/*.java \
+               ./main/presentation/*.java \
+               ./main/presentation/views/*.java \
+                ./main/presentation/controller/*.java
+
 
 
 CLASS_DRIVER_ALGO = ./main/domain/classes/algorismes/Five_guess_algorithm.java \
@@ -120,10 +124,10 @@ all:
 	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT)
 	javac -cp $(JUNIT_JARS) -cp $(GSON_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
-driver:
+executable:
 	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT) ./drivers/Driver.java
-	jar cmvf drivers/Driver.mf $(JAR_OUTPUT)Driver.jar -C $(CLASS_OUTPUT) . $(GSON_JARS)
-	java -jar $(JAR_OUTPUT)Driver.jar
+	jar cmvf ./main/presentation/controller/Controlador_Presentacio.mf $(JAR_OUTPUT)MasterMind.jar -C $(CLASS_OUTPUT) . $(GSON_JARS)
+	java -jar $(JAR_OUTPUT)MasterMind.jar
 
 driver_algorisme:
 	javac -d $(CLASS_OUTPUT) $(CLASS_DRIVER_ALGO) ./drivers/driver_algorisme.java
@@ -131,7 +135,7 @@ driver_algorisme:
 	java -jar $(JAR_OUTPUT)Driver_algo.jar
 
 
-executa_driver:
+executar:
 		java -jar $(JAR_OUTPUT)Driver.jar
 
 allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_maquina TestUser_persona
