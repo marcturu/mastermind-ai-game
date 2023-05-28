@@ -456,6 +456,22 @@ public class Controlador_Domini {
     }
 
     /**
+     * Funcio per consultar el numero de partides que ha jugat l'usuari amb sessió activa
+     * @return numero de partides jugades per l'usuari amb sessió activa
+     */
+    public int get_partides_totals() {
+        return this.Usuari.get_partides_totals();
+    }
+
+    /**
+     * Funcio per a consultar les partides que ha guanyat l'usuari amb sessió activa
+     * @return partides guanyades per l'usuari amb sessió activa
+     */
+    public int get_partides_guanyades() {
+        return this.Usuari.get_partides_guanyades();
+    }
+
+    /**
      * Cosultora del tipus d'usuari del contrincant
      * @return tipus d'usuari contrincant
      */
@@ -508,6 +524,20 @@ public class Controlador_Domini {
             throw new Exception("La partida que vols carregar no existeix");
         }
         CtrlPartida.set_partida_actual(partida_actual);
+    }
+
+    /**
+     * Funcio que retorna la informacio d'una partida per a quan es vol carregar
+     * @param id_partida id de la partida de la que es vol consultar la informacio
+     * @return informacio de la partida amb id = id_partida
+     */
+    public String get_info_partida(int id_partida) {
+        Partida p = ctrl_pers_partida.carrega_partida(id_partida);
+        String rol;
+        if (p.get_jugador1_es_codemaker()) rol = "CM";
+        else rol = "CB";
+        String ret = "Ultima ronda: " + p.get_ultima_ronda() + " Dificultat: " + p.get_dificultat().get_dificultat() + " Rol: " + rol + "Temps usat: " + p.get_temps_usat();
+        return ret;
     }
 
     //VEURE PARTIDA ACABADA

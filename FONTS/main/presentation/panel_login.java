@@ -68,7 +68,8 @@ public class panel_login extends JPanel{
                 if(input_entrat()) {
                     try{
                     ctrlPresentacio.crida_a_login_domini(username.getText(), password.getText());
-                    ctrlPresentacio.canvia_a_menu_principal();
+                    if(ctrlPresentacio.es_usuari1())ctrlPresentacio.canvia_a_menu_principal();
+                    else ctrlPresentacio.canvia_a_config_partida_dificultat();
                     }catch(Exception ex) {
                         System.out.println("L'usuari no existeix, registrat o comprova que hagis entrat bé les credencials");
                     }

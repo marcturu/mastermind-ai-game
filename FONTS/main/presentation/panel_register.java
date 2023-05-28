@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import main.presentation.controller.Controlador_Presentacio;
 
@@ -52,16 +53,15 @@ public class panel_register extends JPanel{
 
     private void actionPerformed_BotoConfirmar(ActionEvent event) {
         if(username.getText().equals("") || password1.getText().equals("") || password2.getText().equals("")) {
-            System.out.println("Entra un nom d'usuari i una contrasenya amb la seva confirmacio");
+            String error = "Entra un nom d'usuari i una contrasenya amb la seva confirmacio";
+            JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
         }else if(!password_igual_confirmacio()) {
-            System.out.println("La contrasenya no coincideix amb la confirmacio");
+            String error = "La contrasenya no coincideix amb la confirmacio";
+            JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
         }else {
-            try{
-                ctrlPresentacio.crida_a_register_domini(username.getText(), password1.getText());
-                ctrlPresentacio.canvia_a_menu_principal();
-            }catch(Exception e) {
-                System.out.println("L'usuari ja existeix, fes login o bé canvia el teu nom usuari");
-            }
+            ctrlPresentacio.crida_a_register_domini(username.getText(), password1.getText());
+            if(ctrlPresentacio.es_usuari1())ctrlPresentacio.canvia_a_menu_principal();
+            else ctrlPresentacio.canvia_a_config_partida_dificultat();
         }
 
     }

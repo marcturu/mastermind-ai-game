@@ -7,6 +7,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import java.util.List;
+import java.util.ArrayList;
+import main.domain.classes.types.Pair;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -45,7 +49,8 @@ public class panel_historial_user extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //funcio per carregar la partida que esta a l'index seleccionat
-                ctrlPresentacio.carrega_partida(llista_info.getSelectedIndex());
+                ctrlPresentacio.carrega_partida_acabada(llista_info.getSelectedIndex());
+                ctrlPresentacio.canvia_a_partida();
             }
         });
         
@@ -73,8 +78,12 @@ public class panel_historial_user extends JPanel{
      * @param llista
      * REVISAR!!!!
      */
-    public void carrega_llista(String[] llista) {
-        llista_info.setListData(llista);
+    public void carrega_llista() {
+        List<Pair<Integer, String>>llista = ctrlPresentacio.get_llista_partides_acabades();
+        List<String> llista_string = new ArrayList<String>();
+        for (Pair<Integer, String> p : llista) {
+            llista_string.add(p.second());
+        }
+        llista_info.setListData(llista_string.toArray(new String[0]));
     }
-
 }

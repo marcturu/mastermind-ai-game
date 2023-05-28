@@ -53,7 +53,7 @@ public class panel_menu_principal extends JPanel{
         b_jugar.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
-                ctrlPresentacio.canvia_a_config_partida();
+                ctrlPresentacio.canvia_a_config_partida_rol();
             }
         });
 

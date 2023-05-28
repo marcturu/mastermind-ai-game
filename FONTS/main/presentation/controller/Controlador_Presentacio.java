@@ -2,7 +2,11 @@ package main.presentation.controller;
 
 import main.presentation.views.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+
+import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.types.Pair;
 
 import main.domain.controller.*;
@@ -151,11 +155,14 @@ public class Controlador_Presentacio {
      * @param password Contrasenya d'usuari_persona
      * @throws Exception Si l'usuari no existeix o la contrasenya es incorrecta
      */
-    public void crida_a_login_domini(String username, String password) throws Exception{
-        if(login_user2) ctrlDomini.loginUsuari2(username, password);
-        else {
-            ctrlDomini.loginUsuari1(username, password);
-            login_user2 = true;
+    public void crida_a_login_domini(String username, String password){
+        try{
+            if(login_user2) ctrlDomini.loginUsuari2(username, password);
+            else {
+                ctrlDomini.loginUsuari1(username, password);
+            }
+        }catch(Exception e) {
+            mostra_error(e.getMessage());
         }
     }
 
@@ -165,20 +172,67 @@ public class Controlador_Presentacio {
      * @param password Contrasenya d'usuari_persona
      * @throws Exception Si l'usuari ja existeix
      */
-    public void crida_a_register_domini(String username, String password) throws Exception {
-        if(login_user2) ctrlDomini.inicialitzaUserPersona2(username, password);
-        else {
-            ctrlDomini.inicialitzaUserPersona(username, password);
-            login_user2 = true;
+    public void crida_a_register_domini(String username, String password){
+        try{
+            if(login_user2) ctrlDomini.inicialitzaUserPersona2(username, password);
+            else {
+                ctrlDomini.inicialitzaUserPersona(username, password);
+            }
+        }catch(Exception e) {
+            mostra_error(e.getMessage());
         }
     }
 
     /**
-     * Funcio que crida al controlador de domini perque retorni una llista de parelles (id_partida, info_patida)
+     * Funcio que crida al controlador de domini perque retorni una llista de parelles (id_partida, info_patida) de les partides actives
      * @return Llista de parelles (id_partida, info_partida)
      */
     public List<Pair<Integer, String>> carrega_partides_no_acabades() {
-        ctrlDomini.carrega_partides_no_acabades();
+        List<Pair<Integer, String>> llista_info = new ArrayList<>();
+        List<Integer> ids_partides = ctrlDomini.get_ids_partides_actives_Usuari1();
+        for(Integer id: ids_partides) {
+            String info_partida = ctrlDomini.get_info_partida(id);
+            llista_info.add(new Pair<>(id, info_partida));
+        }
+        return llista_info;
+    }
+
+    /**
+     * Funcio per a mostrar el tablero d'una partida acabada
+     * @param index index de la partida acabada que volem carregar
+     */
+    public void carrega_partida_acabada(int index) {
+        //tornem a carregar les partides(en el mateix ordre)
+        List<Pair<Integer, String>> llista_info = get_llista_partides_acabades();
+        try{
+        ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
+        }catch(Exception e) {
+            mostra_error(e.getMessage());
+        }
+    }
+
+    public void carrega_partida_actual(int index) {
+        //tornem a carregar les partides(en el mateix ordre)
+        List<Pair<Integer, String>> llista_info = carrega_partides_no_acabades();
+        try{
+        ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
+        }catch(Exception e) {
+            mostra_error(e.getMessage());
+        }
+    }
+
+    /**
+     * Funcio que crida al controlador de domini perque retorni una llista de parelles (id_partida, info_patida) de les partides acabades
+     * @return Llista de parelles (id_partida, info_partida)
+     */
+    public List<Pair<Integer, String>> get_llista_partides_acabades() {
+        List<Pair<Integer, String>> llista_info = new ArrayList<>();
+        List<Integer> ids_partides = ctrlDomini.get_ids_partides_acabades_Usuari1();
+        for(Integer id: ids_partides) {
+            String info_partida = ctrlDomini.get_info_partida(id);
+            llista_info.add(new Pair<>(id, info_partida));
+        }
+        return llista_info;
     }
 
     /**
@@ -221,6 +275,17 @@ public class Controlador_Presentacio {
         j1_cm = false;
     }
 
+    /**
+     * Funcio per a consultar si el jugador que fa login es el principal o no
+     * @return cert si el jugador que fa login es el principal, fals altrament
+     */
+    public boolean es_usuari1() {
+        return !login_user2;
+    }
+
+    /**
+     * Flag per a saber que l'usuari principal ja ha fet login
+     */
     public void acreditar_User2() {
         j2_user = true;
         
@@ -234,6 +299,15 @@ public class Controlador_Presentacio {
     }
 
     /**
+     * Funcio per assignar l'algorisme que volem per a la partida nova
+     * @param algorisme algorisme que volem per a la partida nova
+     */
+    public void set_algorisme_partida(String algorisme) {
+        if(algorisme.equals("Five-Guess")) j2_maquina_genetica = false;
+        else j2_maquina_genetica = true;
+    }
+
+    /**
      * Funcio per consultar si el jugador principal es codemaker
      * @return cert si el jugador principal es codemaker, fals altrament
      */
@@ -241,23 +315,47 @@ public class Controlador_Presentacio {
         return j1_cm;
     }
 
-    public void set_algorisme_partida(String nom_algorisme) {
-        ctrlDomini.set_algorisme_partida(nom_algorisme);
+    /**
+     * Funcio per a mostrar un missatge d'error
+     * @param error
+     */
+    private void mostra_error(String error) {
+        JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Funcio per a crear la partida nova amb els parametres entrats previament
+     */
     public void assigna_dificultat_facil() {
-        ctrlDomini.assigna_dificultat(1);
-    }
-    public void assigna_dificultat_mitja() {
-        ctrlDomini.assigna_dificultat(2);
-    }
-    public void assigna_dificultat_dificil() {
-        ctrlDomini.assigna_dificultat(3);
+        dificultats dif = dificultats.FACIL;
+        try{
+        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
+        } catch (Exception e) {
+            mostra_error(e.getMessage());
+        }
     }
 
-    private void assigna_dificultat(int n) {
-        if (n > 0 || n < 4){
-            this.dificultat = n;
+    /**
+     * Funcio per a crear la partida nova amb els parametres entrats previament
+     */
+    public void assigna_dificultat_mitja() {
+        dificultats dif = dificultats.NORMAL;
+        try{
+        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
+        } catch (Exception e) {
+            mostra_error(e.getMessage());
+        }
+    }
+
+    /**
+     * Funcio per a crear la partida nova amb els parametres entrats previament
+     */
+    public void assigna_dificultat_dificil() {
+        dificultats dif = dificultats.DIFICIL;
+        try{
+        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
+        } catch (Exception e) {
+            mostra_error(e.getMessage());
         }
     }
 }
