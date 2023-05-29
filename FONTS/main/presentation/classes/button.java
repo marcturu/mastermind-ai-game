@@ -1,8 +1,8 @@
 package main.presentation.classes;
 
 import javax.swing.*;
-import main.domain.classes.enumerations.colors;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Boton extends JButton implements ActionListener{
 
@@ -10,7 +10,7 @@ public class Boton extends JButton implements ActionListener{
     int num_colors;
     boolean verifiacio;
 
-    public Boton(int color, boolean verifiacio, int num_colors) {
+    public Button(int color, boolean verifiacio, int num_colors) {
         this.color = color;
         this.verifiacio = verifiacio;
         this.num_colors = num_colors;
