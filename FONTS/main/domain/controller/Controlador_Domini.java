@@ -2,6 +2,7 @@ package main.domain.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
 //import java.util.Vector;
 
@@ -619,6 +620,17 @@ public class Controlador_Domini {
                 break;
         }
         comprova_records();
+    }
+
+    public List<String> get_info_ranking(String dif) {
+        Ranking = ctrl_ranking.carrega_ranking(dif);
+        List<String> llista_info_ranking = new ArrayList<>();
+        List<Pair<Pair<Double, String>, LocalDate> rank = Ranking.get_rank();
+        for(int i = 0; i < rank.size(); ++i) {
+            Pair<Pair<Double, String>, LocalDate> aux = rank.get(i);
+            llista_info_ranking.add(aux.first().first() + " " + aux.first().second() + " " + aux.second());
+        }
+        return llista_info_ranking;
     }
 
     //RECORD

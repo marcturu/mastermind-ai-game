@@ -14,6 +14,11 @@ import main.domain.classes.types.Pair;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe per representar el panell que mostra el historial de partides d'un usuari
+ * @author Ferran Solanes (ferran.solanes@estudiantat.upc.edu)
+ */
+
 public class panel_historial_user extends JPanel{
     private Controlador_Presentacio ctrlPresentacio;
     private JScrollPane scrollPane = new JScrollPane();

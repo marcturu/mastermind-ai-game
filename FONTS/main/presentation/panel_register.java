@@ -12,6 +12,10 @@ import javax.swing.JOptionPane;
 
 import main.presentation.controller.Controlador_Presentacio;
 
+/**
+ * Classe per representar el panell de registre d'usuari
+ * @author Ferran Solanes (ferran.solanes@estudiantat.upc.edu)
+ */
 
 public class panel_register extends JPanel{
     private Controlador_Presentacio ctrlPresentacio;

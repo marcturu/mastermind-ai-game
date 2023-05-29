@@ -12,6 +12,11 @@ import java.awt.event.ActionListener;
 
 import main.presentation.controller.Controlador_Presentacio;
 
+/**
+ * Classe per representar el panell que mostra els records
+ * @author Ferran Solanes (ferran.solanes@estudaintat.upc.edu)
+ */
+
 public class panel_record extends JPanel{
     private Controlador_Presentacio ctrlPresentacio;
     private JScrollPane scrollPane = new JScrollPane();

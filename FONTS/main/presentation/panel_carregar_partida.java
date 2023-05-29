@@ -13,6 +13,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
+/**
+ * Classe per representar el panell per carregar partides guardades
+ * @author Ferran Solanes (ferran.solanes@estudiantat.upc.edu)
+ */
+
 
 public class panel_carregar_partida extends JPanel{
     private Controlador_Presentacio ctrlPresentacio;
