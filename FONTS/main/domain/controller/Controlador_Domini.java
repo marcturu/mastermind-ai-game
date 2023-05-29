@@ -625,7 +625,7 @@ public class Controlador_Domini {
     public List<String> get_info_ranking(String dif) {
         Ranking = ctrl_ranking.carrega_ranking(dif);
         List<String> llista_info_ranking = new ArrayList<>();
-        List<Pair<Pair<Double, String>, LocalDate> rank = Ranking.get_rank();
+        List<Pair<Pair<Double, String>, LocalDate>> rank = Ranking.get_rank();
         for(int i = 0; i < rank.size(); ++i) {
             Pair<Pair<Double, String>, LocalDate> aux = rank.get(i);
             llista_info_ranking.add(aux.first().first() + " " + aux.first().second() + " " + aux.second());
