@@ -358,4 +358,12 @@ public class Controlador_Presentacio {
             mostra_error(e.getMessage());
         }
     }
+
+    /**
+     * Funcio per obtindre la informació de cada record
+     * @return llista de strings amb la informació de cada record
+     */
+    public List<String> get_info_records() {
+        return ctrlDomini.get_info_records();
+    }
 }

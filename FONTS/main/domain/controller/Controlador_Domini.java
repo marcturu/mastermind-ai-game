@@ -2,6 +2,7 @@ package main.domain.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 //import java.util.Vector;
 
 import main.domain.classes.Partida;
@@ -739,6 +740,45 @@ public class Controlador_Domini {
      */
     public String get_nom_usuari_by_nom_record(String nom_record, String modalitat) {
         return ctrl_record.carrega_record(nom_record,modalitat).get_nom_usuari();
+    }
+
+    /**
+     * Funcio per passar a la capa de presentació la informació dels records
+     * @return llista de strings amb la informacio dels records
+     */
+    public List<String> get_info_records() {
+        List<String> info_a_retornar = new ArrayList<>();
+        //Records de punts
+        String info = "Record de punts en dificultat facil: " + get_punts_record_by_nom_record("record_punts", "facil") + " de " + get_nom_usuari_by_nom_record("record_punts", "facil");
+        info_a_retornar.add(info);
+
+        info = "Record de punts en dificultat normal: " + get_punts_record_by_nom_record("record_punts", "normal") + " de " + get_nom_usuari_by_nom_record("record_punts", "normal");
+        info_a_retornar.add(info);
+
+        info = "Record de punts en dificultat dificil: " + get_punts_record_by_nom_record("record_punts", "dificil") + " de " + get_nom_usuari_by_nom_record("record_punts", "dificil");
+        info_a_retornar.add(info);
+
+        //Records de streak
+        info = "Record de streak en dificultat facil: " + get_punts_record_by_nom_record("record_streak", "facil") + " de " + get_nom_usuari_by_nom_record("record_streak", "facil");
+        info_a_retornar.add(info);
+
+        info = "Record de streak en dificultat normal: " + get_punts_record_by_nom_record("record_streak", "normal") + " de " + get_nom_usuari_by_nom_record("record_streak", "normal");
+        info_a_retornar.add(info);
+
+        info = "Record de streak en dificultat dificil: " + get_punts_record_by_nom_record("record_streak", "dificil") + " de " + get_nom_usuari_by_nom_record("record_streak", "dificil");
+        info_a_retornar.add(info);
+
+        //Records de temps
+        info = "Record de temps en dificultat facil: " + get_punts_record_by_nom_record("record_temps", "facil") + " de " + get_nom_usuari_by_nom_record("record_temps", "facil");
+        info_a_retornar.add(info);
+
+        info = "Record de temps en dificultat normal: " + get_punts_record_by_nom_record("record_temps", "normal") + " de " + get_nom_usuari_by_nom_record("record_temps", "normal");
+        info_a_retornar.add(info);
+
+        info = "Record de temps en dificultat dificil: " + get_punts_record_by_nom_record("record_temps", "dificil") + " de " + get_nom_usuari_by_nom_record("record_temps", "dificil");
+        info_a_retornar.add(info);
+
+        return info_a_retornar;
     }
 
     //STATS
