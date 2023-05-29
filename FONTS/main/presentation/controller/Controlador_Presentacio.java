@@ -21,6 +21,8 @@ public class Controlador_Presentacio {
     private int dificultat;
     private boolean login_user2;
 
+    private String dificultat_ranking;
+
     /**
      * Constructora de la classe
      */
@@ -75,7 +77,9 @@ public class Controlador_Presentacio {
     /**
      * Funcio per a canviar el contentPane del frame a panel_ranking
      */
-    public void canvia_a_ranking() {
+    public void canvia_a_ranking(String dificultat) {
+        if (dificultat!=null) setDificultat_ranking(dificultat);
+
         viewInicial.canvia_a_ranking();
     }
 
@@ -146,6 +150,7 @@ public class Controlador_Presentacio {
      * Funcio per a canviar el contentPane del frame a panel_dificultats_ranking
      */
     public void canvia_a_dificultats_ranking() {
+
         viewInicial.canvia_a_dificultats_ranking();
     }
 
@@ -357,6 +362,18 @@ public class Controlador_Presentacio {
         } catch (Exception e) {
             mostra_error(e.getMessage());
         }
+    }
+
+    public String getDificultat_ranking() {
+        return dificultat_ranking;
+    }
+
+    public void setDificultat_ranking(String dificultat_ranking) {
+        this.dificultat_ranking = dificultat_ranking;
+    }
+
+    public List<String> get_info_ranking() {
+        return ctrlDomini.get_info_ranking(dificultat_ranking);
     }
 
     /**
