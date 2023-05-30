@@ -3,16 +3,17 @@ package main.presentation.classes;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 
 public class button extends JButton implements ActionListener{
 
     private int color;
     int num_colors;
-    boolean verifiacio;
+    boolean verificacio;
 
-    public button(int color, boolean verifiacio, int num_colors) {
+    public button(int color, boolean verificacio, int num_colors) {
         this.color = color;
-        this.verifiacio = verifiacio;
+        this.verificacio = verificacio;
         this.num_colors = num_colors;
         setPreferredSize(new Dimension(50, 50));
         setFocusPainted(false);
@@ -25,16 +26,16 @@ public class button extends JButton implements ActionListener{
     }
 
     public void ciclar_color() {
-        if (verifiacio){
+        if (verificacio){
             if (color == 10) color = 0;
             else if (color == 0) color = 9;
             ++color;
         }
         else{
-            if (valor == num_colors)
-                valor = 1;
+            if (color == num_colors)
+                color = 1;
             else
-                valor++;
+                color++;
         }
         canviar_color();
     }
