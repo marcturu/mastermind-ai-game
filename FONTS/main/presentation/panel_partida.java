@@ -2,12 +2,12 @@ package main.presentation;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JPanel;
+import javax.swing.JPanel;S
 
 import main.presentation.classes.*;
 import main.presentation.controller.Controlador_Presentacio;
 public class panel_partida extends Jpanel{
-    private Controlador_Presentacio CtrlPresentacio;
+   /* private Controlador_Presentacio CtrlPresentacio;
     private Button[] buttons_intentada = new Button[4];
     private Button[] buttons_verificacio = new Button[4];
     private JButton b_color;
@@ -28,5 +28,5 @@ public class panel_partida extends Jpanel{
         set_up_ui();
         //set_up_listeners();
     }
-
+*/
 }

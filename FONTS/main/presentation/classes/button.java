@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Boton extends JButton implements ActionListener{
-
+/*
     private int color;
     int num_colors;
     boolean verifiacio;
@@ -77,5 +77,5 @@ public class Boton extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         ciclar_color();
     }
-
+*/
 }
