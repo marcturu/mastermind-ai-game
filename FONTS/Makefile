@@ -6,7 +6,8 @@ CLASS_INPUT =  ./main/domain/classes/*.java \
                ./main/persistence/*.java \
                ./main/presentation/*.java \
                ./main/presentation/views/*.java \
-                ./main/presentation/controller/*.java
+               ./main/presentation/controller/*.java \
+               ./main/presentation/classes/*.java
 
 
 
@@ -138,7 +139,7 @@ driver_algorisme:
 
 
 executar:
-		java -jar $(JAR_OUTPUT)Driver.jar
+	java -jar --add-opens java.base/java.time=ALL-UNNAMED $(JAR_OUTPUT)MasterMind.jar
 
 allTest: TestRecord TestRanking TestRonda TestSequencia TestUser TestUser_maquina TestUser_persona
 

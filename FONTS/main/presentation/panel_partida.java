@@ -10,9 +10,8 @@ import main.presentation.classes.*;
 import main.presentation.controller.Controlador_Presentacio;
 public class panel_partida extends JPanel{
     private Controlador_Presentacio CtrlPresentacio;
-    private JButton[] buttons_intentada = new button[4];
-    private JButton[] buttons_verificacio = new JButton[4];
-    private JButton b_color;
+    private  JButton[] buttons_intentada = new button[4];
+    private  JButton[] buttons_verificacio = new JButton[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
     private final JButton b_guardar_partida = new JButton("Guardar partida");
@@ -22,16 +21,20 @@ public class panel_partida extends JPanel{
         int x = 10;
         for (int i = 0; i < 4; ++i){
             buttons_intentada[i] = new button(1,false, 11/*CtrlPresentacio.get_num_colors()*/);
-            buttons_intentada[i].setBounds(x+40, 275, 25, 25);
+            buttons_intentada[i].setBounds(0, 10, 25, 25);
             add(buttons_intentada[i]);
         }
     }
 
     private void set_up_ui(){
-        b_try.setBounds(260, 275, 25, 25);
-        b_help.setBounds(290, 275, 25, 25);
-        b_guardar_partida.setBounds(320, 275, 25, 25);
-        b_eliminar_partida.setBounds(350, 275, 25, 25);
+        b_try.setBounds(260, 0, 25, 25);
+        add(b_try);
+        b_help.setBounds(290, 0, 25, 25);
+        add(b_help);
+        b_guardar_partida.setBounds(320, 0, 25, 25);
+        add(b_guardar_partida);
+        b_eliminar_partida.setBounds(350, 0, 25, 25);
+        add(b_eliminar_partida);
         add_intentada();
     }
 
@@ -67,9 +70,11 @@ public class panel_partida extends JPanel{
         });
     }
 
-    public void panel_partida(Controlador_Presentacio CtrlPresentacio){
+    public panel_partida(Controlador_Presentacio CtrlPresentacio){
         this.CtrlPresentacio = CtrlPresentacio;
-        setBounds(500, 300, 500, 300);
+        setBounds(500, 300, 700, 500);
+        revalidate();
+        repaint();
         set_up_ui();
         set_up_listeners();
     }
