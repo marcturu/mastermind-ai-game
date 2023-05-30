@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Boton extends JButton implements ActionListener{
-/*
+public class button extends JButton implements ActionListener{
+
     private int color;
     int num_colors;
     boolean verifiacio;
 
-    public Button(int color, boolean verifiacio, int num_colors) {
+    public button(int color, boolean verifiacio, int num_colors) {
         this.color = color;
         this.verifiacio = verifiacio;
         this.num_colors = num_colors;
@@ -77,5 +77,4 @@ public class Boton extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         ciclar_color();
     }
-*/
 }
