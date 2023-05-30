@@ -125,7 +125,7 @@ all:
 	javac -cp $(JUNIT_JARS) -cp $(GSON_JARS) -d $(CLASS_OUTPUT) $(CLASS_INPUT) $(JUNIT_TESTS)
 
 executable:
-	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT) ./drivers/Driver.java
+	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT)
 	jar cmvf ./main/presentation/controller/Controlador_Presentacio.mf $(JAR_OUTPUT)MasterMind.jar -C $(CLASS_OUTPUT) . $(GSON_JARS)
 	java -jar $(JAR_OUTPUT)MasterMind.jar
 
