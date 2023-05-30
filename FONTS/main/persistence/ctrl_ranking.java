@@ -23,7 +23,6 @@ public class ctrl_ranking {
      */
     public void save_ranking(Ranking ranking) {
         Gson gson = new Gson();
-
         try {
             String archivo = "../EXE/dades/rankings/" + ranking.get_rank_difficultat() + ".json";
             File file = new File(archivo);

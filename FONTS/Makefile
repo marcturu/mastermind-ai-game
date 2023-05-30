@@ -127,7 +127,9 @@ all:
 executable:
 	javac -d $(CLASS_OUTPUT) -cp $(GSON_JARS) $(CLASS_INPUT)
 	jar cmvf ./main/presentation/controller/Controlador_Presentacio.mf $(JAR_OUTPUT)MasterMind.jar -C $(CLASS_OUTPUT) . $(GSON_JARS)
-	java -jar $(JAR_OUTPUT)MasterMind.jar
+
+	java -jar --add-opens java.base/java.time=ALL-UNNAMED $(JAR_OUTPUT)MasterMind.jar
+
 
 driver_algorisme:
 	javac -d $(CLASS_OUTPUT) $(CLASS_DRIVER_ALGO) ./drivers/driver_algorisme.java

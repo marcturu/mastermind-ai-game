@@ -462,6 +462,7 @@ public class Controlador_Domini {
      * @return numero de partides jugades per l'usuari amb sessió activa
      */
     public int get_partides_totals() {
+        if (this.Usuari == null) return 0;
         return this.Usuari.get_partides_totals();
     }
 
@@ -470,6 +471,7 @@ public class Controlador_Domini {
      * @return partides guanyades per l'usuari amb sessió activa
      */
     public int get_partides_guanyades() {
+        if (this.Usuari == null) return 0;
         return this.Usuari.get_partides_guanyades();
     }
 
@@ -566,6 +568,7 @@ public class Controlador_Domini {
      * Funcio per a inicialitzar els rankings
      */
     public void inicialitza_rankings() {
+
         Ranking = new Ranking("facil");
         ctrl_ranking.save_ranking(Ranking);
 

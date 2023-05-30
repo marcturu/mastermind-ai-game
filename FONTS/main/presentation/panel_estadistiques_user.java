@@ -14,9 +14,9 @@ import main.presentation.controller.Controlador_Presentacio;
 public class panel_estadistiques_user extends JPanel{
     private Controlador_Presentacio ctrlPresentacio;
     private JLabel l_panel = new JLabel("Estadistiques");
-    private JLabel l_total_games = new JLabel("Partides jugades: " + ctrlPresentacio.get_total_games());
-    private JLabel l_total_wins = new JLabel("Partides guanyades: " + ctrlPresentacio.get_total_wins());
-    private JLabel l_winrate = new JLabel("Winrate: " + ctrlPresentacio.get_winrate() + "%");
+    private JLabel l_total_games = new JLabel("");
+    private JLabel l_total_wins = new JLabel("");
+    private JLabel l_winrate = new JLabel("");
     private JButton b_enrere = new JButton("Enrere");
 
 
@@ -48,12 +48,22 @@ public class panel_estadistiques_user extends JPanel{
         b_enrere.addActionListener(e -> ctrlPresentacio.canvia_a_user());
     }
 
+
+    private void set_up_labels(){
+
+        l_total_games.setText("Partides jugades: " + ctrlPresentacio.get_total_games());
+        l_total_wins.setText("Partides guanyades: " + ctrlPresentacio.get_total_wins());
+        l_winrate.setText("Winrate: " + ctrlPresentacio.get_winrate() + "%");
+
+    }
+
     /**
      * Constructora del panell d'estadisitques de l'usuari
      * @param ctrlPresentacio controlador de presentacio
      */
     public panel_estadistiques_user(Controlador_Presentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
+        set_up_labels();
         set_up_ui();
         set_up_listeners();
     }
