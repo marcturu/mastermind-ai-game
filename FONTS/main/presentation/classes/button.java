@@ -34,10 +34,10 @@ public class button extends JButton implements ActionListener{
             ++color;
         }
         else{
-            if (color == num_colors)
-                color = 1;
+            if (valor == num_colors)
+                valor = 1;
             else
-                color++;
+                valor++;
         }
         canviar_color();
     }
