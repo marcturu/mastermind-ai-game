@@ -66,7 +66,10 @@ public class ctrl_ranking {
             }
 
         }
-        return null;
+
+        Ranking ranking = new Ranking(dificultat);
+        save_ranking(ranking);
+        return ranking;
 
     }
 

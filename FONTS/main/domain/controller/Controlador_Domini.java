@@ -744,7 +744,8 @@ public class Controlador_Domini {
      * @return retorna un Object amb els punts/streak/segons
      */
     public Object get_punts_record_by_nom_record(String nom_record, String modalitat) {
-        return ctrl_record.carrega_record(nom_record,modalitat).get_valor();
+        if (ctrl_record.carrega_record(nom_record,modalitat) == null) return 0;
+        else return ctrl_record.carrega_record(nom_record,modalitat).get_valor();
     }
 
     /**
