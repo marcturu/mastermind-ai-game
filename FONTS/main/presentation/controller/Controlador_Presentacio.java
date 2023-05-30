@@ -36,6 +36,8 @@ public class Controlador_Presentacio {
     public Controlador_Presentacio() {
         ctrlDomini = new Controlador_Domini();
         viewInicial = new view_inici(this);
+
+        viewInicial.setVisible(true);
         
         //configuracio per defecte
         j1_cm = false;
