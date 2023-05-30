@@ -67,11 +67,12 @@ public class panel_login extends JPanel{
                 System.out.println("Has apretat: " + text);
                 if(input_entrat()) {
                     try{
-                    ctrlPresentacio.crida_a_login_domini(username.getText(), password.getText());
-                    if(ctrlPresentacio.es_usuari1())ctrlPresentacio.canvia_a_menu_principal();
-                    else ctrlPresentacio.canvia_a_config_partida_dificultat();
+                        ctrlPresentacio.crida_a_login_domini(username.getText(), password.getText());
+                        if(ctrlPresentacio.es_usuari1())ctrlPresentacio.canvia_a_menu_principal();
+                        else ctrlPresentacio.canvia_a_config_partida_dificultat();
                     }catch(Exception ex) {
                         System.out.println("L'usuari no existeix, registrat o comprova que hagis entrat bé les credencials");
+                        ctrlPresentacio.canvia_a_login();
                     }
                 }
             }

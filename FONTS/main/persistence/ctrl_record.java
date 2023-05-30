@@ -52,24 +52,44 @@ public class ctrl_record {
         Gson gson = new Gson();
         String archivo = "../EXE/dades/records/" + nom_record + dif + ".json";
 
-        if (Files.exists(Paths.get(archivo))){
+        if (Files.exists(Paths.get(archivo))) {
             String contenido = "";
             try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
                 String linea;
-                while ((linea = br.readLine()) != null){
+                while ((linea = br.readLine()) != null) {
                     contenido += linea;
                 }
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
 
-            if (!contenido.isEmpty()){;
-                Record record = gson.fromJson(contenido,Record.class);
-                return record;
+            if (!contenido.isEmpty()) {
+                if (nom_record.equals("punts")) {
+                    RecordDouble record = gson.fromJson(contenido, RecordDouble.class);
+                    System.out.println(record);
+                    return record;
+                } else if (nom_record.equals("streak")) {
+                    RecordInteger record = gson.fromJson(contenido, RecordInteger.class);
+                    System.out.println(record);
+                    return record;
+                } else if (nom_record.equals("temps")) {
+                    RecordLong record = gson.fromJson(contenido, RecordLong.class);
+                    System.out.println(record);
+                    return record;
+                }
             }
         }
-        return null;
+        Record record;
+        if (nom_record.equals("punts")) {
+            record = new RecordDouble(nom_record, dif);
 
+        } else if (nom_record.equals("streak")) {
+            record = new RecordDouble(nom_record, dif);
+        } else {
+            record = new RecordLong(nom_record, dif);
+        }
+        save_record(record);
+        return record;
     }
 
 }

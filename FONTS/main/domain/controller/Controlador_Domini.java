@@ -136,14 +136,16 @@ public class Controlador_Domini {
      * @throws Exception
      */
     public void loginUsuari1(String nom, String password) throws Exception {
+
         if (!hashUsers.containsKey(nom)) {
             throw new Exception("Error: L'Usuari1 no existeix");
         }
         User user = ctrl_user.carrega_user(hashUsers.get(nom));
+
         if (user.get_tipus_user() == Type_user.user_maquina) {
             throw new Exception("Error: La màquina no fa login");
         }
-        else if (user.get_password() == password) {
+        else if (!user.get_password().equals(password)) {
             throw new Exception("Error: Password erroni");
         }
         else {
@@ -462,6 +464,7 @@ public class Controlador_Domini {
      * @return numero de partides jugades per l'usuari amb sessió activa
      */
     public int get_partides_totals() {
+        if (this.Usuari == null) return 0;
         return this.Usuari.get_partides_totals();
     }
 
@@ -470,6 +473,7 @@ public class Controlador_Domini {
      * @return partides guanyades per l'usuari amb sessió activa
      */
     public int get_partides_guanyades() {
+        if (this.Usuari == null) return 0;
         return this.Usuari.get_partides_guanyades();
     }
 
@@ -566,6 +570,7 @@ public class Controlador_Domini {
      * Funcio per a inicialitzar els rankings
      */
     public void inicialitza_rankings() {
+
         Ranking = new Ranking("facil");
         ctrl_ranking.save_ranking(Ranking);
 
@@ -741,7 +746,8 @@ public class Controlador_Domini {
      * @return retorna un Object amb els punts/streak/segons
      */
     public Object get_punts_record_by_nom_record(String nom_record, String modalitat) {
-        return ctrl_record.carrega_record(nom_record,modalitat).get_valor();
+        if (ctrl_record.carrega_record(nom_record,modalitat) == null) return 0;
+        else return ctrl_record.carrega_record(nom_record,modalitat).get_valor();
     }
 
     /**
