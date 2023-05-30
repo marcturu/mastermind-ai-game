@@ -3,6 +3,9 @@ package main.presentation.classes;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Dimension;
+
 
 public class button extends JButton implements ActionListener{
 
@@ -31,10 +34,10 @@ public class button extends JButton implements ActionListener{
             ++color;
         }
         else{
-            if (valor == num_colors)
-                valor = 1;
+            if (color == num_colors)
+                color = 1;
             else
-                valor++;
+                color++;
         }
         canviar_color();
     }
@@ -60,10 +63,10 @@ public class button extends JButton implements ActionListener{
                 setBackground(Color.CYAN);
                 break;
             case 7:
-                setBackground(Color.BROWN);
+                setBackground(new Color(165, 42, 42));
                 break;
             case 8:
-                setBackground(Color.GREY);
+                setBackground(Color.GRAY);
                 break;
             case 9:
                 setBackground(Color.WHITE);
