@@ -21,8 +21,9 @@ public class panel_partida extends JPanel{
         int x = 10;
         for (int i = 0; i < 4; ++i){
             buttons_intentada[i] = new button(1,false, 11/*CtrlPresentacio.get_num_colors()*/);
-            buttons_intentada[i].setBounds(0, 10, 25, 25);
+            buttons_intentada[i].setBounds(x, 10, 25, 25);
             add(buttons_intentada[i]);
+            x += 30;
         }
     }
 
@@ -72,9 +73,8 @@ public class panel_partida extends JPanel{
 
     public panel_partida(Controlador_Presentacio CtrlPresentacio){
         this.CtrlPresentacio = CtrlPresentacio;
+        setLayout(null);
         setBounds(500, 300, 700, 500);
-        revalidate();
-        repaint();
         set_up_ui();
         set_up_listeners();
     }
