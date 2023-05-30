@@ -23,6 +23,13 @@ public class Controlador_Presentacio {
 
     private String dificultat_ranking;
 
+    public static void main(String[] args){
+        Controlador_Presentacio ctrlPresentacio = new Controlador_Presentacio();
+        ctrlPresentacio.canvia_a_inici();
+    }
+
+
+
     /**
      * Constructora de la classe
      */
