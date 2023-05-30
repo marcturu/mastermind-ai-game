@@ -136,14 +136,16 @@ public class Controlador_Domini {
      * @throws Exception
      */
     public void loginUsuari1(String nom, String password) throws Exception {
+
         if (!hashUsers.containsKey(nom)) {
             throw new Exception("Error: L'Usuari1 no existeix");
         }
         User user = ctrl_user.carrega_user(hashUsers.get(nom));
+
         if (user.get_tipus_user() == Type_user.user_maquina) {
             throw new Exception("Error: La màquina no fa login");
         }
-        else if (user.get_password() == password) {
+        else if (!user.get_password().equals(password)) {
             throw new Exception("Error: Password erroni");
         }
         else {

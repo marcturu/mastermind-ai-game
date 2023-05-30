@@ -37,6 +37,7 @@ public class Controlador_Presentacio {
         ctrlDomini = new Controlador_Domini();
         viewInicial = new view_inici(this);
 
+
         viewInicial.setVisible(true);
         
         //configuracio per defecte
@@ -169,7 +170,7 @@ public class Controlador_Presentacio {
      * @param password Contrasenya d'usuari_persona
      * @throws Exception Si l'usuari no existeix o la contrasenya es incorrecta
      */
-    public void crida_a_login_domini(String username, String password){
+    public void crida_a_login_domini(String username, String password) throws Exception{
         try{
             if(login_user2) ctrlDomini.loginUsuari2(username, password);
             else {
@@ -177,6 +178,7 @@ public class Controlador_Presentacio {
             }
         }catch(Exception e) {
             mostra_error(e.getMessage());
+            throw new Exception("Error: Password erroni");
         }
     }
 
