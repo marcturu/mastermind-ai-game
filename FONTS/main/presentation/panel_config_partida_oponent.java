@@ -41,7 +41,7 @@ public class panel_config_partida_oponent extends JPanel{
             @Override
             public void actionPerformed(ActionEvent evt) {
                 ctrlPresentacio.acreditar_User2();
-                ctrlPresentacio.canvia_a_config_partida_dificultat();
+                ctrlPresentacio.canvia_a_login();
             }
         });   
 

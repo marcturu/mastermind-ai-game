@@ -571,17 +571,13 @@ public class Controlador_Domini {
      */
     public void inicialitza_rankings() {
 
-        Ranking = new Ranking("facil");
-        ctrl_ranking.save_ranking(Ranking);
+        ctrl_ranking.carrega_ranking("facil");
 
-        Ranking = new Ranking("normal");
-        ctrl_ranking.save_ranking(Ranking);
+        ctrl_ranking.carrega_ranking("normal");
 
-        Ranking = new Ranking("dificil");
-        ctrl_ranking.save_ranking(Ranking);
+        ctrl_ranking.carrega_ranking("dificil");
 
-        Ranking = new Ranking("pvp");
-        ctrl_ranking.save_ranking(Ranking);
+        ctrl_ranking.carrega_ranking("pvp");
     }
 
     /**

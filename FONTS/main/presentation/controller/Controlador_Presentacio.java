@@ -160,7 +160,6 @@ public class Controlador_Presentacio {
      * Funcio per a canviar el contentPane del frame a panel_dificultats_ranking
      */
     public void canvia_a_dificultats_ranking() {
-
         viewInicial.canvia_a_dificultats_ranking();
     }
 
@@ -172,7 +171,8 @@ public class Controlador_Presentacio {
      */
     public void crida_a_login_domini(String username, String password) throws Exception{
         try{
-            if(login_user2) ctrlDomini.loginUsuari2(username, password);
+            if(login_user2) {
+                ctrlDomini.loginUsuari2(username, password);}
             else {
                 ctrlDomini.loginUsuari1(username, password);
             }
@@ -300,10 +300,11 @@ public class Controlador_Presentacio {
     }
 
     /**
-     * Flag per a saber que l'usuari principal ja ha fet login
+     * Funcio per a consultar si el jugador que fa login es el secundari o no
      */
     public void acreditar_User2() {
         j2_user = true;
+        login_user2= true;
         
     }
 
