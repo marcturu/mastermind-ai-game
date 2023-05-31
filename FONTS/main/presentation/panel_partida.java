@@ -18,6 +18,7 @@ public class panel_partida extends JPanel {
     private final JButton b_try = new JButton("Try");
     private final JButton b_guardar_partida = new JButton("Guardar partida");
     private final JButton b_eliminar_partida = new JButton("Eliminar partida");
+    private         JPanel rightPanel = new JPanel(new GridLayout(6, 1));
 
     private void add_panel_rondes() {
         buttons_intentada = new JButton[ctrlPresentacio.get_num_rondes()][4];
@@ -53,6 +54,16 @@ public class panel_partida extends JPanel {
         add(leftPanel);
     }
 
+    private void setButtons_col(boolean ver){
+        JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
+        for (int i = 0; i < buttons_col.length; i++) {
+            buttons_col[i] = new button(0,ver,ctrlPresentacio.get_num_colors());
+            buttons_col[i].setPreferredSize(new Dimension(60, 60));
+            buttonsColPanel.add(buttons_col[i]);
+        }
+        buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
+        rightPanel.add(buttonsColPanel);
+    }
 
 
     private void set_up_ui() {
@@ -61,19 +72,7 @@ public class panel_partida extends JPanel {
         // Panel izquierdo
         add_panel_rondes();
 
-        // Panel derecho
-        JPanel rightPanel = new JPanel(new GridLayout(6, 1));
-
-        JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
-        for (int i = 0; i < buttons_col.length; i++) {
-            buttons_col[i] = new button(0,false,ctrlPresentacio.get_num_colors());
-            buttons_col[i].setPreferredSize(new Dimension(60, 60));
-            buttonsColPanel.add(buttons_col[i]);
-        }
-        buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
-        rightPanel.add(buttonsColPanel);
-
-
+        setButtons_col(false);
 
         JPanel buttonsPanel = new JPanel(new GridLayout(4, 1, 0, 10)); // Añadir espacios verticales de 10 píxeles entre los botones
         buttonsPanel.add(b_try);
@@ -94,10 +93,11 @@ public class panel_partida extends JPanel {
                 }
                 try {
                     ctrlPresentacio.set_try(try_button);
+                    setButtons_intentada(try_button);
+                    setButtons_col(true);
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                setButtons_intentada(try_button);
             }
         });
 
