@@ -11,11 +11,11 @@ public class button extends JButton implements ActionListener{
 
     private int color;
     int num_colors;
-    boolean verifiacio;
+    boolean verificacio;
 
-    public button(int color, boolean verifiacio, int num_colors) {
+    public button(int color, boolean verificacio, int num_colors) {
         this.color = color;
-        this.verifiacio = verifiacio;
+        this.verificacio = verificacio;
         this.num_colors = num_colors;
         setPreferredSize(new Dimension(50, 50));
         setFocusPainted(false);
@@ -28,10 +28,10 @@ public class button extends JButton implements ActionListener{
     }
 
     public void ciclar_color() {
-        if (verifiacio){
-            if (color == 10) color = 0;
-            else if (color == 0) color = 9;
-            ++color;
+        if (verificacio){
+            if (color == 0) color = 9;
+            else if (color == 9) color = 10;
+            else if (color == 10) color = 0;
         }
         else{
             if (color == num_colors)
