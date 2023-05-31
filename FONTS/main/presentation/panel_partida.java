@@ -9,8 +9,8 @@ import main.presentation.classes.button;
 
 public class panel_partida extends JPanel {
     private final Controlador_Presentacio ctrlPresentacio;
-    private JButton[][] buttons_intentada = new JButton[10][4];
-    private JButton[][] buttons_verificacio = new JButton[10][4];
+    private JButton[][] buttons_intentada;
+    private JButton[][] buttons_verificacio;
     private button[] buttons_col = new button[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
@@ -18,6 +18,8 @@ public class panel_partida extends JPanel {
     private final JButton b_eliminar_partida = new JButton("Eliminar partida");
 
     private void add_panel_rondes() {
+        buttons_intentada = new JButton[ctrlPresentacio.get_num_rondes()][4];
+        buttons_verificacio = new JButton[ctrlPresentacio.get_num_rondes()][4];
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
@@ -62,7 +64,7 @@ public class panel_partida extends JPanel {
 
         JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
         for (int i = 0; i < buttons_col.length; i++) {
-            buttons_col[i] = new button(0,false,8);
+            buttons_col[i] = new button(0,false,ctrlPresentacio.get_num_colors());
             buttons_col[i].setPreferredSize(new Dimension(60, 60));
             buttonsColPanel.add(buttons_col[i]);
         }
@@ -104,15 +106,28 @@ public class panel_partida extends JPanel {
 
         b_eliminar_partida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // elimina partida
-                // CtrlPersistencia.canvia_a_menu_principal();
+                ctrlPresentacio.canvia_a_menu_principal();
             }
         });
+    }
+
+    private void jugar_maquina(){
+        int ronda_actual = ctrlPresentacio.get_num_ronda_actual();
+
     }
 
     public panel_partida(Controlador_Presentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
         set_up_ui();
         set_up_listeners();
+        boolean is_pvp = ctrlPresentacio.is_pvp();
+        //if (is_pvp) jugar_pvp();
+        jugar_maquina();
     }
+
+    public static void main(String[] args){
+
+
+    }
+
 }
