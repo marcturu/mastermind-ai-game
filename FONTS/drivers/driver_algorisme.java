@@ -1,7 +1,6 @@
 package drivers;
 
 import main.domain.classes.algorismes.*;
-import main.domain.classes.enumerations.colors;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -134,7 +133,7 @@ public class driver_algorisme {
         System.out.println("Algorisme genetic generat");
 
         int num_colors = dif.get_num_colors();
-
+        int rondes = 0;
         Integer[] colors = get_colors(num_colors);
 
         List<List<Integer>> allCodes = generateRandomCodes(Arrays.asList(colors), 4, num_proves, dif);
@@ -144,11 +143,13 @@ public class driver_algorisme {
 
             System.out.println("Solució: " + new_solution.toString());
             List<List<Integer>> solutions_generated = genetic.solve(new_solution);
-
+            rondes+=solutions_generated.size();
             for(List<Integer> solution : solutions_generated) {
                 System.out.println(solution.toString());
             }
         }
+        double rondes_per_partida = (double)rondes/(double)num_proves;
+        System.out.println("Ratio de rondes per partida: " + rondes_per_partida);
     }
 
 

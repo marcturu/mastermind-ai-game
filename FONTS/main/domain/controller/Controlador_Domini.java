@@ -19,6 +19,7 @@ import main.domain.classes.User_persona;
 import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.types.Pair;
+import main.domain.classes.enumerations.colors;
 
 import main.persistence.*;
 
@@ -59,7 +60,7 @@ public class Controlador_Domini {
 
         inicialitza_rankings();
 
-        //inicialitzem els records per a totes les modalitats(facil, normal, dificil, pvp)
+        //inicialitzem els records per a totes les modalitats(facil, normal, dificil, .)
         crea_records();
 
         //registrem els dos usuaris maquina
@@ -327,7 +328,11 @@ public class Controlador_Domini {
      * Funcio per a posar la sequencia solucio a la partida actual
      * @param sol solucio a posar a la partida actual
      */
-    public void set_seq_solucio(Sequencia_intentada sol) {
+    public void set_seq_solucio(List<Integer> entrada) throws Exception{
+        Sequencia_intentada sol = new Sequencia_intentada();
+        colors[] col = new colors[4];
+        for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
+        sol.set_array(col,CtrlPartida.get_num_colors_partida_actual());
         CtrlPartida.set_seq_solucio_entrada_per_user(sol);
     }
 

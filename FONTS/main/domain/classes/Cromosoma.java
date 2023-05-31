@@ -21,8 +21,8 @@ public class Cromosoma {
      */
     public Cromosoma(dificultats dificultat) {  
         for(int i = 0; i < 4; ++i) {
-            int num_random = (int)(Math.random() * (dificultat.get_num_colors() + 1));//el +1 es perque Math.random() pertany a [0.0,1.0)
-            if(num_random < 1) num_random = 1;
+            int num_random = (int)(Math.random() * (dificultat.get_num_colors()) + 1);//el +1 es perque Math.random() pertany a [0.0,1.0)
+            
 
             if(codi.size() < 4) codi.add(num_random);
             else codi.set(i, num_random);
@@ -50,15 +50,28 @@ public class Cromosoma {
     /**
      * Funcio per a fer el crossover de un sol punt entre dos cromosomes
      * @param cromosoma2 cromosoma amb el que farem l'encreuament
+     * @param dificultat dificultat del codi
      * @return retorna un cromosoma fill dels dos cromosomes
      */
-    public Cromosoma one_point_crossover(Cromosoma cromosoma2, dificultats dificultat) {
-        Cromosoma fill = new Cromosoma(dificultat);
+    public Pair<Cromosoma, Cromosoma> one_point_crossover(Cromosoma cromosoma2, dificultats dificultat) {
+        Cromosoma fill1 = new Cromosoma(dificultat);
+        Cromosoma fill2 = new Cromosoma(dificultat);
+        List<Integer> codi_fill1 = new ArrayList<>(4);
+        List<Integer> codi_fill2 = new ArrayList<>(4);
+        int posRandom = (int)Math.random()*4;
         for(int i = 0; i < 4; ++i) {
-            if(Math.random() > 0.5) fill.codi.set(i, codi.get(i));
-            else fill.codi.set(i, cromosoma2.codi.get(i));
+            if(i < posRandom) {
+                codi_fill1.add(this.codi.get(i));
+                codi_fill2.add(cromosoma2.codi.get(i));
+            }
+            else{
+                codi_fill1.add( cromosoma2.codi.get(i));
+                codi_fill2.add(this.codi.get(i));
+            }
         }
-        return fill;
+        fill1.set_codi(codi_fill1);
+        fill2.set_codi(codi_fill2);
+        return new Pair<>(fill1, fill2);
     }
 
     /**
@@ -68,6 +81,7 @@ public class Cromosoma {
      */
     public Cromosoma two_point_crossover(Cromosoma cromosoma2, dificultats dificultat) {
         Cromosoma fill = new Cromosoma(dificultat);
+        List<Integer> codi_fill = new ArrayList<>(4);
         int random1 = (int)(Math.random() * 3);
         int random2 = (int)(Math.random() * 3);
         while(random1 == random2) random2 = (int)(Math.random() * 3);
@@ -79,10 +93,11 @@ public class Cromosoma {
         }
 
         for(int i = 0; i<4; ++i) {
-            if(i <= random1 && i < random2) fill.codi.set(i, this.codi.get(i));
-			if(i > random1 && i <= random2) fill.codi.set(i, cromosoma2.codi.get(i));
-			if(i > random1 && i > random2) fill.codi.set(i, this.codi.get(i));
+            if(i <= random1 && i < random2) codi_fill.add(this.codi.get(i));
+			else if(i > random1 && i <= random2) codi_fill.add(cromosoma2.codi.get(i));
+			else codi_fill.add(this.codi.get(i));
         }
+        fill.set_codi(codi_fill);
         return fill;
     }
 

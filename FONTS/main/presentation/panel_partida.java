@@ -3,14 +3,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import main.presentation.controller.Controlador_Presentacio;
 import main.presentation.classes.button;
 
 public class panel_partida extends JPanel {
     private final Controlador_Presentacio ctrlPresentacio;
-    private JButton[][] buttons_intentada = new JButton[10][4];
-    private JButton[][] buttons_verificacio = new JButton[10][4];
+    private JButton[][] buttons_intentada;
+    private JButton[][] buttons_verificacio;
     private button[] buttons_col = new button[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
@@ -18,26 +20,28 @@ public class panel_partida extends JPanel {
     private final JButton b_eliminar_partida = new JButton("Eliminar partida");
 
     private void add_panel_rondes() {
+        buttons_intentada = new JButton[ctrlPresentacio.get_num_rondes()][4];
+        buttons_verificacio = new JButton[ctrlPresentacio.get_num_rondes()][4];
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
         for (int i = 0; i < buttons_intentada.length; ++i) {
             JPanel rowPanelVerificacio = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
             JPanel rowPanelIntentada = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
-            rowPanelVerificacio.add(new JLabel("Verificacio " + (i + 1)));
             rowPanelIntentada.add(new JLabel("Intentada " + (i + 1)));
+            rowPanelVerificacio.add(new JLabel("Verificacio " + (i + 1)));
             for (int j = 0; j < buttons_verificacio[0].length; ++j) {
-                buttons_verificacio[i][j] = new JButton();
-                buttons_verificacio[i][j].setPreferredSize(new Dimension(40, 40));
-                buttons_verificacio[i][j].setBackground(null);
-                rowPanelVerificacio.add(buttons_verificacio[i][j]);
                 buttons_intentada[i][j] = new JButton();
                 buttons_intentada[i][j].setPreferredSize(new Dimension(40, 40));
                 buttons_intentada[i][j].setBackground(null);
                 rowPanelIntentada.add(buttons_intentada[i][j]);
+                buttons_verificacio[i][j] = new JButton();
+                buttons_verificacio[i][j].setPreferredSize(new Dimension(40, 40));
+                buttons_verificacio[i][j].setBackground(null);
+                rowPanelVerificacio.add(buttons_verificacio[i][j]);
             }
-            leftPanel.add(rowPanelVerificacio);
             leftPanel.add(rowPanelIntentada);
+            leftPanel.add(rowPanelVerificacio);
         }
 
         JPanel spacingPanel = new JPanel();
@@ -62,7 +66,7 @@ public class panel_partida extends JPanel {
 
         JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
         for (int i = 0; i < buttons_col.length; i++) {
-            buttons_col[i] = new button(0,false,8);
+            buttons_col[i] = new button(0,false,ctrlPresentacio.get_num_colors());
             buttons_col[i].setPreferredSize(new Dimension(60, 60));
             buttonsColPanel.add(buttons_col[i]);
         }
@@ -84,6 +88,15 @@ public class panel_partida extends JPanel {
     private void set_up_listeners() {
         b_try.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                List<Integer> try_button = new ArrayList<Integer>();
+                for (int i = 0; i < 4; ++i){
+                    try_button.add(buttons_col[i].get_color());
+                }
+                try {
+                    ctrlPresentacio.set_try(try_button);
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
 
             }
         });
@@ -104,8 +117,7 @@ public class panel_partida extends JPanel {
 
         b_eliminar_partida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // elimina partida
-                // CtrlPersistencia.canvia_a_menu_principal();
+                ctrlPresentacio.canvia_a_menu_principal();
             }
         });
     }
@@ -115,4 +127,5 @@ public class panel_partida extends JPanel {
         set_up_ui();
         set_up_listeners();
     }
+
 }
