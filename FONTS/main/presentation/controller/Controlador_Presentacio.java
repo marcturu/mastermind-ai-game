@@ -20,6 +20,7 @@ public class Controlador_Presentacio {
     private boolean j2_maquina_genetica;
     private dificultats dificultat = dificultats.NORMAL;
     private boolean login_user2;
+    private List<Integer> entrada;
 
     private String dificultat_ranking;
 
@@ -28,7 +29,13 @@ public class Controlador_Presentacio {
         ctrlPresentacio.canvia_a_inici();
     }
 
-
+    public void set_try(List<Integer> entrada) throws Exception {
+        if(ctrlDomini.get_num_ronda_actual() == 0) {
+            if (j1_cm ||  ) {
+                ctrlDomini.set_seq_solucio(entrada);
+            }
+        }
+    }
 
     /**
      * Constructora de la classe
@@ -331,7 +338,6 @@ public class Controlador_Presentacio {
         return j1_cm;
     }
 
-    public boolean is_pvp(){return j2_user;}
 
     /**
      * Funcio per a mostrar un missatge d'error

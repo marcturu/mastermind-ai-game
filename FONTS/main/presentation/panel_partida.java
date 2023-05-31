@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import main.presentation.controller.Controlador_Presentacio;
 import main.presentation.classes.button;
@@ -86,6 +88,15 @@ public class panel_partida extends JPanel {
     private void set_up_listeners() {
         b_try.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                List<Integer> try_button = new ArrayList<Integer>();
+                for (int i = 0; i < 4; ++i){
+                    try_button.add(buttons_col[i].get_color());
+                }
+                try {
+                    ctrlPresentacio.set_try(try_button);
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
 
             }
         });
@@ -111,23 +122,10 @@ public class panel_partida extends JPanel {
         });
     }
 
-    private void jugar_maquina(){
-        int ronda_actual = ctrlPresentacio.get_num_ronda_actual();
-
-    }
-
     public panel_partida(Controlador_Presentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
         set_up_ui();
         set_up_listeners();
-        boolean is_pvp = ctrlPresentacio.is_pvp();
-        //if (is_pvp) jugar_pvp();
-        jugar_maquina();
-    }
-
-    public static void main(String[] args){
-        ctrlPresentacio.get_num_ronda_actual();
-
     }
 
 }
