@@ -18,7 +18,7 @@ public class Controlador_Presentacio {
     private boolean j1_cm;
     private boolean j2_user;
     private boolean j2_maquina_genetica;
-    private int dificultat;
+    private dificultats dificultat;
     private boolean login_user2;
 
     private String dificultat_ranking;
@@ -44,7 +44,7 @@ public class Controlador_Presentacio {
         j1_cm = false;
         j2_user = false;
         j2_maquina_genetica = false;
-        dificultat = 2;
+        dificultat = dificultats.NORMAL;;
 
         login_user2 = false;
     }
@@ -345,11 +345,8 @@ public class Controlador_Presentacio {
      */
     public void assigna_dificultat_facil() {
         dificultats dif = dificultats.FACIL;
-        try{
-        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
-        } catch (Exception e) {
-            mostra_error(e.getMessage());
-        }
+        this.dificultat= dif;
+        inicialitza_partida_nova();
     }
 
     /**
@@ -357,11 +354,8 @@ public class Controlador_Presentacio {
      */
     public void assigna_dificultat_mitja() {
         dificultats dif = dificultats.NORMAL;
-        try{
-        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
-        } catch (Exception e) {
-            mostra_error(e.getMessage());
-        }
+        this.dificultat= dif;
+        inicialitza_partida_nova();
     }
 
     /**
@@ -369,8 +363,18 @@ public class Controlador_Presentacio {
      */
     public void assigna_dificultat_dificil() {
         dificultats dif = dificultats.DIFICIL;
+        this.dificultat= dif;
+        inicialitza_partida_nova();
+    }
+
+    public void inicialitza_partida_nova() {
         try{
-        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
+            if (j2_user){
+                ctrlDomini.inicialitza_partida_nova_pvp(this.dificultat, j1_cm);
+            }else{
+                ctrlDomini.inicialitza_partida_nova(this.dificultat, j2_maquina_genetica, j1_cm);
+            }
+
         } catch (Exception e) {
             mostra_error(e.getMessage());
         }
