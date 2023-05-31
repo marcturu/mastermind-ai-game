@@ -9,6 +9,7 @@ import main.domain.classes.Sequencia_intentada;
 import main.domain.classes.Sequencia_verificacio;
 import main.domain.classes.User;
 import main.domain.classes.enumerations.dificultats;
+import main.domain.classes.types.Pair;
 
 /**
  * Classe del Controlador de Partida
@@ -223,4 +224,6 @@ public class Controlador_Partida {
     public Partida get_partida_actual(){
         return partida_actual;
     }
+
+    public Pair<Integer,Integer> get_verificacio(){return partida_actual.get_verificacio();}
 }

@@ -31,8 +31,19 @@ public class Controlador_Presentacio {
 
     public void set_try(List<Integer> entrada) throws Exception {
         if(ctrlDomini.get_num_ronda_actual() == 0) {
-            if (j1_cm ||  ) {
+            if (j1_cm || ((!j1_cm) && j2_user)) {
                 ctrlDomini.set_seq_solucio(entrada);
+            }
+            else {
+                ctrlDomini.genera_solucio_partida(dificultat);
+            }
+        }
+        else{
+            if (!j1_cm){
+                ctrlDomini.jugar_ronda_intentada(entrada);
+                if (!j2_user) {
+                    ctrlDomini.get_verificacio();
+                }
             }
         }
     }

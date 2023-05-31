@@ -4,6 +4,7 @@ import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.enumerations.*;
 // import main.domain.classes.exceptions.MyException;
 import main.domain.classes.enumerations.Type_user;
+import main.domain.classes.types.Pair;
 //import main.domain.classes.enumerations.colors;
 //import main.domain.classes.types.Pair;
 import java.util.*;
@@ -389,5 +390,28 @@ public class Partida {
         double punts_aconseguits = (partida_acabada? 50.0:0.0) + ((dificultat.get_num_max_rondes() - ultima_ronda_jugada)*2.0) - (ajuda ? 10.0:0.0);
         double punts_max = 50.0 + (dificultat.get_num_max_rondes() - ultima_ronda_jugada)*2.0;
         return punts_aconseguits/punts_max;
+    }
+
+    public Pair<Integer,Integer> get_verificacio() {
+        Pair<Integer,Integer> ver = Sequencia_verificacio.get_verificacio(sequencia_solucio.get_array(),get_seq_int_de_ultima_ronda().get_array());
+        Sequencia_verificacio seq_ver = new Sequencia_verificacio();
+        int negres = ver.second();
+        int blanques = ver.first();
+        while(negres > 0) {
+            int i = (new Random()).nextInt(4);
+            if(seq_ver.get_array()[i] == colors.NULL) {
+                --negres;
+                seq_ver.set_position(i, colors.NEGRE);
+            }
+        }
+        while(blanques > 0) {
+            int i = (new Random()).nextInt(4);
+            if(seq_ver.get_array()[i] != colors.NEGRE && seq_ver.get_array()[i] != colors.BLANC) {
+                --blanques;
+                seq_ver.set_position(i, colors.BLANC);
+            }
+        }
+        set_seq_ver_a_ronda_actual(seq_ver);
+        return ver;
     }
 }

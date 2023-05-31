@@ -97,7 +97,7 @@ public class panel_partida extends JPanel {
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
+                setButtons_intentada(try_button);
             }
         });
 
@@ -121,7 +121,39 @@ public class panel_partida extends JPanel {
             }
         });
     }
+    private void setButtons_intentada(List<Integer> try_button){
+        for (int i = 0; i < 4; ++i){
+            switch (try_button.get(i)){
+                case 0:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(null);
+                    break;
+                case 1:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.RED);
+                    break;
+                case 2:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.GREEN);
+                    break;
+                case 3:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.BLUE);
+                    break;
+                case 4:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.YELLOW);
+                    break;
+                case 5:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.MAGENTA);
+                    break;
+                case 6:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.CYAN);
+                    break;
+                case 7:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(new Color(165, 42, 42));
+                    break;
+                case 8:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.GRAY);
+            }
 
+        }
+    }
     public panel_partida(Controlador_Presentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
         set_up_ui();

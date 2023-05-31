@@ -73,42 +73,6 @@ public class Sequencia_verificacio extends Sequencia {
                 }
             }
         }
-        /*
-        for(int i = 0; i < 4; ++i) {
-            boolean comprova_repeticions = false;
-            
-            //mirem que no haguem comprovat ja aquest color
-            for(int j = 0; j < i; ++j) {
-                if(array_provat[i] == array_provat[j]) {
-                    comprova_repeticions = true;
-                }
-            }
-            if(comprova_repeticions) continue;
-
-            contador_repeticions = 1;
-
-            for(int j = i+1; j < 4; ++j) {
-                if(array_provat[i] == array_provat[j]) {
-                    ++contador_repeticions;
-                }
-            }
-
-            for(int j = 0; j < 4; ++j) {
-                if(contador_repeticions == 0) break;
-                //cas de pin blanc i no es pin negre
-                if(i != j && array_provat[i] == arr_solucio[j] && array_provat[j] != arr_solucio[j]) {
-                    ++blanques;
-                    --contador_repeticions;
-                }else if( i != j && array_provat[i] == arr_solucio[j] && array_provat[j] == arr_solucio[j]) {
-                    --contador_repeticions;
-                }
-
-                //cas de pin negre
-                if(i == j && array_provat[i] == arr_solucio[j]) {
-                    --contador_repeticions;
-                }
-            }
-        }*/
         return blanques;
     }
 

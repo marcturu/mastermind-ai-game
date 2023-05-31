@@ -372,8 +372,12 @@ public class Controlador_Domini {
      * Funcio per a jugar una ronda amb la sequencia intentada seq_int
      * @param seq_int sequencia intentada
      */
-    public void jugar_ronda_intentada(Sequencia_intentada seq_int){
+    public void jugar_ronda_intentada(List<Integer> entrada) throws Exception{
         CtrlPartida.crea_nova_ronda();
+        Sequencia_intentada seq_int = new Sequencia_intentada();
+        colors[] col = new colors[4];
+        for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
+        seq_int.set_array(col,CtrlPartida.get_num_colors_partida_actual());
         CtrlPartida.set_sequencia_intentada(seq_int);
         if(CtrlPartida.temps_excedit_partida_actual()){
             CtrlPartida.tractament_partida_acabada();
@@ -397,6 +401,10 @@ public class Controlador_Domini {
         }
 
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
+    }
+
+    public Pair<Integer,Integer> get_verificacio(){
+        return CtrlPartida.get_verificacio();
     }
 
     /**
