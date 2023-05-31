@@ -208,6 +208,9 @@ public class Controlador_Domini {
         else {
             if (genetic) Usuari2 = ctrl_user.carrega_user(hashUsers.get("Genetic"));
             else Usuari2 = ctrl_user.carrega_user(hashUsers.get("Five-Guess"));
+
+            Usuari2.set_dificultat_algoritme(dif);
+
             start_partida_nova(ids_partides, dif, jugador1_es_codemaker);
             ++ids_partides;
         }

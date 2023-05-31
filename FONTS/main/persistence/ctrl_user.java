@@ -13,6 +13,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 
 import main.domain.classes.User;
+import main.domain.classes.enumerations.Type_user;
 import main.domain.classes.User_maquina;
 import main.domain.classes.User_persona;
 public class ctrl_user {
@@ -45,7 +46,10 @@ public class ctrl_user {
      */
     public User carrega_user(int id){
         Gson gson = new Gson();
+
         String archivo = "../EXE/dades/users/" + Integer.toString(id) + ".json";
+
+        System.out.println("Carrega usuari " + id);
 
         if (Files.exists(Paths.get(archivo))){
             String contenido = "";
@@ -58,20 +62,20 @@ public class ctrl_user {
                 ex.printStackTrace();
             }
 
-            if (!contenido.isEmpty()){;
+            if (!contenido.isEmpty()){
 
+                System.out.println("Carrega usuari user " + id);
                 User user = gson.fromJson(contenido,User.class);
 
-                if (user.get_tipus_user().toString()=="user_maquina"){
-                    user = gson.fromJson(contenido,User_maquina.class);
-
-                }else if (user.get_tipus_user().toString()=="user_persona"){
+                if (user.get_tipus_user().toString()=="user_persona"){
                     user = gson.fromJson(contenido,User_persona.class);
                 }
                 return user;
             }
         }
+
         return null;
+
 
     }
 }
