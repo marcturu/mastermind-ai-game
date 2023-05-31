@@ -24,7 +24,7 @@ public class panel_ranking extends JPanel{
     private final JButton b_enrere = new JButton("Enrere");
 
     /**
-     * Funcio per fer la configuracio de la UI del panell
+     * Funcio per fer la configuracio de la UI del panel
      */
     private void set_up_ui() {
         scrollPane.setBounds(20, 20, 200, 200);
@@ -43,7 +43,7 @@ public class panel_ranking extends JPanel{
         b_enrere.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ctrlPresentacio.canvia_a_menu_principal();
+                ctrlPresentacio.canvia_a_dificultats_ranking();
             }
         });
     }
