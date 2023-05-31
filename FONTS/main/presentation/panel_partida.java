@@ -126,7 +126,7 @@ public class panel_partida extends JPanel {
     }
 
     public static void main(String[] args){
-
+        ctrlPresentacio.get_num_ronda_actual();
 
     }
 
