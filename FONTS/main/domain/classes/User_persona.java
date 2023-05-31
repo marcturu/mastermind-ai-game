@@ -170,7 +170,9 @@ public class User_persona extends User {
         vstats.add((double)super.get_num_partides_acabades());
         vstats.add((double) get_partides_totals());
         vstats.add((double) get_partides_guanyades());
-        vstats.add((double) get_streak());
+        vstats.add((double) get_streakF());
+        vstats.add((double) get_streakN());
+        vstats.add((double) get_streakD());
         if (get_partides_totals() != 0) vstats.add((double) (get_rondes_totals()/get_partides_totals()));
         else vstats.add(-1.0); //Vol dir que no ha jugat cap partida i, conseqüentment, cap ronda
 

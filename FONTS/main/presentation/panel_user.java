@@ -55,7 +55,7 @@ public class panel_user extends JPanel{
 
         b_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ctrlPresentacio.canvia_a_menu_principal();
+                ctrlPresentacio.canvia_a_inici();
             }
         });
 

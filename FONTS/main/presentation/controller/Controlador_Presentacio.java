@@ -1,6 +1,7 @@
 package main.presentation.controller;
 
 import main.presentation.views.*;
+import java.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -306,6 +307,20 @@ public class Controlador_Presentacio {
         double total = (double)ctrlDomini.get_partides_totals();
         return (100.0*victories)/total;
     }
+
+    public int get_streakF() {
+        return ctrlDomini.get_streakF();
+    }
+
+    public int get_streakN() {
+        return ctrlDomini.get_streakN();
+    }
+
+    public int get_streakD() {
+        return ctrlDomini.get_streakD();
+    }
+
+
 
     /**
      * Funcio per indicar que l'usuari vol ser codemaker de la nova partida

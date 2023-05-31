@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
-//import java.util.Vector;
+import java.util.Vector;
 
 import main.domain.classes.Partida;
 import main.domain.classes.Ranking;
@@ -741,7 +741,17 @@ public class Controlador_Domini {
         ctrl_record.save_record(Record);
 
         Record = ctrl_record.carrega_record("record_streak", dif);
-        Record.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streak(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+        switch (dif) {
+            case "facil":
+                Record.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streakF(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+                break;
+            case "normal":
+                Record.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streakN(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+                break;
+            case "dificil":
+                Record.actualitza(CtrlPartida.get_codebreaker_partida_actual().get_streakD(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+                break;
+        }
         ctrl_record.save_record(Record);
 
         Record = ctrl_record.carrega_record("record_temps", dif);
@@ -820,6 +830,22 @@ public class Controlador_Domini {
     }
 
     //STATS
+
+    public int get_streakF() {
+        if (this.Usuari == null) return 0;
+        else return Usuari.get_streakF();
+    }
+
+    public int get_streakN() {
+        if (this.Usuari == null) return 0;
+        else return Usuari.get_streakN();
+    }
+
+    public int get_streakD() {
+        if (this.Usuari == null) return 0;
+        else return Usuari.get_streakD();
+    }
+
 
     public User getUsuari() {
         return Usuari;

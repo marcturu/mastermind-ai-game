@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 
 import main.presentation.controller.Controlador_Presentacio;
 
+import java.util.Vector;
+
 /**
  * Classe del panell d'estadistiques de l'usuari
  * @author Ferran Solanes (ferran.solanes@estudiantat.upc.edu)
@@ -16,6 +18,9 @@ public class panel_estadistiques_user extends JPanel{
     private JLabel l_panel = new JLabel("Estadistiques");
     private JLabel l_total_games = new JLabel("");
     private JLabel l_total_wins = new JLabel("");
+    private JLabel l_streakF = new JLabel("");
+    private JLabel l_streakN = new JLabel("");
+    private JLabel l_streakD = new JLabel("");
     private JLabel l_winrate = new JLabel("");
     private JButton b_enrere = new JButton("Enrere");
 
@@ -36,7 +41,16 @@ public class panel_estadistiques_user extends JPanel{
         l_winrate.setBounds(20, 110, 200, 20);
         add(l_winrate);
 
-        b_enrere.setBounds(20, 250, 150, 20);
+        l_streakF.setBounds(20, 140, 200, 20);
+        add(l_streakF);
+
+        l_streakN.setBounds(20, 170, 200, 20);
+        add(l_streakN);
+
+        l_streakD.setBounds(20, 200, 200, 20);
+        add(l_streakD);
+
+        b_enrere.setBounds(20, 300, 150, 20);
         add(b_enrere);
     }
 
@@ -54,6 +68,9 @@ public class panel_estadistiques_user extends JPanel{
         l_total_games.setText("Partides jugades: " + ctrlPresentacio.get_total_games());
         l_total_wins.setText("Partides guanyades: " + ctrlPresentacio.get_total_wins());
         l_winrate.setText("Winrate: " + ctrlPresentacio.get_winrate() + "%");
+        l_streakF.setText("Ratxa partides fàcils: " + ctrlPresentacio.get_streakF());
+        l_streakN.setText("Ratxa partides normals " + ctrlPresentacio.get_streakN());
+        l_streakD.setText("Ratxa partides difícils: " + ctrlPresentacio.get_streakD());
 
     }
 

@@ -62,7 +62,7 @@ public class panel_historial_user extends JPanel{
         b_enrere.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ctrlPresentacio.canvia_a_menu_principal();
+                ctrlPresentacio.canvia_a_user();
             }
         });
 
