@@ -44,6 +44,9 @@ public class button extends JButton implements ActionListener{
 
     public void canviar_color() {
         switch (color) {
+            case 0:
+                setBackground(null);
+                break;
             case 1:
                 setBackground(Color.RED);
                 break;
