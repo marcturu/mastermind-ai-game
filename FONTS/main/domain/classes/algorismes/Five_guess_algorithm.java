@@ -17,6 +17,10 @@ public class Five_guess_algorithm implements Maquina{
     private int codeLength = 4;
     private dificultats dificultat;
 
+    public void set_dificultat(dificultats dificultat) {
+        this.dificultat = dificultat;
+    }
+
 
     /**
      * Creadora de la clase Five_guess_algorithm

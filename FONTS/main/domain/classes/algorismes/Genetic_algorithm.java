@@ -24,6 +24,10 @@ public class Genetic_algorithm implements Maquina{
 
     private dificultats dificultat;
 
+    public void set_dificultat(dificultats dificultat) {
+        this.dificultat = dificultat;
+    }
+
 
     /**
      * Funcio per a comprovar si un cromosoma ja existeix a la poblacio

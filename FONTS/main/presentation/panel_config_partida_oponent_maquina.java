@@ -41,7 +41,7 @@ public class panel_config_partida_oponent_maquina extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ctrlPresentacio.set_algorisme_partida("Five-Guess");
-                ctrlPresentacio.canvia_a_partida();
+                ctrlPresentacio.canvia_a_config_partida_dificultat();
             }
         });
 
@@ -49,7 +49,7 @@ public class panel_config_partida_oponent_maquina extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ctrlPresentacio.set_algorisme_partida("Genetic");
-                ctrlPresentacio.canvia_a_partida();
+                ctrlPresentacio.canvia_a_config_partida_dificultat();
             }
         });
 

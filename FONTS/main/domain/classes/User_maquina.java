@@ -84,5 +84,9 @@ public class User_maquina extends User {
         throw new Exception("El user maquina no té punts pvp");
     }
 
+    public void set_dificultat_algoritme(dificultats dificultat){
+        algorisme.set_dificultat(dificultat);
+    }
+
 
 }

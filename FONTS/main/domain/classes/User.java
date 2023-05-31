@@ -2,6 +2,8 @@ package main.domain.classes;
 
 import java.util.List;
 import java.util.Vector;
+import main.domain.classes.enumerations.dificultats;
+
 
 import main.domain.classes.enumerations.Type_user;
 
@@ -321,6 +323,13 @@ public class User {
      * @param punts
      */
     public void set_puntuacio_pvp(double punts) {}
+
+    /**
+     * Redefinida a User_maquina
+     * Es defineix la dificultat de l'algorisme
+     * @param punts
+     */
+    public void set_dificultat_algoritme(dificultats dificultat) {}
 
 
 
