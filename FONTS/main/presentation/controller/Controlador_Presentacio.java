@@ -18,7 +18,7 @@ public class Controlador_Presentacio {
     private boolean j1_cm;
     private boolean j2_user;
     private boolean j2_maquina_genetica;
-    private dificultats dificultat;
+    private dificultats dificultat = dificultats.NORMAL;
     private boolean login_user2;
 
     private String dificultat_ranking;
@@ -44,7 +44,6 @@ public class Controlador_Presentacio {
         j1_cm = false;
         j2_user = false;
         j2_maquina_genetica = false;
-        dificultat = dificultats.NORMAL;;
 
         login_user2 = false;
     }
@@ -332,6 +331,8 @@ public class Controlador_Presentacio {
         return j1_cm;
     }
 
+    public boolean is_pvp(){return j2_user;}
+
     /**
      * Funcio per a mostrar un missatge d'error
      * @param error
@@ -383,6 +384,11 @@ public class Controlador_Presentacio {
     public String getDificultat_ranking() {
         return dificultat_ranking;
     }
+
+    public int get_num_rondes(){return dificultat.get_num_max_rondes();}
+    public int get_num_ronda_actual(){return ctrlDomini.get_num_ronda_actual();}
+
+    public int get_num_colors(){return dificultat.get_num_colors();}
 
     public void setDificultat_ranking(String dificultat_ranking) {
         this.dificultat_ranking = dificultat_ranking;
