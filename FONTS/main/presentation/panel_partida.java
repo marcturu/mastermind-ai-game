@@ -24,20 +24,20 @@ public class panel_partida extends JPanel {
         for (int i = 0; i < buttons_intentada.length; ++i) {
             JPanel rowPanelVerificacio = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
             JPanel rowPanelIntentada = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
-            rowPanelVerificacio.add(new JLabel("Verificacio " + (i + 1)));
             rowPanelIntentada.add(new JLabel("Intentada " + (i + 1)));
+            rowPanelVerificacio.add(new JLabel("Verificacio " + (i + 1)));
             for (int j = 0; j < buttons_verificacio[0].length; ++j) {
-                buttons_verificacio[i][j] = new JButton();
-                buttons_verificacio[i][j].setPreferredSize(new Dimension(40, 40));
-                buttons_verificacio[i][j].setBackground(null);
-                rowPanelVerificacio.add(buttons_verificacio[i][j]);
                 buttons_intentada[i][j] = new JButton();
                 buttons_intentada[i][j].setPreferredSize(new Dimension(40, 40));
                 buttons_intentada[i][j].setBackground(null);
                 rowPanelIntentada.add(buttons_intentada[i][j]);
+                buttons_verificacio[i][j] = new JButton();
+                buttons_verificacio[i][j].setPreferredSize(new Dimension(40, 40));
+                buttons_verificacio[i][j].setBackground(null);
+                rowPanelVerificacio.add(buttons_verificacio[i][j]);
             }
-            leftPanel.add(rowPanelVerificacio);
             leftPanel.add(rowPanelIntentada);
+            leftPanel.add(rowPanelVerificacio);
         }
 
         JPanel spacingPanel = new JPanel();
