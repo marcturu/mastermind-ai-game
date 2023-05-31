@@ -158,7 +158,23 @@ public class User {
      * getter de la ratxa (redefinida a User_persona)
      * @return res
      */
-    public int get_streak() {
+    public int get_streakF() {
+        return 0;
+    }
+
+    /**
+     * getter de la ratxa (redefinida a User_persona)
+     * @return res
+     */
+    public int get_streakN() {
+        return 0;
+    }
+
+    /**
+     * getter de la ratxa (redefinida a User_persona)
+     * @return res
+     */
+    public int get_streakD() {
         return 0;
     }
 
