@@ -14,11 +14,13 @@ public class panel_partida extends JPanel {
     private JButton[][] buttons_intentada;
     private JButton[][] buttons_verificacio;
     private button[] buttons_col = new button[4];
+    private button[] buttons_sol = new button[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
     private final JButton b_guardar_partida = new JButton("Guardar partida");
     private final JButton b_eliminar_partida = new JButton("Eliminar partida");
-    private         JPanel rightPanel = new JPanel(new GridLayout(6, 1));
+    private JPanel rightPanel = new JPanel(new GridLayout(6, 1));
+    private boolean ver = false;
 
     private void add_panel_rondes() {
         buttons_intentada = new JButton[ctrlPresentacio.get_num_rondes()][4];
@@ -53,9 +55,30 @@ public class panel_partida extends JPanel {
 
         add(leftPanel);
     }
-
-    private void setButtons_col(boolean ver){
+    private void setButtons_sol(){
         JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
+        rightPanel.removeAll();
+        for (int i = 0; i < buttons_sol.length; i++) {
+            buttons_sol[i] = new button(0,false,ctrlPresentacio.get_num_colors());
+            buttons_sol[i].setPreferredSize(new Dimension(60, 60));
+            buttonsColPanel.add(buttons_sol[i]);
+        }
+        buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
+        rightPanel.add(buttonsColPanel);
+        JPanel buttonsPanel = new JPanel(new GridLayout(4, 1, 0, 10)); // Añadir espacios verticales de 10 píxeles entre los botones
+        buttonsPanel.add(b_try);
+        buttonsPanel.add(b_help);
+        buttonsPanel.add(b_guardar_partida);
+        buttonsPanel.add(b_eliminar_partida);
+        rightPanel.add(buttonsPanel);
+
+        add(rightPanel);
+        revalidate();
+        repaint();
+    }
+    private void setButtons(boolean ver){
+        JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
+        rightPanel.removeAll();
         for (int i = 0; i < buttons_col.length; i++) {
             buttons_col[i] = new button(0,ver,ctrlPresentacio.get_num_colors());
             buttons_col[i].setPreferredSize(new Dimension(60, 60));
@@ -63,6 +86,16 @@ public class panel_partida extends JPanel {
         }
         buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
         rightPanel.add(buttonsColPanel);
+        JPanel buttonsPanel = new JPanel(new GridLayout(4, 1, 0, 10)); // Añadir espacios verticales de 10 píxeles entre los botones
+        buttonsPanel.add(b_try);
+        buttonsPanel.add(b_help);
+        buttonsPanel.add(b_guardar_partida);
+        buttonsPanel.add(b_eliminar_partida);
+        rightPanel.add(buttonsPanel);
+
+        add(rightPanel);
+        revalidate();
+        repaint();
     }
 
 
@@ -72,29 +105,38 @@ public class panel_partida extends JPanel {
         // Panel izquierdo
         add_panel_rondes();
 
-        setButtons_col(false);
+        setButtons(false);
 
-        JPanel buttonsPanel = new JPanel(new GridLayout(4, 1, 0, 10)); // Añadir espacios verticales de 10 píxeles entre los botones
-        buttonsPanel.add(b_try);
-        buttonsPanel.add(b_help);
-        buttonsPanel.add(b_guardar_partida);
-        buttonsPanel.add(b_eliminar_partida);
-        rightPanel.add(buttonsPanel);
 
-        add(rightPanel);
     }
 
     private void set_up_listeners() {
         b_try.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 List<Integer> try_button = new ArrayList<Integer>();
-                for (int i = 0; i < 4; ++i){
-                    try_button.add(buttons_col[i].get_color());
+                for (int i = 0; i < 4; ++i) {
+                    if (ctrlPresentacio.get_num_ronda_actual() == 0) {
+                        setButtons_sol();
+                        try_button.add(buttons_sol[i].get_color());
+                        setButtons(false);
+                    }else{
+                        try_button.add(buttons_col[i].get_color());
+                    }
+
                 }
                 try {
                     ctrlPresentacio.set_try(try_button);
-                    setButtons_intentada(try_button);
-                    setButtons_col(true);
+                    if (!ver) {
+                        setButtons_intentada(try_button);
+                        setButtons(true);
+                        ver = true;
+                    }
+                    else {
+                        setButtons_verificacio(try_button);
+                        setButtons(true);
+                        ver = false;
+                    }
+
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -150,6 +192,21 @@ public class panel_partida extends JPanel {
                     break;
                 case 8:
                     buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.GRAY);
+            }
+
+        }
+    }
+    private void setButtons_verificacio(List<Integer> try_button){
+        for (int i = 0; i < 4; ++i){
+            switch (try_button.get(i)){
+                case 0:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(null);
+                    break;
+                case 9:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.white);
+                    break;
+                case 10:
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.black);
             }
 
         }

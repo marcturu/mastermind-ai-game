@@ -231,8 +231,12 @@ public class Controlador_Domini {
      * Funcio per a consultar la sequencia solucio d'una partida
      * @return sequencia solucio de la partida actual
      */
-    public Sequencia_intentada get_seq_solucio() {
-        return CtrlPartida.get_seq_solucio_partida_actual();
+    public List<Integer> get_seq_solucio() {
+        List<Integer> list = new ArrayList<Integer>();
+        for (int i = 0; i < 4; ++i){
+            list.add(CtrlPartida.get_seq_solucio_partida_actual().get_array()[i].get_id_color());
+        }
+        return list;
     }
 
     /**

@@ -21,6 +21,7 @@ public class Controlador_Presentacio {
     private dificultats dificultat = dificultats.NORMAL;
     private boolean login_user2;
     private List<Integer> entrada;
+    private boolean solution_set;
 
     private String dificultat_ranking;
 
@@ -30,9 +31,10 @@ public class Controlador_Presentacio {
     }
 
     public void set_try(List<Integer> entrada) throws Exception {
-        if(ctrlDomini.get_num_ronda_actual() == 0) {
+        if(ctrlDomini.get_num_ronda_actual() == 0 && !solution_set) {
             if (j1_cm || ((!j1_cm) && j2_user)) {
                 ctrlDomini.set_seq_solucio(entrada);
+                solution_set = true;
             }
             else {
                 ctrlDomini.genera_solucio_partida(dificultat);
@@ -62,6 +64,7 @@ public class Controlador_Presentacio {
         j1_cm = false;
         j2_user = false;
         j2_maquina_genetica = false;
+        solution_set = false;
 
         login_user2 = false;
     }
@@ -422,4 +425,6 @@ public class Controlador_Presentacio {
     public List<String> get_info_records() {
         return ctrlDomini.get_info_records();
     }
+
+    public List<Integer> get_solucio(){return ctrlDomini.get_seq_solucio();}
 }
