@@ -145,6 +145,7 @@ public class view_inici extends JFrame{
      * Funcio per canviar al panell per a jugar una partida
      */
     public void canvia_a_partida() {
+        setSize(700,1000);
         this.setContentPane(partida);
         this.invalidate();
         this.validate();

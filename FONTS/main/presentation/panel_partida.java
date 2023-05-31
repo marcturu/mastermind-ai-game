@@ -1,47 +1,86 @@
 package main.presentation;
-
 import javax.swing.*;
-
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JPanel;
 
-import main.presentation.classes.*;
 import main.presentation.controller.Controlador_Presentacio;
-public class panel_partida extends JPanel{
-    private Controlador_Presentacio CtrlPresentacio;
-    private  JButton[] buttons_intentada = new button[4];
-    private  JButton[] buttons_verificacio = new JButton[4];
+import main.presentation.classes.button;
+
+public class panel_partida extends JPanel {
+    private final Controlador_Presentacio ctrlPresentacio;
+    private JButton[][] buttons_intentada = new JButton[10][4];
+    private JButton[][] buttons_verificacio = new JButton[10][4];
+    private button[] buttons_col = new button[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
     private final JButton b_guardar_partida = new JButton("Guardar partida");
-    private final JButton b_eliminar_partida = new JButton ("Eliminar partida");
+    private final JButton b_eliminar_partida = new JButton("Eliminar partida");
 
-    private void add_intentada(){
-        int x = 10;
-        for (int i = 0; i < 4; ++i){
-            buttons_intentada[i] = new button(1,false, 11/*CtrlPresentacio.get_num_colors()*/);
-            buttons_intentada[i].setBounds(x, 10, 25, 25);
-            add(buttons_intentada[i]);
-            x += 30;
+    private void add_panel_rondes() {
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+
+        for (int i = 0; i < buttons_intentada.length; ++i) {
+            JPanel rowPanelVerificacio = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
+            JPanel rowPanelIntentada = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
+            rowPanelVerificacio.add(new JLabel("Verificacio " + (i + 1)));
+            rowPanelIntentada.add(new JLabel("Intentada " + (i + 1)));
+            for (int j = 0; j < buttons_verificacio[0].length; ++j) {
+                buttons_verificacio[i][j] = new JButton();
+                buttons_verificacio[i][j].setPreferredSize(new Dimension(40, 40));
+                buttons_verificacio[i][j].setBackground(null);
+                rowPanelVerificacio.add(buttons_verificacio[i][j]);
+                buttons_intentada[i][j] = new JButton();
+                buttons_intentada[i][j].setPreferredSize(new Dimension(40, 40));
+                buttons_intentada[i][j].setBackground(null);
+                rowPanelIntentada.add(buttons_intentada[i][j]);
+            }
+            leftPanel.add(rowPanelVerificacio);
+            leftPanel.add(rowPanelIntentada);
         }
+
+        JPanel spacingPanel = new JPanel();
+        spacingPanel.setPreferredSize(new Dimension(10, 10));
+
+        leftPanel.add(Box.createVerticalGlue()); // Espacio en blanco entre los paneles de verificación e intento
+        leftPanel.add(spacingPanel); // Espacio en la parte inferior
+
+        add(leftPanel);
     }
 
-    private void set_up_ui(){
-        b_try.setBounds(260, 0, 25, 25);
-        add(b_try);
-        b_help.setBounds(290, 0, 25, 25);
-        add(b_help);
-        b_guardar_partida.setBounds(320, 0, 25, 25);
-        add(b_guardar_partida);
-        b_eliminar_partida.setBounds(350, 0, 25, 25);
-        add(b_eliminar_partida);
-        add_intentada();
+
+
+    private void set_up_ui() {
+        setLayout(new GridLayout(1, 2, 20, 0)); // Añadir espacios horizontales de 20 píxeles entre los paneles
+
+        // Panel izquierdo
+        add_panel_rondes();
+
+        // Panel derecho
+        JPanel rightPanel = new JPanel(new GridLayout(6, 1));
+
+        JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
+        for (int i = 0; i < buttons_col.length; i++) {
+            buttons_col[i] = new button(0,false,8);
+            buttons_col[i].setPreferredSize(new Dimension(60, 60));
+            buttonsColPanel.add(buttons_col[i]);
+        }
+        buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
+        rightPanel.add(buttonsColPanel);
+
+
+
+        JPanel buttonsPanel = new JPanel(new GridLayout(4, 1, 0, 10)); // Añadir espacios verticales de 10 píxeles entre los botones
+        buttonsPanel.add(b_try);
+        buttonsPanel.add(b_help);
+        buttonsPanel.add(b_guardar_partida);
+        buttonsPanel.add(b_eliminar_partida);
+        rightPanel.add(buttonsPanel);
+
+        add(rightPanel);
     }
 
-    /**
-     * Funcio per a inicialitzar els listeners del panell
-     */
     private void set_up_listeners() {
         b_try.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -51,32 +90,29 @@ public class panel_partida extends JPanel{
 
         b_help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //CtrlPresentacio.ctrlDomini.set_ajuda_partida();
-                //penalitzar user
+                // CtrlPersistencia.set_ajuda_partida();
+                // penalizar user
             }
         });
 
         b_guardar_partida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //CtrlPresentacio.ctrlDomini.guardar_partida_a_mitges();
-                CtrlPresentacio.canvia_a_menu_principal();
+                // CtrlPersistencia.guardar_partida_a_mitges();
+                // CtrlPersistencia.canvia_a_menu_principal();
             }
         });
 
         b_eliminar_partida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //elimina partida
-                CtrlPresentacio.canvia_a_menu_principal();
+                // elimina partida
+                // CtrlPersistencia.canvia_a_menu_principal();
             }
         });
     }
 
-    public panel_partida(Controlador_Presentacio CtrlPresentacio){
-        this.CtrlPresentacio = CtrlPresentacio;
-        setLayout(null);
-        setBounds(500, 300, 700, 500);
+    public panel_partida(Controlador_Presentacio ctrlPresentacio) {
+        this.ctrlPresentacio = ctrlPresentacio;
         set_up_ui();
         set_up_listeners();
     }
-
 }
