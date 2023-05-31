@@ -71,7 +71,7 @@ public class panel_menu_principal extends JPanel{
 
         b_ranking.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ctrlPresentacio.canvia_a_ranking();
+                ctrlPresentacio.canvia_a_dificultats_ranking();
             }
         });
 

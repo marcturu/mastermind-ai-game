@@ -18,8 +18,17 @@ public class Controlador_Presentacio {
     private boolean j1_cm;
     private boolean j2_user;
     private boolean j2_maquina_genetica;
-    private int dificultat;
+    private dificultats dificultat;
     private boolean login_user2;
+
+    private String dificultat_ranking;
+
+    public static void main(String[] args){
+        Controlador_Presentacio ctrlPresentacio = new Controlador_Presentacio();
+        ctrlPresentacio.canvia_a_inici();
+    }
+
+
 
     /**
      * Constructora de la classe
@@ -27,12 +36,15 @@ public class Controlador_Presentacio {
     public Controlador_Presentacio() {
         ctrlDomini = new Controlador_Domini();
         viewInicial = new view_inici(this);
+
+
+        viewInicial.setVisible(true);
         
         //configuracio per defecte
         j1_cm = false;
         j2_user = false;
         j2_maquina_genetica = false;
-        dificultat = 2;
+        dificultat = dificultats.NORMAL;;
 
         login_user2 = false;
     }
@@ -75,7 +87,9 @@ public class Controlador_Presentacio {
     /**
      * Funcio per a canviar el contentPane del frame a panel_ranking
      */
-    public void canvia_a_ranking() {
+    public void canvia_a_ranking(String dificultat) {
+        if (dificultat!=null) setDificultat_ranking(dificultat);
+
         viewInicial.canvia_a_ranking();
     }
 
@@ -155,14 +169,16 @@ public class Controlador_Presentacio {
      * @param password Contrasenya d'usuari_persona
      * @throws Exception Si l'usuari no existeix o la contrasenya es incorrecta
      */
-    public void crida_a_login_domini(String username, String password){
+    public void crida_a_login_domini(String username, String password) throws Exception{
         try{
-            if(login_user2) ctrlDomini.loginUsuari2(username, password);
+            if(login_user2) {
+                ctrlDomini.loginUsuari2(username, password);}
             else {
                 ctrlDomini.loginUsuari1(username, password);
             }
         }catch(Exception e) {
             mostra_error(e.getMessage());
+            throw new Exception("Error: Password erroni");
         }
     }
 
@@ -284,10 +300,11 @@ public class Controlador_Presentacio {
     }
 
     /**
-     * Flag per a saber que l'usuari principal ja ha fet login
+     * Funcio per a consultar si el jugador que fa login es el secundari o no
      */
     public void acreditar_User2() {
         j2_user = true;
+        login_user2= true;
         
     }
 
@@ -328,11 +345,8 @@ public class Controlador_Presentacio {
      */
     public void assigna_dificultat_facil() {
         dificultats dif = dificultats.FACIL;
-        try{
-        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
-        } catch (Exception e) {
-            mostra_error(e.getMessage());
-        }
+        this.dificultat= dif;
+        inicialitza_partida_nova();
     }
 
     /**
@@ -340,11 +354,8 @@ public class Controlador_Presentacio {
      */
     public void assigna_dificultat_mitja() {
         dificultats dif = dificultats.NORMAL;
-        try{
-        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
-        } catch (Exception e) {
-            mostra_error(e.getMessage());
-        }
+        this.dificultat= dif;
+        inicialitza_partida_nova();
     }
 
     /**
@@ -352,11 +363,33 @@ public class Controlador_Presentacio {
      */
     public void assigna_dificultat_dificil() {
         dificultats dif = dificultats.DIFICIL;
+        this.dificultat= dif;
+        inicialitza_partida_nova();
+    }
+
+    public void inicialitza_partida_nova() {
         try{
-        ctrlDomini.inicialitza_partida_nova(dif, j2_maquina_genetica, j1_cm);
+            if (j2_user){
+                ctrlDomini.inicialitza_partida_nova_pvp(this.dificultat, j1_cm);
+            }else{
+                ctrlDomini.inicialitza_partida_nova(this.dificultat, j2_maquina_genetica, j1_cm);
+            }
+
         } catch (Exception e) {
             mostra_error(e.getMessage());
         }
+    }
+
+    public String getDificultat_ranking() {
+        return dificultat_ranking;
+    }
+
+    public void setDificultat_ranking(String dificultat_ranking) {
+        this.dificultat_ranking = dificultat_ranking;
+    }
+
+    public List<String> get_info_ranking() {
+        return ctrlDomini.get_info_ranking(dificultat_ranking);
     }
 
     /**

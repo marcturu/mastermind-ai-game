@@ -26,7 +26,7 @@ public class panel_config_partida_oponent_maquina extends JPanel{
         b_five_guess.setBounds(20, 50, 150, 20);
         add(b_five_guess);
 
-        b_genetic.setBounds(20, 80, 150, 20);
+        b_genetic.setBounds(30, 50, 150, 20);
         add(b_genetic);
 
         b_enrere.setBounds(20, 250, 150, 20);
@@ -41,6 +41,7 @@ public class panel_config_partida_oponent_maquina extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ctrlPresentacio.set_algorisme_partida("Five-Guess");
+                ctrlPresentacio.canvia_a_partida();
             }
         });
 
@@ -48,6 +49,7 @@ public class panel_config_partida_oponent_maquina extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ctrlPresentacio.set_algorisme_partida("Genetic");
+                ctrlPresentacio.canvia_a_partida();
             }
         });
 
