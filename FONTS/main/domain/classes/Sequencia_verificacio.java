@@ -1,5 +1,7 @@
 package main.domain.classes;
 
+import java.util.Arrays;
+
 import main.domain.classes.enumerations.colors;
 import main.domain.classes.types.Pair;
 
@@ -47,8 +49,31 @@ public class Sequencia_verificacio extends Sequencia {
      */
     private static int get_pins_blanques(colors[] arr_solucio, colors[] array_provat) {
         int blanques = 0;
-        int contador_repeticions = 1;
+        //int contador_repeticions = 1;
+        boolean[] usats_sol = new boolean[4];
+        boolean[] usats_int = new boolean[4];
+        Arrays.fill(usats_sol, false);
+        Arrays.fill(usats_int, false);
+        //marquem tots els pins negres com a usats
+        for(int i = 0; i < 4; ++i) {
+            if(arr_solucio[i] == array_provat[i]) {
+                usats_sol[i] = true;
+                usats_int[i] = true;
+            }
+        }
 
+        for(int i = 0; i < 4; ++i) {
+            if(usats_int[i]) continue;
+            for(int j = 0; j < 4; ++j) {
+                if(!usats_sol[j] && array_provat[i] == arr_solucio[j]) {
+                    ++blanques;
+                    usats_int[i] = true;
+                    usats_sol[j] = true;
+                    break;
+                }
+            }
+        }
+        /*
         for(int i = 0; i < 4; ++i) {
             boolean comprova_repeticions = false;
             
@@ -83,7 +108,7 @@ public class Sequencia_verificacio extends Sequencia {
                     --contador_repeticions;
                 }
             }
-        }
+        }*/
         return blanques;
     }
 
