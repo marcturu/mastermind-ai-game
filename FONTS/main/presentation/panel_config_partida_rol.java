@@ -52,6 +52,14 @@ public class panel_config_partida_rol extends JPanel {
                 ctrlPresentacio.canvia_a_config_partida_oponent();
             }
         });
+
+        b_enrere.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                ctrlPresentacio.canvia_a_menu_principal();
+            }
+        });
+
     }
 
     /**
