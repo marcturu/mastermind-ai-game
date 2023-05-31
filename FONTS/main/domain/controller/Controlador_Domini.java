@@ -395,7 +395,11 @@ public class Controlador_Domini {
      * Funcio per a jugar una ronda amb la sequencia verificacio seq_ver
      * @param seq_ver sequencia verificacio
      */
-    public void jugar_ronda_verificacio(Sequencia_verificacio seq_ver){
+    public void jugar_ronda_verificacio(List<Integer> entrada) throws Exception{
+        Sequencia_verificacio seq_ver = new Sequencia_verificacio();
+        colors[] col = new colors[4];
+        for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
+        seq_ver.set_array_verificacio(col,CtrlPartida.get_seq_solucio_partida_actual().get_array(), );
         CtrlPartida.set_sequencia_verificacio(seq_ver);
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {

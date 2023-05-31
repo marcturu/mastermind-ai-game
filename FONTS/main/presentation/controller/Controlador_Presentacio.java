@@ -40,14 +40,24 @@ public class Controlador_Presentacio {
                 ctrlDomini.genera_solucio_partida(dificultat);
             }
         }
-        else{
-            if (!j1_cm){
+           if (!j1_cm){
                 ctrlDomini.jugar_ronda_intentada(entrada);
                 if (!j2_user) {
                     ctrlDomini.get_verificacio();
                 }
+                else
+                    ctrlDomini.jugar_ronda_verificacio(entrada);
             }
-        }
+            else{
+                if (!j2_user){
+                    ctrlDomini.jugar_ronda_intentada(ctrlDomini.get_seguent_guess_maquina());
+                }
+                else {
+                    ctrlDomini.jugar_ronda_intentada(entrada);
+                }
+               ctrlDomini.jugar_ronda_verificacio(entrada);
+            }
+
     }
 
     /**
