@@ -39,7 +39,7 @@ public class view_inici extends JFrame{
         setBounds(500, 300, 500, 300);
         setResizable(true);
         this.setTitle("MASTER MIND PROP");
-
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         b_enrere.setBounds(20, 250, 150, 20);
         add(b_enrere);
         
