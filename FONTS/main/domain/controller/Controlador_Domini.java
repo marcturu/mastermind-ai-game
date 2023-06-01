@@ -471,6 +471,7 @@ public class Controlador_Domini {
         CtrlPartida.set_sequencia_verificacio(seq_ver);
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
+            actualitza_ranking();
             CtrlPartida.tractament_victoria();
             ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
         }
@@ -478,8 +479,6 @@ public class Controlador_Domini {
         if(CtrlPartida.temps_excedit_partida_actual()){
             CtrlPartida.tractament_partida_acabada();
         }
-
-        if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
     }
 
     public boolean exist_partida(){
@@ -834,11 +833,13 @@ public class Controlador_Domini {
     private void comprova_records() {
 
         String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
-
+        System.out.println("Abans de record de punts");
         Record = ctrl_record.carrega_record("record_punts", dif);
+        System.out.println("Després de carregar el record de punts");
         Record.actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
+        System.out.println("Després de actualitzar el record de punts");
         ctrl_record.save_record(Record);
-
+        System.out.println("Despres de record de punts i abans de record de streak");
         Record = ctrl_record.carrega_record("record_streak", dif);
         switch (dif) {
             case "facil":
@@ -852,11 +853,11 @@ public class Controlador_Domini {
                 break;
         }
         ctrl_record.save_record(Record);
-
+        System.out.println("Despres de record de streak i abans de record de temps");
         Record = ctrl_record.carrega_record("record_temps", dif);
         Record.actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
         ctrl_record.save_record(Record);
-
+        System.out.println("Despres de record de temps");
     }
 
     /**
