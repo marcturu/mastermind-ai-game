@@ -446,7 +446,7 @@ public class Controlador_Domini {
         return CtrlPartida.get_partida_actual() == null;
     }
 
-    public Pair<Integer,Integer> get_verificacio(){
+    public List<Integer> get_verificacio(){
         return CtrlPartida.get_verificacio();
     }
 
