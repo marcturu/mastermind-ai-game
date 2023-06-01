@@ -10,6 +10,8 @@ import main.domain.classes.Partida;
 import main.domain.classes.Ranking;
 import main.domain.classes.Record;
 import main.domain.classes.RecordInteger;
+import main.domain.classes.RecordDouble;
+import main.domain.classes.RecordLong;
 import main.domain.classes.Ronda;
 import main.domain.classes.Sequencia_intentada;
 import main.domain.classes.Sequencia_verificacio;
@@ -737,16 +739,16 @@ public class Controlador_Domini {
     private void crea_records_punts() {
         String nom_record = "record_punts";
         String modalitat = "facil";
-        Record = new RecordInteger(nom_record, modalitat);
+        Record = new RecordDouble(nom_record, modalitat);
         ctrl_record.save_record(Record);
 
         modalitat = "normal";
-        Record = new RecordInteger(nom_record, modalitat);
+        Record = new RecordDouble(nom_record, modalitat);
         ctrl_record.save_record(Record);
 
 
         modalitat = "dificil";
-        Record = new RecordInteger(nom_record, modalitat);
+        Record = new RecordDouble(nom_record, modalitat);
         ctrl_record.save_record(Record);
     }
 
@@ -774,15 +776,15 @@ public class Controlador_Domini {
     private void crea_records_temps() {
         String nom_record = "record_temps";
         String modalitat = "facil";
-        Record = new RecordInteger(nom_record, modalitat);
+        Record = new RecordLong(nom_record, modalitat);
         ctrl_record.save_record(Record);
 
         modalitat = "normal";
-        Record = new RecordInteger(nom_record, modalitat);
+        Record = new RecordLong(nom_record, modalitat);
         ctrl_record.save_record(Record);
 
         modalitat = "dificil";
-        Record = new RecordInteger(nom_record, modalitat);
+        Record = new RecordLong(nom_record, modalitat);
         ctrl_record.save_record(Record);
     }
 
