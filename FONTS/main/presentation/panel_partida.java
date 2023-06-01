@@ -79,7 +79,8 @@ public class panel_partida extends JPanel {
         buttons_sol = new JButton[4];
         for (int i = 0; i < buttons_sol.length; i++) {
             buttons_sol[i] = new JButton();
-            buttons_sol[i].setPreferredSize(new Dimension(20, 20));
+            buttons_sol[i].setPreferredSize(new Dimension(60, 60));// TODO CAMBIAR
+            buttons_sol[i].setVisible(false);
             buttonsSol.add(buttons_sol[i]);
         }
         buttonsPanel.add(buttonsSol);
@@ -158,46 +159,50 @@ public class panel_partida extends JPanel {
 
                 for(int i = 0; i < 4; ++i) {
                     buttons_sol[i].setVisible(!buttons_sol[i].isVisible());
-                    //buttons_sol[i].setBackground(ctrlPresentacio.get_solucio().get(i).get_color());
+                    if (ctrlPresentacio.get_solucio()!=null){
+                        buttons_sol[i].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(i)));
+                        buttons_sol[i].setOpaque(true);
+
+                    }
                 }
             }
         });
     }
     private void setButtons_intentada(List<Integer> try_button){
         for (int i = 0; i < 4; ++i){
-            switch (try_button.get(i)){
-                case 0:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(null);
-                    break;
-                case 1:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.RED);
-                    break;
-                case 2:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.GREEN);
-                    break;
-                case 3:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.BLUE);
-                    break;
-                case 4:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.YELLOW);
-                    break;
-                case 5:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.MAGENTA);
-                    break;
-                case 6:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.CYAN);
-                    break;
-                case 7:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(new Color(165, 42, 42));
-                    break;
-                case 8:
-                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.GRAY);
-            }
+
+            buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(get_color_by_id(try_button.get(i)));
             //FOR MACOS ONLY
             buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
 
         }
     }
+
+    private Color get_color_by_id(int id){
+        switch (id){
+            case 0:
+                return null;
+            case 1:
+                return Color.RED;
+            case 2:
+                return Color.GREEN;
+            case 3:
+                return Color.BLUE;
+            case 4:
+                return Color.YELLOW;
+            case 5:
+                return Color.MAGENTA;
+            case 6:
+                return Color.CYAN;
+            case 7:
+                return new Color(165, 42, 42);
+            case 8:
+                return Color.GRAY;
+        }
+        return null;
+    }
+
+
     private void setButtons_verificacio(List<Integer> try_button){
         for (int i = 0; i < 4; ++i){
             switch (try_button.get(i)){
