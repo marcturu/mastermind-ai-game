@@ -112,17 +112,15 @@ public class panel_partida extends JPanel {
                     try_button.add(buttons_col[i].get_color());
                 }
                 try {
+                    List<Integer> list = ctrlPresentacio.set_try(try_button);
+                    setButtons_intentada(list.subList(0,4));
+                    setButtons_verificacio(list.subList(4,8));
                     if (!ver) {
-                        System.out.println("! ver ");
-
-                        setButtons_intentada(ctrlPresentacio.set_try(try_button).subList(0,4));
                         setButtons(true);
                         ver = true;
                     }
                     else {
-                        System.out.println("ver ");
-                        setButtons_verificacio(ctrlPresentacio.set_try(try_button).subList(4,8));
-                        setButtons(true);
+                        setButtons(false);
                         ver = false;
                     }
 
