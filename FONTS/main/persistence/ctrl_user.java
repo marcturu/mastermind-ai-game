@@ -49,7 +49,6 @@ public class ctrl_user {
 
         String archivo = "../EXE/dades/users/" + Integer.toString(id) + ".json";
 
-        System.out.println("Carrega usuari " + id);
 
         if (Files.exists(Paths.get(archivo))){
             String contenido = "";
@@ -64,7 +63,6 @@ public class ctrl_user {
 
             if (!contenido.isEmpty()){
 
-                System.out.println("Carrega usuari user " + id);
                 User user = gson.fromJson(contenido,User.class);
 
                 if (user.get_tipus_user().toString()=="user_persona"){

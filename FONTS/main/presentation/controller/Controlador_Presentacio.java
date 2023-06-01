@@ -1,6 +1,8 @@
 package main.presentation.controller;
 
 import main.presentation.views.*;
+
+import java.util.Collections;
 import java.util.Vector;
 
 import java.util.ArrayList;
@@ -31,37 +33,53 @@ public class Controlador_Presentacio {
         ctrlPresentacio.canvia_a_inici();
     }
 
-    public void set_try(List<Integer> entrada) throws Exception {
-        if(ctrlDomini.get_num_ronda_actual() == 0 && !solution_set) {
+    public List<Integer> set_try(List<Integer> entrada) throws Exception {
+        List<Integer> list = new ArrayList<>(Collections.nCopies(8, 0));
+        if (ctrlDomini.get_num_ronda_actual() == 0 && !solution_set) {
             if (j1_cm || ((!j1_cm) && j2_user)) {
                 ctrlDomini.set_seq_solucio(entrada);
-            }
-            else {
+            } else {
                 ctrlDomini.genera_solucio_partida(dificultat);
             }
             solution_set = true;
-        }/*else { //la solució ja està posada en principi
-            if(j2_user) {
-                if(toca_intent) {
+        }
+            //la solució ja està posada en principi
+            if (j2_user) {
+                if (toca_intent) {
                     toca_intent = false;
                     ctrlDomini.jugar_ronda_intentada(entrada);
-
+                    list.subList(0, 3).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(0, 3).addAll(entrada);
+                    return list;
                 } else {
                     toca_intent = true;
                     ctrlDomini.jugar_ronda_verificacio(entrada);
+                    list.subList(4, 7).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(4, 7).addAll(entrada);
+                    return list;
                 }
-            }else { //juguem vs maquina
-                if(j1_cm) {
+            } else { //juguem vs maquina
+                if (j1_cm) {
                     ctrlDomini.jugar_ronda_intentada(entrada);
                     List<Integer> verificacio_maquina = ctrlDomini.get_seq_verificacio_ultima_ronda();
-
-                }else {
-                    if()
+                    list.subList(0, 3).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(0, 3).addAll(entrada);
+                    list.subList(4, 7).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(4, 7).addAll(verificacio_maquina);
+                    return list;
+                } else {
+                    List<Integer> list_int = ctrlDomini.get_seguent_guess_maquina();
+                    ctrlDomini.jugar_ronda_verificacio(entrada);
+                    list.subList(0, 3).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(0, 3).addAll(list_int);
+                    list.subList(4, 7).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(4, 7).addAll(entrada);
+                    return list;
                 }
 
-            }
         }
-           if (!j1_cm){
+    }
+          /* if (!j1_cm){
                 ctrlDomini.jugar_ronda_intentada(entrada);
                 if (!j2_user) {
                     ctrlDomini.get_verificacio();
@@ -77,9 +95,7 @@ public class Controlador_Presentacio {
                     ctrlDomini.jugar_ronda_intentada(entrada);
                 }
                ctrlDomini.jugar_ronda_verificacio(entrada);
-            }
-*/
-    }
+            }*/
 
     /**
      * Constructora de la classe
@@ -477,5 +493,25 @@ public class Controlador_Presentacio {
         return ctrlDomini.get_info_records();
     }
 
+    public boolean exist_partida(){
+        return ctrlDomini.exist_partida();
+    }
+
     public List<Integer> get_solucio(){return ctrlDomini.get_seq_solucio();}
+
+    public void guardar_partida_a_mitges(){
+        ctrlDomini.guardar_partida_a_mitges();
+        resetAtributes();
+    }
+    private void resetAtributes(){
+
+        j1_cm = false;
+        j2_user = false;
+        j2_maquina_genetica = false;
+        solution_set = false;
+
+        login_user2 = false;
+        toca_intent = true;
+
+    }
 }
