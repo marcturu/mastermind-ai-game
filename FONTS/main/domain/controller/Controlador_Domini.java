@@ -237,6 +237,10 @@ public class Controlador_Domini {
         }
     }
 
+    public int get_num_partides_actuals() {
+        return Usuari.get_num_partides_actuals();
+    }
+
     /**
      * Funcio per a començar una nova partida pvp
      * @param dif dificultat de la nova partida

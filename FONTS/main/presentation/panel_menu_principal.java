@@ -2,8 +2,7 @@ package main.presentation;
 
 import main.presentation.controller.Controlador_Presentacio;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,7 +52,13 @@ public class panel_menu_principal extends JPanel{
         b_jugar.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
-                ctrlPresentacio.canvia_a_config_partida_rol();
+                if (ctrlPresentacio.get_partides_no_acabades() == 10) {
+                    String masses_partides_no_acabades = "Has superat el nombre màxim de partides no acabades";
+                    JOptionPane.showMessageDialog(null, masses_partides_no_acabades, "Error", JOptionPane.ERROR_MESSAGE);
+                    ctrlPresentacio.canvia_a_config_partida_rol(); // De moment així perquè puguem fer probes. Quan acabem, borrar aquesta linia
+
+                }
+                else ctrlPresentacio.canvia_a_config_partida_rol();
             }
         });
 

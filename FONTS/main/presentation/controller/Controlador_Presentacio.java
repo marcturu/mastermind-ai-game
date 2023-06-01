@@ -332,6 +332,10 @@ public class Controlador_Presentacio {
         }
     }
 
+    public int get_partides_no_acabades() {
+        return ctrlDomini.get_num_partides_actuals();
+    }
+
     private void set_atributs_partida(){
 
         j1_cm = ctrlDomini.get_jugador1_es_codemaker();
