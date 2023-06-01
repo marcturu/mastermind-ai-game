@@ -14,6 +14,9 @@ public class panel_partida extends JPanel {
     private JButton[][] buttons_intentada;
     private JButton[][] buttons_verificacio;
     private button[] buttons_col = new button[4];
+
+    private JButton b_set_visible = new JButton("Solucion visible");
+    private JButton[] buttons_sol = new button[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
     private final JButton b_guardar_partida = new JButton("Guardar partida");
@@ -65,11 +68,22 @@ public class panel_partida extends JPanel {
         }
         buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
         rightPanel.add(buttonsColPanel);
-        JPanel buttonsPanel = new JPanel(new GridLayout(4, 1, 0, 10)); // Añadir espacios verticales de 10 píxeles entre los botones
+        JPanel buttonsPanel = new JPanel(new GridLayout(6, 1, 0, 2)); // Añadir espacios verticales de 10 píxeles entre los botones
         buttonsPanel.add(b_try);
         buttonsPanel.add(b_help);
         buttonsPanel.add(b_guardar_partida);
         buttonsPanel.add(b_eliminar_partida);
+        buttonsPanel.add(b_set_visible);
+
+        JPanel buttonsSol = new JPanel(new FlowLayout());
+        buttons_sol = new JButton[4];
+        for (int i = 0; i < buttons_sol.length; i++) {
+            buttons_sol[i] = new JButton();
+            buttons_sol[i].setPreferredSize(new Dimension(20, 20));
+            buttonsSol.add(buttons_sol[i]);
+        }
+        buttonsPanel.add(buttonsSol);
+
         rightPanel.add(buttonsPanel);
 
         add(rightPanel);
@@ -136,6 +150,16 @@ public class panel_partida extends JPanel {
         b_eliminar_partida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ctrlPresentacio.canvia_a_menu_principal();
+            }
+        });
+
+        b_set_visible.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                for(int i = 0; i < 4; ++i) {
+                    buttons_sol[i].setVisible(!buttons_sol[i].isVisible());
+                    //buttons_sol[i].setBackground(ctrlPresentacio.get_solucio().get(i).get_color());
+                }
             }
         });
     }
