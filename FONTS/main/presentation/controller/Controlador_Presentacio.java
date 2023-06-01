@@ -240,14 +240,19 @@ public class Controlador_Presentacio {
      * @param password Contrasenya d'usuari_persona
      * @throws Exception Si l'usuari ja existeix
      */
-    public void crida_a_register_domini(String username, String password){
+    public boolean crida_a_register_domini(String username, String password){
         try{
-            if(login_user2) ctrlDomini.inicialitzaUserPersona2(username, password);
+            if (login_user2) {
+                if (!ctrlDomini.inicialitzaUserPersona2(username, password)) return false;
+                else return true;
+            }
             else {
-                ctrlDomini.inicialitzaUserPersona(username, password);
+                if (!ctrlDomini.inicialitzaUserPersona(username, password)) return false;
+                else return true;
             }
         }catch(Exception e) {
             mostra_error(e.getMessage());
+            return false;
         }
     }
 

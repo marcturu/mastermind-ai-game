@@ -56,6 +56,7 @@ public class panel_register extends JPanel{
     }
 
     private void actionPerformed_BotoConfirmar(ActionEvent event) {
+        boolean es_pot_registrar = false;
         if(username.getText().equals("") || password1.getText().equals("") || password2.getText().equals("")) {
             String error = "Entra un nom d'usuari i una contrasenya amb la seva confirmacio";
             JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
@@ -63,9 +64,17 @@ public class panel_register extends JPanel{
             String error = "La contrasenya no coincideix amb la confirmacio";
             JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
         }else {
-            ctrlPresentacio.crida_a_register_domini(username.getText(), password1.getText());
-            if(ctrlPresentacio.es_usuari1())ctrlPresentacio.canvia_a_menu_principal();
-            else ctrlPresentacio.canvia_a_config_partida_dificultat();
+            if (!ctrlPresentacio.crida_a_register_domini(username.getText(), password1.getText())) {
+                String error = "Ja existeix l'usuari";
+                JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+            else es_pot_registrar = true;
+
+            if (es_pot_registrar) {
+                if (ctrlPresentacio.es_usuari1()) ctrlPresentacio.canvia_a_menu_principal();
+                else ctrlPresentacio.canvia_a_config_partida_dificultat();
+            }
         }
 
     }

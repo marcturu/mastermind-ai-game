@@ -74,11 +74,14 @@ public class Controlador_Domini {
      * @param nom nom de l'usuari
      * @param password password de l'usuari
      */
-    public void inicialitzaUserPersona(String nom, String password){
+    public boolean inicialitzaUserPersona(String nom, String password){
+        boolean inicio = false;
         User usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
-        hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
+        if (hashUsers.putIfAbsent(nom, hashUsers.size() + 1) != null) return inicio;
+        else inicio = true;
         ctrl_list_user.save_list_users(hashUsers);
         ctrl_user.save_users(usuari);
+        return inicio;
     }
 
     /**
@@ -89,13 +92,15 @@ public class Controlador_Domini {
      * @param password password de l'usuari
      * @throws Exception si ja existeix un usuari amb el mateix nom
      */
-    public void inicialitzaUserPersona2(String nom, String password) throws Exception {
+    public boolean inicialitzaUserPersona2(String nom, String password) throws Exception {
         if (hashUsers.containsKey(nom)) {
-            throw new Exception("Error: Usuario2 ya registrado");
+            //throw new Exception("Error: Usuario2 ya registrado");
+            return false;
         }
         Usuari2 = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         ctrl_user.save_users(Usuari2);
         hashUsers.putIfAbsent(nom, hashUsers.size() + 1);
+        return true;
     }
 
     /**
