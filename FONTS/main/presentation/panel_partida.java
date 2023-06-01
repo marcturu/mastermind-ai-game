@@ -113,13 +113,15 @@ public class panel_partida extends JPanel {
                 }
                 try {
                     List<Integer> list = ctrlPresentacio.set_try(try_button);
-                    setButtons_intentada(list.subList(0,4));
-                    setButtons_verificacio(list.subList(4,8));
+
+
                     if (!ver) {
+                        setButtons_intentada(list.subList(0,4));
                         setButtons(true);
                         ver = true;
                     }
                     else {
+                        setButtons_verificacio(list.subList(4,8));
                         setButtons(false);
                         ver = false;
                     }
