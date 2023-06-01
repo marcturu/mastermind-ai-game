@@ -5,6 +5,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import java.util.List;
+import java.util.ArrayList;
+import main.domain.classes.types.Pair;
+
 
 import main.presentation.controller.Controlador_Presentacio;
 
@@ -35,6 +39,7 @@ public class panel_carregar_partida extends JPanel{
 
         b_enrere.setBounds(20, 250, 150, 20);
         add(b_enrere);
+        carrega_llista();
 
         scrollPane.setViewportView(llista_partides);
     }
@@ -74,6 +79,15 @@ public class panel_carregar_partida extends JPanel{
         ctrlPresentacio = CtrlPresentacio;
         set_up_ui();
         set_up_listeners();
+    }
+
+    private void carrega_llista() {
+        List<Pair<Integer, String>>llista = ctrlPresentacio.carrega_partides_no_acabades();
+        List<String> llista_string = new ArrayList<String>();
+        for (Pair<Integer, String> p : llista) {
+            llista_string.add(p.second());
+        }
+        llista_partides.setListData(llista_string.toArray(new String[0]));
     }
     
 }

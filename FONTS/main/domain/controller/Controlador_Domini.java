@@ -22,6 +22,8 @@ import main.domain.classes.types.Pair;
 import main.domain.classes.enumerations.colors;
 
 import main.persistence.*;
+import java.util.*;
+import java.time.*;
 
 /**
  * Classe del Controlador de Domin
@@ -466,8 +468,10 @@ public class Controlador_Domini {
      * Funcio per a guardar una partida a mitges. Es sobreescriu la partida que estava mapejada a el id "id_par"
      */
     public void guardar_partida_a_mitges(){
+        CtrlPartida.get_partida_actual().set_temps_final_partida(Instant.now());
         ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
         ctrl_user.save_users(Usuari);
+        //falla al tornar a guardar partida a mitges(dos cops)
         ctrl_user.save_users(Usuari2);
         resetAtributes();
 
@@ -583,6 +587,11 @@ public class Controlador_Domini {
     public void jugar_partides_antigues(int id_partida_activa) throws Exception{
         //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
         Partida partida_actual = ctrl_pers_partida.carrega_partida(id_partida_activa);
+
+        //set times correctly (not the best way but it fits our model)
+        partida_actual.set_temps_inici_partida(Instant.now().minus(partida_actual.get_temps_usat()));
+        partida_actual.set_temps_final_partida(null);
+
         if(partida_actual == null) {
             throw new Exception("La partida que vols carregar no existeix");
         }
@@ -599,7 +608,7 @@ public class Controlador_Domini {
         String rol;
         if (p.get_jugador1_es_codemaker()) rol = "CM";
         else rol = "CB";
-        String ret = "Ultima ronda: " + p.get_ultima_ronda() + " Dificultat: " + p.get_dificultat().get_dificultat() + " Rol: " + rol + "Temps usat: " + p.get_temps_usat();
+        String ret = "Ultima ronda: " + p.get_ultima_ronda() + " Dificultat: " + p.get_dificultat().get_dificultat() + " Rol: " + rol + " Temps usat: " + duration_to_string(p.get_temps_usat());
         return ret;
     }
 
@@ -889,6 +898,7 @@ public class Controlador_Domini {
         return Usuari;
     }
 
+    //UTILS
     private int get_num_partides(){
         for(int i=1; i<1000; ++i){
             if(ctrl_pers_partida.carrega_partida(i)==null) {
@@ -898,4 +908,17 @@ public class Controlador_Domini {
         }
         return 1;
     }
+
+    private String duration_to_string (Duration duration){
+        long hours = duration.toHours();
+        long minutes = duration.toMinutesPart();
+        long seconds = duration.toSecondsPart();
+
+        // Format the duration as HH:MM:SS
+        String formattedDuration = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return formattedDuration;
+
+    }
+
+
 }

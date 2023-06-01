@@ -65,7 +65,6 @@ public class view_inici extends JFrame{
         config_partida_oponent = new panel_config_partida_oponent(ctrlPresentacio);
         config_partida_oponent_maquina = new panel_config_partida_oponent_maquina(ctrlPresentacio);
         config_partida_dificultat = new panel_config_partida_dificultat(ctrlPresentacio);
-        carregar_partida = new panel_carregar_partida(ctrlPresentacio);
         partida = new panel_partida(ctrlPresentacio);
         dificultats_ranking = new panel_dificultats_ranking(ctrlPresentacio);
 

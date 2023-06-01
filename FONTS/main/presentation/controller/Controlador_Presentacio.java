@@ -299,7 +299,7 @@ public class Controlador_Presentacio {
         //tornem a carregar les partides(en el mateix ordre)
         List<Pair<Integer, String>> llista_info = carrega_partides_no_acabades();
         try{
-        ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
+            ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
         }catch(Exception e) {
             mostra_error(e.getMessage());
         }

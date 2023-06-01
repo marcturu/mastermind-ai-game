@@ -148,7 +148,7 @@ public class Partida {
     public boolean temps_excedit(){
         int temps_usat = (int) this.get_temps_usat().toSeconds();
         if(temps_usat > dificultat.get_temps_max()) {
-            temps_final_partida = Instant.now();
+            set_temps_final_partida(Instant.now());
             return true;
         }
         else return false;
@@ -160,8 +160,8 @@ public class Partida {
      */
     public Duration get_temps_usat(){
         Instant ara = Instant.now();
-        Duration temps_usat = Duration.between(temps_inici, ara);
-        return temps_usat;
+        if(temps_final_partida != null) return Duration.between(temps_inici, temps_final_partida);
+        else return Duration.between(temps_inici, ara);
     }
 
     /**
@@ -213,7 +213,7 @@ public class Partida {
      */
     public void codebreaker_guanya(){
         this.partida_acabada = true;
-        temps_final_partida = Instant.now();
+        set_temps_final_partida(Instant.now());
         this.jugador1.afegeix_partida_acabada(this);
         if(jugador1_es_codemaker) {
             this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
@@ -228,7 +228,7 @@ public class Partida {
      */
     public void codemaker_guanya() {
         this.partida_acabada = true;
-        temps_final_partida = Instant.now();
+        set_temps_final_partida(Instant.now());
         this.jugador1.afegeix_partida_acabada(this);
         if(jugador1_es_codemaker) {  
             this.jugador2.set_partida_acabada(this, false, dificultat.get_dificultat());
@@ -414,4 +414,13 @@ public class Partida {
         set_seq_ver_a_ronda_actual(seq_ver);
         return ver;
     }
+
+    public void set_temps_final_partida(Instant temps_final_partida){
+        this.temps_final_partida = temps_final_partida;
+    }
+
+    public void set_temps_inici_partida(Instant temps_inici){
+        this.temps_inici = temps_inici;
+    }
+
 }
