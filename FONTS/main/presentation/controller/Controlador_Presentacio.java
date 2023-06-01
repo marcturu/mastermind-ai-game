@@ -305,6 +305,7 @@ public class Controlador_Presentacio {
         List<Pair<Integer, String>> llista_info = carrega_partides_no_acabades();
         try{
             ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
+            set_atributs_partida();
         }catch(Exception e) {
             mostra_error(e.getMessage());
         }
@@ -315,13 +316,7 @@ public class Controlador_Presentacio {
         j1_cm = ctrlDomini.get_jugador1_es_codemaker();
         dificultat = ctrlDomini.get_dificultat_partida();
 
-        //j2_user = partida.es_partida_pvp();
-        j2_maquina_genetica = false;
-        if(ctrlDomini.get_seq_solucio()==null){
-            solution_set= false;
-        }else {
-            solution_set = true;
-        }
+        j2_user = ctrlDomini.get_tipus_user_Usuari2().toString()=="user_persona";
 
     }
     /**
