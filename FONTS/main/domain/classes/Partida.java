@@ -54,6 +54,10 @@ public class Partida {
             this.jugador2 = user1;
         }
 
+        for(int i = 0; i < get_num_rondes_max(); ++i) {
+            this.llista_rondes.add(new Ronda(id, i));
+        }
+
     /**
      * Funció que retorna l'identificador de la partida
      * @return L'identificador de la partida
@@ -293,7 +297,7 @@ public class Partida {
      * @param  sequencia intentada
      */
     public void set_seq_int_a_ronda_actual(Sequencia_intentada seq_int) {
-        llista_rondes.get(ultima_ronda_jugada).set_intentada(seq_int);
+        llista_rondes.get(ultima_ronda_jugada-1).set_intentada(seq_int);
     }
 
     /**
@@ -317,7 +321,7 @@ public class Partida {
      * @return la ultima sequencia que s'ha intentat
      */
     public Sequencia_intentada get_seq_int_de_ultima_ronda() {
-        return llista_rondes.get(ultima_ronda_jugada).get_seq_intentada();
+        return llista_rondes.get(ultima_ronda_jugada-1).get_seq_intentada();
     }
     
     /**
@@ -340,9 +344,30 @@ public class Partida {
      * getter del guess de la ultima ronda jugada
      * @return retorna l'intent de la maquina de la ultima ronda
      */
-    public List<Integer> get_next_guess_maquina() {
+    public List<Integer> get_next_guess_maquina(){
+        List<Integer> guess = this.solucio_maquina.get(ultima_ronda_jugada);
 
-        return this.solucio_maquina.get(ultima_ronda_jugada);
+        System.out.println("RONDA: " + ultima_ronda_jugada+ " GUESS: " + guess);
+
+        Sequencia_intentada si = new Sequencia_intentada();
+        colors[] col = new colors[4];
+        for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(guess.get(i));
+
+        crea_nova_ronda();
+
+        try{
+            si.set_array(col,dificultat.get_num_colors());
+            llista_rondes.get(ultima_ronda_jugada-1).set_intentada(si);
+        }catch (Exception e){
+            System.out.println("ERROR: " + e);
+        }
+
+
+        System.out.println("NEXT GUESS RONDA: " + ultima_ronda_jugada);
+
+
+
+        return guess;
     }
 
     /**
@@ -357,9 +382,7 @@ public class Partida {
      * Funció que crea una nova ronda
      */
     public void crea_nova_ronda(){
-        Ronda ronda = new Ronda(this.indentificador, ultima_ronda_jugada+1);
         ++ultima_ronda_jugada;
-        this.llista_rondes.add(ronda);
     }
 
     /**

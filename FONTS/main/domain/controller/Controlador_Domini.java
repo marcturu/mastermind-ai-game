@@ -323,7 +323,6 @@ public class Controlador_Domini {
             //}
 
             List<Integer> next_guess = CtrlPartida.get_guess_maquina();
-            System.out.println("NEXT GUESS: " + next_guess);
             return next_guess;
         }
 

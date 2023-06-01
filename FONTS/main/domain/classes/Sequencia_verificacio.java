@@ -19,8 +19,15 @@ public class Sequencia_verificacio extends Sequencia {
      */
     public void set_array_verificacio(colors[] verificacio, colors[] solucio, colors[]  intentada) throws Exception{
         if (array.length != 4) throw new Exception("El tamany de la sequencia no es 4");
+        System.out.println("solucio" + solucio);
+        System.out.println("intentada" + intentada);
+
         Pair<Integer, Integer> pair_correcte = get_verificacio(solucio,intentada);
+        System.out.println("verificacio" + pair_correcte);
+
         Pair<Integer, Integer> pair_entrat = get_negres_blanques(verificacio);
+        System.out.println("CORRECTE" + pair_entrat);
+
         if ((pair_correcte.first() != pair_entrat.first()) || (pair_correcte.second() != pair_entrat.second())) throw new Exception("Sequencia de Verficacio incorrecte");
         else{
             this.array = verificacio;
