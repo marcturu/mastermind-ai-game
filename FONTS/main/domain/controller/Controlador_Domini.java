@@ -257,8 +257,11 @@ public class Controlador_Domini {
     public List<Integer> get_seq_solucio() {
         List<Integer> list = new ArrayList<Integer>();
 
-        colors[] array = CtrlPartida.get_seq_solucio_partida_actual().get_array();
-        if(array == null) return null;
+        Sequencia_intentada seq_sol = CtrlPartida.get_seq_solucio_partida_actual();
+        if(seq_sol == null) return null;
+
+        colors[] array = seq_sol.get_array();
+
         for (int i = 0; i < 4; ++i){
             list.add(array[i].get_id_color());
         }
@@ -287,7 +290,16 @@ public class Controlador_Domini {
      * @return llista d'intents fins arribar a la solució
      */
     public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
-        return Usuari2.get_solve_maquina(solucio);
+        List<List<Integer>> solutions = Usuari2.get_solve_maquina(solucio);
+
+        for (List<Integer> list : solutions) {
+            System.out.println(list);
+        }
+
+        CtrlPartida.set_solucio_partida_actual(solutions);
+
+        return solutions;
+
     }
 
     /**
@@ -295,7 +307,25 @@ public class Controlador_Domini {
      * @return seguent guess de l'algorisme
      */
     public List<Integer> get_seguent_guess_maquina() {
-        return CtrlPartida.get_guess_maquina();
+        try {
+            return CtrlPartida.get_guess_maquina();
+        } catch (Exception e) {
+
+            System.out.println(Arrays.toString(get_seq_solucio().toArray()));
+
+            System.out.println("Error al get_guess_maquina");
+            get_solve_maquina(get_seq_solucio());
+
+
+            //for (List<Integer> list : listOfLists) {
+            //    System.out.println(list);
+            //}
+
+            List<Integer> sol = CtrlPartida.get_guess_maquina();
+
+            return sol;
+        }
+
     }
 
     /**

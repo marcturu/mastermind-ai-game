@@ -109,7 +109,7 @@ public class panel_partida extends JPanel {
                     }
 
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, ex.getStackTrace() + ex.getMessage() , "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
