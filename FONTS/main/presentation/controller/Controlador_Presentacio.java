@@ -40,11 +40,12 @@ public class Controlador_Presentacio {
                 ctrlDomini.genera_solucio_partida(dificultat);
             }
             solution_set = true;
-        }else { //la solució ja està posada en principi
+        }/*else { //la solució ja està posada en principi
             if(j2_user) {
                 if(toca_intent) {
                     toca_intent = false;
                     ctrlDomini.jugar_ronda_intentada(entrada);
+
                 } else {
                     toca_intent = true;
                     ctrlDomini.jugar_ronda_verificacio(entrada);
@@ -60,11 +61,6 @@ public class Controlador_Presentacio {
 
             }
         }
-
-
-
-
-
            if (!j1_cm){
                 ctrlDomini.jugar_ronda_intentada(entrada);
                 if (!j2_user) {
@@ -82,7 +78,7 @@ public class Controlador_Presentacio {
                 }
                ctrlDomini.jugar_ronda_verificacio(entrada);
             }
-
+*/
     }
 
     /**

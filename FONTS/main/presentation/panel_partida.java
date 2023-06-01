@@ -14,7 +14,6 @@ public class panel_partida extends JPanel {
     private JButton[][] buttons_intentada;
     private JButton[][] buttons_verificacio;
     private button[] buttons_col = new button[4];
-    private button[] buttons_sol = new button[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
     private final JButton b_guardar_partida = new JButton("Guardar partida");
@@ -55,27 +54,7 @@ public class panel_partida extends JPanel {
 
         add(leftPanel);
     }
-    private void setButtons_sol(){
-        JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
-        rightPanel.removeAll();
-        for (int i = 0; i < buttons_sol.length; i++) {
-            buttons_sol[i] = new button(0,false,ctrlPresentacio.get_num_colors());
-            buttons_sol[i].setPreferredSize(new Dimension(60, 60));
-            buttonsColPanel.add(buttons_sol[i]);
-        }
-        buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
-        rightPanel.add(buttonsColPanel);
-        JPanel buttonsPanel = new JPanel(new GridLayout(4, 1, 0, 10)); // Añadir espacios verticales de 10 píxeles entre los botones
-        buttonsPanel.add(b_try);
-        buttonsPanel.add(b_help);
-        buttonsPanel.add(b_guardar_partida);
-        buttonsPanel.add(b_eliminar_partida);
-        rightPanel.add(buttonsPanel);
 
-        add(rightPanel);
-        revalidate();
-        repaint();
-    }
     private void setButtons(boolean ver){
         JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
         rightPanel.removeAll();
@@ -115,14 +94,7 @@ public class panel_partida extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 List<Integer> try_button = new ArrayList<Integer>();
                 for (int i = 0; i < 4; ++i) {
-                    if (ctrlPresentacio.get_num_ronda_actual() == 0) {
-                        setButtons_sol();
-                        try_button.add(buttons_sol[i].get_color());
-                        setButtons(false);
-                    }else{
-                        try_button.add(buttons_col[i].get_color());
-                    }
-
+                    try_button.add(buttons_col[i].get_color());
                 }
                 try {
                     ctrlPresentacio.set_try(try_button);
