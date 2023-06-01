@@ -23,7 +23,6 @@ public class Controlador_Presentacio {
     private boolean j2_maquina_genetica;
     private dificultats dificultat = dificultats.NORMAL;
     private boolean login_user2;
-    private boolean solution_set;
     private boolean toca_intent;
 
     private String dificultat_ranking;
@@ -35,13 +34,12 @@ public class Controlador_Presentacio {
 
     public List<Integer> set_try(List<Integer> entrada) throws Exception {
         List<Integer> list = new ArrayList<>(Collections.nCopies(8, 0));
-        if (ctrlDomini.get_num_ronda_actual() == 0 && !solution_set) {
+        if (ctrlDomini.get_seq_solucio() == null) {
             if (j1_cm || ((!j1_cm) && j2_user)) {
                 ctrlDomini.set_seq_solucio(entrada);
             } else {
                 ctrlDomini.genera_solucio_partida(dificultat);
             }
-            solution_set = true;
         }
             //la solució ja està posada en principi
             if (j2_user) {
@@ -60,20 +58,21 @@ public class Controlador_Presentacio {
                 }
             } else { //juguem vs maquina
                 if (j1_cm) {
-                    ctrlDomini.jugar_ronda_intentada(entrada);
-                    List<Integer> verificacio_maquina = ctrlDomini.get_seq_verificacio_ultima_ronda();
-                    list.subList(0, 3).clear(); // Eliminar elementos existentes en la sublista
-                    list.subList(0, 3).addAll(entrada);
-                    list.subList(4, 7).clear(); // Eliminar elementos existentes en la sublista
-                    list.subList(4, 7).addAll(verificacio_maquina);
-                    return list;
-                } else {
                     List<Integer> list_int = ctrlDomini.get_seguent_guess_maquina();
                     ctrlDomini.jugar_ronda_verificacio(entrada);
                     list.subList(0, 3).clear(); // Eliminar elementos existentes en la sublista
                     list.subList(0, 3).addAll(list_int);
                     list.subList(4, 7).clear(); // Eliminar elementos existentes en la sublista
                     list.subList(4, 7).addAll(entrada);
+                    return list;
+                } else {
+                    ctrlDomini.jugar_ronda_intentada(entrada);
+                    List<Integer> verificacio_maquina = ctrlDomini.get_verificacio();
+                    ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
+                    list.subList(0, 3).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(0, 3).addAll(entrada);
+                    list.subList(4, 7).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(4, 7).addAll(verificacio_maquina);
                     return list;
                 }
 
@@ -111,7 +110,6 @@ public class Controlador_Presentacio {
         j1_cm = false;
         j2_user = false;
         j2_maquina_genetica = false;
-        solution_set = false;
 
         login_user2 = false;
         toca_intent = true;
@@ -517,7 +515,6 @@ public class Controlador_Presentacio {
         j1_cm = false;
         j2_user = false;
         j2_maquina_genetica = false;
-        solution_set = false;
 
         login_user2 = false;
 

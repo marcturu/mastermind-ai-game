@@ -245,6 +245,6 @@ public class Controlador_Partida {
         return partida_actual;
     }
 
-    public Pair<Integer,Integer> get_verificacio(){return partida_actual.get_verificacio();}
+    public List<Integer> get_verificacio(){return partida_actual.get_verificacio();}
 
 }

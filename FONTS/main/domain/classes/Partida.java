@@ -400,7 +400,7 @@ public class Partida {
         return punts_aconseguits/punts_max;
     }
 
-    public Pair<Integer,Integer> get_verificacio() {
+    public List<Integer> get_verificacio() {
         Pair<Integer,Integer> ver = Sequencia_verificacio.get_verificacio(sequencia_solucio.get_array(),get_seq_int_de_ultima_ronda().get_array());
         Sequencia_verificacio seq_ver = new Sequencia_verificacio();
         int negres = ver.second();
@@ -419,8 +419,7 @@ public class Partida {
                 seq_ver.set_position(i, colors.BLANC);
             }
         }
-        set_seq_ver_a_ronda_actual(seq_ver);
-        return ver;
+        return seq_ver.toListInteger();
     }
 
     public void set_temps_final_partida(Instant temps_final_partida){
