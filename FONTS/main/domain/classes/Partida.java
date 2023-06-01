@@ -342,9 +342,7 @@ public class Partida {
      */
     public List<Integer> get_next_guess_maquina() {
 
-        List<Integer> ret =  this.solucio_maquina.get(ultima_ronda_jugada);
-        ++ultima_ronda_jugada;
-        return ret;
+        return this.solucio_maquina.get(ultima_ronda_jugada);
     }
 
     /**
