@@ -243,6 +243,14 @@ public class Controlador_Domini {
     }
 
     /**
+     * Funcio per a consultar la sequencia de verificacio de la ronda actual
+     * @return sequencia verificacio de la ronda actual
+     */
+    public List<Integer> get_seq_verificacio_ultima_ronda() {
+        return CtrlPartida.get_seq_verificacio_ultima_ronda();
+    }
+
+    /**
      * Consultora de si l'usuari principal es codemaker
      * @return true si l'usuari principal es codemaker, false altrament
      */
@@ -399,7 +407,7 @@ public class Controlador_Domini {
         Sequencia_verificacio seq_ver = new Sequencia_verificacio();
         colors[] col = new colors[4];
         for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
-        seq_ver.set_array_verificacio(col,CtrlPartida.get_seq_solucio_partida_actual().get_array(), );
+        seq_ver.set_array_verificacio(col, CtrlPartida.get_seq_solucio_partida_actual().get_array(), CtrlPartida.get_seq_intentada_ultima_ronda().get_array());
         CtrlPartida.set_sequencia_verificacio(seq_ver);
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
@@ -647,6 +655,11 @@ public class Controlador_Domini {
         comprova_records();
     }
 
+    /**
+     * Funcio per obtindre la sortida de la capa de presentacio per mostrar el ranking
+     * @param dif dificultat del ranking que es vol consultar
+     * @return llista de strings amb la informacio del ranking
+     */
     public List<String> get_info_ranking(String dif) {
         Ranking = ctrl_ranking.carrega_ranking(dif);
         List<String> llista_info_ranking = new ArrayList<>();

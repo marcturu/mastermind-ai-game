@@ -160,6 +160,26 @@ public class Controlador_Partida {
         return this.partida_actual.get_solucio();
     }
 
+    /**
+     * Funcio per obtenir la sequencia de verificacio de la ultima ronda jugada
+     * @return sequencia de verificacio
+     */
+    public List<Integer> get_seq_verificacio_ultima_ronda() {
+        return this.partida_actual.get_seq_ver_de_ultima_ronda().toListInteger();
+    }
+
+    /**
+     * Funcio per obtenir la sequencia intentada de la ultima ronda jugada
+     * @return sequencia intentada
+     */
+    public Sequencia_intentada get_seq_intentada_ultima_ronda() {
+        return this.partida_actual.get_seq_int_de_ultima_ronda();
+    }
+
+    /**
+     * Funcio per settejar la sequencia solucio de la partida que s'esta jugant
+     * @param sol sequencia solucio
+     */
     public void set_seq_solucio_entrada_per_user(Sequencia_intentada sol) {
         this.partida_actual.set_sequencia_solucio(sol);
     }

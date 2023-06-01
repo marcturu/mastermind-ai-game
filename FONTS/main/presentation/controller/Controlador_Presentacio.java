@@ -21,8 +21,8 @@ public class Controlador_Presentacio {
     private boolean j2_maquina_genetica;
     private dificultats dificultat = dificultats.NORMAL;
     private boolean login_user2;
-    private List<Integer> entrada;
     private boolean solution_set;
+    private boolean toca_intent;
 
     private String dificultat_ranking;
 
@@ -35,12 +35,36 @@ public class Controlador_Presentacio {
         if(ctrlDomini.get_num_ronda_actual() == 0 && !solution_set) {
             if (j1_cm || ((!j1_cm) && j2_user)) {
                 ctrlDomini.set_seq_solucio(entrada);
-                solution_set = true;
             }
             else {
                 ctrlDomini.genera_solucio_partida(dificultat);
             }
+            solution_set = true;
+        }else { //la solució ja està posada en principi
+            if(j2_user) {
+                if(toca_intent) {
+                    toca_intent = false;
+                    ctrlDomini.jugar_ronda_intentada(entrada);
+                } else {
+                    toca_intent = true;
+                    ctrlDomini.jugar_ronda_verificacio(entrada);
+                }
+            }else { //juguem vs maquina
+                if(j1_cm) {
+                    ctrlDomini.jugar_ronda_intentada(entrada);
+                    List<Integer> verificacio_maquina = ctrlDomini.get_seq_verificacio_ultima_ronda();
+
+                }else {
+                    if()
+                }
+
+            }
         }
+
+
+
+
+
            if (!j1_cm){
                 ctrlDomini.jugar_ronda_intentada(entrada);
                 if (!j2_user) {
@@ -78,6 +102,7 @@ public class Controlador_Presentacio {
         solution_set = false;
 
         login_user2 = false;
+        toca_intent = true;
     }
 
     /**
