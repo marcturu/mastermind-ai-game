@@ -256,8 +256,11 @@ public class Controlador_Domini {
      */
     public List<Integer> get_seq_solucio() {
         List<Integer> list = new ArrayList<Integer>();
+
+        colors[] array = CtrlPartida.get_seq_solucio_partida_actual().get_array();
+        if(array == null) return null;
         for (int i = 0; i < 4; ++i){
-            list.add(CtrlPartida.get_seq_solucio_partida_actual().get_array()[i].get_id_color());
+            list.add(array[i].get_id_color());
         }
         return list;
     }
@@ -552,7 +555,6 @@ public class Controlador_Domini {
     public Type_user get_tipus_user_Usuari2() {
         return this.Usuari2.get_tipus_user();
     }
-
     /**
      * Funcio per a incrementar les rondes totals jugades per l'usuari amb sessió activa
      */
