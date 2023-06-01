@@ -54,8 +54,8 @@ public class Controlador_Presentacio {
                 list.addAll(0, entrada);
                 List<Integer> verificacio_maquina = ctrlDomini.get_verificacio();
                 ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
-                list.subList(5, 9).clear(); // Eliminar elementos existentes en la sublista
-                list.addAll(5, verificacio_maquina);
+                list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
+                list.addAll(4, verificacio_maquina);
             }
         }
         else {
@@ -76,12 +76,16 @@ public class Controlador_Presentacio {
                 }
             } else { //juguem vs maquina
                 if (j1_cm) {
+                    System.out.println("try_set_ver");
                     ctrlDomini.jugar_ronda_verificacio(entrada);
                     List<Integer> list_int = ctrlDomini.get_seguent_guess_maquina();
+                    System.out.println("abans_canvia_lis" + list);
                     list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
                     list.addAll(0,list_int);
+                    System.out.println("sub_list1_try" + list);
                     list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                     list.addAll(4,entrada);
+                    System.out.println("sub_list2_try" + list);
                     return list;
                 } else {
                     ctrlDomini.jugar_ronda_intentada(entrada);

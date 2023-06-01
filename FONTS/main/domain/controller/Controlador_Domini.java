@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Vector;
 
 import main.domain.classes.Partida;
@@ -457,10 +458,13 @@ public class Controlador_Domini {
      * @param seq_ver sequencia verificacio
      */
     public void jugar_ronda_verificacio(List<Integer> entrada) throws Exception{
+        System.out.println(entrada);
         Sequencia_verificacio seq_ver = new Sequencia_verificacio();
         colors[] col = new colors[4];
         for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
+        System.out.println("col " + Arrays.asList(col));
         seq_ver.set_array_verificacio(col, CtrlPartida.get_seq_solucio_partida_actual().get_array(), CtrlPartida.get_seq_intentada_ultima_ronda().get_array());
+        System.out.println("despes_set_array");
         CtrlPartida.set_sequencia_verificacio(seq_ver);
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
