@@ -546,4 +546,12 @@ public class Controlador_Presentacio {
         login_user2 = false;
 
     }
+
+    public boolean get_j1_cm(){
+        return j1_cm;
+    }
+
+    public boolean get_j2_user(){
+        return j2_user;
+    }
 }
