@@ -1,7 +1,6 @@
 package main.presentation;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import main.presentation.controller.Controlador_Presentacio;
 
@@ -56,6 +55,8 @@ public class panel_user extends JPanel{
         b_logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ctrlPresentacio.canvia_a_inici();
+                String logout_correcte = "Sessió tancada";
+                JOptionPane.showMessageDialog(null, logout_correcte, "", JOptionPane.PLAIN_MESSAGE);
             }
         });
 
