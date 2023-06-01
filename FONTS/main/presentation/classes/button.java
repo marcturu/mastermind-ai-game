@@ -1,5 +1,7 @@
 package main.presentation.classes;
 
+import javax.swing.JButton;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,6 +79,10 @@ public class button extends JButton implements ActionListener{
             case 10:
                 setBackground(Color.BLACK);
         }
+
+        //FOR MACOS ONLY
+        setOpaque(true);
+
     }
 
     @Override
