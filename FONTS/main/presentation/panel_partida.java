@@ -124,8 +124,8 @@ public class panel_partida extends JPanel {
 
         b_guardar_partida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // CtrlPersistencia.guardar_partida_a_mitges();
-                // CtrlPersistencia.canvia_a_menu_principal();
+                ctrlPresentacio.guardar_partida_a_mitges();
+                ctrlPresentacio.canvia_a_menu_principal();
             }
         });
 

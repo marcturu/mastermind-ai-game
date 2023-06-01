@@ -12,20 +12,20 @@ import main.presentation.controller.Controlador_Presentacio;
 public class view_inici extends JFrame{
     private final Controlador_Presentacio ctrlPresentacio;
     private final panel_inici inici;
-    private final panel_login login;
-    private final panel_register register;
+    private panel_login login;
+    private panel_register register;
     private final panel_menu_principal menu_principal;
-    private final panel_record record;
-    private final panel_ranking ranking;
+    private panel_record record;
+    private panel_ranking ranking;
     private final panel_user user;
-    private final panel_estadistiques_user estadistiques_user;
-    private final panel_historial_user historial_user;
+    private panel_estadistiques_user estadistiques_user;
+    private panel_historial_user historial_user;
     private final panel_config_partida_rol config_partida_rol;
     private final panel_config_partida_oponent config_partida_oponent;
     private final panel_config_partida_oponent_maquina config_partida_oponent_maquina;
     private final panel_config_partida_dificultat config_partida_dificultat;
-    private final panel_carregar_partida carregar_partida;
-    private final panel_partida partida;
+    private panel_carregar_partida carregar_partida;
+    private panel_partida partida;
     private final panel_dificultats_ranking dificultats_ranking;
     
     private final JButton b_enrere = new JButton("Salir");
@@ -91,6 +91,7 @@ public class view_inici extends JFrame{
      * Funcio per canviar al panell de login
      */
     public void canvia_a_login() {
+        login = new panel_login(ctrlPresentacio);
         this.setContentPane(login);
         this.invalidate();
         this.validate();
@@ -100,6 +101,7 @@ public class view_inici extends JFrame{
      * Funcio per canviar al panell de register
      */
     public void canvia_a_register() {
+        register = new panel_register(ctrlPresentacio);
         this.setContentPane(register);
         this.invalidate();
         this.validate();
@@ -118,6 +120,7 @@ public class view_inici extends JFrame{
      * Funcio per canviar al panell de record
      */
     public void canvia_a_record() {
+        record = new panel_record(ctrlPresentacio);
         this.setContentPane(record);
         this.invalidate();
         this.validate();
@@ -127,6 +130,7 @@ public class view_inici extends JFrame{
      * Funcio per canviar al panell de ranking
      */
     public void canvia_a_ranking() {
+        ranking = new panel_ranking(ctrlPresentacio);
         this.setContentPane(ranking);
         this.invalidate();
         this.validate();
@@ -146,6 +150,7 @@ public class view_inici extends JFrame{
      */
     public void canvia_a_partida() {
         setSize(700,1000);
+        partida = new panel_partida(ctrlPresentacio);
         this.setContentPane(partida);
         this.invalidate();
         this.validate();
@@ -164,6 +169,7 @@ public class view_inici extends JFrame{
      * Funcio per canviar al panell d'estadistiques de l'usuari
      */
     public void canvia_a_estadistiques_user() {
+        estadistiques_user = new panel_estadistiques_user(ctrlPresentacio);
         this.setContentPane(estadistiques_user);
         this.invalidate();
         this.validate();
@@ -173,6 +179,7 @@ public class view_inici extends JFrame{
      * Funcio per canviar al panell que mostra l'historial de l'usuari
      */
     public void canvia_a_historial_user() {
+        historial_user = new panel_historial_user(ctrlPresentacio);
         this.setContentPane(historial_user);
         this.invalidate();
         this.validate();
@@ -218,6 +225,7 @@ public class view_inici extends JFrame{
      * Funcio per canviar al panell per mostrar les partides a carregar
      */
     public void canvia_a_carregar_partida() {
+        carregar_partida = new panel_carregar_partida(ctrlPresentacio);
         this.setContentPane(carregar_partida);
         this.invalidate();
         this.validate();

@@ -473,4 +473,20 @@ public class Controlador_Presentacio {
     }
 
     public List<Integer> get_solucio(){return ctrlDomini.get_seq_solucio();}
+
+    public void guardar_partida_a_mitges(){
+        ctrlDomini.guardar_partida_a_mitges();
+        resetAtributes();
+    }
+    private void resetAtributes(){
+
+        j1_cm = false;
+        j2_user = false;
+        j2_maquina_genetica = false;
+        solution_set = false;
+
+        login_user2 = false;
+        toca_intent = true;
+
+    }
 }

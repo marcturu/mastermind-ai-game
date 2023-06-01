@@ -58,6 +58,8 @@ public class Controlador_Domini {
         this.Ranking = null;
         this.hashUsers = ctrl_list_user.carrega_list_user();
 
+        ids_partides = get_num_partides();
+
         inicialitza_rankings();
 
         //inicialitzem els records per a totes les modalitats(facil, normal, dificil, .)
@@ -179,6 +181,13 @@ public class Controlador_Domini {
         }
     }
 
+    private void resetAtributes(){
+        Usuari = ctrl_user.carrega_user(Usuari.get_id());
+
+        this.Usuari2 = null;
+        this.hashUsers = ctrl_list_user.carrega_list_user();
+    }
+
     //JUGAR PARTIDA
 
     /**
@@ -194,6 +203,8 @@ public class Controlador_Domini {
         CtrlPartida.set_partida_actual(partida_nova);
         Usuari.afegir_partida_nova(partida_nova);
         ctrl_pers_partida.save_partida(partida_nova);
+        ctrl_user.save_users(Usuari);
+        ctrl_user.save_users(Usuari2);
     }
 
     /**
@@ -440,7 +451,11 @@ public class Controlador_Domini {
     public void tractament_partida_acabada(){
         CtrlPartida.tractament_partida_acabada();
         ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
+        ctrl_user.save_users(Usuari);
+        ctrl_user.save_users(Usuari2);
         actualitza_ranking();
+        resetAtributes();
+
     }
 
     /**
@@ -448,6 +463,10 @@ public class Controlador_Domini {
      */
     public void guardar_partida_a_mitges(){
         ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
+        ctrl_user.save_users(Usuari);
+        ctrl_user.save_users(Usuari2);
+        resetAtributes();
+
     }
 
     /**
@@ -496,8 +515,9 @@ public class Controlador_Domini {
      * @return numero de partides jugades per l'usuari amb sessió activa
      */
     public int get_partides_totals() {
-        if (this.Usuari == null) return 0;
-        return this.Usuari.get_partides_totals();
+        if (Usuari == null) {
+            return 0;}
+        return Usuari.get_partides_totals();
     }
 
     /**
@@ -505,8 +525,9 @@ public class Controlador_Domini {
      * @return partides guanyades per l'usuari amb sessió activa
      */
     public int get_partides_guanyades() {
-        if (this.Usuari == null) return 0;
-        return this.Usuari.get_partides_guanyades();
+        if (Usuari == null) {
+            return 0;}
+        return Usuari.get_partides_guanyades();
     }
 
     /**
@@ -862,5 +883,15 @@ public class Controlador_Domini {
 
     public User getUsuari() {
         return Usuari;
+    }
+
+    private int get_num_partides(){
+        for(int i=1; i<1000; ++i){
+            if(ctrl_pers_partida.carrega_partida(i)==null) {
+                System.out.println("num partides: " + i);
+                return i;
+            }
+        }
+        return 1;
     }
 }
