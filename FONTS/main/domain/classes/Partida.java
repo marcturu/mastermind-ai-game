@@ -341,6 +341,7 @@ public class Partida {
      * @return retorna l'intent de la maquina de la ultima ronda
      */
     public List<Integer> get_next_guess_maquina() {
+
         return this.solucio_maquina.get(ultima_ronda_jugada);
     }
 

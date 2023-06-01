@@ -37,6 +37,17 @@ public class Controlador_Presentacio {
         if (ctrlDomini.get_seq_solucio() == null) {
             if (j1_cm || ((!j1_cm) && j2_user)) {
                 ctrlDomini.set_seq_solucio(entrada);
+                List<Integer> list_int = ctrlDomini.get_seguent_guess_maquina();
+
+                System.out.println("LIST INT: " + list_int);
+                list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
+                System.out.println("LIST clear: " + list);
+
+                list.addAll(0, list_int);
+                System.out.println("LIST full: " + list);
+
+                return list;
+
             } else {
                 ctrlDomini.genera_solucio_partida(dificultat);
             }
@@ -60,19 +71,19 @@ public class Controlador_Presentacio {
                 if (j1_cm) {
                     List<Integer> list_int = ctrlDomini.get_seguent_guess_maquina();
                     ctrlDomini.jugar_ronda_verificacio(entrada);
-                    list.subList(0, 3).clear(); // Eliminar elementos existentes en la sublista
-                    list.subList(0, 3).addAll(list_int);
-                    list.subList(4, 7).clear(); // Eliminar elementos existentes en la sublista
-                    list.subList(4, 7).addAll(entrada);
+                    list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(0, 4).addAll(list_int);
+                    list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(4, 8).addAll(entrada);
                     return list;
                 } else {
                     ctrlDomini.jugar_ronda_intentada(entrada);
                     List<Integer> verificacio_maquina = ctrlDomini.get_verificacio();
                     ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
-                    list.subList(0, 3).clear(); // Eliminar elementos existentes en la sublista
-                    list.subList(0, 3).addAll(entrada);
-                    list.subList(4, 7).clear(); // Eliminar elementos existentes en la sublista
-                    list.subList(4, 7).addAll(verificacio_maquina);
+                    list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(0, 4).addAll(entrada);
+                    list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
+                    list.subList(4, 8).addAll(verificacio_maquina);
                     return list;
                 }
 

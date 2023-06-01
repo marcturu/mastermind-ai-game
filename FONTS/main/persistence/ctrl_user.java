@@ -65,8 +65,10 @@ public class ctrl_user {
 
                 User user = gson.fromJson(contenido,User.class);
 
-                if (user.get_tipus_user().toString()=="user_persona"){
-                    user = gson.fromJson(contenido,User_persona.class);
+                if (user.get_tipus_user().toString()=="user_persona") {
+                    user = gson.fromJson(contenido, User_persona.class);
+                }else if (user.get_tipus_user().toString()=="user_maquina"){
+                    user = gson.fromJson(contenido, User_maquina.class);
                 }
                 return user;
             }

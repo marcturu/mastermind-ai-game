@@ -98,18 +98,23 @@ public class panel_partida extends JPanel {
                 }
                 try {
                     if (!ver) {
-                        setButtons_intentada(ctrlPresentacio.set_try(try_button).subList(0,3));
+                        System.out.println("! ver ");
+
+                        setButtons_intentada(ctrlPresentacio.set_try(try_button).subList(0,4));
                         setButtons(true);
                         ver = true;
                     }
                     else {
-                        setButtons_verificacio(ctrlPresentacio.set_try(try_button).subList(4,7));
+                        System.out.println("ver ");
+                        setButtons_verificacio(ctrlPresentacio.set_try(try_button).subList(4,8));
                         setButtons(true);
                         ver = false;
                     }
 
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getStackTrace() + ex.getMessage() , "Error", JOptionPane.ERROR_MESSAGE);
+                    System.out.println(ex.getMessage());
+                    System.out.println(ex.getStackTrace());
+                    JOptionPane.showMessageDialog(null,  ex.getMessage() , "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

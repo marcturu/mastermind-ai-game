@@ -226,8 +226,8 @@ public class Controlador_Domini {
         if (Usuari.get_num_partides_actuals() == 10)
             throw new Exception("Masses partides actives per part d'algun dels dos jugadors");
         else {
-            if (genetic) Usuari2 = ctrl_user.carrega_user(hashUsers.get("Genetic"));
-            else Usuari2 = ctrl_user.carrega_user(hashUsers.get("Five-Guess"));
+            if (genetic) Usuari2 = (User_maquina) ctrl_user.carrega_user(hashUsers.get("Genetic"));
+            else Usuari2 = (User_maquina) ctrl_user.carrega_user(hashUsers.get("Five-Guess"));
 
             Usuari2.set_dificultat_algoritme(dif);
 
@@ -321,9 +321,9 @@ public class Controlador_Domini {
             //    System.out.println(list);
             //}
 
-            List<Integer> sol = CtrlPartida.get_guess_maquina();
-
-            return sol;
+            List<Integer> next_guess = CtrlPartida.get_guess_maquina();
+            System.out.println("NEXT GUESS: " + next_guess);
+            return next_guess;
         }
 
     }

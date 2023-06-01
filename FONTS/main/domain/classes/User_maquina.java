@@ -7,7 +7,8 @@ import java.util.List;
 
 public class User_maquina extends User {
     private boolean genetic_algorithm;
-    private Maquina algorisme;
+
+    private dificultats dificultat;
 
     /**
      * Constructor de la classe user_maquina
@@ -20,11 +21,6 @@ public class User_maquina extends User {
         //super(id, nom, tipus_user, num_rondes_totals, num_partides_totals, puntuacio, partides_guanyades, llista_partides_no_acabades, llista_partides_acabades);
         super(id, nom, tipus_user);
         this.genetic_algorithm = algorithm;
-        if(!algorithm) {
-            algorisme = new Five_guess_algorithm(dificultats.NORMAL);
-        }else {
-            algorisme = new Genetic_algorithm(dificultats.NORMAL);
-        }
     }
 
     /**
@@ -41,7 +37,16 @@ public class User_maquina extends User {
      * @return Llista de llista d'integer amb la resolució de la seqüència
      */
     public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
-        return algorisme.solve(solucio);
+        System.out.println("USER SOLVE MAQIUINA");
+
+        if (genetic_algorithm){
+            Genetic_algorithm ga = new Genetic_algorithm(dificultat);
+            return ga.solve(solucio);
+        }else{
+            Five_guess_algorithm fga = new Five_guess_algorithm(dificultat);
+            return fga.solve(solucio);
+        }
+
     }
 
     /* --- FUNCIONS DE LA SUPERCLASSE --- */
@@ -85,7 +90,7 @@ public class User_maquina extends User {
     }
 
     public void set_dificultat_algoritme(dificultats dificultat){
-        algorisme.set_dificultat(dificultat);
+        this.dificultat = dificultat;
     }
 
 
