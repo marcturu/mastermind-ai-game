@@ -310,6 +310,20 @@ public class Controlador_Presentacio {
         }
     }
 
+    private void set_atributs_partida(){
+
+        j1_cm = ctrlDomini.get_jugador1_es_codemaker();
+        dificultat = ctrlDomini.get_dificultat_partida();
+
+        //j2_user = partida.es_partida_pvp();
+        j2_maquina_genetica = false;
+        if(ctrlDomini.get_seq_solucio()==null){
+            solution_set= false;
+        }else {
+            solution_set = true;
+        }
+
+    }
     /**
      * Funcio que crida al controlador de domini perque retorni una llista de parelles (id_partida, info_patida) de les partides acabades
      * @return Llista de parelles (id_partida, info_partida)
@@ -511,7 +525,6 @@ public class Controlador_Presentacio {
         solution_set = false;
 
         login_user2 = false;
-        toca_intent = true;
 
     }
 }

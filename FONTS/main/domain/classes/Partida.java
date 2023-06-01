@@ -29,12 +29,12 @@ public class Partida {
     /**
      * Constructor de la classe Partida
      * @param id Identificador de la partida
-     * @param cm Usuari que actuarà com a codemaker
-     * @param cb Usuari que actuarà com a codebreaker
+     * @param user1 Usuari que actuarà com a codemaker
+     * @param user2 Usuari que actuarà com a codebreaker
      * @param dif Dificultat de la partida
      * @param jugador1_es_codemaker Booleà que indica si el jugador 1 actuarà com a codemaker o no
      */
-    public Partida(int id, User cm, User cb, dificultats dif, boolean jugador1_es_codemaker) {
+    public Partida(int id, User user1, User user2, dificultats dif, boolean jugador1_es_codemaker) {
         this.indentificador = id;
 
         this.ultima_ronda_jugada = 0;
@@ -47,11 +47,11 @@ public class Partida {
         this.solucio_maquina = new ArrayList<>();
 
         if (jugador1_es_codemaker) {
-            this.jugador1 = cm;
-            this.jugador2 = cb;
+            this.jugador1 = user1;
+            this.jugador2 = user2;
         } else {
-            this.jugador1 = cb;
-            this.jugador2 = cm;
+            this.jugador1 = user2;
+            this.jugador2 = user1;
         }
 
     /**
@@ -123,6 +123,14 @@ public class Partida {
      */
     public boolean get_jugador1_es_codemaker() {
         return jugador1_es_codemaker;
+    }
+
+    public User get_jugador1() {
+        return jugador1;
+    }
+
+    public User get_jugador2() {
+        return jugador2;
     }
 
     /**

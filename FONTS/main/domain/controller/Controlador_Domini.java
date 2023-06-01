@@ -593,6 +593,12 @@ public class Controlador_Domini {
         //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
         Partida partida_actual = ctrl_pers_partida.carrega_partida(id_partida_activa);
 
+        if(get_jugador1_es_codemaker()){
+            Usuari2 = ctrl_user.carrega_user(partida_actual.get_jugador2().get_id());
+        }else{
+            Usuari2 = ctrl_user.carrega_user(partida_actual.get_jugador1().get_id());
+        }
+
         //set times correctly (not the best way but it fits our model)
         partida_actual.set_temps_inici_partida(Instant.now().minus(partida_actual.get_temps_usat()));
         partida_actual.set_temps_final_partida(null);
@@ -613,7 +619,7 @@ public class Controlador_Domini {
         String rol;
         if (p.get_jugador1_es_codemaker()) rol = "CM";
         else rol = "CB";
-        String ret = "Ultima ronda: " + p.get_ultima_ronda() + " Dificultat: " + p.get_dificultat().get_dificultat() + " Rol: " + rol + " Temps usat: " + duration_to_string(p.get_temps_usat());
+        String ret = "Ultima ronda: " + p.get_ultima_ronda() + " | Dificultat: " + p.get_dificultat().get_dificultat() + " | Rol: " + rol + " | Temps usat: " + duration_to_string(p.get_temps_usat());
         return ret;
     }
 
@@ -924,6 +930,4 @@ public class Controlador_Domini {
         return formattedDuration;
 
     }
-
-
 }
