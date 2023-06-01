@@ -422,6 +422,10 @@ public class Controlador_Domini {
         if (CtrlPartida.get_partida_acabada()) actualitza_ranking();
     }
 
+    public boolean exist_partida(){
+        return CtrlPartida.get_partida_actual() == null;
+    }
+
     public Pair<Integer,Integer> get_verificacio(){
         return CtrlPartida.get_verificacio();
     }
