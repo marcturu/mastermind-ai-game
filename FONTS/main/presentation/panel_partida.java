@@ -164,6 +164,8 @@ public class panel_partida extends JPanel {
                 case 8:
                     buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.GRAY);
             }
+            //FOR MACOS ONLY
+            buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
 
         }
     }
