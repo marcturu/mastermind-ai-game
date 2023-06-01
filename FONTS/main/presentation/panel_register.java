@@ -72,7 +72,9 @@ public class panel_register extends JPanel{
             else es_pot_registrar = true;
 
             if (es_pot_registrar) {
-                if (ctrlPresentacio.es_usuari1()) ctrlPresentacio.canvia_a_menu_principal();
+                String registre_correcte = "T'has registrat correctament";
+                JOptionPane.showMessageDialog(null, registre_correcte, "", JOptionPane.PLAIN_MESSAGE);
+                if (ctrlPresentacio.es_usuari1()) ctrlPresentacio.canvia_a_login();
                 else ctrlPresentacio.canvia_a_config_partida_dificultat();
             }
         }
