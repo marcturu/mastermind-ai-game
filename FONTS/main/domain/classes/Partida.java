@@ -150,7 +150,12 @@ public class Partida {
      * @return el temps que ha durat la partida
      */
     public Long get_temps_partida() {
-        return Duration.between(temps_inici, temps_final_partida).toSeconds();
+        System.out.println("Tempss inici: " + temps_inici + " temps final: " + temps_final_partida);
+
+        Long time = Duration.between(temps_inici, temps_final_partida).getSeconds();
+        System.out.println("Temps de la partida: " + time + " segons");
+        return time;
+
     }
 
     /**

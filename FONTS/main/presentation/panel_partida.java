@@ -113,6 +113,12 @@ public class panel_partida extends JPanel {
                 }
                 try {
                     List<Integer> list = ctrlPresentacio.set_try(try_button);
+                    if(ctrlPresentacio.partida_acabada()){
+                        ctrlPresentacio.canvia_a_menu_principal();
+                        return;
+                    }
+
+
                     if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){
                         System.out.println(list.subList(0,4));
 

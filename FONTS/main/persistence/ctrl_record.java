@@ -64,32 +64,43 @@ public class ctrl_record {
             }
 
             if (!contenido.isEmpty()) {
-                if (nom_record.equals("punts")) {
+                if (nom_record.equals("record_punts")) {
+                    System.out.println("punts");
                     RecordDouble record = gson.fromJson(contenido, RecordDouble.class);
                     System.out.println(record);
                     return record;
-                } else if (nom_record.equals("streak")) {
+                } else if (nom_record.equals("record_streak")) {
+                    System.out.println("streak");
                     RecordInteger record = gson.fromJson(contenido, RecordInteger.class);
                     System.out.println(record);
                     return record;
-                } else if (nom_record.equals("temps")) {
+                } else if (nom_record.equals("record_temps")) {
+                    System.out.println("temps");
                     RecordLong record = gson.fromJson(contenido, RecordLong.class);
                     System.out.println(record);
                     return record;
                 }
             }
         }
-        Record record;
-        if (nom_record.equals("punts")) {
-            record = new RecordDouble(nom_record, dif);
+        if (nom_record.equals("record_punts")) {
+            System.out.println("2 punts");
+            RecordDouble recordD = new RecordDouble(nom_record, dif);
+            save_record(recordD);
+            return recordD;
 
-        } else if (nom_record.equals("streak")) {
-            record = new RecordDouble(nom_record, dif);
+        } else if (nom_record.equals("record_streak")) {
+            System.out.println("2 streak");
+            RecordInteger recordI = new RecordInteger(nom_record, dif);
+            save_record(recordI);
+            return recordI;
+
         } else {
-            record = new RecordLong(nom_record, dif);
+            System.out.println("2 temps");
+            RecordLong recordL = new RecordLong(nom_record, dif);
+            save_record(recordL);
+            return recordL;
+
         }
-        save_record(record);
-        return record;
     }
 
 }
