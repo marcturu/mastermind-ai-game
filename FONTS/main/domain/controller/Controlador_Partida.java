@@ -247,7 +247,6 @@ public class Controlador_Partida {
 
     public List<Integer> get_verificacio(){return partida_actual.get_verificacio();}
 
-<<<<<<< HEAD
     public List<List<Integer>> get_intents_partida() {
         return partida_actual.get_intents_partida();
     }
@@ -255,8 +254,6 @@ public class Controlador_Partida {
     public List<List<Integer>> get_verificacions_partida() {
         return partida_actual.get_verificacions_partida();
     }
-=======
     //public boolean get_es_intent(){return partida_actual.get_es_intent();}
->>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
 
 }

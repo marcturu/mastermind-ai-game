@@ -710,7 +710,6 @@ public class Controlador_Domini {
      * Funcio per a actualitzar el ranking de la dificultat de la partida que s'ha fet
      */
     public void actualitza_ranking() {
-        System.out.println("\n\n\nranking\n\n\n");
         double punts_u = 0.0;
         User aux = CtrlPartida.get_codebreaker_partida_actual();
         String nom_u = aux.get_nom();
@@ -982,7 +981,6 @@ public class Controlador_Domini {
         return formattedDuration;
     }
 
-<<<<<<< HEAD
     public List<List<Integer>> get_intents_partida() {
         return CtrlPartida.get_intents_partida();
     }
@@ -990,7 +988,4 @@ public class Controlador_Domini {
     public List<List<Integer>> get_verificacions_partida() {
         return CtrlPartida.get_verificacions_partida();
     }
-=======
-    //public boolean get_es_intent(){return CtrlPartida.get_es_intent();}
->>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
 }

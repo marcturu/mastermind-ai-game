@@ -119,10 +119,6 @@ public class panel_partida extends JPanel {
 
 
                     if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){
-<<<<<<< HEAD
-                        System.out.println("Llista intent: " + list.subList(0,4));
-=======
->>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
 
                         if(ctrlPresentacio.get_num_ronda_actual()>1){
                             System.out.println("Llista verificacio: " + list.subList(4,8));
@@ -266,14 +262,10 @@ public class panel_partida extends JPanel {
                     else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(Color.black);
 
             }
-<<<<<<< HEAD
-            buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setOpaque(true);
-=======
             System.out.println("opaque");
             if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
             else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setOpaque(true);
 
->>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
         }
     }
 

@@ -26,12 +26,10 @@ public class Controlador_Presentacio {
 
     private String dificultat_ranking;
 
-<<<<<<< HEAD
     private List<List<Integer>> intents_anteriors;
     private List<List<Integer>> verificacions_anteriors;
-=======
-    boolean intent;
->>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
+
+    private boolean intent;
 
     public static void main(String[] args){
         Controlador_Presentacio ctrlPresentacio = new Controlador_Presentacio();
@@ -64,11 +62,8 @@ public class Controlador_Presentacio {
 
                 list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                 list.addAll(4, verificacio_maquina);
-<<<<<<< HEAD
                 ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
-=======
                 return list;
->>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
             }
         }
         else {
@@ -150,14 +145,9 @@ public class Controlador_Presentacio {
         j2_maquina_genetica = false;
         intent = true;
         login_user2 = false;
-<<<<<<< HEAD
-        toca_intent = true;
 
         intents_anteriors = new ArrayList<>();
         verificacions_anteriors = new ArrayList<>();
-=======
-        //toca_intent = true;
->>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
     }
 
     /**
@@ -585,7 +575,6 @@ public class Controlador_Presentacio {
         return j2_user;
     }
 
-<<<<<<< HEAD
     public List<List<Integer>> get_intents_anteriors(){
         return intents_anteriors;
     }
@@ -593,7 +582,5 @@ public class Controlador_Presentacio {
     public List<List<Integer>> get_verificacions_anteriors(){
         return verificacions_anteriors;
     }
-=======
     public boolean get_es_intent(){return intent;}
->>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
 }
