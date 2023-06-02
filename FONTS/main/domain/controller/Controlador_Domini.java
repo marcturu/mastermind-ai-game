@@ -641,7 +641,7 @@ public class Controlador_Domini {
     public void jugar_partides_antigues(int id_partida_activa) throws Exception{
         //Falta una funció d'aquest tipus per carregar la partida: CtrlPartida.juga_partida_antiga(id_partida_activa);
         Partida partida_actual = ctrl_pers_partida.carrega_partida(id_partida_activa);
-
+        CtrlPartida.set_partida_actual(partida_actual);
         if(get_jugador1_es_codemaker()){
             Usuari2 = ctrl_user.carrega_user(partida_actual.get_jugador2().get_id());
         }else{
@@ -710,7 +710,6 @@ public class Controlador_Domini {
      * Funcio per a actualitzar el ranking de la dificultat de la partida que s'ha fet
      */
     public void actualitza_ranking() {
-        System.out.println("\n\n\nranking\n\n\n");
         double punts_u = 0.0;
         User aux = CtrlPartida.get_codebreaker_partida_actual();
         String nom_u = aux.get_nom();
@@ -842,14 +841,13 @@ public class Controlador_Domini {
     private void comprova_records() {
 
         String dif = CtrlPartida.get_dificultat().get_dificultat(); //agafem la dificultat de la partida que s'ha fet
-        System.out.println("Abans de record de punts");
+        
         Record = ctrl_record.carrega_record("record_punts", dif);
-        System.out.println("Després de carregar el record de punts");
 
         Record.actualitza(CtrlPartida.get_partida_actual().get_puntuacio(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
-        System.out.println("Després de actualitzar el record de punts");
+        
         ctrl_record.save_record(Record);
-        System.out.println("Despres de record de punts i abans de record de streak");
+       
         Record = ctrl_record.carrega_record("record_streak", dif);
         switch (dif) {
             case "facil":
@@ -863,16 +861,12 @@ public class Controlador_Domini {
                 break;
         }
         ctrl_record.save_record(Record);
-        System.out.println("Despres de record de streak i abans de record de temps");
+        
         Record = ctrl_record.carrega_record("record_temps", dif);
-        Long temps = CtrlPartida.get_partida_actual().get_temps_partida();
-
-        System.out.println("Temps: " + temps);
 
 
         Record.actualitza(CtrlPartida.get_partida_actual().get_temps_partida(), CtrlPartida.get_codebreaker_partida_actual().get_nom());
         ctrl_record.save_record(Record);
-        System.out.println("Despres de record de temps");
     }
 
     /**
@@ -987,5 +981,11 @@ public class Controlador_Domini {
         return formattedDuration;
     }
 
-    //public boolean get_es_intent(){return CtrlPartida.get_es_intent();}
+    public List<List<Integer>> get_intents_partida() {
+        return CtrlPartida.get_intents_partida();
+    }
+
+    public List<List<Integer>> get_verificacions_partida() {
+        return CtrlPartida.get_verificacions_partida();
+    }
 }

@@ -26,7 +26,10 @@ public class Controlador_Presentacio {
 
     private String dificultat_ranking;
 
-    boolean intent;
+    private List<List<Integer>> intents_anteriors;
+    private List<List<Integer>> verificacions_anteriors;
+
+    private boolean intent;
 
     public static void main(String[] args){
         Controlador_Presentacio ctrlPresentacio = new Controlador_Presentacio();
@@ -56,9 +59,10 @@ public class Controlador_Presentacio {
                 list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
                 list.addAll(0, entrada);
                 List<Integer> verificacio_maquina = ctrlDomini.get_verificacio();
-                ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
+
                 list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                 list.addAll(4, verificacio_maquina);
+                ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
                 return list;
             }
         }
@@ -141,7 +145,9 @@ public class Controlador_Presentacio {
         j2_maquina_genetica = false;
         intent = true;
         login_user2 = false;
-        //toca_intent = true;
+
+        intents_anteriors = new ArrayList<>();
+        verificacions_anteriors = new ArrayList<>();
     }
 
     /**
@@ -338,7 +344,8 @@ public class Controlador_Presentacio {
             ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
             set_atributs_partida();
         }catch(Exception e) {
-            mostra_error(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getStackTrace(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -348,6 +355,9 @@ public class Controlador_Presentacio {
 
     private void set_atributs_partida(){
 
+        intents_anteriors = ctrlDomini.get_intents_partida();
+        verificacions_anteriors = ctrlDomini.get_verificacions_partida();
+        
 
         j1_cm = ctrlDomini.get_jugador1_es_codemaker();
         dificultat = ctrlDomini.get_dificultat_partida();
@@ -566,12 +576,11 @@ public class Controlador_Presentacio {
         return j2_user;
     }
 
-    public boolean get_and_set_ajuda(){
-        if(ctrlDomini.get_ajuda_partida()) {
+    public boolean get_and_set_ajuda() {
+        if (ctrlDomini.get_ajuda_partida()) {
             return true;
-        }
-        else {
-            try{
+        } else {
+            try {
                 ctrlDomini.set_ajuda();
                 return false;
             } catch (Exception e) {
@@ -579,6 +588,13 @@ public class Controlador_Presentacio {
                 return true;
             }
         }
+    }
+    public List<List<Integer>> get_intents_anteriors(){
+        return intents_anteriors;
+    }
+
+    public List<List<Integer>> get_verificacions_anteriors(){
+        return verificacions_anteriors;
     }
     public boolean get_es_intent(){return intent;}
 }

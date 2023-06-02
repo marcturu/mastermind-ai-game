@@ -23,7 +23,6 @@ public class panel_partida extends JPanel {
     private final JButton b_guardar_partida = new JButton("Guardar partida");
     private final JButton b_eliminar_partida = new JButton("Eliminar partida");
     private JPanel rightPanel = new JPanel(new GridLayout(6, 1));
-    private boolean ver = false;
 
     private void add_panel_rondes() {
         buttons_intentada = new JButton[ctrlPresentacio.get_num_rondes()][4];
@@ -162,7 +161,7 @@ public class panel_partida extends JPanel {
                     if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){
 
                         if(ctrlPresentacio.get_num_ronda_actual()>1){
-                            System.out.println(list.subList(4,8));
+                            System.out.println("Llista verificacio: " + list.subList(4,8));
                             setButtons_verificacio(list.subList(4,8));
 
                         }
@@ -180,13 +179,13 @@ public class panel_partida extends JPanel {
                         setButtons(false);
                     }
                     else {
+                        if (ctrlPresentacio.get_num_ronda_actual() == 0) setButtons(false);
                         if (!ctrlPresentacio.get_es_intent()){
                             System.out.println(ctrlPresentacio.get_num_ronda_actual());
                             if(ctrlPresentacio.get_num_ronda_actual()>0) {
                                 setButtons_intentada(list.subList(0, 4));
                                 setButtons(true);
                             }
-                            else setButtons(false);
                         }else {
                             if(ctrlPresentacio.get_num_ronda_actual()>0) {
                                 System.out.println(list);
@@ -289,6 +288,10 @@ public class panel_partida extends JPanel {
                 return new Color(165, 42, 42);
             case 8:
                 return Color.GRAY;
+            case 9:
+                return Color.WHITE;
+            case 10:
+                return Color.BLACK;
         }
         return null;
     }
@@ -318,9 +321,42 @@ public class panel_partida extends JPanel {
 
         }
     }
+
+    private void get_intents_anteriors() {
+        List<List<Integer>> intents_anteriors = ctrlPresentacio.get_intents_anteriors();
+        System.out.println("Intents anteriors: " + intents_anteriors);
+        if(intents_anteriors == null) return;
+        List<List<Integer>> verificacions_anteriors = ctrlPresentacio.get_verificacions_anteriors();
+        System.out.println("Verificacions anteriors: " + verificacions_anteriors);
+        System.out.println("Num ronda actual: " + ctrlPresentacio.get_num_ronda_actual());
+        if(verificacions_anteriors == null) return;
+
+        for(int i = 0; i < intents_anteriors.size(); ++i) {
+            for(int j = 0; j < 4; ++j) {
+                buttons_intentada[i][j].setBackground(get_color_by_id(intents_anteriors.get(i).get(j)));
+                buttons_intentada[i][j].setOpaque(true);
+            }
+        }
+        for(int i = 1; i < verificacions_anteriors.size(); ++i) {
+            for (int j = 0; j < 4; ++j) {
+                buttons_verificacio[i-1][j].setBackground(get_color_by_id(verificacions_anteriors.get(i).get(j)));
+                buttons_verificacio[i-1][j].setOpaque(true);
+            }
+        }
+
+        if((intents_anteriors.size() == verificacions_anteriors.size()-1) && !(ctrlPresentacio.get_num_ronda_actual() == 1)) {
+            setButtons(false);
+        }      
+        else {
+            setButtons(true);
+        }
+    }
+
+
     public panel_partida(Controlador_Presentacio ctrlPresentacio) {
         this.ctrlPresentacio = ctrlPresentacio;
         set_up_ui();
+        get_intents_anteriors();
         set_up_listeners();
 
     }

@@ -151,10 +151,9 @@ public class Partida {
      * @return el temps que ha durat la partida
      */
     public Long get_temps_partida() {
-        System.out.println("Tempss inici: " + temps_inici + " temps final: " + temps_final_partida);
 
         Long time = Duration.between(temps_inici, temps_final_partida).getSeconds();
-        System.out.println("Temps de la partida: " + time + " segons");
+        
         return time;
 
     }
@@ -458,6 +457,23 @@ public class Partida {
 
     public void set_temps_inici_partida(Instant temps_inici){
         this.temps_inici = temps_inici;
+    }
+
+
+    public List<List<Integer>> get_intents_partida() {
+        List<List<Integer>> intents = new ArrayList<>();
+        for(int i = 0; i < ultima_ronda_jugada; ++i) {
+            intents.add(llista_rondes.get(i).get_seq_intentada().toListInteger());
+        }
+        return intents;
+    }
+
+    public List<List<Integer>> get_verificacions_partida() {
+        List<List<Integer>> verificacions = new ArrayList<>();
+        for(int i = 0; i < ultima_ronda_jugada; ++i) {
+            verificacions.add(llista_rondes.get(i).get_seq_verificacio().toListInteger());
+        }
+        return verificacions;
     }
 
 }
