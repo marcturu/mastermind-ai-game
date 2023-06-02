@@ -274,7 +274,7 @@ public class User_persona extends User {
      */
     public void afegeix_partida_acabada(Partida p) {
         int idp = p.get_id();
-        this.llista_partides_no_acabades.remove(idp);
+        System.out.println("Entra a afegir partida acabada de user persona");
         this.llista_partides_acabades.add(idp);
     }
 
@@ -284,8 +284,8 @@ public class User_persona extends User {
      */
     public void elimina_partida_no_acabada(Partida p){
         int idp = p.get_id();
-        this.llista_partides_no_acabades.remove(idp);
-        this.llista_partides_acabades.add(idp);
+        System.out.println("Entra a eliminar partida no acabada de user persona");
+        this.llista_partides_no_acabades.remove(llista_partides_no_acabades.indexOf(idp));
     }
 
     /**
@@ -330,7 +330,19 @@ public class User_persona extends User {
     }
 
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
-        super.set_partida_acabada(partida_acabada, guanyat, dificultat);
+        double punts = partida_acabada.get_puntuacio();
+
+        if (partida_acabada.es_partida_pvp()) set_puntuacio_pvp(punts);
+        else set_puntuacio(punts, dificultat);
+
+        if (guanyat) {
+            incrementar_partides_guanyades();
+            incrementar_streak(dificultat);
+        }
+        else reiniciar_streak(dificultat);
+
+        afegeix_partida_acabada(partida_acabada);
+        elimina_partida_no_acabada(partida_acabada);
     }
 
     public void set_puntuacio(Double punts, String dificultat) {
