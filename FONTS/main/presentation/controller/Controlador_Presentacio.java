@@ -233,6 +233,7 @@ public class Controlador_Presentacio {
      */
     public void canvia_a_menu_principal() {
         viewInicial.canvia_a_menu_principal();
+        login_user2 = false;
     }
 
     /**
