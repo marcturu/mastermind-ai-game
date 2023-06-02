@@ -17,6 +17,8 @@ public class panel_partida extends JPanel {
 
     private JButton b_set_visible = new JButton("Solucion visible");
     private JButton[] buttons_sol = new button[4];
+
+    private JButton[] buttons_help = new button[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
     private final JButton b_guardar_partida = new JButton("Guardar partida");
@@ -68,22 +70,39 @@ public class panel_partida extends JPanel {
         }
         buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
         rightPanel.add(buttonsColPanel);
-        JPanel buttonsPanel = new JPanel(new GridLayout(6, 1, 0, 2)); // Añadir espacios verticales de 10 píxeles entre los botones
+        JPanel buttonsPanel = new JPanel(new GridLayout(5, 1, 0, 2)); // Añadir espacios verticales de 10 píxeles entre los botones
         buttonsPanel.add(b_try);
-        buttonsPanel.add(b_help);
         buttonsPanel.add(b_guardar_partida);
         buttonsPanel.add(b_eliminar_partida);
-        buttonsPanel.add(b_set_visible);
 
-        JPanel buttonsSol = new JPanel(new FlowLayout());
-        buttons_sol = new JButton[4];
-        for (int i = 0; i < buttons_sol.length; i++) {
-            buttons_sol[i] = new JButton();
-            buttons_sol[i].setPreferredSize(new Dimension(60, 60));// TODO CAMBIAR
-            buttons_sol[i].setVisible(false);
-            buttonsSol.add(buttons_sol[i]);
+        if (ver){
+            buttonsPanel.add(b_set_visible);
+            JPanel buttonsSol = new JPanel(new FlowLayout());
+            buttons_sol = new JButton[4];
+            for (int i = 0; i < buttons_sol.length; i++) {
+                buttons_sol[i] = new JButton();
+                buttons_sol[i].setPreferredSize(new Dimension(60, 60));// TODO CAMBIAR
+                buttons_sol[i].setVisible(false);
+                buttonsSol.add(buttons_sol[i]);
+            }
+            buttonsPanel.add(buttonsSol);
+
+        }else{
+            buttonsPanel.add(b_help);
+
+            JPanel buttonsHelp = new JPanel(new FlowLayout());
+            buttons_help = new JButton[4];
+            for (int i = 0; i < buttons_help.length; i++) {
+                buttons_help[i] = new JButton();
+                buttons_help[i].setPreferredSize(new Dimension(60, 60));// TODO CAMBIAR
+                buttons_help[i].setVisible(false);
+                buttonsHelp.add(buttons_help[i]);
+            }
+            buttonsPanel.add(buttonsHelp);
         }
-        buttonsPanel.add(buttonsSol);
+
+
+
 
         rightPanel.add(buttonsPanel);
 
@@ -183,6 +202,25 @@ public class panel_partida extends JPanel {
                 }
             }
         });
+
+        b_set_help.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                for(int i = 0; i < 4; ++i) {
+                    buttons_sol[i].setVisible(!buttons_sol[i].isVisible());
+                }
+            }
+        });
+
+        buttons_help[0].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(ctrlPresentacio.get_solucio()!=null && ctrlPresentacio.get_and_set_ajuda()){
+                    buttons_help[0].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(0)));
+                    buttons_help[0].setOpaque(true);
+                }
+            }
+        });
+
     }
     private void setButtons_intentada(List<Integer> try_button){
         for (int i = 0; i < 4; ++i){
@@ -240,6 +278,7 @@ public class panel_partida extends JPanel {
         this.ctrlPresentacio = ctrlPresentacio;
         set_up_ui();
         set_up_listeners();
+
     }
 
 }

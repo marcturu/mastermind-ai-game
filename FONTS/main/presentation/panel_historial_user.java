@@ -43,6 +43,8 @@ public class panel_historial_user extends JPanel{
 
         b_enrere.setBounds(20, 250, 150, 20);
         add(b_enrere);
+
+        carrega_llista();
     }
 
     /**
@@ -80,8 +82,6 @@ public class panel_historial_user extends JPanel{
 
     /**
      * funcio per carregar la llista de partides al panell
-     * @param llista
-     * REVISAR!!!!
      */
     public void carrega_llista() {
         List<Pair<Integer, String>>llista = ctrlPresentacio.get_llista_partides_acabades();

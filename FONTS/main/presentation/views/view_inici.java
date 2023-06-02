@@ -60,7 +60,6 @@ public class view_inici extends JFrame{
         ranking = new panel_ranking(ctrlPresentacio);
         user = new panel_user(ctrlPresentacio);
         estadistiques_user = new panel_estadistiques_user(ctrlPresentacio);
-        historial_user = new panel_historial_user(ctrlPresentacio);
         config_partida_rol = new panel_config_partida_rol(ctrlPresentacio);
         config_partida_oponent = new panel_config_partida_oponent(ctrlPresentacio);
         config_partida_oponent_maquina = new panel_config_partida_oponent_maquina(ctrlPresentacio);

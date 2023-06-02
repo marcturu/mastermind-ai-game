@@ -359,6 +359,7 @@ public class Controlador_Presentacio {
     public List<Pair<Integer, String>> get_llista_partides_acabades() {
         List<Pair<Integer, String>> llista_info = new ArrayList<>();
         List<Integer> ids_partides = ctrlDomini.get_ids_partides_acabades_Usuari1();
+        System.out.println(ids_partides);
         for(Integer id: ids_partides) {
             String info_partida = ctrlDomini.get_info_partida(id);
             llista_info.add(new Pair<>(id, info_partida));
@@ -561,5 +562,15 @@ public class Controlador_Presentacio {
 
     public boolean get_j2_user(){
         return j2_user;
+    }
+
+    public boolean get_and_set_ajuda(){
+        if(ctrlDomini.get_ajuda_partida()) {
+            return true;
+        }
+        else {
+            ctrlDomini.set_ajuda_partida();
+            return false;
+        }
     }
 }
