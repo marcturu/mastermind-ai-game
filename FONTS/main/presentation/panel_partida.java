@@ -140,13 +140,13 @@ public class panel_partida extends JPanel {
                         setButtons(false);
                     }
                     else {
+                        if (ctrlPresentacio.get_num_ronda_actual() == 0) setButtons(false);
                         if (!ctrlPresentacio.get_es_intent()){
                             System.out.println(ctrlPresentacio.get_num_ronda_actual());
                             if(ctrlPresentacio.get_num_ronda_actual()>0) {
                                 setButtons_intentada(list.subList(0, 4));
                                 setButtons(true);
                             }
-                            else setButtons(false);
                         }else {
                             if(ctrlPresentacio.get_num_ronda_actual()>0) {
                                 System.out.println(list);
