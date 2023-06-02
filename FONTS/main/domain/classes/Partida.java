@@ -310,7 +310,11 @@ public class Partida {
      * @param  sequencia verificada
      */
     public void set_seq_ver_a_ronda_actual(Sequencia_verificacio seq_ver) {
+        System.out.println("set_seq_ver_a_ronda_actual : RONDA " + ultima_ronda_jugada);
         llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver);
+        crea_nova_ronda();
+        System.out.println("ultima_ronda_jugada"+ultima_ronda_jugada);
+
     }
     
     /**
@@ -326,7 +330,7 @@ public class Partida {
      * @return la ultima sequencia que s'ha intentat
      */
     public Sequencia_intentada get_seq_int_de_ultima_ronda() {
-        return llista_rondes.get(ultima_ronda_jugada-1).get_seq_intentada();
+        return llista_rondes.get(ultima_ronda_jugada).get_seq_intentada();
     }
     
     /**
@@ -350,27 +354,26 @@ public class Partida {
      * @return retorna l'intent de la maquina de la ultima ronda
      */
     public List<Integer> get_next_guess_maquina(){
+
         List<Integer> guess = this.solucio_maquina.get(ultima_ronda_jugada);
 
-        System.out.println("RONDA: " + ultima_ronda_jugada+ " GUESS: " + guess);
+        System.out.println("NEXT GUESS RONDA " + ultima_ronda_jugada+ "  --> " + guess);
+
 
         Sequencia_intentada si = new Sequencia_intentada();
         colors[] col = new colors[4];
         for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(guess.get(i));
 
-        crea_nova_ronda();
 
         try{
             si.set_array(col,dificultat.get_num_colors());
-            llista_rondes.get(ultima_ronda_jugada-1).set_intentada(si);
+            llista_rondes.get(ultima_ronda_jugada).set_intentada(si);
         }catch (Exception e){
             System.out.println("ERROR: " + e);
+
+            System.out.println("NEXT GUESS RONDA 2: " + ultima_ronda_jugada);
+
         }
-
-
-        System.out.println("NEXT GUESS RONDA: " + ultima_ronda_jugada);
-
-
 
         return guess;
     }
