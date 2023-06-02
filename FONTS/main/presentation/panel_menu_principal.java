@@ -3,6 +3,8 @@ package main.presentation;
 import main.presentation.controller.Controlador_Presentacio;
 
 import javax.swing.*;
+import java.awt.Desktop;
+import java.io.File;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +22,7 @@ public class panel_menu_principal extends JPanel{
     private final JButton b_ranking = new JButton("RANKING");
     private final JButton b_user = new JButton("USER");
     private final JButton b_enrere = new JButton("Back");
+    private final JButton b_manual = new JButton("manual Usuari");
 
     
     /**
@@ -43,6 +46,9 @@ public class panel_menu_principal extends JPanel{
         
         b_enrere.setBounds(20, 250, 150, 20);
         add(b_enrere);
+
+        b_manual.setBounds(250, 250, 150, 20);
+        add(b_manual);
     }
 
     /**
@@ -91,6 +97,25 @@ public class panel_menu_principal extends JPanel{
                 ctrlPresentacio.canvia_a_inici();
             }
         });
+        b_manual.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String ruta = "../../../DOCS/";
+                    if (Desktop.isDesktopSupported()){
+                        Desktop desktop = Desktop.getDesktop();
+
+                        if (desktop.isSupported(Desktop.Action.OPEN)){
+                            File  archivo = new File(ruta);
+                            desktop.open(archivo);
+                        }
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     /**
