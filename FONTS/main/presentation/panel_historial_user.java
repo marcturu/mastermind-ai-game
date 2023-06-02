@@ -57,6 +57,7 @@ public class panel_historial_user extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 //funcio per carregar la partida que esta a l'index seleccionat
                 ctrlPresentacio.carrega_partida_acabada(llista_info.getSelectedIndex());
+                
                 ctrlPresentacio.canvia_a_partida();
             }
         });

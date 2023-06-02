@@ -493,7 +493,7 @@ public class Controlador_Domini {
     }
 
     public boolean exist_partida(){
-        return CtrlPartida.get_partida_actual() == null;
+        return CtrlPartida.get_partida_actual() != null;
     }
 
     public List<Integer> get_verificacio(){
@@ -521,6 +521,9 @@ public class Controlador_Domini {
 
     }
 
+    /**
+     * Funcio per a tractar una partida acabada
+     */
     public void tractament_partida_victoria(){
         CtrlPartida.tractament_victoria();
         ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
@@ -542,6 +545,16 @@ public class Controlador_Domini {
         ctrl_user.save_users(Usuari2);
         resetAtributes();
 
+    }
+
+    /**
+     * Funcio per no guardar la partida actual
+     */
+    public void elimina_partida_actual() {
+        Usuari.borra_de_partides_no_acabades(get_partida_actual().get_id());
+        Usuari.borra_de_partides_acabades(get_partida_actual().get_id());
+        ctrl_user.save_users(Usuari);
+        resetAtributes();
     }
 
     /**
@@ -1000,4 +1013,5 @@ public class Controlador_Domini {
     public List<List<Integer>> get_verificacions_partida() {
         return CtrlPartida.get_verificacions_partida();
     }
+
 }

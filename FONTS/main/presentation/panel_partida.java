@@ -59,16 +59,37 @@ public class panel_partida extends JPanel {
     }
 
     private void setButtons(boolean ver){
-        JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Alineación central y espacio horizontal de 5 píxeles
+        JPanel topPanel = new JPanel();
+        JLabel label;
+        try {
+            if (ctrlPresentacio.get_solucio() == null && ctrlPresentacio.get_j1_cm()) label =  new JLabel("Introdueix solucio");
+            else {
+                if (!ver) label = new JLabel("Introdueix Sequencia Intentada");
+                else label = new JLabel("Introdueix Sequencia Verificacio");
+            }
+            topPanel.add(label);
+        }catch (NullPointerException ex){}
+
+
+        JPanel buttonsColPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
         rightPanel.removeAll();
         for (int i = 0; i < buttons_col.length; i++) {
-            buttons_col[i] = new button(0,ver,ctrlPresentacio.get_num_colors());
+            buttons_col[i] = new button(0, ver, ctrlPresentacio.get_num_colors());
             buttons_col[i].setPreferredSize(new Dimension(60, 60));
             buttonsColPanel.add(buttons_col[i]);
         }
-        buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
-        rightPanel.add(buttonsColPanel);
-        JPanel buttonsPanel = new JPanel(new GridLayout(7, 1, 0, 2)); // Añadir espacios verticales de 10 píxeles entre los botones
+
+        rightPanel.setLayout(new GridBagLayout()); // Utilizar GridBagLayout para el rightPanel
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.NORTH;
+        rightPanel.add(topPanel, gbc);
+
+        gbc.gridy = 1;
+        rightPanel.add(buttonsColPanel, gbc);
+
+        JPanel buttonsPanel = new JPanel(new GridLayout(7, 1, 0, 2));
         buttonsPanel.add(b_try);
         buttonsPanel.add(b_guardar_partida);
         buttonsPanel.add(b_eliminar_partida);
@@ -117,18 +138,14 @@ public class panel_partida extends JPanel {
             });
         }
 
-        buttonsPanel.add(b_help);
-        buttonsPanel.add(buttonsHelp);
-
-
-
-
-
-        rightPanel.add(buttonsPanel);
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        rightPanel.add(buttonsPanel, gbc);
 
         add(rightPanel);
         revalidate();
         repaint();
+
     }
 
 
@@ -215,6 +232,7 @@ public class panel_partida extends JPanel {
 
         b_eliminar_partida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                ctrlPresentacio.elimina_partida_actual();
                 ctrlPresentacio.canvia_a_menu_principal();
             }
         });
