@@ -449,7 +449,6 @@ public class Controlador_Domini {
         colors[] col = new colors[4];
         for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
         seq_int.set_array(col,CtrlPartida.get_num_colors_partida_actual());
-        CtrlPartida.crea_nova_ronda();
         CtrlPartida.set_sequencia_intentada(seq_int);
         if(CtrlPartida.temps_excedit_partida_actual()){
             CtrlPartida.tractament_partida_acabada();
@@ -473,6 +472,10 @@ public class Controlador_Domini {
         System.out.println("DESPRES DE SET SEQUENCIA VERIFICACIO");
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
+
+            System.out.println("PARTIDA ACABADA");
+
+
             tractament_partida_victoria();
             if(CtrlPartida.get_codebreaker_partida_actual() == Usuari) {
                 Usuari.set_partida_acabada(get_partida_actual(), true, get_partida_actual().get_dificultat().get_dificultat());

@@ -232,13 +232,13 @@ public class Partida {
         this.partida_acabada = true;
         set_temps_final_partida(Instant.now());
         this.jugador1.afegeix_partida_acabada(this);
-        if(jugador1_es_codemaker) {
-            this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
-        }
-        else {
-            this.jugador1.set_partida_acabada(this, true, dificultat.get_dificultat());
-            //this.jugador2.afageix_partida_acabada(this);
-        }
+//        if(jugador1_es_codemaker) {
+//            this.jugador2.set_partida_acabada(this, true, dificultat.get_dificultat());
+//        }
+//        else {
+//            this.jugador1.set_partida_acabada(this, true, dificultat.get_dificultat());
+//            //this.jugador2.afageix_partida_acabada(this);
+//        }
     }
 
     /**
@@ -418,7 +418,7 @@ public class Partida {
      * @return boolea que indica si la ronda actual ha estat intentada correctament
      */
     public boolean ronda_te_intentada_correcte() {
-        Ronda ultima_ronda = llista_rondes.get(ultima_ronda_jugada);
+        Ronda ultima_ronda = llista_rondes.get(ultima_ronda_jugada-1);
         return ultima_ronda.check_sequencia_encertada();
     }
 
@@ -465,7 +465,7 @@ public class Partida {
 
     public List<List<Integer>> get_intents_partida() {
         List<List<Integer>> intents = new ArrayList<>();
-        for(int i = 0; i < ultima_ronda_jugada; ++i) {
+        for(int i = 0; i < ultima_ronda_jugada+1; ++i) {
             intents.add(llista_rondes.get(i).get_seq_intentada().toListInteger());
         }
         return intents;
@@ -473,7 +473,7 @@ public class Partida {
 
     public List<List<Integer>> get_verificacions_partida() {
         List<List<Integer>> verificacions = new ArrayList<>();
-        for(int i = 0; i < ultima_ronda_jugada; ++i) {
+        for(int i = 0; i < ultima_ronda_jugada+1; ++i) {
             verificacions.add(llista_rondes.get(i).get_seq_verificacio().toListInteger());
         }
         return verificacions;

@@ -156,9 +156,9 @@ public class panel_partida extends JPanel {
                         ctrlPresentacio.canvia_a_menu_principal();
                         return;
                     }
-                    if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){
+                    if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){ //
 
-                        if(ctrlPresentacio.get_num_ronda_actual()>1){
+                        if(ctrlPresentacio.get_num_ronda_actual()>0){
                             System.out.println("Llista verificacio: " + list.subList(4,8));
                             setButtons_verificacio(list.subList(4,8));
 
