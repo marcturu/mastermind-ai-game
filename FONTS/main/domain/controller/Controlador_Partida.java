@@ -247,4 +247,12 @@ public class Controlador_Partida {
 
     public List<Integer> get_verificacio(){return partida_actual.get_verificacio();}
 
+    public List<List<Integer>> get_intents_partida() {
+        return partida_actual.get_intents_partida();
+    }
+
+    public List<List<Integer>> get_verificacions_partida() {
+        return partida_actual.get_verificacions_partida();
+    }
+
 }

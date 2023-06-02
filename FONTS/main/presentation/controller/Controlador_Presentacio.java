@@ -27,6 +27,9 @@ public class Controlador_Presentacio {
 
     private String dificultat_ranking;
 
+    private List<List<Integer>> intents_anteriors;
+    private List<List<Integer>> verificacions_anteriors;
+
     public static void main(String[] args){
         Controlador_Presentacio ctrlPresentacio = new Controlador_Presentacio();
         ctrlPresentacio.canvia_a_inici();
@@ -53,9 +56,10 @@ public class Controlador_Presentacio {
                 list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
                 list.addAll(0, entrada);
                 List<Integer> verificacio_maquina = ctrlDomini.get_verificacio();
-                ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
+
                 list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                 list.addAll(4, verificacio_maquina);
+                ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
             }
         }
         else {
@@ -139,6 +143,9 @@ public class Controlador_Presentacio {
 
         login_user2 = false;
         toca_intent = true;
+
+        intents_anteriors = new ArrayList<>();
+        verificacions_anteriors = new ArrayList<>();
     }
 
     /**
@@ -335,7 +342,8 @@ public class Controlador_Presentacio {
             ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
             set_atributs_partida();
         }catch(Exception e) {
-            mostra_error(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getStackTrace(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -345,6 +353,9 @@ public class Controlador_Presentacio {
 
     private void set_atributs_partida(){
 
+        intents_anteriors = ctrlDomini.get_intents_partida();
+        verificacions_anteriors = ctrlDomini.get_verificacions_partida();
+        
 
         j1_cm = ctrlDomini.get_jugador1_es_codemaker();
         dificultat = ctrlDomini.get_dificultat_partida();
@@ -561,5 +572,13 @@ public class Controlador_Presentacio {
 
     public boolean get_j2_user(){
         return j2_user;
+    }
+
+    public List<List<Integer>> get_intents_anteriors(){
+        return intents_anteriors;
+    }
+
+    public List<List<Integer>> get_verificacions_anteriors(){
+        return verificacions_anteriors;
     }
 }
