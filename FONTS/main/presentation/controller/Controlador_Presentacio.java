@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -403,7 +404,21 @@ public class Controlador_Presentacio {
 
         intents_anteriors = ctrlDomini.get_intents_partida();
         verificacions_anteriors = ctrlDomini.get_verificacions_partida();
-        
+
+        List<Integer> ultim_intent = intents_anteriors.get(get_num_ronda_actual());
+
+
+        System.out.println("INTENT ANTERIOR: " + ultim_intent +" = "+Arrays.asList(0, 0, 0, 0));
+
+
+
+        if(ultim_intent.equals(Arrays.asList(0, 0, 0, 0))){
+            intent = true;
+            System.out.println("INTENT TRUE");
+        }else{
+            intent = false;
+            System.out.println("INTENT FALSE");
+        }
 
         j1_cm = ctrlDomini.get_jugador1_es_codemaker();
         dificultat = ctrlDomini.get_dificultat_partida();

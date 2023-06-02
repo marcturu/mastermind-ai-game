@@ -302,7 +302,8 @@ public class Partida {
      * @param  sequencia intentada
      */
     public void set_seq_int_a_ronda_actual(Sequencia_intentada seq_int) {
-        llista_rondes.get(ultima_ronda_jugada-1).set_intentada(seq_int);
+        System.out.println("set_ INTENTADA  : RONDA " + ultima_ronda_jugada);
+        llista_rondes.get(ultima_ronda_jugada).set_intentada(seq_int);
     }
 
     /**
@@ -465,7 +466,7 @@ public class Partida {
 
     public List<List<Integer>> get_intents_partida() {
         List<List<Integer>> intents = new ArrayList<>();
-        for(int i = 0; i < ultima_ronda_jugada+1; ++i) {
+        for(int i = 0; i <= ultima_ronda_jugada; ++i) {
             intents.add(llista_rondes.get(i).get_seq_intentada().toListInteger());
         }
         return intents;
@@ -473,7 +474,7 @@ public class Partida {
 
     public List<List<Integer>> get_verificacions_partida() {
         List<List<Integer>> verificacions = new ArrayList<>();
-        for(int i = 0; i < ultima_ronda_jugada+1; ++i) {
+        for(int i = 0; i < ultima_ronda_jugada; ++i) {
             verificacions.add(llista_rondes.get(i).get_seq_verificacio().toListInteger());
         }
         return verificacions;

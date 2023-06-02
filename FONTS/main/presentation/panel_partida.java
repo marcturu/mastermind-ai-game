@@ -138,6 +138,8 @@ public class panel_partida extends JPanel {
         // Panel izquierdo
         add_panel_rondes();
 
+
+        System.out.println("UIIIII");
         setButtons(false);
 
 
@@ -172,14 +174,14 @@ public class panel_partida extends JPanel {
                         setButtons_verificacio(list.subList(4,8));
                         setButtons(false);
                     }
-                    else {
+                    else { // PVP
                         if (ctrlPresentacio.get_num_ronda_actual() == 0) setButtons(false);
                         if (!ctrlPresentacio.get_es_intent()){
                             System.out.println(ctrlPresentacio.get_num_ronda_actual());
-                            if(ctrlPresentacio.get_num_ronda_actual()>0) {
-                                setButtons_intentada(list.subList(0, 4));
-                                setButtons(true);
-                            }
+
+                            setButtons_intentada(list.subList(0, 4));
+                            setButtons(true);
+
                         }else {
                             if(ctrlPresentacio.get_num_ronda_actual()>0) {
                                 System.out.println(list);
@@ -338,11 +340,8 @@ public class panel_partida extends JPanel {
         if (ctrlPresentacio.get_solucio() == null){
             setButtons(false);
         }
-        else if((intents_anteriors.size() == verificacions_anteriors.size()-1) && !(ctrlPresentacio.get_num_ronda_actual() == 1)) {
-            setButtons(false);
-        }
         else{
-            setButtons(true);
+            setButtons(!ctrlPresentacio.get_es_intent());
         }
     }
 
