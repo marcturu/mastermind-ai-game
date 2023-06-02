@@ -70,36 +70,38 @@ public class panel_partida extends JPanel {
         }
         buttonsColPanel.add(Box.createVerticalGlue()); // Añadir un espacio en blanco debajo
         rightPanel.add(buttonsColPanel);
-        JPanel buttonsPanel = new JPanel(new GridLayout(5, 1, 0, 2)); // Añadir espacios verticales de 10 píxeles entre los botones
+        JPanel buttonsPanel = new JPanel(new GridLayout(7, 1, 0, 2)); // Añadir espacios verticales de 10 píxeles entre los botones
         buttonsPanel.add(b_try);
         buttonsPanel.add(b_guardar_partida);
         buttonsPanel.add(b_eliminar_partida);
 
-        if (ver){
-            buttonsPanel.add(b_set_visible);
-            JPanel buttonsSol = new JPanel(new FlowLayout());
-            buttons_sol = new JButton[4];
-            for (int i = 0; i < buttons_sol.length; i++) {
-                buttons_sol[i] = new JButton();
-                buttons_sol[i].setPreferredSize(new Dimension(60, 60));// TODO CAMBIAR
-                buttons_sol[i].setVisible(false);
-                buttonsSol.add(buttons_sol[i]);
-            }
-            buttonsPanel.add(buttonsSol);
 
-        }else{
-            buttonsPanel.add(b_help);
-
-            JPanel buttonsHelp = new JPanel(new FlowLayout());
-            buttons_help = new JButton[4];
-            for (int i = 0; i < buttons_help.length; i++) {
-                buttons_help[i] = new JButton();
-                buttons_help[i].setPreferredSize(new Dimension(60, 60));// TODO CAMBIAR
-                buttons_help[i].setVisible(false);
-                buttonsHelp.add(buttons_help[i]);
-            }
-            buttonsPanel.add(buttonsHelp);
+        JPanel buttonsSol = new JPanel(new FlowLayout());
+        buttons_sol = new JButton[4];
+        for (int i = 0; i < buttons_sol.length; i++) {
+            buttons_sol[i] = new JButton();
+            buttons_sol[i].setPreferredSize(new Dimension(60, 60));// TODO CAMBIAR
+            buttons_sol[i].setVisible(false);
+            buttonsSol.add(buttons_sol[i]);
         }
+        if(!ver) b_set_visible.setVisible(false);
+        buttonsPanel.add(b_set_visible);
+        buttonsPanel.add(buttonsSol);
+
+
+
+        JPanel buttonsHelp = new JPanel(new FlowLayout());
+        buttons_help = new JButton[4];
+        for (int i = 0; i < buttons_help.length; i++) {
+            buttons_help[i] = new JButton();
+            buttons_help[i].setPreferredSize(new Dimension(60, 60));// TODO CAMBIAR
+            buttons_help[i].setVisible(false);
+            buttonsHelp.add(buttons_help[i]);
+        }
+        if(ver) b_help.setVisible(false);
+        buttonsPanel.add(b_help);
+        buttonsPanel.add(buttonsHelp);
+
 
 
 
@@ -139,7 +141,6 @@ public class panel_partida extends JPanel {
 
 
                     if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){
-                        System.out.println(list.subList(0,4));
 
                         if(ctrlPresentacio.get_num_ronda_actual()>1){
                             System.out.println(list.subList(4,8));
@@ -149,17 +150,32 @@ public class panel_partida extends JPanel {
                         setButtons_intentada(list.subList(0,4));
                         setButtons(true);
                     }
+                    else if(!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) {
 
-//                    if (!ver) {
-//                        setButtons_intentada(list.subList(0,4));
-//                        setButtons(true);
-//                        ver = true;
-//                    }
-//                    else {
-//                        setButtons_verificacio(list.subList(4,8));
-//                        setButtons(false);
-//                        ver = false;
-//                    }
+                        if(ctrlPresentacio.get_num_ronda_actual()>1){
+                            System.out.println(list.subList(4,8));
+                            setButtons_verificacio(list.subList(4,8));
+
+                        }
+                        setButtons_intentada(list.subList(0,4));
+                        setButtons(false);
+                    }
+                    else {
+                        if (!ctrlPresentacio.get_es_intent()){
+                            System.out.println(ctrlPresentacio.get_num_ronda_actual());
+                            if(ctrlPresentacio.get_num_ronda_actual()>0) {
+                                setButtons_intentada(list.subList(0, 4));
+                                setButtons(true);
+                            }
+                            else setButtons(false);
+                        }else {
+                            if(ctrlPresentacio.get_num_ronda_actual()>0) {
+                                System.out.println(list);
+                                setButtons_verificacio(list.subList(4, 8));
+                                setButtons(false);
+                            }
+                        }
+                    }
 
                 }catch (Exception ex){
                     System.out.println(ex.getMessage());
@@ -191,44 +207,58 @@ public class panel_partida extends JPanel {
 
         b_set_visible.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (ctrlPresentacio.jugador1_es_codemaker()) {
+                    for (int i = 0; i < 4; ++i) {
+                        buttons_sol[i].setVisible(!buttons_sol[i].isVisible());
+                        if (ctrlPresentacio.get_solucio() != null) {
+                            buttons_sol[i].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(i)));
+                            buttons_sol[i].setOpaque(true);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No pots veure la solucio!!!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        b_help.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
                 for(int i = 0; i < 4; ++i) {
-                    buttons_sol[i].setVisible(!buttons_sol[i].isVisible());
-                    if (ctrlPresentacio.get_solucio()!=null){
-                        buttons_sol[i].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(i)));
-                        buttons_sol[i].setOpaque(true);
+                    buttons_help[i].setVisible(!buttons_help[i].isVisible());
+                }
+            }
+        });
 
+
+        for(int i = 0; i < buttons_help.length; ++i) {
+            System.out.println("SE CREA EL ACTION LISTENER");
+
+            final int buttonIndex = i;
+            buttons_help[i].addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("ENTRARA");
+                    if(!ctrlPresentacio.get_and_set_ajuda()){
+                        buttons_help[buttonIndex].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(buttonIndex)));
+                        buttons_help[buttonIndex].setOpaque(true);
                     }
                 }
-            }
-        });
-
-        b_set_help.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-                for(int i = 0; i < 4; ++i) {
-                    buttons_sol[i].setVisible(!buttons_sol[i].isVisible());
-                }
-            }
-        });
-
-        buttons_help[0].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if(ctrlPresentacio.get_solucio()!=null && ctrlPresentacio.get_and_set_ajuda()){
-                    buttons_help[0].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(0)));
-                    buttons_help[0].setOpaque(true);
-                }
-            }
-        });
+            });
+        }
 
     }
     private void setButtons_intentada(List<Integer> try_button){
         for (int i = 0; i < 4; ++i){
-
-            buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(get_color_by_id(try_button.get(i)));
-            //FOR MACOS ONLY
-            buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
-
+            if (ctrlPresentacio.get_j2_user()){
+                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(get_color_by_id(try_button.get(i)));
+                //FOR MACOS ONLY
+                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
+            }
+            else {
+                buttons_intentada[ctrlPresentacio.get_num_ronda_actual() - 1][i].setBackground(get_color_by_id(try_button.get(i)));
+                //FOR MACOS ONLY
+                buttons_intentada[ctrlPresentacio.get_num_ronda_actual() - 1][i].setOpaque(true);
+            }
         }
     }
 
@@ -258,18 +288,25 @@ public class panel_partida extends JPanel {
 
 
     private void setButtons_verificacio(List<Integer> try_button){
+        System.out.println("ronda set " + ctrlPresentacio.get_num_ronda_actual() + try_button);
         for (int i = 0; i < 4; ++i){
             switch (try_button.get(i)){
                 case 0:
-                    buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(null);
+                    if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(null);
+                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(null);
                     break;
                 case 9:
-                    buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(Color.white);
+                    if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.white);
+                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.white);
                     break;
                 case 10:
+                    if (ctrlPresentacio.get_j2_user()){
+                        buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.black);
+                    }
                     buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(Color.black);
 
             }
+            if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
             buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setOpaque(true);
 
         }

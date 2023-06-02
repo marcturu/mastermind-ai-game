@@ -985,6 +985,7 @@ public class Controlador_Domini {
         // Format the duration as HH:MM:SS
         String formattedDuration = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         return formattedDuration;
-
     }
+
+    //public boolean get_es_intent(){return CtrlPartida.get_es_intent();}
 }

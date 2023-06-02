@@ -26,6 +26,7 @@ public class Partida {
     private List<List<Integer>> solucio_maquina; //solucio que ha donat una maquina.
 
 
+
     /**
      * Constructor de la classe Partida
      * @param id Identificador de la partida
