@@ -272,9 +272,16 @@ public class panel_partida extends JPanel {
                 buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
             }
             else {
-                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(get_color_by_id(try_button.get(i)));
+                if(!ctrlPresentacio.get_j1_cm()){
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(get_color_by_id(try_button.get(i)));
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
+
+                }else{
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(get_color_by_id(try_button.get(i)));
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
+
+                }
                 //FOR MACOS ONLY
-                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
             }
         }
     }
