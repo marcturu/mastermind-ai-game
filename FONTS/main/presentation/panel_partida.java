@@ -156,9 +156,9 @@ public class panel_partida extends JPanel {
                         ctrlPresentacio.canvia_a_menu_principal();
                         return;
                     }
-                    if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){
+                    if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){ //
 
-                        if(ctrlPresentacio.get_num_ronda_actual()>1){
+                        if(ctrlPresentacio.get_num_ronda_actual()>0){
                             System.out.println("Llista verificacio: " + list.subList(4,8));
                             setButtons_verificacio(list.subList(4,8));
 
@@ -246,14 +246,14 @@ public class panel_partida extends JPanel {
     private void setButtons_intentada(List<Integer> try_button){
         for (int i = 0; i < 4; ++i){
             if (ctrlPresentacio.get_j2_user()){
-                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(get_color_by_id(try_button.get(i)));
+                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(get_color_by_id(try_button.get(i)));
                 //FOR MACOS ONLY
-                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
+                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
             }
             else {
-                buttons_intentada[ctrlPresentacio.get_num_ronda_actual() - 1][i].setBackground(get_color_by_id(try_button.get(i)));
+                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(get_color_by_id(try_button.get(i)));
                 //FOR MACOS ONLY
-                buttons_intentada[ctrlPresentacio.get_num_ronda_actual() - 1][i].setOpaque(true);
+                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
             }
         }
     }
@@ -295,22 +295,22 @@ public class panel_partida extends JPanel {
                 case 0:
                     if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(null);
                     else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(null);
-                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(null);
+                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(null);
                     break;
                 case 9:
                     if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.white);
                     else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.white);
-                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(Color.white);
+                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.white);
                     break;
                 case 10:
                     if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.black);
                     else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.black);
-                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(Color.black);
+                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.black);
 
             }
             if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
             else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
-            else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setOpaque(true);
+            else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
 
         }
     }
@@ -330,10 +330,10 @@ public class panel_partida extends JPanel {
                 buttons_intentada[i][j].setOpaque(true);
             }
         }
-        for(int i = 1; i < verificacions_anteriors.size(); ++i) {
+        for(int i = 0; i < verificacions_anteriors.size(); ++i) {
             for (int j = 0; j < 4; ++j) {
-                buttons_verificacio[i-1][j].setBackground(get_color_by_id(verificacions_anteriors.get(i).get(j)));
-                buttons_verificacio[i-1][j].setOpaque(true);
+                buttons_verificacio[i][j].setBackground(get_color_by_id(verificacions_anteriors.get(i).get(j)));
+                buttons_verificacio[i][j].setOpaque(true);
             }
         }
         if (ctrlPresentacio.get_solucio() == null){
