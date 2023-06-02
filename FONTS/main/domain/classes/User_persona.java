@@ -274,7 +274,6 @@ public class User_persona extends User {
      */
     public void afegeix_partida_acabada(Partida p) {
         int idp = p.get_id();
-        System.out.println("Entra a afegir partida acabada de user persona");
         this.llista_partides_acabades.add(idp);
     }
 
@@ -291,7 +290,6 @@ public class User_persona extends User {
      * @param id_partida id de la partida a borrar
      */
     public void borra_de_partides_no_acabades(int id_partida) {
-        System.out.println("borrem la partida de la llista de partides no acabades");
         this.llista_partides_no_acabades.remove(llista_partides_no_acabades.indexOf(id_partida));
     }
 
@@ -301,7 +299,6 @@ public class User_persona extends User {
      */
     public void elimina_partida_no_acabada(Partida p){
         int idp = p.get_id();
-        System.out.println("Entra a eliminar partida no acabada de user persona");
         this.llista_partides_no_acabades.remove(llista_partides_no_acabades.indexOf(idp));
     }
 

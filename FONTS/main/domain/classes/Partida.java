@@ -302,7 +302,6 @@ public class Partida {
      * @param  sequencia intentada
      */
     public void set_seq_int_a_ronda_actual(Sequencia_intentada seq_int) {
-        System.out.println("set_ INTENTADA  : RONDA " + ultima_ronda_jugada);
         llista_rondes.get(ultima_ronda_jugada).set_intentada(seq_int);
     }
 
@@ -311,10 +310,8 @@ public class Partida {
      * @param  sequencia verificada
      */
     public void set_seq_ver_a_ronda_actual(Sequencia_verificacio seq_ver) {
-        System.out.println("set_seq_ver_a_ronda_actual : RONDA " + ultima_ronda_jugada);
         llista_rondes.get(ultima_ronda_jugada).set_verificacio(seq_ver);
         crea_nova_ronda();
-        System.out.println("ultima_ronda_jugada"+ultima_ronda_jugada);
 
     }
     
@@ -358,9 +355,6 @@ public class Partida {
 
         List<Integer> guess = this.solucio_maquina.get(ultima_ronda_jugada);
 
-        System.out.println("NEXT GUESS RONDA " + ultima_ronda_jugada+ "  --> " + guess);
-
-
         Sequencia_intentada si = new Sequencia_intentada();
         colors[] col = new colors[4];
         for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(guess.get(i));
@@ -371,8 +365,6 @@ public class Partida {
             llista_rondes.get(ultima_ronda_jugada).set_intentada(si);
         }catch (Exception e){
             System.out.println("ERROR: " + e);
-
-            System.out.println("NEXT GUESS RONDA 2: " + ultima_ronda_jugada);
 
         }
 

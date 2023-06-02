@@ -37,7 +37,6 @@ public class User_maquina extends User {
      * @return Llista de llista d'integer amb la resolució de la seqüència
      */
     public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
-        System.out.println("USER SOLVE MAQIUINA");
 
         if (genetic_algorithm){
             Genetic_algorithm ga = new Genetic_algorithm(dificultat);

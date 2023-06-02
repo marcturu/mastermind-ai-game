@@ -88,7 +88,6 @@ public class panel_register extends JPanel{
         b_confirmar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 String text = ((JButton) event.getSource()).getText();
-                System.out.println("Has apretat: " + text);
                 actionPerformed_BotoConfirmar(event);
             }
         });
@@ -96,7 +95,6 @@ public class panel_register extends JPanel{
         b_enrere.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 String text = ((JButton) event.getSource()).getText();
-                System.out.println("Has apretat: " + text);
                 ctrlPresentacio.canvia_a_inici();
             }
 

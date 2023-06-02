@@ -47,9 +47,7 @@ public class Controlador_Presentacio {
 
             }
             else if (j2_user){
-                System.out.println("seT_sol" + entrada);
                 ctrlDomini.set_seq_solucio(entrada);
-                System.out.println("despres" + entrada);
                 return list;
             }
             else {
@@ -70,10 +68,8 @@ public class Controlador_Presentacio {
             if (j2_user) {
                 if (intent) {
                     ctrlDomini.jugar_ronda_intentada(entrada);
-                    System.out.println("partida acabada: " + ctrlDomini.partida_acabada());
                     if (ctrlDomini.partida_acabada()) {
 
-                        System.out.println("partida_acabada a pres");
 
                         String partida_acabada = "Partida pvp acabada amb victòria del codemaker!";
                         JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
@@ -105,18 +101,14 @@ public class Controlador_Presentacio {
                 }
             } else { //juguem vs maquina
                 if (j1_cm) {
-                    System.out.println("try_set_ver");
                     ctrlDomini.jugar_ronda_verificacio(entrada);
 
                     if(!ctrlDomini.partida_acabada()){
                         List<Integer> list_int = ctrlDomini.get_seguent_guess_maquina();
-                        System.out.println("abans_canvia_lis" + list);
                         list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
                         list.addAll(0,list_int);
-                        System.out.println("sub_list1_try" + list);
                         list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                         list.addAll(4,entrada);
-                        System.out.println("sub_list2_try" + list);
                     }
                     else {
                         if (guanya_partida(entrada)) {
@@ -427,17 +419,10 @@ public class Controlador_Presentacio {
 
         List<Integer> ultim_intent = intents_anteriors.get(get_num_ronda_actual());
 
-
-        System.out.println("INTENT ANTERIOR: " + ultim_intent +" = "+Arrays.asList(0, 0, 0, 0));
-
-
-
         if(ultim_intent.equals(Arrays.asList(0, 0, 0, 0))){
             intent = true;
-            System.out.println("INTENT TRUE");
         }else{
             intent = false;
-            System.out.println("INTENT FALSE");
         }
 
         j1_cm = ctrlDomini.get_jugador1_es_codemaker();
@@ -452,7 +437,6 @@ public class Controlador_Presentacio {
     public List<Pair<Integer, String>> get_llista_partides_acabades() {
         List<Pair<Integer, String>> llista_info = new ArrayList<>();
         List<Integer> ids_partides = ctrlDomini.get_ids_partides_acabades_Usuari1();
-        System.out.println(ids_partides);
         for(Integer id: ids_partides) {
             String info_partida = ctrlDomini.get_info_partida(id);
             llista_info.add(new Pair<>(id, info_partida));

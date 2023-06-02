@@ -16,16 +16,8 @@ public class driver_algorisme {
     public static void main(String[] args){
         driver_algorisme driver = new driver_algorisme();
         driver.print_colors();
-//        for (int i = 0; i < 4; ++i) {
-//            try {
-//                String input = in.nextLine();
-//                while (input.length() == 0) input = in.nextLine();
-//                arr_int[i] = crea_array_color(input);
-//            } catch (Exception ex) {
-//                --i;
-//                System.out.println(ex.getMessage());
-//            }
-//        }
+
+
 
         int algorisme = driver.pregunta_algorisme();
 

@@ -33,7 +33,6 @@ public class Five_guess_algorithm implements Maquina{
 
     public List<List<Integer>> solve(List<Integer> solution) {
 
-        System.out.println("FIVE GUESS");
 
         List<List<Integer>> guesses = new ArrayList<>();
 
@@ -58,8 +57,6 @@ public class Five_guess_algorithm implements Maquina{
             result = Arrays.asList(resultat);
             guesses.add(guess);
         }
-
-        System.out.println("FIVE GUESS FINAL");
 
         return guesses;
     }

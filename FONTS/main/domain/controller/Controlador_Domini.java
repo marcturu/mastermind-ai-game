@@ -297,9 +297,6 @@ public class Controlador_Domini {
     public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
         List<List<Integer>> solutions = Usuari2.get_solve_maquina(solucio);
 
-        for (List<Integer> list : solutions) {
-            System.out.println(list);
-        }
 
         CtrlPartida.set_solucio_partida_actual(solutions);
 
@@ -316,15 +313,7 @@ public class Controlador_Domini {
             return CtrlPartida.get_guess_maquina();
         } catch (Exception e) {
 
-            System.out.println(Arrays.toString(get_seq_solucio().toArray()));
-
-            System.out.println("Error al get_guess_maquina");
             get_solve_maquina(get_seq_solucio());
-
-
-            //for (List<Integer> list : listOfLists) {
-            //    System.out.println(list);
-            //}
 
             List<Integer> next_guess = CtrlPartida.get_guess_maquina();
             return next_guess;
@@ -446,16 +435,8 @@ public class Controlador_Domini {
      */
     public void jugar_ronda_intentada(List<Integer> entrada) throws Exception{
 
-
-        System.out.println("temps exedit: " + CtrlPartida.temps_excedit_partida_actual());
-        System.out.println("get_ultima_ronda_partida_actual: " + CtrlPartida.get_ultima_ronda_partida_actual());
-        System.out.println("get_num_rondes_max_partida_actual: " + CtrlPartida.get_num_rondes_max_partida_actual());
-
         if(CtrlPartida.temps_excedit_partida_actual() || CtrlPartida.get_ultima_ronda_partida_actual() >= CtrlPartida.get_num_rondes_max_partida_actual()){
-            System.out.println("ENTRAAA AACABARRRR");
-
             tractament_partida_acabada();
-            System.out.println("ENTRAAA tractamentr acabada");
 
             if(CtrlPartida.get_codebreaker_partida_actual() == Usuari) {
                 Usuari.set_partida_acabada(get_partida_actual(), true, get_partida_actual().get_dificultat().get_dificultat());
@@ -463,7 +444,6 @@ public class Controlador_Domini {
             else {
                 Usuari.set_partida_acabada(get_partida_actual(), false, get_partida_actual().get_dificultat().get_dificultat());
             }
-            System.out.println("ENTRAAA set user");
             ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
         }else{
             Sequencia_intentada seq_int = new Sequencia_intentada();
@@ -481,16 +461,13 @@ public class Controlador_Domini {
      * @param seq_ver sequencia verificacio
      */
     public void jugar_ronda_verificacio(List<Integer> entrada) throws Exception{
-        System.out.println(entrada);
         Sequencia_verificacio seq_ver = new Sequencia_verificacio();
         colors[] col = new colors[4];
         for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
         seq_ver.set_array_verificacio(col, CtrlPartida.get_seq_solucio_partida_actual().get_array(), CtrlPartida.get_seq_intentada_ultima_ronda().get_array());
-        System.out.println("ABANS DE SET SEQUENCIA VERIFICACIO");
 
         CtrlPartida.set_sequencia_verificacio(seq_ver);
 
-        System.out.println("DESPRES DE SET SEQUENCIA VERIFICACIO");
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
 
@@ -532,7 +509,6 @@ public class Controlador_Domini {
     public void tractament_partida_acabada(){
         CtrlPartida.tractament_partida_acabada();
 
-        System.out.println("1");
         ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
         ctrl_user.save_users(Usuari);
         ctrl_user.save_users(Usuari2);

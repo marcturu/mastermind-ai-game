@@ -99,7 +99,7 @@ public class Controlador_Partida {
             this.partida_actual.set_ajuda();
         }
         catch (Exception ex) {
-            //System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 

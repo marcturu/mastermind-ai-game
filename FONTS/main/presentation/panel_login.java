@@ -48,7 +48,6 @@ public class panel_login extends JPanel{
      */
     private boolean input_entrat() {
         if(password.getText().equals("") || username.getText().equals("")) {
-            System.out.println("Has d'entrar un username i una password\n");
             return false;
         }
         return true;
@@ -61,14 +60,12 @@ public class panel_login extends JPanel{
         b_confirmar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String text = ((JButton) e.getSource()).getText();
-                System.out.println("Has apretat: " + text);
                 if(input_entrat()) {
                     try{
                         ctrlPresentacio.crida_a_login_domini(username.getText(), password.getText());
                         if(ctrlPresentacio.es_usuari1())ctrlPresentacio.canvia_a_menu_principal();
                         else ctrlPresentacio.canvia_a_config_partida_dificultat();
                     }catch(Exception ex) {
-                        System.out.println("L'usuari no existeix, registrat o comprova que hagis entrat bé les credencials");
                         ctrlPresentacio.canvia_a_login();
                     }
                 }
@@ -78,7 +75,6 @@ public class panel_login extends JPanel{
         b_enrere.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String text = ((JButton) e.getSource()).getText();
-                System.out.println("Has apretat: " + text);
                 ctrlPresentacio.canvia_a_inici();
             }
 

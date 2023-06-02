@@ -256,7 +256,6 @@ public class User {
      * @return
      */
     public List<List<Integer>> get_solve_maquina(List<Integer> solucio) {
-        System.out.println("Error: get_solve_maquina no implementat");
         return null;
     }
 
