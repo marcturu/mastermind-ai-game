@@ -30,12 +30,19 @@ public class RecordLong extends Record{
      * @return
      */
     public boolean actualitza(Object valor, String nom_user) {
+        System.out.println("1");
         Long segons_partida = (Long)valor;
+        System.out.println("2");
+
         if(segons_partida < temps_record) {
             super.nom_usuari = nom_user;
             this.temps_record = segons_partida;
+            System.out.println("3");
+
             return true;
         }
+        System.out.println("4");
+
         return false;
     }
 

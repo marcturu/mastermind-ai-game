@@ -82,14 +82,17 @@ public class Controlador_Presentacio {
                 if (j1_cm) {
                     System.out.println("try_set_ver");
                     ctrlDomini.jugar_ronda_verificacio(entrada);
-                    List<Integer> list_int = ctrlDomini.get_seguent_guess_maquina();
-                    System.out.println("abans_canvia_lis" + list);
-                    list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
-                    list.addAll(0,list_int);
-                    System.out.println("sub_list1_try" + list);
-                    list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
-                    list.addAll(4,entrada);
-                    System.out.println("sub_list2_try" + list);
+
+                    if(!ctrlDomini.partida_acabada()){
+                        List<Integer> list_int = ctrlDomini.get_seguent_guess_maquina();
+                        System.out.println("abans_canvia_lis" + list);
+                        list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
+                        list.addAll(0,list_int);
+                        System.out.println("sub_list1_try" + list);
+                        list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
+                        list.addAll(4,entrada);
+                        System.out.println("sub_list2_try" + list);
+                    }
                     return list;
                 } else {
                     ctrlDomini.jugar_ronda_intentada(entrada);
@@ -310,6 +313,10 @@ public class Controlador_Presentacio {
         return llista_info;
     }
 
+    public boolean partida_acabada(){
+        return ctrlDomini.partida_acabada();
+    }
+
     /**
      * Funcio per a mostrar el tablero d'una partida acabada
      * @param index index de la partida acabada que volem carregar
@@ -340,6 +347,7 @@ public class Controlador_Presentacio {
     }
 
     private void set_atributs_partida(){
+
 
         j1_cm = ctrlDomini.get_jugador1_es_codemaker();
         dificultat = ctrlDomini.get_dificultat_partida();
