@@ -23,9 +23,7 @@ public class Controlador_Presentacio {
     private boolean j2_maquina_genetica;
     private dificultats dificultat = dificultats.NORMAL;
     private boolean login_user2;
-
     private String dificultat_ranking;
-
     private List<List<Integer>> intents_anteriors;
     private List<List<Integer>> verificacions_anteriors;
 
@@ -97,6 +95,7 @@ public class Controlador_Presentacio {
                         list.addAll(4,entrada);
                         System.out.println("sub_list2_try" + list);
                     }
+                    else resetAtributes();
                     return list;
                 } else {
                     ctrlDomini.jugar_ronda_intentada(entrada);
@@ -565,6 +564,8 @@ public class Controlador_Presentacio {
         j2_maquina_genetica = false;
         intent = true;
         login_user2 = false;
+        intents_anteriors = null;
+        verificacions_anteriors = null;
 
     }
 
