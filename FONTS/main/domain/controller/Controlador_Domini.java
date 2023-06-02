@@ -470,6 +470,12 @@ public class Controlador_Domini {
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
             tractament_partida_victoria();
+            if(CtrlPartida.get_codebreaker_partida_actual() == Usuari) {
+                Usuari.set_partida_acabada(get_partida_actual(), true, get_partida_actual().get_dificultat().get_dificultat());
+            }
+            else {
+                Usuari.set_partida_acabada(get_partida_actual(), false, get_partida_actual().get_dificultat().get_dificultat());
+            }
             ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
         }
 
