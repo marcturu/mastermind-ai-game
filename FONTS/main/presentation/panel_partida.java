@@ -89,7 +89,7 @@ public class panel_partida extends JPanel {
         gbc.gridy = 1;
         rightPanel.add(buttonsColPanel, gbc);
 
-        JPanel buttonsPanel = new JPanel(new GridLayout(7, 1, 0, 2));
+        JPanel buttonsPanel = new JPanel(new GridLayout(8, 1, 0, 2));
         buttonsPanel.add(b_try);
         buttonsPanel.add(b_guardar_partida);
         buttonsPanel.add(b_eliminar_partida);
@@ -137,8 +137,10 @@ public class panel_partida extends JPanel {
                 }
             });
         }
+        buttonsPanel.add(b_help);
+        buttonsPanel.add(buttonsHelp);
 
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rightPanel.add(buttonsPanel, gbc);
 
@@ -270,9 +272,16 @@ public class panel_partida extends JPanel {
                 buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
             }
             else {
-                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(get_color_by_id(try_button.get(i)));
+                if(!ctrlPresentacio.get_j1_cm()){
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(get_color_by_id(try_button.get(i)));
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
+
+                }else{
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(get_color_by_id(try_button.get(i)));
+                    buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
+
+                }
                 //FOR MACOS ONLY
-                buttons_intentada[ctrlPresentacio.get_num_ronda_actual()][i].setOpaque(true);
             }
         }
     }
