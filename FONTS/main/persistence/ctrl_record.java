@@ -75,26 +75,25 @@ public class ctrl_record {
                     return record;
                 }
             }
+        }else{
+            if (nom_record.equals("record_punts")) {
+                RecordDouble recordD = new RecordDouble(nom_record, dif);
+                save_record(recordD);
+                return recordD;
+
+            } else if (nom_record.equals("record_streak")) {
+                RecordInteger recordI = new RecordInteger(nom_record, dif);
+                save_record(recordI);
+                return recordI;
+
+            } else {
+                RecordLong recordL = new RecordLong(nom_record, dif);
+                save_record(recordL);
+                return recordL;
+
+            }
         }
-        if (nom_record.equals("record_punts")) {
-            System.out.println("2 punts");
-            RecordDouble recordD = new RecordDouble(nom_record, dif);
-            save_record(recordD);
-            return recordD;
-
-        } else if (nom_record.equals("record_streak")) {
-            System.out.println("2 streak");
-            RecordInteger recordI = new RecordInteger(nom_record, dif);
-            save_record(recordI);
-            return recordI;
-
-        } else {
-            System.out.println("2 temps");
-            RecordLong recordL = new RecordLong(nom_record, dif);
-            save_record(recordL);
-            return recordL;
-
-        }
+        return null;
     }
 
 }
