@@ -16,9 +16,8 @@ public class panel_partida extends JPanel {
     private button[] buttons_col = new button[4];
 
     private JButton b_set_visible = new JButton("Solucion visible");
-    private JButton[] buttons_sol = new button[4];
-
-    private JButton[] buttons_help = new button[4];
+    private JButton[] buttons_sol = new JButton[4];
+    private JButton[] buttons_help = new JButton[4];
     private final JButton b_help = new JButton("Ajuda");
     private final JButton b_try = new JButton("Try");
     private final JButton b_guardar_partida = new JButton("Guardar partida");
@@ -85,6 +84,7 @@ public class panel_partida extends JPanel {
             buttonsSol.add(buttons_sol[i]);
         }
         if(!ver) b_set_visible.setVisible(false);
+        if(ver) b_set_visible.setVisible(true);
         buttonsPanel.add(b_set_visible);
         buttonsPanel.add(buttonsSol);
 
@@ -99,6 +99,25 @@ public class panel_partida extends JPanel {
             buttonsHelp.add(buttons_help[i]);
         }
         if(ver) b_help.setVisible(false);
+        if(!ver) b_help.setVisible(true);
+
+
+        //SET
+        for(int i = 0; i < buttons_help.length; ++i) {
+            System.out.println("SE CREA EL ACTION LISTENER");
+
+            final int buttonIndex = i;
+            buttons_help[i].addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("ENTRARA");
+                    if(!ctrlPresentacio.get_and_set_ajuda()){
+                        buttons_help[buttonIndex].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(buttonIndex)));
+                        buttons_help[buttonIndex].setOpaque(true);
+                    }
+                }
+            });
+        }
+
         buttonsPanel.add(b_help);
         buttonsPanel.add(buttonsHelp);
 
@@ -208,7 +227,7 @@ public class panel_partida extends JPanel {
 
         b_set_visible.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (ctrlPresentacio.jugador1_es_codemaker()) {
+                //if (ctrlPresentacio.jugador1_es_codemaker()) {
                     for (int i = 0; i < 4; ++i) {
                         buttons_sol[i].setVisible(!buttons_sol[i].isVisible());
                         if (ctrlPresentacio.get_solucio() != null) {
@@ -216,9 +235,9 @@ public class panel_partida extends JPanel {
                             buttons_sol[i].setOpaque(true);
                         }
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "No pots veure la solucio!!!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                //} else {
+                //    JOptionPane.showMessageDialog(null, "No pots veure la solucio!!!", "Error", JOptionPane.ERROR_MESSAGE);
+                //}
             }
         });
 
@@ -232,20 +251,7 @@ public class panel_partida extends JPanel {
         });
 
 
-        for(int i = 0; i < buttons_help.length; ++i) {
-            System.out.println("SE CREA EL ACTION LISTENER");
 
-            final int buttonIndex = i;
-            buttons_help[i].addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("ENTRARA");
-                    if(!ctrlPresentacio.get_and_set_ajuda()){
-                        buttons_help[buttonIndex].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(buttonIndex)));
-                        buttons_help[buttonIndex].setOpaque(true);
-                    }
-                }
-            });
-        }
 
     }
     private void setButtons_intentada(List<Integer> try_button){
