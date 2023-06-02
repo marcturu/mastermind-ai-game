@@ -103,12 +103,12 @@ public class panel_partida extends JPanel {
 
         //SET
         for(int i = 0; i < buttons_help.length; ++i) {
-            System.out.println("SE CREA EL ACTION LISTENER");
+            //System.out.println("SE CREA EL ACTION LISTENER");
 
             final int buttonIndex = i;
             buttons_help[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("ENTRARA");
+                    //System.out.println("ENTRARA");
                     if(!ctrlPresentacio.get_and_set_ajuda()){
                         buttons_help[buttonIndex].setBackground(get_color_by_id(ctrlPresentacio.get_solucio().get(buttonIndex)));
                         buttons_help[buttonIndex].setOpaque(true);
@@ -156,8 +156,6 @@ public class panel_partida extends JPanel {
                         ctrlPresentacio.canvia_a_menu_principal();
                         return;
                     }
-
-
                     if(ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()){
 
                         if(ctrlPresentacio.get_num_ronda_actual()>1){
@@ -169,10 +167,9 @@ public class panel_partida extends JPanel {
                         setButtons(true);
                     }
                     else if(!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) {
-                        System.out.println(list.subList(4,8));
-                            setButtons_verificacio(list.subList(4,8));
-
+                        System.out.println(list);
                         setButtons_intentada(list.subList(0,4));
+                        setButtons_verificacio(list.subList(4,8));
                         setButtons(false);
                     }
                     else {
@@ -296,12 +293,12 @@ public class panel_partida extends JPanel {
             switch (try_button.get(i)){
                 case 0:
                     if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(null);
-                    else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.black);
+                    else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(null);
                     else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(null);
                     break;
                 case 9:
                     if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.white);
-                    else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.black);
+                    else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.white);
                     else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(Color.white);
                     break;
                 case 10:
@@ -311,8 +308,8 @@ public class panel_partida extends JPanel {
 
             }
             if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
-            else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setOpaque(true);
-            else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
+            else if (!ctrlPresentacio.get_j1_cm() && !ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
+            else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setOpaque(true);
 
         }
     }

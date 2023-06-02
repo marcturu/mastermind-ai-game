@@ -78,6 +78,17 @@ public class Controlador_Presentacio {
                     list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                     list.addAll(4,entrada);
                     intent = true;
+                    if (ctrlDomini.partida_acabada()) {
+                        resetAtributes();
+                        if (guanya_partida(entrada)) {
+                            String partida_acabada = "Partida pvp acabada amb victòria del codebreaker!";
+                            JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
+                        }
+                        else {
+                            String partida_acabada = "Partida pvp acabada amb victòria del codemaker!";
+                            JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
+                        }
+                    }
                     return list;
                 }
             } else { //juguem vs maquina
@@ -95,7 +106,17 @@ public class Controlador_Presentacio {
                         list.addAll(4,entrada);
                         System.out.println("sub_list2_try" + list);
                     }
-                    else resetAtributes();
+                    else {
+                        if (guanya_partida(entrada)) {
+                            String partida_acabada = "Partida acabada amb victòria del codebreaker!";
+                            JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
+                        }
+                        else {
+                            String partida_acabada = "Partida acabada amb victòria del codemaker!";
+                            JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
+                        }
+                        resetAtributes();
+                    }
                     return list;
                 } else {
                     ctrlDomini.jugar_ronda_intentada(entrada);
@@ -105,11 +126,33 @@ public class Controlador_Presentacio {
                     list.addAll(0,entrada);
                     list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                     list.addAll(4,verificacio_maquina);
+                    if (ctrlDomini.partida_acabada()) {
+                        if (guanya_partida(verificacio_maquina)) {
+                            String partida_acabada = "Partida acabada amb victòria del codebreaker!";
+                            JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
+                        }
+                        else {
+                            String partida_acabada = "Partida acabada amb victòria del codemaker!";
+                            JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
+                        }
+                        resetAtributes();
+                    }
                     return list;
                 }
             }
         }
     }
+
+    public boolean guanya_partida(List<Integer> entrada) {
+        List<Integer> lista = new ArrayList<>();
+        lista.add(10);
+        lista.add(10);
+        lista.add(10);
+        lista.add(10);
+
+        return entrada.equals(lista);
+    }
+
           /* if (!j1_cm){
                 ctrlDomini.jugar_ronda_intentada(entrada);
                 if (!j2_user) {

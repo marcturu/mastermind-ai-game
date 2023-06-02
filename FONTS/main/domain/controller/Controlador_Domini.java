@@ -445,11 +445,11 @@ public class Controlador_Domini {
      * @param seq_int sequencia intentada
      */
     public void jugar_ronda_intentada(List<Integer> entrada) throws Exception{
-        CtrlPartida.crea_nova_ronda();
         Sequencia_intentada seq_int = new Sequencia_intentada();
         colors[] col = new colors[4];
         for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
         seq_int.set_array(col,CtrlPartida.get_num_colors_partida_actual());
+        CtrlPartida.crea_nova_ronda();
         CtrlPartida.set_sequencia_intentada(seq_int);
         if(CtrlPartida.temps_excedit_partida_actual()){
             CtrlPartida.tractament_partida_acabada();
