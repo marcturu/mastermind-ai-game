@@ -732,31 +732,31 @@ public class Controlador_Domini {
      */
     public void actualitza_ranking() {
         double punts_u = 0.0;
-        User aux = CtrlPartida.get_codebreaker_partida_actual();
-        String nom_u = aux.get_nom();
+        Partida aux = CtrlPartida.get_partida_actual();
+        String nom_u = aux.get_codebreaker().get_nom();
 
         switch ((CtrlPartida.get_dificultat()).get_dificultat()) {
             case "facil":
-                punts_u = aux.get_puntuacioF();
+                punts_u = aux.get_puntuacio();
                 Ranking = ctrl_ranking.carrega_ranking("facil");
                 Ranking.nova_partida_ranking(punts_u, nom_u);
                 ctrl_ranking.save_ranking(Ranking);
                 break;
             case "normal":
-                punts_u = aux.get_puntuacioN();
+                punts_u = aux.get_puntuacio();
                 Ranking = ctrl_ranking.carrega_ranking("normal");
                 Ranking.nova_partida_ranking(punts_u, nom_u);
                 ctrl_ranking.save_ranking(Ranking);
                 break;
             case "dificil":
-                punts_u = aux.get_puntuacioD();
+                punts_u = aux.get_puntuacio();
                 Ranking = ctrl_ranking.carrega_ranking("dificil");
                 Ranking.nova_partida_ranking(punts_u, nom_u);
                 ctrl_ranking.save_ranking(Ranking);
                 break;
             default:
                 try {
-                    punts_u = aux.get_puntuaciopvp();
+                    punts_u = aux.get_puntuacio();
                 }
                 catch (Exception ex){
                     //System.out.println(ex.getMessage());

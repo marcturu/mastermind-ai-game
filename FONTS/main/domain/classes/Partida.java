@@ -422,7 +422,7 @@ public class Partida {
     public Double get_puntuacio() {
         double punts_aconseguits = (partida_acabada? 50.0:0.0) + ((dificultat.get_num_max_rondes() - ultima_ronda_jugada)*2.0) - (ajuda ? 10.0:0.0);
         double punts_max = 50.0 + (dificultat.get_num_max_rondes() - ultima_ronda_jugada)*2.0;
-        return punts_aconseguits/punts_max;
+        return punts_aconseguits;
     }
 
     public List<Integer> get_verificacio() {
