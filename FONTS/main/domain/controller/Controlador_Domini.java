@@ -481,7 +481,7 @@ public class Controlador_Domini {
     }
 
     public boolean exist_partida(){
-        return CtrlPartida.get_partida_actual() == null;
+        return CtrlPartida.get_partida_actual() != null;
     }
 
     public List<Integer> get_verificacio(){
@@ -988,4 +988,5 @@ public class Controlador_Domini {
     public List<List<Integer>> get_verificacions_partida() {
         return CtrlPartida.get_verificacions_partida();
     }
+
 }
