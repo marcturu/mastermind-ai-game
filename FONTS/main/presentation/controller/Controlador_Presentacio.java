@@ -378,8 +378,10 @@ public class Controlador_Presentacio {
         List<Pair<Integer, String>> llista_info = get_llista_partides_acabades();
         try{
         ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
+        set_atributs_partida();
         }catch(Exception e) {
-            mostra_error(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getStackTrace(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -645,4 +647,8 @@ public class Controlador_Presentacio {
         return verificacions_anteriors;
     }
     public boolean get_es_intent(){return intent;}
+
+    public void elimina_partida_actual() {
+        ctrlDomini.elimina_partida_actual();
+    }
 }

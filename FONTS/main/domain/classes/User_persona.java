@@ -279,6 +279,23 @@ public class User_persona extends User {
     }
 
     /**
+     * Funcio per a borrar una partida de la llista de partides acabades
+     * @param id_partida id de la partida a borrar
+     */
+    public void borra_de_partides_acabades(int id_partida) {
+        if(llista_partides_acabades.contains(id_partida))this.llista_partides_acabades.remove(llista_partides_acabades.indexOf(id_partida));
+    }
+
+    /**
+     * Funcio per a borrar una partida de la llista de partides no acabades
+     * @param id_partida id de la partida a borrar
+     */
+    public void borra_de_partides_no_acabades(int id_partida) {
+        System.out.println("borrem la partida de la llista de partides no acabades");
+        this.llista_partides_no_acabades.remove(llista_partides_no_acabades.indexOf(id_partida));
+    }
+
+    /**
      * Funció que serveix per afegir una partida passada per paràmetre a la llista de partides no acabades de l'usuari
      * @param partida_nova Partida a afegir a la llista de partides no acabades de l'usuari
      */
