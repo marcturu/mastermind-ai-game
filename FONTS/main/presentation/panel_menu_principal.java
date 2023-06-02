@@ -100,7 +100,7 @@ public class panel_menu_principal extends JPanel{
         b_manual.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String ruta = "../../../DOCS/";
+                    String ruta = "../DOCS/manual_usuario.pdf";
                     if (Desktop.isDesktopSupported()){
                         Desktop desktop = Desktop.getDesktop();
 
