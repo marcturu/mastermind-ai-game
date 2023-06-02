@@ -18,7 +18,7 @@ import main.domain.classes.types.Pair;
 
 public class Controlador_Partida {
     private Partida partida_actual;
-   
+
 
     /**
      * Creadora de la classe controlador Partida
@@ -246,5 +246,7 @@ public class Controlador_Partida {
     }
 
     public List<Integer> get_verificacio(){return partida_actual.get_verificacio();}
+
+    //public boolean get_es_intent(){return partida_actual.get_es_intent();}
 
 }
