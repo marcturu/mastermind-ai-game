@@ -213,6 +213,7 @@ public class panel_partida extends JPanel {
 
         b_eliminar_partida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                ctrlPresentacio.elimina_partida_actual();
                 ctrlPresentacio.canvia_a_menu_principal();
             }
         });
