@@ -980,9 +980,9 @@ public class Controlador_Domini {
         // Format the duration as HH:MM:SS
         String formattedDuration = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         return formattedDuration;
-
     }
 
+<<<<<<< HEAD
     public List<List<Integer>> get_intents_partida() {
         return CtrlPartida.get_intents_partida();
     }
@@ -990,4 +990,7 @@ public class Controlador_Domini {
     public List<List<Integer>> get_verificacions_partida() {
         return CtrlPartida.get_verificacions_partida();
     }
+=======
+    //public boolean get_es_intent(){return CtrlPartida.get_es_intent();}
+>>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
 }

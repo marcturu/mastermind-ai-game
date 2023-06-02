@@ -23,12 +23,15 @@ public class Controlador_Presentacio {
     private boolean j2_maquina_genetica;
     private dificultats dificultat = dificultats.NORMAL;
     private boolean login_user2;
-    private boolean toca_intent;
 
     private String dificultat_ranking;
 
+<<<<<<< HEAD
     private List<List<Integer>> intents_anteriors;
     private List<List<Integer>> verificacions_anteriors;
+=======
+    boolean intent;
+>>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
 
     public static void main(String[] args){
         Controlador_Presentacio ctrlPresentacio = new Controlador_Presentacio();
@@ -47,7 +50,9 @@ public class Controlador_Presentacio {
 
             }
             else if (j2_user){
+                System.out.println("seT_sol" + entrada);
                 ctrlDomini.set_seq_solucio(entrada);
+                System.out.println("despres" + entrada);
                 return list;
             }
             else {
@@ -59,23 +64,27 @@ public class Controlador_Presentacio {
 
                 list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                 list.addAll(4, verificacio_maquina);
+<<<<<<< HEAD
                 ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
+=======
+                return list;
+>>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
             }
         }
         else {
             //la solució ja està posada en principi
             if (j2_user) {
-                if (toca_intent) {
-                    toca_intent = false;
+                if (intent) {
                     ctrlDomini.jugar_ronda_intentada(entrada);
                     list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
-                    list.subList(0, 4).addAll(entrada);
+                    list.addAll(0,entrada);
+                    intent = false;
                     return list;
                 } else {
-                    toca_intent = true;
                     ctrlDomini.jugar_ronda_verificacio(entrada);
                     list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
-                    list.subList(4, 8).addAll(entrada);
+                    list.addAll(4,entrada);
+                    intent = true;
                     return list;
                 }
             } else { //juguem vs maquina
@@ -106,7 +115,6 @@ public class Controlador_Presentacio {
                 }
             }
         }
-        return list;
     }
           /* if (!j1_cm){
                 ctrlDomini.jugar_ronda_intentada(entrada);
@@ -140,12 +148,16 @@ public class Controlador_Presentacio {
         j1_cm = false;
         j2_user = false;
         j2_maquina_genetica = false;
-
+        intent = true;
         login_user2 = false;
+<<<<<<< HEAD
         toca_intent = true;
 
         intents_anteriors = new ArrayList<>();
         verificacions_anteriors = new ArrayList<>();
+=======
+        //toca_intent = true;
+>>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
     }
 
     /**
@@ -359,7 +371,6 @@ public class Controlador_Presentacio {
 
         j1_cm = ctrlDomini.get_jugador1_es_codemaker();
         dificultat = ctrlDomini.get_dificultat_partida();
-
         j2_user = ctrlDomini.get_tipus_user_Usuari2().toString()=="user_persona";
 
     }
@@ -561,7 +572,7 @@ public class Controlador_Presentacio {
         j1_cm = false;
         j2_user = false;
         j2_maquina_genetica = false;
-
+        intent = true;
         login_user2 = false;
 
     }
@@ -574,6 +585,7 @@ public class Controlador_Presentacio {
         return j2_user;
     }
 
+<<<<<<< HEAD
     public List<List<Integer>> get_intents_anteriors(){
         return intents_anteriors;
     }
@@ -581,4 +593,7 @@ public class Controlador_Presentacio {
     public List<List<Integer>> get_verificacions_anteriors(){
         return verificacions_anteriors;
     }
+=======
+    public boolean get_es_intent(){return intent;}
+>>>>>>> 44e18cd8b6202e572f93717f80962dbbe125c084
 }
