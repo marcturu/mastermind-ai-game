@@ -70,10 +70,21 @@ public class Controlador_Presentacio {
             if (j2_user) {
                 if (intent) {
                     ctrlDomini.jugar_ronda_intentada(entrada);
-                    list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
-                    list.addAll(0,entrada);
-                    intent = false;
-                    return list;
+                    System.out.println("partida acabada: " + ctrlDomini.partida_acabada());
+                    if (ctrlDomini.partida_acabada()) {
+
+                        System.out.println("partida_acabada a pres");
+
+                        String partida_acabada = "Partida pvp acabada amb victòria del codemaker!";
+                        JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
+                        return list;
+
+                    } else {
+                        list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista
+                        list.addAll(0, entrada);
+                        intent = false;
+                        return list;
+                    }
                 } else {
                     ctrlDomini.jugar_ronda_verificacio(entrada);
                     list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
@@ -121,6 +132,13 @@ public class Controlador_Presentacio {
                     return list;
                 } else {
                     ctrlDomini.jugar_ronda_intentada(entrada);
+                    if (ctrlDomini.partida_acabada()) {
+                        String partida_acabada = "Partida acabada amb victòria del codemaker!";
+                        JOptionPane.showMessageDialog(null, partida_acabada, "", JOptionPane.PLAIN_MESSAGE);
+                        resetAtributes();
+                        return list;
+                    }
+
                     List<Integer> verificacio_maquina = ctrlDomini.get_verificacio();
                     ctrlDomini.jugar_ronda_verificacio(verificacio_maquina);
                     list.subList(0, 4).clear(); // Eliminar elementos existentes en la sublista

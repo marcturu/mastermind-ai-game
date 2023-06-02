@@ -445,13 +445,34 @@ public class Controlador_Domini {
      * @param seq_int sequencia intentada
      */
     public void jugar_ronda_intentada(List<Integer> entrada) throws Exception{
-        Sequencia_intentada seq_int = new Sequencia_intentada();
-        colors[] col = new colors[4];
-        for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
-        seq_int.set_array(col,CtrlPartida.get_num_colors_partida_actual());
-        CtrlPartida.set_sequencia_intentada(seq_int);
-        if(CtrlPartida.temps_excedit_partida_actual()){
-            CtrlPartida.tractament_partida_acabada();
+
+
+        System.out.println("temps exedit: " + CtrlPartida.temps_excedit_partida_actual());
+        System.out.println("get_ultima_ronda_partida_actual: " + CtrlPartida.get_ultima_ronda_partida_actual());
+        System.out.println("get_num_rondes_max_partida_actual: " + CtrlPartida.get_num_rondes_max_partida_actual());
+
+        if(CtrlPartida.temps_excedit_partida_actual() || CtrlPartida.get_ultima_ronda_partida_actual() >= CtrlPartida.get_num_rondes_max_partida_actual()){
+            System.out.println("ENTRAAA AACABARRRR");
+
+            tractament_partida_acabada();
+            System.out.println("ENTRAAA tractamentr acabada");
+
+            if(CtrlPartida.get_codebreaker_partida_actual() == Usuari) {
+                Usuari.set_partida_acabada(get_partida_actual(), true, get_partida_actual().get_dificultat().get_dificultat());
+            }
+            else {
+                Usuari.set_partida_acabada(get_partida_actual(), false, get_partida_actual().get_dificultat().get_dificultat());
+            }
+            System.out.println("ENTRAAA set user");
+            ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
+        }else{
+            Sequencia_intentada seq_int = new Sequencia_intentada();
+            colors[] col = new colors[4];
+            for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
+            seq_int.set_array(col,CtrlPartida.get_num_colors_partida_actual());
+            CtrlPartida.set_sequencia_intentada(seq_int);
+
+
         }
     }
 
@@ -472,9 +493,6 @@ public class Controlador_Domini {
         System.out.println("DESPRES DE SET SEQUENCIA VERIFICACIO");
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
-
-            System.out.println("PARTIDA ACABADA");
-
 
             tractament_partida_victoria();
             if(CtrlPartida.get_codebreaker_partida_actual() == Usuari) {
@@ -513,6 +531,8 @@ public class Controlador_Domini {
      */
     public void tractament_partida_acabada(){
         CtrlPartida.tractament_partida_acabada();
+
+        System.out.println("1");
         ctrl_pers_partida.save_partida(CtrlPartida.get_partida_actual());
         ctrl_user.save_users(Usuari);
         ctrl_user.save_users(Usuari2);
