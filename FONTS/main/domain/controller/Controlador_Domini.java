@@ -830,17 +830,26 @@ public class Controlador_Domini {
     private void crea_records_punts() {
         String nom_record = "record_punts";
         String modalitat = "facil";
-        Record = new RecordDouble(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordDouble(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
 
         modalitat = "normal";
-        Record = new RecordDouble(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordDouble(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
 
 
         modalitat = "dificil";
-        Record = new RecordDouble(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordDouble(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
     }
 
     /**
@@ -849,16 +858,25 @@ public class Controlador_Domini {
     private void crea_records_streak() {
         String nom_record = "record_streak";
         String modalitat = "facil";
-        Record = new RecordInteger(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordInteger(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
 
         modalitat = "normal";
-        Record = new RecordInteger(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordInteger(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
 
         modalitat = "dificil";
-        Record = new RecordInteger(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordInteger(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
     }
 
     /**
@@ -867,16 +885,25 @@ public class Controlador_Domini {
     private void crea_records_temps() {
         String nom_record = "record_temps";
         String modalitat = "facil";
-        Record = new RecordLong(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordLong(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
 
         modalitat = "normal";
-        Record = new RecordLong(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordLong(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
 
         modalitat = "dificil";
-        Record = new RecordLong(nom_record, modalitat);
-        ctrl_record.save_record(Record);
+        Record = ctrl_record.carrega_record(nom_record, modalitat);
+        if(Record == null) {
+            Record = new RecordLong(nom_record, modalitat);
+            ctrl_record.save_record(Record);
+        }
     }
 
 
@@ -941,7 +968,8 @@ public class Controlador_Domini {
      * @return nom de l'usuari que ha batut el record
      */
     public String get_nom_usuari_by_nom_record(String nom_record, String modalitat) {
-        return ctrl_record.carrega_record(nom_record,modalitat).get_nom_usuari();
+        Record r = ctrl_record.carrega_record(nom_record,modalitat);
+        return r.get_nom_usuari();
     }
 
     /**
@@ -951,34 +979,59 @@ public class Controlador_Domini {
     public List<String> get_info_records() {
         List<String> info_a_retornar = new ArrayList<>();
         //Records de punts
-        String info = "Record de punts en dificultat facil: " + get_punts_record_by_nom_record("record_punts", "facil") + " de " + get_nom_usuari_by_nom_record("record_punts", "facil");
+        String nom_user;
+        String info;
+
+        
+        
+
+        nom_user = get_nom_usuari_by_nom_record("record_punts", "facil");
+        if(nom_user == null) info = "Record de punts en dificultat facil no batut";
+        else info = "Record de punts en dificultat facil: " + get_punts_record_by_nom_record("record_punts", "facil") + " punts: " + nom_user;
         info_a_retornar.add(info);
 
-        info = "Record de punts en dificultat normal: " + get_punts_record_by_nom_record("record_punts", "normal") + " de " + get_nom_usuari_by_nom_record("record_punts", "normal");
+        nom_user = get_nom_usuari_by_nom_record("record_punts", "normal");
+        if(nom_user == null) info = "Record de punts en dificultat normal no batut";
+        else info = "Record de punts en dificultat normal: " + get_punts_record_by_nom_record("record_punts", "normal") + " punts: " + nom_user;
         info_a_retornar.add(info);
 
-        info = "Record de punts en dificultat dificil: " + get_punts_record_by_nom_record("record_punts", "dificil") + " de " + get_nom_usuari_by_nom_record("record_punts", "dificil");
+        nom_user = get_nom_usuari_by_nom_record("record_punts", "dificil");
+        if(nom_user == null) info = "Record de punts en dificultat dificil no batut";
+        else info = "Record de punts en dificultat dificil: " + get_punts_record_by_nom_record("record_punts", "dificil") + " punts: " + nom_user;
         info_a_retornar.add(info);
 
         //Records de streak
-        info = "Record de streak en dificultat facil: " + get_punts_record_by_nom_record("record_streak", "facil") + " de " + get_nom_usuari_by_nom_record("record_streak", "facil");
+        nom_user = get_nom_usuari_by_nom_record("record_streak", "facil");
+        if(nom_user == null) info = "Record de streak en dificultat facil no batut";
+        else info = "Record de streak en dificultat facil: " + get_punts_record_by_nom_record("record_streak", "facil") + " streak: " + nom_user;
         info_a_retornar.add(info);
 
-        info = "Record de streak en dificultat normal: " + get_punts_record_by_nom_record("record_streak", "normal") + " de " + get_nom_usuari_by_nom_record("record_streak", "normal");
+        nom_user = get_nom_usuari_by_nom_record("record_streak", "normal");
+        if(nom_user == null) info = "Record de streak en dificultat normal no batut";
+        else info = "Record de streak en dificultat normal: " + get_punts_record_by_nom_record("record_streak", "normal") + " streak: " + nom_user;
         info_a_retornar.add(info);
 
-        info = "Record de streak en dificultat dificil: " + get_punts_record_by_nom_record("record_streak", "dificil") + " de " + get_nom_usuari_by_nom_record("record_streak", "dificil");
+        nom_user = get_nom_usuari_by_nom_record("record_streak", "dificil");
+        if(nom_user == null) info = "Record de streak en dificultat dificil no batut";
+        else info = "Record de streak en dificultat dificil: " + get_punts_record_by_nom_record("record_streak", "dificil") + " streak: " + nom_user;  
         info_a_retornar.add(info);
 
         //Records de temps
-        info = "Record de temps en dificultat facil: " + get_punts_record_by_nom_record("record_temps", "facil") + " de " + get_nom_usuari_by_nom_record("record_temps", "facil");
+        nom_user = get_nom_usuari_by_nom_record("record_temps", "facil");
+        if(nom_user == null) info = "Record de temps en dificultat facil no batut";
+        else info = "Record de temps en dificultat facil: " + get_punts_record_by_nom_record("record_temps", "facil") + " segons: " + nom_user;
         info_a_retornar.add(info);
 
-        info = "Record de temps en dificultat normal: " + get_punts_record_by_nom_record("record_temps", "normal") + " de " + get_nom_usuari_by_nom_record("record_temps", "normal");
+        nom_user = get_nom_usuari_by_nom_record("record_temps", "normal");
+        if(nom_user == null) info = "Record de temps en dificultat normal no batut";
+        else info = "Record de temps en dificultat normal: " + get_punts_record_by_nom_record("record_temps", "normal") + " segons: " + nom_user;
         info_a_retornar.add(info);
 
-        info = "Record de temps en dificultat dificil: " + get_punts_record_by_nom_record("record_temps", "dificil") + " de " + get_nom_usuari_by_nom_record("record_temps", "dificil");
+        nom_user = get_nom_usuari_by_nom_record("record_temps", "dificil");
+        if(nom_user == null) info = "Record de temps en dificultat dificil no batut";
+        else info = "Record de temps en dificultat dificil: " + get_punts_record_by_nom_record("record_temps", "dificil") + " segons: " + nom_user;
         info_a_retornar.add(info);
+
 
         return info_a_retornar;
     }

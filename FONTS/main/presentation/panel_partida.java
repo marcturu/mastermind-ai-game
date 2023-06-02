@@ -14,7 +14,7 @@ public class panel_partida extends JPanel {
     private JButton[][] buttons_intentada;
     private JButton[][] buttons_verificacio;
     private button[] buttons_col = new button[4];
-
+    private JButton but_enrere = new JButton("enrere");
     private JButton b_set_visible = new JButton("Solucion visible");
     private JButton[] buttons_sol = new JButton[4];
     private JButton[] buttons_help = new JButton[4];
@@ -62,7 +62,8 @@ public class panel_partida extends JPanel {
         JPanel topPanel = new JPanel();
         JLabel label;
         try {
-            if (ctrlPresentacio.get_solucio() == null && ctrlPresentacio.get_j1_cm()) label =  new JLabel("Introdueix solucio");
+            if (ctrlPresentacio.partida_acabada()) label = new JLabel("");
+            else if (ctrlPresentacio.get_solucio() == null && ctrlPresentacio.get_j1_cm()) label =  new JLabel("Introdueix solucio");
             else {
                 if (!ver) label = new JLabel("Introdueix Sequencia Intentada");
                 else label = new JLabel("Introdueix Sequencia Verificacio");
@@ -89,10 +90,11 @@ public class panel_partida extends JPanel {
         gbc.gridy = 1;
         rightPanel.add(buttonsColPanel, gbc);
 
-        JPanel buttonsPanel = new JPanel(new GridLayout(7, 1, 0, 2));
+        JPanel buttonsPanel = new JPanel(new GridLayout(8, 1, 0, 2));
         buttonsPanel.add(b_try);
         buttonsPanel.add(b_guardar_partida);
         buttonsPanel.add(b_eliminar_partida);
+        buttonsPanel.add(but_enrere);
 
 
         JPanel buttonsSol = new JPanel(new FlowLayout());
@@ -137,10 +139,21 @@ public class panel_partida extends JPanel {
                 }
             });
         }
+        buttonsPanel.add(b_help);
+        buttonsPanel.add(buttonsHelp);
 
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         rightPanel.add(buttonsPanel, gbc);
+        try {
+            if (ctrlPresentacio.partida_acabada()){
+                buttonsColPanel.setVisible(false);
+                b_try.setVisible(false);
+                b_guardar_partida.setVisible(false);
+                b_help.setVisible(false);
+                b_eliminar_partida.setVisible(false);
+            }
+        }catch (NullPointerException ex){}
 
         add(rightPanel);
         revalidate();
@@ -154,12 +167,7 @@ public class panel_partida extends JPanel {
 
         // Panel izquierdo
         add_panel_rondes();
-
-
-        System.out.println("UIIIII");
         setButtons(false);
-
-
     }
 
     private void set_up_listeners() {
@@ -259,6 +267,11 @@ public class panel_partida extends JPanel {
                 for(int i = 0; i < 4; ++i) {
                     buttons_help[i].setVisible(!buttons_help[i].isVisible());
                 }
+            }
+        });
+        but_enrere.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ctrlPresentacio.canvia_a_menu_principal();
             }
         });
     }
