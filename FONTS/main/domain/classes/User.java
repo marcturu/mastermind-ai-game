@@ -325,6 +325,18 @@ public class User {
      */
     public void afegeix_partida_acabada(Partida p) {}
 
+    /**
+     * Volem afegir una partida a la llista de partides no acabades (només important per a user_persona)
+     * @param id_partida Id que identifica la partida a borrar
+     */
+    public void borra_de_partides_acabades(int id_partida) {}
+
+    /**
+     * Volem afegir una partida a la llista de partides acabades (només important per a user_persona)
+     * @param id_partida Id que identifica la partida a borrar
+     */
+    public void borra_de_partides_no_acabades(int id_partida) {}
+
 
     /**
      * Volem elimimnar una partida no acabada de la llista de partides no acabades (només important per a user_persona)

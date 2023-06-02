@@ -55,7 +55,7 @@ public class panel_menu_principal extends JPanel{
                 if (ctrlPresentacio.get_partides_no_acabades() == 10) {
                     String masses_partides_no_acabades = "Has superat el nombre màxim de partides no acabades";
                     JOptionPane.showMessageDialog(null, masses_partides_no_acabades, "Error", JOptionPane.ERROR_MESSAGE);
-                    ctrlPresentacio.canvia_a_config_partida_rol(); // De moment així perquè puguem fer probes. Quan acabem, borrar aquesta linia
+                    //ctrlPresentacio.canvia_a_config_partida_rol(); // De moment així perquè puguem fer probes. Quan acabem, borrar aquesta linia
 
                 }
                 else ctrlPresentacio.canvia_a_config_partida_rol();

@@ -274,7 +274,25 @@ public class User_persona extends User {
      */
     public void afegeix_partida_acabada(Partida p) {
         int idp = p.get_id();
+        System.out.println("Entra a afegir partida acabada de user persona");
         this.llista_partides_acabades.add(idp);
+    }
+
+    /**
+     * Funcio per a borrar una partida de la llista de partides acabades
+     * @param id_partida id de la partida a borrar
+     */
+    public void borra_de_partides_acabades(int id_partida) {
+        if(llista_partides_acabades.contains(id_partida))this.llista_partides_acabades.remove(llista_partides_acabades.indexOf(id_partida));
+    }
+
+    /**
+     * Funcio per a borrar una partida de la llista de partides no acabades
+     * @param id_partida id de la partida a borrar
+     */
+    public void borra_de_partides_no_acabades(int id_partida) {
+        System.out.println("borrem la partida de la llista de partides no acabades");
+        this.llista_partides_no_acabades.remove(llista_partides_no_acabades.indexOf(id_partida));
     }
 
     /**
@@ -283,7 +301,8 @@ public class User_persona extends User {
      */
     public void elimina_partida_no_acabada(Partida p){
         int idp = p.get_id();
-        this.llista_partides_no_acabades.remove(Integer.valueOf(idp));
+        System.out.println("Entra a eliminar partida no acabada de user persona");
+        this.llista_partides_no_acabades.remove(llista_partides_no_acabades.indexOf(idp));
     }
 
     /**
@@ -328,7 +347,19 @@ public class User_persona extends User {
     }
 
     public void set_partida_acabada(Partida partida_acabada, boolean guanyat, String dificultat) {
-        super.set_partida_acabada(partida_acabada, guanyat, dificultat);
+        double punts = partida_acabada.get_puntuacio();
+
+        if (partida_acabada.es_partida_pvp()) set_puntuacio_pvp(punts);
+        else set_puntuacio(punts, dificultat);
+
+        if (guanyat) {
+            incrementar_partides_guanyades();
+            incrementar_streak(dificultat);
+        }
+        else reiniciar_streak(dificultat);
+
+        afegeix_partida_acabada(partida_acabada);
+        elimina_partida_no_acabada(partida_acabada);
     }
 
     public void set_puntuacio(Double punts, String dificultat) {

@@ -1,14 +1,18 @@
 package main.presentation.controller;
 
+import main.presentation.views.*;
+
+import java.util.Collections;
+import java.util.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 import main.domain.classes.enumerations.dificultats;
 import main.domain.classes.types.Pair;
-import main.domain.controller.Controlador_Domini;
-import main.presentation.views.view_inici;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import main.domain.controller.*;
 
 public class Controlador_Presentacio {
     private Controlador_Domini ctrlDomini;
@@ -186,6 +190,10 @@ public class Controlador_Presentacio {
 
         intents_anteriors = new ArrayList<>();
         verificacions_anteriors = new ArrayList<>();
+    }
+
+    public List<Integer> carrega_ids_partides_acabades() {
+        return ctrlDomini.get_ids_partides_acabades_Usuari1();
     }
 
     /**
@@ -370,8 +378,10 @@ public class Controlador_Presentacio {
         List<Pair<Integer, String>> llista_info = get_llista_partides_acabades();
         try{
         ctrlDomini.jugar_partides_antigues(llista_info.get(index).first());
+        set_atributs_partida();
         }catch(Exception e) {
-            mostra_error(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getStackTrace(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -616,11 +626,6 @@ public class Controlador_Presentacio {
         return j2_user;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
     public boolean get_and_set_ajuda() {
         if (ctrlDomini.get_ajuda_partida()) {
             return true;
@@ -643,4 +648,7 @@ public class Controlador_Presentacio {
     }
     public boolean get_es_intent(){return intent;}
 
+    public void elimina_partida_actual() {
+        ctrlDomini.elimina_partida_actual();
+    }
 }
