@@ -151,6 +151,7 @@ public class panel_partida extends JPanel {
                             if(ctrlPresentacio.get_num_ronda_actual()>0) {
                                 System.out.println(list);
                                 setButtons_verificacio(list.subList(4, 8));
+                                System.out.println("hola");
                                 setButtons(false);
                             }
                         }
@@ -241,8 +242,9 @@ public class panel_partida extends JPanel {
 
 
     private void setButtons_verificacio(List<Integer> try_button){
-        System.out.println("ronda set " + ctrlPresentacio.get_num_ronda_actual() + try_button);
+
         for (int i = 0; i < 4; ++i){
+            System.out.println("get " + try_button.get(i) + ctrlPresentacio.get_j2_user());
             switch (try_button.get(i)){
                 case 0:
                     if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(null);
@@ -253,14 +255,13 @@ public class panel_partida extends JPanel {
                     else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.white);
                     break;
                 case 10:
-                    if (ctrlPresentacio.get_j2_user()){
-                        buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()][i].setBackground(Color.black);
-                    }
-                    buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(Color.black);
+                    if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setBackground(Color.black);
+                    else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setBackground(Color.black);
 
             }
+            System.out.println("opaque");
             if (ctrlPresentacio.get_j2_user()) buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-1][i].setOpaque(true);
-            buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setOpaque(true);
+            else buttons_verificacio[ctrlPresentacio.get_num_ronda_actual()-2][i].setOpaque(true);
 
         }
     }
