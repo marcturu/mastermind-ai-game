@@ -3,7 +3,7 @@ package main.domain.classes.enumerations;
 public enum dificultats {
     FACIL("facil",1,4,900L,14),
     NORMAL("normal",2,6,720L,10),
-    DIFICIL("dificil",3,8,600L,6);
+    DIFICIL("dificil",3,8,600L,8);
 
     private String dificultat;
     private int num_dificultat;
