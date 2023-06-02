@@ -669,4 +669,11 @@ public class Controlador_Presentacio {
     public void elimina_partida_actual() {
         ctrlDomini.elimina_partida_actual();
     }
+
+    public void reset_partida(){
+        ctrlDomini.resetAtributes();
+        resetAtributes();
+    }
+
+
 }

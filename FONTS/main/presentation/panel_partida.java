@@ -259,6 +259,7 @@ public class panel_partida extends JPanel {
         });
         but_enrere.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                ctrlPresentacio.reset_partida();
                 ctrlPresentacio.canvia_a_menu_principal();
             }
         });

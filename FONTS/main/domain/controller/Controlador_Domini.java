@@ -191,7 +191,7 @@ public class Controlador_Domini {
         }
     }
 
-    private void resetAtributes(){
+    public void resetAtributes(){
         Usuari = ctrl_user.carrega_user(Usuari.get_id());
 
         this.Usuari2 = null;
