@@ -78,6 +78,7 @@ public class Controlador_Presentacio {
                     list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                     list.addAll(4,entrada);
                     intent = true;
+                    if (ctrlDomini.partida_acabada()) resetAtributes();
                     return list;
                 }
             } else { //juguem vs maquina
@@ -105,6 +106,7 @@ public class Controlador_Presentacio {
                     list.addAll(0,entrada);
                     list.subList(4, 8).clear(); // Eliminar elementos existentes en la sublista
                     list.addAll(4,verificacio_maquina);
+                    if (ctrlDomini.partida_acabada()) resetAtributes();
                     return list;
                 }
             }
