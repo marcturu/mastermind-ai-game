@@ -83,9 +83,12 @@ public class panel_carregar_partida extends JPanel{
 
     private void carrega_llista() {
         List<Pair<Integer, String>>llista = ctrlPresentacio.carrega_partides_no_acabades();
+        System.out.println("ids de partides no acabades" + llista);
+        List<Integer> ids_partides_acabades = ctrlPresentacio.carrega_ids_partides_acabades();
+        System.out.println("ids de partides acabades" + ids_partides_acabades);
         List<String> llista_string = new ArrayList<String>();
         for (Pair<Integer, String> p : llista) {
-            llista_string.add(p.second());
+            if(!ids_partides_acabades.contains(p.first()))llista_string.add(p.second());
         }
         llista_partides.setListData(llista_string.toArray(new String[0]));
     }

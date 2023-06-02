@@ -237,6 +237,7 @@ public class Partida {
         }
         else {
             this.jugador1.set_partida_acabada(this, true, dificultat.get_dificultat());
+            //this.jugador2.afageix_partida_acabada(this);
         }
     }
 
@@ -246,7 +247,6 @@ public class Partida {
     public void codemaker_guanya() {
         this.partida_acabada = true;
         set_temps_final_partida(Instant.now());
-        this.jugador1.afegeix_partida_acabada(this);
         if(jugador1_es_codemaker) {  
             this.jugador2.set_partida_acabada(this, false, dificultat.get_dificultat());
         }

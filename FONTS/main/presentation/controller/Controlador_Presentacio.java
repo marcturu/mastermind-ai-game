@@ -149,6 +149,10 @@ public class Controlador_Presentacio {
         verificacions_anteriors = new ArrayList<>();
     }
 
+    public List<Integer> carrega_ids_partides_acabades() {
+        return ctrlDomini.get_ids_partides_acabades_Usuari1();
+    }
+
     /**
      * Funcio per a canviar el contentPane del frame a panel_inici
      */

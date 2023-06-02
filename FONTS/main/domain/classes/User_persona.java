@@ -274,6 +274,7 @@ public class User_persona extends User {
      */
     public void afegeix_partida_acabada(Partida p) {
         int idp = p.get_id();
+        this.llista_partides_no_acabades.remove(idp);
         this.llista_partides_acabades.add(idp);
     }
 
@@ -283,7 +284,8 @@ public class User_persona extends User {
      */
     public void elimina_partida_no_acabada(Partida p){
         int idp = p.get_id();
-        this.llista_partides_no_acabades.remove(Integer.valueOf(idp));
+        this.llista_partides_no_acabades.remove(idp);
+        this.llista_partides_acabades.add(idp);
     }
 
     /**

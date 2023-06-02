@@ -65,19 +65,13 @@ public class ctrl_record {
 
             if (!contenido.isEmpty()) {
                 if (nom_record.equals("record_punts")) {
-                    System.out.println("punts");
                     RecordDouble record = gson.fromJson(contenido, RecordDouble.class);
-                    System.out.println(record);
                     return record;
                 } else if (nom_record.equals("record_streak")) {
-                    System.out.println("streak");
-                    RecordInteger record = gson.fromJson(contenido, RecordInteger.class);
-                    System.out.println(record);
+                    RecordInteger record = gson.fromJson(contenido, RecordInteger.class);             
                     return record;
                 } else if (nom_record.equals("record_temps")) {
-                    System.out.println("temps");
                     RecordLong record = gson.fromJson(contenido, RecordLong.class);
-                    System.out.println(record);
                     return record;
                 }
             }

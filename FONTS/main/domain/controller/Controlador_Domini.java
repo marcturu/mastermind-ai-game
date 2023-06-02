@@ -83,7 +83,7 @@ public class Controlador_Domini {
      */
     public boolean inicialitzaUserPersona(String nom, String password){
         boolean inicio = false;
-        User usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
+        User_persona usuari = new User_persona(hashUsers.size() + 1, nom, Type_user.user_persona, password);
         if (hashUsers.putIfAbsent(nom, hashUsers.size() + 1) != null) return inicio;
         else inicio = true;
         ctrl_list_user.save_list_users(hashUsers);
@@ -125,7 +125,7 @@ public class Controlador_Domini {
     private void registra_UserMaquina_genetic() {
         Integer id = hashUsers.get("Genetic");
         if(id == null) {
-            User maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
+            User_maquina maq = new User_maquina(hashUsers.size() + 1, "Genetic", Type_user.user_maquina, true);
             ctrl_user.save_users(maq);
             hashUsers.putIfAbsent("Genetic", hashUsers.size() + 1);
         }
@@ -137,7 +137,7 @@ public class Controlador_Domini {
     private void registra_UserMaquina_fiveguess() {
         Integer id = hashUsers.get("Five-Guess");
         if(id == null) {
-            User maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
+            User_maquina maq = new User_maquina(hashUsers.size() + 1, "Five-Guess", Type_user.user_maquina, false);
             ctrl_user.save_users(maq);
             hashUsers.putIfAbsent("Five-Guess", hashUsers.size() + 1);
         }
@@ -465,9 +465,7 @@ public class Controlador_Domini {
         Sequencia_verificacio seq_ver = new Sequencia_verificacio();
         colors[] col = new colors[4];
         for (int i = 0; i < 4; ++i) col[i] = colors.get_color_by_id(entrada.get(i));
-        System.out.println("col " + Arrays.asList(col));
         seq_ver.set_array_verificacio(col, CtrlPartida.get_seq_solucio_partida_actual().get_array(), CtrlPartida.get_seq_intentada_ultima_ronda().get_array());
-        System.out.println("despes_set_array");
         CtrlPartida.set_sequencia_verificacio(seq_ver);
         boolean partida_acabada = CtrlPartida.comprova_resultat();
         if(partida_acabada) {
