@@ -17,7 +17,27 @@ This project is an implementation of the **well-known game Mastermind**, develop
 
 ## 🛠 Installation & Setup
 
-To compile or execute the program, navigate to `/FONTS/` and use the provided **Makefile** commands:
+### 0. Prerequisites
+Make sure you have installed:
+- **Java 11** or higher (JDK)
+- **GNU Make** (to run the Makefile commands)
+
+You can check your versions with:
+```bash
+java -version
+make --version
+```
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/marcturu/PROP-Project.git
+cd PROP-Project
+```
+
+### 2. Compile or execute the program  
+
+Navigate to `/FONTS/` and use the provided **Makefile** commands:
 
 ```bash
 # Recompile all Java files
@@ -79,4 +99,5 @@ Inside `/DOCS/`, you will find:
 - Juan Clusellas Cánova  
 - Ferran Solanes Serrat  
 - Marc Turu Roca  
+
 
