@@ -1,4 +1,4 @@
-# 🎯  PROP-Project — Mastermind
+# 🎯  PROP-Project — Mastermind Game
 
 <sub>🗓️ Developed in June 2023</sup>
 
@@ -191,6 +191,7 @@ Contains all project documentation, organized by delivery:
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca  
+
 
 
 
