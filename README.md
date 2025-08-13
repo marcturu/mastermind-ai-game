@@ -2,7 +2,7 @@
 
 <sub>🗓️ Developed in June 2023</sup>
 
-This project is an implementation of the **well-known game Mastermind**, developed following the **three-layer architecture** design pattern (**Presentation**, **Domain**, and **Persistence** layers).
+This project is an implementation of the well-known game **Mastermind**, developed following the **three-layer architecture** design pattern (**Presentation**, **Domain**, and **Persistence** layers).
 
 ---
 
@@ -191,6 +191,7 @@ Contains all project documentation, organized by delivery:
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca  
+
 
 
 
