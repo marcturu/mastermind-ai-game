@@ -121,12 +121,32 @@ Contains all project documentation, organized by delivery:
 
 ---
 
+## 📷 Screenshots  
+
+### Main Page:
+![Captura de pantalla 2025-08-13 160230](https://github.com/user-attachments/assets/fa5492c8-3519-4655-9c59-436a156a91ec)
+-
+### Register Page:
+![Captura de pantalla 2025-08-13 160343](https://github.com/user-attachments/assets/b7d24550-17f1-47ae-80ad-2a078e8e1fb8)
+-
+### Login Page:
+![Captura de pantalla 2025-08-13 160438](https://github.com/user-attachments/assets/4e3afce7-9116-4db6-a88e-9c2b91a85396)
+-
+### Main Menu Page:
+![Captura de pantalla 2025-08-13 161141](https://github.com/user-attachments/assets/53905e06-cf5c-401f-9bad-ee5ad69d8e85)
+-
+### Play Page - Role configuration:
+![Captura de pantalla 2025-08-13 161304](https://github.com/user-attachments/assets/f021565a-99f5-4572-b8fe-a816db57601e)
+-
+
+
 ## 👥 Authors
 
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova  
 - Ferran Solanes Serrat  
 - Marc Turu Roca  
+
 
 
 
