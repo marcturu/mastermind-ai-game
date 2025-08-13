@@ -1,4 +1,4 @@
-# 🎯 Mastermind
+# 🎯  PROP-Project — Mastermind
 
 <sub>🗓️ Developed in June 2023</sup>
 
@@ -79,3 +79,4 @@ Inside `/DOCS/`, you will find:
 - Juan Clusellas Cánova  
 - Ferran Solanes Serrat  
 - Marc Turu Roca  
+
