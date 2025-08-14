@@ -183,7 +183,7 @@ Contains all project documentation, organized by delivery:
 
 ![Captura de pantalla 2025-08-13 165338](https://github.com/user-attachments/assets/458a3866-41ab-426f-a9c5-76c8d0159b8c)
 
-
+---
 
 ## ⚖️ Copyright
 
@@ -195,13 +195,3 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca  
-
-
-
-
-
-
-
-
-
-
