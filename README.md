@@ -187,7 +187,7 @@ Contains all project documentation, organized by delivery:
 ### Use Cases Diagram:
 ![Diagram_UseCases](https://github.com/user-attachments/assets/31b41ec2-e0e4-420e-a7d0-33031364082a)
 
-### UML:
+### Diagrama UML:
 ![Diagram_UML](https://github.com/user-attachments/assets/7a057ba7-55c3-4c35-b0a8-f05d7f7d113b)  
 
 ### Presentation Layer:
@@ -211,4 +211,5 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca
+
 
