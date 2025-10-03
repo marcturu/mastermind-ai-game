@@ -184,6 +184,22 @@ Contains all project documentation, organized by delivery:
 ![Captura de pantalla 2025-08-13 165338](https://github.com/user-attachments/assets/458a3866-41ab-426f-a9c5-76c8d0159b8c)
 
 ---
+### Use Cases Diagram:
+![Diagram_UseCases](https://github.com/user-attachments/assets/31b41ec2-e0e4-420e-a7d0-33031364082a)
+
+### UML:
+![Diagram_UML](https://github.com/user-attachments/assets/7a057ba7-55c3-4c35-b0a8-f05d7f7d113b)  
+
+### Presentation Layer:
+![Layer_Presentation](https://github.com/user-attachments/assets/8419da9b-d5c2-4979-b474-8232e2c22230)
+
+### Domain Layer:
+![Layer_Domain](https://github.com/user-attachments/assets/8b861d75-c13d-4ff5-8f17-41a2a3ea1f6e)
+
+### Persistence Layer:
+![Layer_Persistence](https://github.com/user-attachments/assets/365c81a0-188d-488e-96dd-0e6613503fad)
+
+---
 
 ## ⚖️ Copyright & License
 
@@ -195,3 +211,4 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca
+
