@@ -12,6 +12,7 @@ This project is an implementation of the well-known game **Mastermind**, develop
 - **Persistence layer** for storing data.
 - **Presentation layer** for interacting with the user using **GUI Swing**.
 - **Three-layer architecture** strictly separating concerns (Presentation, Domain, Persistence).
+- - **JUnit test suite** with drivers for algorithm verification.  
 
 ---
 
@@ -211,6 +212,7 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca
+
 
 
 
