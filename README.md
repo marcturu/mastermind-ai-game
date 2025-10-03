@@ -11,7 +11,7 @@ This project is an implementation of the well-known game **Mastermind**, develop
 - **Domain logic** with Five-Guess & Genetic algorithms to solve the game.
 - **Persistence layer** for storing data.
 - **Presentation layer** for interacting with the user using **GUI Swing**.
-- **Comprehensive documentation** with UML diagrams, use cases, and test plans.
+- **Three-layer architecture** strictly separating concerns (Presentation, Domain, Persistence).
 
 ---
 
@@ -211,6 +211,7 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca
+
 
 
 
