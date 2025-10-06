@@ -32,8 +32,8 @@ make --version
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/marcturu/PROP-Project.git
-cd PROP-Project
+git clone https://github.com/marcturu/mastermind-game.git
+cd mastermind-game
 ```
 
 ### 2. Compile or execute the program  
@@ -212,6 +212,7 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca
+
 
 
 
