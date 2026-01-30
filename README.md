@@ -128,78 +128,78 @@ Contains all project documentation, organized by delivery:
 
 ## 📷 Screenshots  
 
-### Main Page:
-![Captura de pantalla 2025-08-13 160230](https://github.com/user-attachments/assets/fa5492c8-3519-4655-9c59-436a156a91ec)
+### Main:
+![MainPage](screenshots/main.jpg)
 -
-### Register Page:
-![Captura de pantalla 2025-08-13 160343](https://github.com/user-attachments/assets/b7d24550-17f1-47ae-80ad-2a078e8e1fb8)
+### Register:
+![Register](screenshots/register.jpg)
 -
-### Login Page:
-![Captura de pantalla 2025-08-13 160438](https://github.com/user-attachments/assets/4e3afce7-9116-4db6-a88e-9c2b91a85396)
+### Login:
+![Login](screenshots/login.jpg)
 -
-### Main Menu Page:
-![Captura de pantalla 2025-08-13 161141](https://github.com/user-attachments/assets/53905e06-cf5c-401f-9bad-ee5ad69d8e85)
+### Main Menu:
+![MainMenu](screenshots/main_menu.jpg)
 -
-### Play Page - Configurations:
-![Captura de pantalla 2025-08-13 161304](https://github.com/user-attachments/assets/f021565a-99f5-4572-b8fe-a816db57601e)  
+### Play - Configurations:
+![PlayConfigurations0](screenshots/play_configurations0.jpg)
 
-![Captura de pantalla 2025-08-13 161503](https://github.com/user-attachments/assets/9a01a6b0-5883-417f-a2a7-09f294dbd93d)  
+![PlayConfigurations1](screenshots/play_configurations1.jpg)
 
-![Captura de pantalla 2025-08-13 162000](https://github.com/user-attachments/assets/aac216c3-6588-48ab-b88f-492313e617ed)  
+![PlayConfigurations2](screenshots/play_configurations2.jpg)
 
-![Captura de pantalla 2025-08-13 161808](https://github.com/user-attachments/assets/4978f70c-9a77-4459-aafd-6a6141b27d91)  
+![PlayConfigurations3](screenshots/play_configurations3.jpg)
 -
-### Load Game Page:
-![image5](https://github.com/user-attachments/assets/bd7ab068-fca7-46bc-baeb-453a06601f74)  
+### Load Game:
+![LoadGame](screenshots/load_game.png)
 -
-### Record Page:
-![Captura de pantalla 2025-08-13 162730](https://github.com/user-attachments/assets/9ad19467-2992-426c-8885-c134b517e041)  
+### Record:
+![Record](screenshots/record.jpg)
 -
-### Ranking Page:
-![Captura de pantalla 2025-08-13 162834](https://github.com/user-attachments/assets/bfe23d78-94a3-46c3-8d0b-096be4fe3a33)  
+### Ranking:
+![Ranking0](screenshots/ranking0.jpg)
 
-![image6](https://github.com/user-attachments/assets/3a176b27-16ef-4a28-85fd-d186a71dcb70)  
+![Ranking1](screenshots/ranking1.jpg)
 
-![image12](https://github.com/user-attachments/assets/e0431baa-8cda-44e2-8ba4-5843eed2c288)  
+![Ranking2](screenshots/ranking2.jpg)
 
-![image14](https://github.com/user-attachments/assets/8ac08a47-6b46-4c20-94ee-8480ace3f80f)  
+![Ranking3](screenshots/ranking3.jpg)
 -
-### User Page:
-![Captura de pantalla 2025-08-13 163741](https://github.com/user-attachments/assets/43a884c9-f221-4c14-a7fa-d923df8c8fff)  
+### User:
+![User](screenshots/user.jpg)
 
-#### Stats Page:
-![Captura de pantalla 2025-08-13 163852](https://github.com/user-attachments/assets/3d5ec9cc-b70b-4a03-bb78-bfae76ca7f6a)
+#### Stats:
+![Stats](screenshots/stats.jpg)
 
-#### Hisotry Page:
-![Captura de pantalla 2025-08-13 164045](https://github.com/user-attachments/assets/dd965b6b-d121-4276-a0a3-b376cf63534e)  
+#### Hisotry:
+![History](screenshots/history.jpg)
 -
-### Game Page:
+### Game:
 ##### Example of the start of a game as Codemaker against the Genetic machine
-![Captura de pantalla 2025-08-13 164757](https://github.com/user-attachments/assets/9df080a2-3ee2-47fe-b2ac-f9297ec4d37b)  
+![Game0](screenshots/game0.jpg)
 
 ##### Example of the end of a game as Codemaker against the Genetic machine
-![Captura de pantalla 2025-08-13 164655](https://github.com/user-attachments/assets/bf16db51-e94f-4bc0-9d9a-c3ccad9d6625)
+![Game1](screenshots/game1.jpg)
 -
 ### Additional panels
-![Captura de pantalla 2025-08-13 165236](https://github.com/user-attachments/assets/1fa76d65-3965-4788-a4d6-d99250a04233)  
+![AdditionalPanels0](screenshots/additional_panels0.jpg)
 
-![Captura de pantalla 2025-08-13 165338](https://github.com/user-attachments/assets/458a3866-41ab-426f-a9c5-76c8d0159b8c)
+![AdditionalPanels1](screenshots/additional_panels1.jpg)
 
 ---
 ### Use Cases Diagram:
-![Diagram_UseCases](https://github.com/user-attachments/assets/31b41ec2-e0e4-420e-a7d0-33031364082a)
+![UseCasesDiagram](screenshots/use_cases_diagram.png)
 
 ### UML Diagram:
-![Diagram_UML](https://github.com/user-attachments/assets/7a057ba7-55c3-4c35-b0a8-f05d7f7d113b)  
+![UMLDiagram](screenshots/uml_diagram.jpg)
 
 ### Presentation Layer:
-![Layer_Presentation](https://github.com/user-attachments/assets/8419da9b-d5c2-4979-b474-8232e2c22230)
+![PresentationLayer](screenshots/presentation_layer.jpg)
 
 ### Domain Layer:
-![Layer_Domain](https://github.com/user-attachments/assets/8b861d75-c13d-4ff5-8f17-41a2a3ea1f6e)
+![DomainLayer](screenshots/domain_layer.jpg)
 
 ### Persistence Layer:
-![Layer_Persistence](https://github.com/user-attachments/assets/365c81a0-188d-488e-96dd-0e6613503fad)
+![PersistenceLayer](screenshots/persistence_layer.jpg)
 
 ---
 
@@ -213,6 +213,7 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca
+
 
 
 
