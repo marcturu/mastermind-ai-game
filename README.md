@@ -1,8 +1,9 @@
-# 🎯  PROP-Project — Mastermind Game
+# 🎯  PROP-Project — Mastermind AI Game
 
 <sub>🗓️ Developed in June 2023</sup>
 
-This project is an implementation of the well-known game **Mastermind**, developed following the **three-layer architecture** design pattern (**Presentation**, **Domain**, and **Persistence** layers).
+This project is an implementation of the well-known game **Mastermind**, developed following the **three-layer architecture** design pattern (**Presentation**, **Domain**, and **Persistence** layers).  
+Play Mastermind 1v1 or vs AI, powered by Genetic & Five-Guess algorithms.
 
 ---
 
@@ -212,6 +213,7 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca
+
 
 
 
