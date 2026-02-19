@@ -1,4 +1,4 @@
-# 🎯  PROP-Project — Mastermind AI Game
+# <img src="screenshots/Mastermind.png" alt="LetsManage" width="200"/> — Play Mastermind 1v1 or vs AI, powered by Genetic & Five-Guess algorithms
 
 <sub>🗓️ Developed in June 2023</sup>
 
@@ -213,6 +213,7 @@ No part may be copied, modified, distributed, or used without prior written perm
 - Jordi Baranda Dominguez  
 - Juan Clusellas Cánova    
 - Marc Turu Roca
+
 
 
 
