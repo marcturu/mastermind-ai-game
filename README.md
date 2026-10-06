@@ -1,4 +1,4 @@
-# <img src="screenshots/Mastermind.png" alt="LetsManage" width="200"/> — Play 1v1 or vs AI (Genetic & Five-Guess algorithms)
+# <img src="screenshots/Mastermind.png" alt="LetsManage" width="200"/> — Play 1v1 or vs AI (Genetic & Five-Guess)
 
 <sub>🗓️ Developed in June 2023</sup>
 
