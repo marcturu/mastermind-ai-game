@@ -1,4 +1,4 @@
-# <img src="screenshots/Mastermind.png" alt="LetsManage" width="200"/> — Play Mastermind 1v1 or vs AI, powered by Genetic & Five-Guess algorithms
+# <img src="screenshots/Mastermind.png" alt="LetsManage" width="200"/> — Mastermind game with AI opponents
 
 <sub>🗓️ Developed in June 2023</sup>
 
